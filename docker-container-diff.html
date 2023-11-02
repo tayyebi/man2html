@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DOCKER(1)                                               Docker User Manuals                                               DOCKER(1)
+
+NAME
+       docker-container-diff - Inspect changes to files or directories on a container's filesystem
+
+SYNOPSIS
+       docker container diff CONTAINER
+
+DESCRIPTION
+       List the changed files and directories in a container᾿s filesystem since the container was created. Three different types of
+       change are tracked:
+
+       ┌───────┬─────────────────────────────────┐
+       │Symbol │ Description                     │
+       ├───────┼─────────────────────────────────┤
+       │A      │ A file or directory was added   │
+       ├───────┼─────────────────────────────────┤
+       │D      │ A file or directory was deleted │
+       ├───────┼─────────────────────────────────┤
+       │C      │ A file or directory was changed │
+       └───────┴─────────────────────────────────┘
+
+       You can use the full or shortened container ID or the container name set using docker run --name option.
+
+EXAMPLES
+       Inspect the changes to an nginx container:
+
+              $ docker diff 1fdfd1f54c1b
+
+              C /dev
+              C /dev/console
+              C /dev/core
+              C /dev/stdout
+              C /dev/fd
+              C /dev/ptmx
+              C /dev/stderr
+              C /dev/stdin
+              C /run
+              A /run/nginx.pid
+              C /var/lib/nginx/tmp
+              A /var/lib/nginx/tmp/client_body
+              A /var/lib/nginx/tmp/fastcgi
+              A /var/lib/nginx/tmp/proxy
+              A /var/lib/nginx/tmp/scgi
+              A /var/lib/nginx/tmp/uwsgi
+              C /var/log/nginx
+              A /var/log/nginx/access.log
+              A /var/log/nginx/error.log
+
+OPTIONS
+       -h, --help[=false]        help for diff
+
+SEE ALSO
+       docker-container(1)
+
+Docker Community                                              Sep 2023                                                    DOCKER(1)
+</pre>
+</body>
+</html>

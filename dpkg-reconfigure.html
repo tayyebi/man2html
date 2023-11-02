@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DPKG-RECONFIGURE(8)                                           Debconf                                           DPKG-RECONFIGURE(8)
+
+NAME
+       dpkg-reconfigure - reconfigure an already installed package
+
+SYNOPSIS
+        dpkg-reconfigure [options] packages
+
+DESCRIPTION
+       dpkg-reconfigure reconfigures packages after they have already been installed. Pass it the names of a package or packages to
+       reconfigure. It will ask configuration questions, much like when the package was first installed.
+
+       If you just want to see the current configuration of a package, see debconf-show(1) instead.
+
+OPTIONS
+       -ftype, --frontend=type
+           Select the frontend to use. The default frontend can be permanently changed by:
+
+            dpkg-reconfigure debconf
+
+           Note that if you normally have debconf set to use the noninteractive frontend, dpkg-reconfigure will use the dialog
+           frontend instead, so you actually get to reconfigure the package.
+
+       -pvalue, --priority=value
+           Specify the minimum priority of question that will be displayed.  dpkg-reconfigure normally shows low priority questions
+           no matter what your default priority is. See debconf(7) for a list.
+
+       --terse
+           Enables terse output mode. This affects only some frontends.
+
+       --default-priority
+           Use whatever the default priority of question is, instead of forcing the priority to low.
+
+       -u, --unseen-only
+           By default, all questions are shown, even if they have already been answered. If this parameter is set though, only
+           questions that have not yet been seen will be asked.
+
+       --force
+           Force dpkg-reconfigure to reconfigure a package even if the package is in an inconsistent or broken state. Use with
+           caution.
+
+       --no-reload
+           Prevent dpkg-reconfigure from reloading templates. Use with caution; this will prevent dpkg-reconfigure from repairing
+           broken templates databases.  However, it may be useful in constrained environments where rewriting the templates
+           database is expensive.
+
+       -h, --help
+           Display usage help.
+
+SEE ALSO
+       debconf(7)
+
+AUTHOR
+       Joey Hess &lt;joeyh@debian.org&gt;
+
+                                                             2023-01-08                                         DPKG-RECONFIGURE(8)
+</pre>
+</body>
+</html>

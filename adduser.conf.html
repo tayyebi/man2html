@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>ADDUSER.CONF(5)                                         File Formats Manual                                         ADDUSER.CONF(5)
+
+NAME
+       /etc/adduser.conf - configuration file for adduser(8) and addgroup(8).
+
+DESCRIPTION
+       The  file  /etc/adduser.conf  contains  defaults for the programs adduser(8), addgroup(8), deluser(8) and delgroup(8).  Each
+       line holds a single value pair in the form option = value.  Double or single quotes are allowed  around  the  value,  as  is
+       whitespace around the equals sign.  Comment lines must have a hash sign (#) in the first column.
+
+       The valid configuration options are:
+
+       DSHELL The login shell to be used for all new users.  Defaults to /bin/bash.
+
+       DHOME  The directory in which new home directories should be created.  Defaults to /home.
+
+       GROUPHOMES
+              If this is set to yes, the home directories will be created as /home/groupname/user.  Defaults to no.
+
+       LETTERHOMES
+              If  this  is  set  to yes, then the home directories created will have an extra directory inserted which is the first
+              letter of the loginname.  For example: /home/u/user.  Defaults to no.
+
+       SKEL   The directory from which skeletal user configuration files should be copied.  Defaults to /etc/skel.
+
+       FIRST_SYSTEM_UID and LAST_SYSTEM_UID
+              specify an inclusive range of UIDs from which system UIDs can be  dynamically  allocated.   Default  to  100  -  999.
+              Please  note  that system software, such as the users allocated by the base-passwd package, may assume that UIDs less
+              than 100 are unallocated.
+
+       FIRST_UID and LAST_UID
+              specify an inclusive range of UIDs from which normal user's UIDs can be dynamically allocated.   Default  to  1000  -
+              59999.
+
+       FIRST_SYSTEM_GID and LAST_SYSTEM_GID
+              specify an inclusive range of GIDs from which system GIDs can be dynamically allocated.  Default to 100 - 999.
+
+       FIRST_GID and LAST_GID
+              specify  an  inclusive  range of GIDs from which normal group's GIDs can be dynamically allocated.  Default to 1000 -
+              59999.
+
+       USERGROUPS
+              If this is set to yes, then each created non-system user will be given their own group to use.  The default is yes.
+
+       USERS_GID
+              USERS_GROUP Defines the group name or GID of the group all newly-created non-system users are placed into.  If  USER‐
+              GROUPS  is yes, the group will be added as a supplementary group; if USERGROUPS is no,, it will be the primary group.
+              If you don't want all your users to be in one group, set USERGROUPS is yes, leave USERS_GROUP empty and set USERS_GID
+              to "-1".  The default value of USERS_GROUP is users, which has GID 100 on all Debian systems since it's defined stat‐
+              ically by the base-passwd package.
+
+       DIR_MODE
+              If set to a valid value (e.g. 0755 or 755), directories created will have the specified permissions  mode.  Otherwise
+              2700 is used as default.  (See SYS_DIR_MODE for system users.)  Note that there are potential configurations (such as
+              /~user web services, or in-home mail delivery) which will require changes to the default.
+
+       SYS_DIR_MODE
+              If set to a valid value (e.g. 0755 or 755), directories created for system users will have the specified  permissions
+              mode.  Otherwise 0755 is used as default.  Note that changing the default permissions for system users may cause some
+              packages to behave unreliably, if the program relies on the default setting.
+
+       SETGID_HOME
+              If this is set to yes, then home directories for users with their own group (USERGROUPS = yes) will have  the  setgid
+              bit  set.  This is the default setting for normal user accounts.  If you set this to "no", you should also change the
+              value of DIR_MODE, as the default (2700) sets this bit regardless.  Note that this feature is deprecated and will  be
+              removed in a future version of adduser.  Please use DIR_MODE instead.
+
+       QUOTAUSER
+              If set to a nonempty value, new users will have quotas copied from that user.  The default is empty.
+
+       NAME_REGEX
+              User  and  group  names  are checked against this regular expression. If the name doesn't match this regexp, user and
+              group creation in adduser is refused unless --allow-badname is set. With --allow-badname set, only  weak  checks  are
+              performed. The default is the most conservative ^[a-z][-a-z0-9_]*$. See Valid names, below, for more information.
+
+       SYS_NAME_REGEX
+              System  user  and group names are checked against this regular expression. If this variable is not set, it falls back
+              to the default value.  If the name doesn't match this regexp, system user and group creation in  adduser  is  refused
+              unless --allow-badname is set. With --allow-badname set, only weak checks are performed. The default is the most con‐
+              servative ^[a-z_][-a-z0-9_]*$.  See Valid names, below, for more information.
+
+       SKEL_IGNORE_REGEX
+              Files in /etc/skel/ are checked against this regex, and not copied to the newly created home directory if they match.
+              This   is  by  default  set  to  the  regular  expression  matching  files  left  over  from  unmerged  config  files
+              (dpkg-(old|new|dist)).
+
+       ADD_EXTRA_GROUPS
+              Setting this to something other than 0 (the default) will cause adduser to add newly created non-system users to  the
+              list of groups defined by  EXTRA_GROUPS (below).
+
+       EXTRA_GROUPS
+              This is the space-separated list of groups that new non-system users will be added to.
+
+NOTES
+       VALID NAMES
+
+       Historically, adduser and addgroup enforced conformity
+              to  IEEE Std 1003.1-2001, which allows only the following characters to appear in group and user names: letters, dig‐
+              its, underscores, periods, at signs (@) and dashes.  The name may not start with a dash or @.  The "$"  sign  is  al‐
+              lowed at the end of usernames (to conform to samba).
+
+       The default settings for NAME_REGEXP and SYS_NAME_REGEX
+              allow  usernames to contain lowercase letters and numbers, plus dash (-) and underscore (_); the name must begin with
+              a letter (or an underscore for system users).
+
+       The least restrictive policy, available by using the --allow-all-names
+              option, simply makes the same checks as useradd: cannot start with a dash, plus sign, or tilde; and cannot contain  a
+              colon, comma, slash, or whitespace.
+
+       This option can be used to create confusing or misleading names; use
+              it with caution.
+
+       Please note that regardless of the regular expressions used to evaluate
+              the  username,  it may be a maximum of 32 bytes; this may be less than 32 visual characters when using Unicode glyphs
+              in the username.
+
+FILES
+       /etc/adduser.conf
+
+SEE ALSO
+       deluser.conf(5), addgroup(8), adduser(8), delgroup(8), deluser(8)
+
+Debian GNU/Linux                                                                                                    ADDUSER.CONF(5)
+</pre>
+</body>
+</html>

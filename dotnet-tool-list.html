@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-tool-list(1)                                      .NET Documentation                                     dotnet-tool-list(1)
+
+dotnet tool list
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-tool-list - Lists all .NET tools of the specified type currently installed on your machine.
+
+SYNOPSIS
+              dotnet tool list -g|--global
+
+              dotnet tool list --tool-path &lt;PATH&gt;
+
+              dotnet tool list --local
+
+              dotnet tool list
+
+              dotnet tool list -h|--help
+
+DESCRIPTION
+       The dotnet tool list command provides a way for you to list all .NET global, tool-path, or local tools installed on your ma‐
+       chine.  The command lists the package name, version installed, and the tool command.  To use the command, you specify one of
+       the following:
+
+       • To list global tools installed in the default location, use the --global option
+
+       • To list global tools installed in a custom location, use the --tool-path option.
+
+       • To list local tools, use the --local option or omit the --global, --tool-path, and --local options.
+
+OPTIONS
+       • -g|--global
+
+         Lists  user-wide  global  tools.   Can’t  be combined with the --tool-path option.  Omitting both --global and --tool-path
+         lists local tools.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --local
+
+         Lists local tools for the current directory.  Can’t be combined with the --global or --tool-path options.   Omitting  both
+         --global and --tool-path lists local tools even if --local is not specified.
+
+       • --tool-path &lt;PATH&gt;
+
+         Specifies  a  custom  location  where to find global tools.  PATH can be absolute or relative.  Can’t be combined with the
+         --global option.  Omitting both --global and --tool-path lists local tools.
+
+EXAMPLES
+       • dotnet tool list -g
+
+         Lists all global tools installed user-wide on your machine (current user profile).
+
+       • dotnet tool list --tool-path c:\global-tools
+
+         Lists the global tools from a specific Windows directory.
+
+       • dotnet tool list --tool-path ~/bin
+
+         Lists the global tools from a specific Linux/macOS directory.
+
+       • dotnet tool list or dotnet tool list --local
+
+         Lists all local tools available in the current directory.
+
+SEE ALSO
+       • .NET tools
+
+       • Tutorial: Install and use a .NET global tool using the .NET CLI
+
+       • Tutorial: Install and use a .NET local tool using the .NET CLI
+
+                                                             2022-10-24                                         dotnet-tool-list(1)
+</pre>
+</body>
+</html>

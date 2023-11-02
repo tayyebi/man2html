@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DOCKER(1)                                               Docker User Manuals                                               DOCKER(1)
+
+NAME
+       docker-image-load - Load an image from a tar archive or STDIN
+
+SYNOPSIS
+       docker image load [OPTIONS]
+
+DESCRIPTION
+       Loads a tarred repository from a file or the standard input stream.  Restores both images and tags. Write image names or IDs
+       imported it standard output stream.
+
+EXAMPLES
+              $ docker images
+              REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+              busybox             latest              769b9341d937        7 weeks ago         2.489 MB
+              $ docker load --input fedora.tar
+              # […]
+              Loaded image: fedora:rawhide
+              # […]
+              Loaded image: fedora:20
+              # […]
+              $ docker images
+              REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+              busybox             latest              769b9341d937        7 weeks ago         2.489 MB
+              fedora              rawhide             0d20aec6529d        7 weeks ago         387 MB
+              fedora              20                  58394af37342        7 weeks ago         385.5 MB
+              fedora              heisenbug           58394af37342        7 weeks ago         385.5 MB
+              fedora              latest              58394af37342        7 weeks ago         385.5 MB
+
+See also
+       docker-image-save(1) to save one or more images to a tar archive (streamed to STDOUT by default).
+
+OPTIONS
+       -h, --help[=false]      help for load
+
+       -i, --input=""      Read from tar archive file, instead of STDIN
+
+       -q, --quiet[=false]      Suppress the load output
+
+SEE ALSO
+       docker-image(1)
+
+Docker Community                                              Sep 2023                                                    DOCKER(1)
+</pre>
+</body>
+</html>

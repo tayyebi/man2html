@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>HCITOOL(1)                                          Linux System Administration                                          HCITOOL(1)
+
+NAME
+       hcitool - Configure Bluetooth connections
+
+SYNOPSIS
+       hcitool -h
+
+       hcitool COMMAND --help
+
+       hcitool [-i hciX] [COMMAND [PARAMETERS]]
+
+DESCRIPTION
+       hcitool(1)  is  used to configure Bluetooth connections and send some special command to Bluetooth devices. If no command is
+       given, or if the option -h is used, hcitool prints some usage information and exits.
+
+OPTIONS
+       -i &lt;hciX&gt;
+              The command is applied to device hciX, which must be the name of an installed Bluetooth device. If not specified, the
+              command will be sent to the first available Bluetooth device.
+
+       -h     Gives a list of possible commands
+
+COMMANDS
+       dev    Display local devices
+
+       inq    Inquire remote devices. For each discovered device, Bluetooth device address, clock offset and class are printed.
+
+       scan   Inquire remote devices. For each discovered device, device name are printed.
+
+       name &lt;bdaddr&gt;
+              Print device name of remote device with Bluetooth address bdaddr.
+
+       info &lt;bdaddr&gt;
+              Print device name, version and supported features of remote device with Bluetooth address bdaddr.
+
+       spinq  Start periodic inquiry process. No inquiry results are printed.
+
+       epinq  Exit periodic inquiry process.
+
+       cmd &lt;ogf&gt; &lt;ocf&gt; [parameters]
+              Submit an arbitrary HCI command to local device. ogf, ocf and parameters are hexadecimal bytes.
+
+       con    Display active baseband connections
+
+       cc [--role=c|p] [--pkt-type=&lt;ptype&gt;] &lt;bdaddr&gt;
+              Create baseband connection to remote device with Bluetooth address bdaddr.
+
+              Option  --pkt-type  specifies  a  list  of  allowed packet types.  &lt;ptype&gt; is a comma-separated list of packet types,
+              where the possible packet types are DM1, DM3, DM5, DH1, DH3, DH5, HV1, HV2, HV3.  Default  is  to  allow  all  packet
+              types.
+
+              Option   --role  can have value c (do not allow role switch, stay central) or p (allow role switch, become peripheral
+              if the peer asks to become central). Default is c.
+
+       dc &lt;bdaddr&gt; [reason]
+              Delete baseband connection from remote device with Bluetooth address bdaddr.
+
+              The reason can be one of the Bluetooth HCI error codes.  Default is 19 for user ended connections. The value must  be
+              given in decimal.
+
+       sr &lt;bdaddr&gt; &lt;role&gt;
+              Switch role for the baseband connection from the remote device to central or peripheral.
+
+       cpt &lt;bdaddr&gt; &lt;ptypes&gt;
+              Change packet types for baseband connection to device with Bluetooth address bdaddr. ptypes is a comma-separated list
+              of packet types, where the possible packet types are DM1, DM3, DM5, DH1, DH3, DH5, HV1, HV2, HV3.
+
+       rssi &lt;bdaddr&gt;
+              Display received signal strength information for the connection to the device with Bluetooth address bdaddr.
+
+       lq &lt;bdaddr&gt;
+              Display link quality for the connection to the device with Bluetooth address bdaddr.
+
+       tpl &lt;bdaddr&gt; [type]
+              Display transmit power level for the connection to the device with Bluetooth address bdaddr.
+
+              The type can be 0 for the current transmit power level (which is default) or 1 for the maximum transmit power level.
+
+       afh &lt;bdaddr&gt;
+              Display AFH channel map for the connection to the device with Bluetooth address bdaddr.
+
+       lp &lt;bdaddr&gt; [value]
+              With no value, displays link policy settings for the connection to the device with Bluetooth address bdaddr.
+
+              If value is given, sets the link policy settings for that connection to value. Possible  values  are  RSWITCH,  HOLD,
+              SNIFF and PARK.
+
+       lst &lt;bdaddr&gt; [value]
+              With no value, displays link supervision timeout for the connection to the device with Bluetooth address bdaddr.
+
+              If  value  is given, sets the link supervision timeout for that connection to value slots, or to infinite if value is
+              0.
+
+       auth &lt;bdaddr&gt;
+              Request authentication for the device with Bluetooth address bdaddr.
+
+       enc &lt;bdaddr&gt; [encrypt]
+              enable or disable the encryption for the device with Bluetooth address bdaddr.
+
+       key &lt;bdaddr&gt;
+              Change the connection link key for the device with Bluetooth address bdaddr.
+
+       clkoff &lt;bdaddr&gt;
+              Read the clock offset for the device with Bluetooth address bdaddr.
+
+       clock [bdaddr] [clock]
+              Read the clock for the device with Bluetooth address bdaddr.
+
+              The clock can be 0 for the local clock or 1 for the piconet clock (which is default).
+
+       lescan [--privacy] [--passive] [--acceptlist] [--discovery=g|l] [--duplicates]
+              Start LE scan
+
+       leinfo [--static] [--random] &lt;bdaddr&gt;
+              Get LE remote information
+
+       lealadd [--random] &lt;bdaddr&gt;
+              Add device to LE Accept List
+
+       lealrm &lt;bdaddr&gt;
+              Remove device from LE Accept List
+
+       lealsz Read size of LE Accept List
+
+       lealclr
+              Clear LE Accept List
+
+       lerladd [--local_irk] [--peer_irk] [--random] &lt;bdaddr&gt;
+              Add device to LE Resolving List
+
+       lerlrm &lt;bdaddr&gt;
+              Remove device from LE Resolving List
+
+       lerlclr
+              Clear LE Resolving List
+
+       lerlsz Read size of LE Resolving List
+
+       lerlon Enable LE Address Resolution
+
+       lerloff
+              Disable LE Address Resolution
+
+       lecc [--static] [--random] &lt;bdaddr&gt; | [--acceptlist]
+              Create a LE Connection
+
+       ledc &lt;handle&gt; [reason]
+              Disconnect a LE Connection
+
+       lecup &lt;handle&gt; &lt;min&gt; &lt;max&gt; &lt;latency&gt; &lt;timeout&gt;
+              LE Connection Update
+
+RESOURCES
+       http://www.bluez.org
+
+REPORTING BUGS
+       linux-bluetooth@vger.kernel.org
+
+AUTHOR
+       Maxim  Krasnyansky   &lt;maxk@qualcomm.com&gt;,   Marcel   Holtmann   &lt;marcel@holtmann.org&gt;,   Fabrizio   Gennari   &lt;fabrizio.gen‐
+       nari@philips.com&gt;
+
+COPYRIGHT
+       Free use of this software is granted under ther terms of the GNU Lesser General Public Licenses (LGPL).
+
+BlueZ                                                       Nov 12, 2002                                                 HCITOOL(1)
+</pre>
+</body>
+</html>

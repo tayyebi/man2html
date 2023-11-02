@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DD(1)                                                      User Commands                                                      DD(1)
+
+NAME
+       dd - convert and copy a file
+
+SYNOPSIS
+       dd [OPERAND]...
+       dd OPTION
+
+DESCRIPTION
+       Copy a file, converting and formatting according to the operands.
+
+       bs=BYTES
+              read and write up to BYTES bytes at a time (default: 512); overrides ibs and obs
+
+       cbs=BYTES
+              convert BYTES bytes at a time
+
+       conv=CONVS
+              convert the file as per the comma separated symbol list
+
+       count=N
+              copy only N input blocks
+
+       ibs=BYTES
+              read up to BYTES bytes at a time (default: 512)
+
+       if=FILE
+              read from FILE instead of stdin
+
+       iflag=FLAGS
+              read as per the comma separated symbol list
+
+       obs=BYTES
+              write BYTES bytes at a time (default: 512)
+
+       of=FILE
+              write to FILE instead of stdout
+
+       oflag=FLAGS
+              write as per the comma separated symbol list
+
+       seek=N (or oseek=N) skip N obs-sized output blocks
+
+       skip=N (or iseek=N) skip N ibs-sized input blocks
+
+       status=LEVEL
+              The LEVEL of information to print to stderr; 'none' suppresses everything but error messages, 'noxfer' suppresses the
+              final transfer statistics, 'progress' shows periodic transfer statistics
+
+       N and BYTES may be followed by the following multiplicative  suffixes:  c=1,  w=2,  b=512,  kB=1000,  K=1024,  MB=1000*1000,
+       M=1024*1024,  xM=M,  GB=1000*1000*1000,  G=1024*1024*1024,  and  so on for T, P, E, Z, Y.  Binary prefixes can be used, too:
+       KiB=K, MiB=M, and so on.  If N ends in 'B', it counts bytes not blocks.
+
+       Each CONV symbol may be:
+
+       ascii  from EBCDIC to ASCII
+
+       ebcdic from ASCII to EBCDIC
+
+       ibm    from ASCII to alternate EBCDIC
+
+       block  pad newline-terminated records with spaces to cbs-size
+
+       unblock
+              replace trailing spaces in cbs-size records with newline
+
+       lcase  change upper case to lower case
+
+       ucase  change lower case to upper case
+
+       sparse try to seek rather than write all-NUL output blocks
+
+       swab   swap every pair of input bytes
+
+       sync   pad every input block with NULs to ibs-size; when used with block or unblock, pad with spaces rather than NULs
+
+       excl   fail if the output file already exists
+
+       nocreat
+              do not create the output file
+
+       notrunc
+              do not truncate the output file
+
+       noerror
+              continue after read errors
+
+       fdatasync
+              physically write output file data before finishing
+
+       fsync  likewise, but also write metadata
+
+       Each FLAG symbol may be:
+
+       append append mode (makes sense only for output; conv=notrunc suggested)
+
+       direct use direct I/O for data
+
+       directory
+              fail unless a directory
+
+       dsync  use synchronized I/O for data
+
+       sync   likewise, but also for metadata
+
+       fullblock
+              accumulate full blocks of input (iflag only)
+
+       nonblock
+              use non-blocking I/O
+
+       noatime
+              do not update access time
+
+       nocache
+              Request to drop cache.  See also oflag=sync
+
+       noctty do not assign controlling terminal from file
+
+       nofollow
+              do not follow symlinks
+
+       Sending a USR1 signal to a running 'dd' process makes it print I/O statistics to standard error and then resume copying.
+
+       Options are:
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+AUTHOR
+       Written by Paul Rubin, David MacKenzie, and Stuart Kemp.
+
+REPORTING BUGS
+       GNU coreutils online help: &lt;https://www.gnu.org/software/coreutils/&gt;
+       Report any translation bugs to &lt;https://translationproject.org/team/&gt;
+
+COPYRIGHT
+       Copyright © 2022 Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+       Full documentation &lt;https://www.gnu.org/software/coreutils/dd&gt;
+       or available locally via: info '(coreutils) dd invocation'
+
+GNU coreutils 9.1                                           January 2023                                                      DD(1)
+</pre>
+</body>
+</html>

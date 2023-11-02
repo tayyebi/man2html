@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-pack(1)                                           .NET Documentation                                          dotnet-pack(1)
+
+dotnet pack
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-pack - Packs the code into a NuGet package.
+
+SYNOPSIS
+              dotnet pack [&lt;PROJECT&gt;|&lt;SOLUTION&gt;] [-c|--configuration &lt;CONFIGURATION&gt;]
+                  [--force] [--include-source] [--include-symbols] [--interactive]
+                  [--no-build] [--no-dependencies] [--no-restore] [--nologo]
+                  [-o|--output &lt;OUTPUT_DIRECTORY&gt;] [--runtime &lt;RUNTIME_IDENTIFIER&gt;]
+                  [-s|--serviceable] [-v|--verbosity &lt;LEVEL&gt;]
+                  [--version-suffix &lt;VERSION_SUFFIX&gt;]
+
+              dotnet pack -h|--help
+
+DESCRIPTION
+       The  dotnet pack command builds the project and creates NuGet packages.  The result of this command is a NuGet package (that
+       is, a .nupkg file).
+
+       If you want to generate a package that contains the debug symbols, you have two options available:
+
+       • --include-symbols - it creates the symbols package.
+
+       • --include-source - it creates the symbols package with a src folder inside containing the source files.
+
+       NuGet dependencies of the packed project are added to the .nuspec file, so they’re properly resolved when the package is in‐
+       stalled.   If the packed project has references to other projects, the other projects are not included in the package.  Cur‐
+       rently, you must have a package per project if you have project-to-project dependencies.
+
+       By default, dotnet pack builds the project first.  If you wish to avoid this behavior, pass the --no-build option.  This op‐
+       tion is often useful in Continuous Integration (CI) build scenarios where you know the code was previously built.
+
+              In some cases, the implicit build cannot be performed.  This can occur when GeneratePackageOnBuild is set, to avoid a
+              cyclic dependency between build and pack targets.  The build can also fail if there is a locked file or other issue.
+
+       You can provide MSBuild properties to the dotnet pack command for the packing process.  For more information, see NuGet pack
+       target properties and the MSBuild Command-Line Reference.  The Examples section shows how to use the MSBuild -p switch for a
+       couple of different scenarios.
+
+              Web projects aren’t packable.
+
+   Implicit restore
+       You don’t have to run dotnet restore because it’s run implicitly by all commands that require a restore to  occur,  such  as
+       dotnet  new,  dotnet  build, dotnet run, dotnet test, dotnet publish, and dotnet pack.  To disable implicit restore, use the
+       --no-restore option.
+
+       The dotnet restore command is still useful in certain scenarios where explicitly restoring makes sense, such  as  continuous
+       integration builds in Azure DevOps Services or in build systems that need to explicitly control when the restore occurs.
+
+       For information about how to manage NuGet feeds, see the dotnet restore documentation.
+
+       This  command supports the dotnet restore options when passed in the long form (for example, --source).  Short form options,
+       such as -s, are not supported.
+
+   Workload manifest downloads
+       When you run this command, it initiates an asynchronous background download of advertising manifests for workloads.  If  the
+       download  is still running when this command finishes, the download is stopped.  For more information, see Advertising mani‐
+       fests.
+
+ARGUMENTS
+       PROJECT | SOLUTION
+
+       The project or solution to pack.  It’s either a path to a csproj, vbproj, or fsproj file, or to a solution file or  directo‐
+       ry.  If not specified, the command searches the current directory for a project or solution file.
+
+OPTIONS
+       • -c|--configuration &lt;CONFIGURATION&gt;
+
+         Defines  the  build  configuration.   The default for most projects is Debug, but you can override the build configuration
+         settings in your project.
+
+       • --force
+
+         Forces all dependencies to be resolved even if the last restore was successful.  Specifying  this  flag  is  the  same  as
+         deleting the project.assets.json file.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --include-source
+
+         Includes  the debug symbols NuGet packages in addition to the regular NuGet packages in the output directory.  The sources
+         files are included in the src folder within the symbols package.
+
+       • --include-symbols
+
+         Includes the debug symbols NuGet packages in addition to the regular NuGet packages in the output directory.
+
+       • --interactive
+
+         Allows the command to stop and wait for user input or action.  For example, to complete authentication.   Available  since
+         .NET Core 3.0 SDK.
+
+       • --no-build
+
+         Doesn’t build the project before packing.  It also implicitly sets the --no-restore flag.
+
+       • --no-dependencies
+
+         Ignores project-to-project references and only restores the root project.
+
+       • --no-restore
+
+         Doesn’t execute an implicit restore when running the command.
+
+       • --nologo
+
+         Doesn’t display the startup banner or the copyright message.
+
+       • -o|--output &lt;OUTPUT_DIRECTORY&gt;
+
+         Places the built packages in the directory specified.
+
+       • --runtime &lt;RUNTIME_IDENTIFIER&gt;
+
+         Specifies the target runtime to restore packages for.  For a list of Runtime Identifiers (RIDs), see the RID catalog.
+
+       • -s|--serviceable
+
+         Sets  the  serviceable  flag in the package.  For more information, see .NET Blog: .NET Framework 4.5.1 Supports Microsoft
+         Security Updates for .NET NuGet Libraries (https://aka.ms/nupkgservicing).
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed],  and  diag[nostic].
+         For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+       • --version-suffix &lt;VERSION_SUFFIX&gt;
+
+         Defines  the  value for the VersionSuffix MSBuild property.  The effect of this property on the package version depends on
+         the values of the Version and VersionPrefix properties, as shown in the following table:
+
+         Properties with values            Package version
+         ────────────────────────────────────────────────────────────────────
+         None                              1.0.0
+         Version                           $(Version)
+         VersionPrefix only                $(VersionPrefix)
+         VersionSuffix only                1.0.0-$(VersionSuffix)
+         VersionPrefix and VersionSuffix   $(VersionPrefix)-$(VersionSuffix)
+
+         If you want to use --version-suffix, specify VersionPrefix and not Version in the project file.  For example, if  Version‐
+         Prefix is 0.1.2 and you pass --version-suffix rc.1 to dotnet pack, the package version will be 0.1.2-rc.1.
+
+         If Version has a value and you pass --version-suffix to dotnet pack, the value specified for --version-suffix is ignored.
+
+EXAMPLES
+       • Pack the project in the current directory:
+
+                dotnet pack
+
+       • Pack the app1 project:
+
+                dotnet pack ~/projects/app1/project.csproj
+
+       • Pack the project in the current directory and place the resulting packages into the nupkgs folder:
+
+                dotnet pack --output nupkgs
+
+       • Pack the project in the current directory into the nupkgs folder and skip the build step:
+
+                dotnet pack --no-build --output nupkgs
+
+       • With  the project’s version suffix configured as &lt;VersionSuffix&gt;$(VersionSuffix)&lt;/VersionSuffix&gt; in the .csproj file, pack
+         the current project and update the resulting package version with the given suffix:
+
+                dotnet pack --version-suffix "ci-1234"
+
+       • Set the package version to 2.1.0 with the PackageVersion MSBuild property:
+
+                dotnet pack -p:PackageVersion=2.1.0
+
+       • Pack the project for a specific target framework:
+
+                dotnet pack -p:TargetFrameworks=net45
+
+       • Pack the project and use a specific runtime (Windows 10) for the restore operation:
+
+                dotnet pack --runtime win10-x64
+
+       • Pack the project using a .nuspec file:
+
+                dotnet pack ~/projects/app1/project.csproj -p:NuspecFile=~/projects/app1/project.nuspec -p:NuspecBasePath=~/projects/app1/nuget
+
+         For information about how to use NuspecFile, NuspecBasePath, and NuspecProperties, see the following resources:
+
+         • Packing using a .nuspec
+
+         • Advanced extension points to create customized package
+
+         • Global properties
+
+                                                             2022-10-10                                              dotnet-pack(1)
+</pre>
+</body>
+</html>

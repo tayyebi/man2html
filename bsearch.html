@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>bsearch(3)                                            Library Functions Manual                                           bsearch(3)
+
+NAME
+       bsearch - binary search of a sorted array
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       void *bsearch(const void key[.size], const void base[.size * .nmemb],
+                     size_t nmemb, size_t size,
+                     int (*compar)(const void [.size], const void [.size]));
+
+DESCRIPTION
+       The  bsearch()  function searches an array of nmemb objects, the initial member of which is pointed to by base, for a member
+       that matches the object pointed to by key.  The size of each member of the array is specified by size.
+
+       The contents of the array should be in ascending sorted order according to the comparison  function  referenced  by  compar.
+       The  compar  routine  is expected to have two arguments which point to the key object and to an array member, in that order,
+       and should return an integer less than, equal to, or greater than zero if the key object is found, respectively, to be  less
+       than, to match, or be greater than the array member.
+
+RETURN VALUE
+       The bsearch() function returns a pointer to a matching member of the array, or NULL if no match is found.  If there are mul‐
+       tiple elements that match the key, the element returned is unspecified.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │bsearch()                                                                                        │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008, C99, SVr4, 4.3BSD.
+
+EXAMPLES
+       The example below first sorts an array of structures using qsort(3), then retrieves desired elements using bsearch().
+
+       #include &lt;stdio.h&gt;
+       #include &lt;stdlib.h&gt;
+       #include &lt;string.h&gt;
+
+       #define ARRAY_SIZE(arr)  (sizeof((arr)) / sizeof((arr)[0]))
+
+       struct mi {
+           int         nr;
+           const char  *name;
+       };
+
+       static struct mi  months[] = {
+           { 1, "jan" }, { 2, "feb" }, { 3, "mar" }, { 4, "apr" },
+           { 5, "may" }, { 6, "jun" }, { 7, "jul" }, { 8, "aug" },
+           { 9, "sep" }, {10, "oct" }, {11, "nov" }, {12, "dec" }
+       };
+
+       static int
+       compmi(const void *m1, const void *m2)
+       {
+           const struct mi *mi1 = m1;
+           const struct mi *mi2 = m2;
+
+           return strcmp(mi1-&gt;name, mi2-&gt;name);
+       }
+
+       int
+       main(int argc, char *argv[])
+       {
+           qsort(months, ARRAY_SIZE(months), sizeof(months[0]), compmi);
+           for (size_t i = 1; i &lt; argc; i++) {
+               struct mi key;
+               struct mi *res;
+
+               key.name = argv[i];
+               res = bsearch(&amp;key, months, ARRAY_SIZE(months),
+                             sizeof(months[0]), compmi);
+               if (res == NULL)
+                   printf("'%s': unknown month\n", argv[i]);
+               else
+                   printf("%s: month #%d\n", res-&gt;name, res-&gt;nr);
+           }
+           exit(EXIT_SUCCESS);
+       }
+
+SEE ALSO
+       hsearch(3), lsearch(3), qsort(3), tsearch(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                  bsearch(3)
+</pre>
+</body>
+</html>

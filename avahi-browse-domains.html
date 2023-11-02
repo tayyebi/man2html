@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>avahi-browse(1)                                       General Commands Manual                                       avahi-browse(1)
+
+NAME
+       avahi-browse - Browse for mDNS/DNS-SD services using the Avahi daemon
+
+SYNOPSIS
+       avahi-browse [options] service-type
+
+       avahi-browse [options] --all
+
+       avahi-browse [options] --browse-domains
+
+       avahi-browse [options] --dump-db
+
+       avahi-browse-domains [options]
+
+DESCRIPTION
+       Browse for mDNS/DNS-SD network services and browsing domains using the Avahi daemon.
+
+OPTIONS
+       Specify a DNS-SD service type (e.g. _http._tcp) to browse for on the command line, or -a to browse for all available service
+       types. Items that appear on the network are prefixed with "+", items that disappear are prefixed with "-". If  --resolve  is
+       passed items that are resolved are prefixed with "=".
+
+       -a | --all
+              Browse for all service types registered on the LAN, not just the one specified on the command line.
+
+       -D | --browse-domains
+              Browse for browsing domains instead for services. avahi-browse-domains is equivalent to avahi-browse --browse-domains
+
+       -d | --domain= DOMAIN
+              Browse in the specified domain. If omitted avahi-browse will browse in the default browsing domain (usually: local)
+
+       -v | --verbose
+              Enable verbose mode.
+
+       -t | --terminate
+              Terminate after dumping a more or less complete list.
+
+       -c | --cache
+              Terminate after dumping all entries available in the cache.
+
+       -l | --ignore-local
+              Ignore local services, show only remote services.
+
+       -r | --resolve
+              Automatically resolve services found.
+
+       -f | --no-fail
+              Don't fail if the daemon is not found running. Instead, wait until it appears. If it disconnects, try to reconnect.
+
+       -p | --parsable
+              Make  output  easily  parsable for usage in scripts. If enabled fields are separated by semicolons (;), service names
+              are escaped. It is recommended to combine this with --no-db-lookup.
+
+       -k | --no-db-lookup
+              Don't lookup services types in service type database.
+
+       -b | --dump-db
+              Dump the service type database (may be combined with -k)
+
+       -h | --help
+              Show help.
+
+       -V | --version
+              Show version information.
+
+AUTHORS
+       The Avahi Developers &lt;avahi (at) lists (dot) freedesktop (dot) org&gt;; Avahi is available from http://avahi.org/
+
+SEE ALSO
+       avahi-publish(1), avahi-resolve(1), avahi-daemon(8)
+
+COMMENTS
+       This man page was written using xml2man(1) by Oliver Kurth.
+
+Manuals                                                         User                                                avahi-browse(1)
+</pre>
+</body>
+</html>

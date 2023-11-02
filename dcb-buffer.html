@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DCB-BUFFER(8)                                                  Linux                                                  DCB-BUFFER(8)
+
+NAME
+       dcb-buffer - show / manipulate port buffer settings of the DCB (Data Center Bridging) subsystem
+
+SYNOPSIS
+       dcb [ OPTIONS ] buffer { COMMAND | help }
+
+       dcb buffer show dev DEV [ prio-buffer ] [ buffer-size ] [ total-size ]
+
+       dcb buffer set dev DEV [ prio-buffer PRIO-MAP ] [ buffer-size SIZE-MAP ]
+
+       PRIO-MAP := [ PRIO-MAP ] PRIO-MAPPING
+
+       PRIO-MAPPING := { PRIO | all }:BUFFER
+
+       SIZE-MAP := [ SIZE-MAP ] SIZE-MAPPING
+
+       SIZE-MAPPING := { BUFFER | all }:SIZE
+
+       PRIO := { 0 .. 7 }
+
+       BUFFER := { 0 .. 7 }
+
+       SIZE := { INTEGER | INTEGERK | INTEGERM | ... }
+
+DESCRIPTION
+       dcb buffer is used to configure assignment of traffic to port buffers based on traffic priority, and sizes of those buffers.
+       It can be also used to inspect the current configuration, as well as total device memory that the port buffers take.
+
+PARAMETERS
+       For read-write parameters, the following describes only the write direction, i.e. as used with the set command. For the show
+       command, the parameter name is to be used as a simple keyword without further arguments. This instructs the tool to show the
+       value of a given parameter. When no parameters are given, the tool shows the complete buffer configuration.
+
+       total-size
+              A read-only property that shows the total device memory taken up by port buffers. This might be more than a simple
+              sum of individual buffer sizes if there are any hidden or internal buffers.
+
+       prio-buffer PRIO-MAP
+              PRIO-MAP uses the array parameter syntax, see dcb(8) for details. Keys are priorities, values are buffer indices. For
+              each priority sets a buffer where traffic with that priority is directed to.
+
+       buffer-size SIZE-MAP
+              SIZE-MAP uses the array parameter syntax, see dcb(8) for details. Keys are buffer indices, values are sizes of that
+              buffer in bytes.  The sizes can use the notation documented in section PARAMETERS at tc(8).  Note that the size re‐
+              quested by the tool can be rounded or capped by the driver to satisfy the requirements of the device.
+
+EXAMPLE &amp; USAGE
+       Configure the priomap in a one-to-one fashion:
+
+       # dcb buffer set dev eth0 prio-buffer 0:0 1:1 2:2 3:3 4:4 5:5 6:6 7:7
+
+       Set sizes of all buffers to 10KB, except for buffer 6, which will have the size 1MB:
+
+       # dcb buffer set dev eth0 buffer-size all:10K 6:1M
+
+       Show what was set:
+
+       # dcb buffer show dev eth0
+       prio-buffer 0:0 1:1 2:2 3:3 4:4 5:5 6:6 7:7
+       buffer-size 0:10Kb 1:10Kb 2:10Kb 3:10Kb 4:10Kb 5:10Kb 6:1Mb 7:10Kb
+       total-size 1222Kb
+
+EXIT STATUS
+       Exit status is 0 if command was successful or a positive integer upon failure.
+
+SEE ALSO
+       dcb(8)
+
+REPORTING BUGS
+       Report any bugs to the Network Developers mailing list &lt;netdev@vger.kernel.org&gt; where the development and maintenance is
+       primarily done.  You do not have to be subscribed to the list to send a message there.
+
+AUTHOR
+       Petr Machata &lt;me@pmachata.org&gt;
+
+iproute2                                                  12 November 2020                                            DCB-BUFFER(8)
+</pre>
+</body>
+</html>

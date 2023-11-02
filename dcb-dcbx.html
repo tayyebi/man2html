@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DCB-DCBX(8)                                                    Linux                                                    DCB-DCBX(8)
+
+NAME
+       dcb-dcbx - show / manipulate port DCBX (Data Center Bridging eXchange)
+
+SYNOPSIS
+       dcb [ OPTIONS ] dcbx { COMMAND | help }
+
+       dcb dcbx show dev DEV
+
+       dcb dcbx set dev DEV [ host ] [ lld-managed ] [ cee ] [ ieee ] [ static ]
+
+DESCRIPTION
+       Data Center Bridging eXchange (DCBX) is a protocol used by DCB devices to exchange configuration information with directly
+       connected peers. The Linux DCBX object is a 1-byte bitfield of flags that configure whether DCBX is implemented in the de‐
+       vice or in the host, and which version of the protocol should be used.  dcb dcbx is used to access the per-port Linux DCBX
+       object.
+
+       There are two principal modes of operation: in host mode, DCBX protocol is implemented by the host LLDP agent, and the DCB
+       interfaces are used to propagate the negotiate parameters to capable devices. In lld-managed mode, the configuration is han‐
+       dled by the device, and DCB interfaces are used for inspection of negotiated parameters, and can also be used to set initial
+       parameters.
+
+PARAMETERS
+       When used with dcb dcbx set, the following keywords enable the corresponding configuration. The keywords that are not men‐
+       tioned on the command line are considered disabled. When used with show, each enabled feature is shown by its corresponding
+       keyword.
+
+       host
+       lld-managed
+              The device is in the host mode of operation and, respectively, the lld-managed mode of operation, as described above.
+              In principle these two keywords are mutually exclusive, but dcb dcbx allows setting both and lets the driver handle
+              it as appropriate.
+
+       cee
+       ieee   The device supports CEE (Converged Enhanced Ethernet) and, respectively, IEEE version of the DCB specification. Typi‐
+              cally only one of these will be set, but dcb dcbx does not mandate this.
+
+       static indicates the engine supports static configuration. No actual negotiation is performed, negotiated parameters are al‐
+              ways the initial configuration.
+
+EXAMPLE &amp; USAGE
+       Put the DCB engine into the "host" mode of operation, and use IEEE-standardized DCB interfaces:
+
+       # dcb dcbx set dev eth0 host ieee
+
+       Show what was set:
+
+       # dcb dcbx show dev eth0
+       host ieee
+
+EXIT STATUS
+       Exit status is 0 if command was successful or a positive integer upon failure.
+
+SEE ALSO
+       dcb(8)
+
+REPORTING BUGS
+       Report any bugs to the Network Developers mailing list &lt;netdev@vger.kernel.org&gt; where the development and maintenance is
+       primarily done.  You do not have to be subscribed to the list to send a message there.
+
+AUTHOR
+       Petr Machata &lt;me@pmachata.org&gt;
+
+iproute2                                                  13 December 2020                                              DCB-DCBX(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Compression::FileHandle(3perl)                        libdpkg-perl                       Dpkg::Compression::FileHandle(3perl)
+
+NAME
+       Dpkg::Compression::FileHandle - class dealing transparently with file compression
+
+SYNOPSIS
+           use Dpkg::Compression::FileHandle;
+
+           my ($fh, @lines);
+
+           $fh = Dpkg::Compression::FileHandle-&gt;new(filename =&gt; 'sample.gz');
+           print $fh "Something\n";
+           close $fh;
+
+           $fh = Dpkg::Compression::FileHandle-&gt;new();
+           open($fh, '&gt;', 'sample.bz2');
+           print $fh "Something\n";
+           close $fh;
+
+           $fh = Dpkg::Compression::FileHandle-&gt;new();
+           $fh-&gt;open('sample.xz', 'w');
+           $fh-&gt;print("Something\n");
+           $fh-&gt;close();
+
+           $fh = Dpkg::Compression::FileHandle-&gt;new(filename =&gt; 'sample.gz');
+           @lines = &lt;$fh&gt;;
+           close $fh;
+
+           $fh = Dpkg::Compression::FileHandle-&gt;new();
+           open($fh, '&lt;', 'sample.bz2');
+           @lines = &lt;$fh&gt;;
+           close $fh;
+
+           $fh = Dpkg::Compression::FileHandle-&gt;new();
+           $fh-&gt;open('sample.xz', 'r');
+           @lines = $fh-&gt;getlines();
+           $fh-&gt;close();
+
+DESCRIPTION
+       Dpkg::Compression::FileHandle is a class that can be used like any filehandle and that deals transparently with compressed
+       files. By default, the compression scheme is guessed from the filename but you can override this behaviour with the method
+       "set_compression".
+
+       If you don't open the file explicitly, it will be auto-opened on the first read or write operation based on the filename set
+       at creation time (or later with the "set_filename" method).
+
+       Once a file has been opened, the filehandle must be closed before being able to open another file.
+
+STANDARD FUNCTIONS
+       The standard functions acting on filehandles should accept a Dpkg::Compression::FileHandle object transparently including
+       "open" (only when using the variant with 3 parameters), "close", "binmode", "eof", "fileno", "getc", "print", "printf",
+       "read", "sysread", "say", "write", "syswrite", "seek", "sysseek", "tell".
+
+       Note however that "seek" and "sysseek" will only work on uncompressed files as compressed files are really pipes to the
+       compressor programs and you can't seek on a pipe.
+
+FileHandle METHODS
+       The class inherits from IO::File so all methods that work on this class should work for Dpkg::Compression::FileHandle too.
+       There may be exceptions though.
+
+PUBLIC METHODS
+       $fh = Dpkg::Compression::FileHandle-&gt;new(%opts)
+           Creates a new filehandle supporting on-the-fly compression/decompression.  Supported options are "filename",
+           "compression", "compression_level" (see respective set_* functions) and "add_comp_ext". If "add_comp_ext" evaluates to
+           true, then the extension corresponding to the selected compression scheme is automatically added to the recorded
+           filename. It's obviously incompatible with automatic detection of the compression method.
+
+       $fh-&gt;ensure_open($mode, %opts)
+           Ensure the file is opened in the requested mode ("r" for read and "w" for write). The options are passed down to the
+           compressor's spawn() call, if one is used. Opens the file with the recorded filename if needed. If the file is already
+           open but not in the requested mode, then it errors out.
+
+       $fh-&gt;set_compression($comp)
+           Defines the compression method used. $comp should one of the methods supported by Dpkg::Compression or "none" or "auto".
+           "none" indicates that the file is uncompressed and "auto" indicates that the method must be guessed based on the
+           filename extension used.
+
+       $fh-&gt;set_compression_level($level)
+           Indicate the desired compression level. It should be a value accepted by the function "compression_is_valid_level" of
+           Dpkg::Compression.
+
+       $fh-&gt;set_filename($name, [$add_comp_ext])
+           Use $name as filename when the file must be opened/created. If $add_comp_ext is passed, it indicates whether the default
+           extension of the compression method must be automatically added to the filename (or not).
+
+       $file = $fh-&gt;get_filename()
+           Returns the filename that would be used when the filehandle must be opened (both in read and write mode). This function
+           errors out if "add_comp_ext" is enabled while the compression method is set to "auto". The returned filename includes
+           the extension of the compression method if "add_comp_ext" is enabled.
+
+       $ret = $fh-&gt;use_compression()
+           Returns "0" if no compression is used and the compression method used otherwise. If the compression is set to "auto",
+           the value returned depends on the extension of the filename obtained with the get_filename method.
+
+       $real_fh = $fh-&gt;get_filehandle()
+           Returns the real underlying filehandle. Useful if you want to pass it along in a derived class.
+
+DERIVED CLASSES
+       If you want to create a class that inherits from Dpkg::Compression::FileHandle you must be aware that the object is a
+       reference to a GLOB that is returned by Symbol::gensym() and as such it's not a HASH.
+
+       You can store internal data in a hash but you have to use "*$self-"{...}&gt; to access the associated hash like in the example
+       below:
+
+           sub set_option {
+               my ($self, $value) = @_;
+               *$self-&gt;{option} = $value;
+           }
+
+CHANGES
+   Version 1.01 (dpkg 1.17.11)
+       New argument: $fh-&gt;ensure_open() accepts an %opts argument.
+
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                        Dpkg::Compression::FileHandle(3perl)
+</pre>
+</body>
+</html>

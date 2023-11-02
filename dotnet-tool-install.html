@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-tool-install(1)                                   .NET Documentation                                  dotnet-tool-install(1)
+
+dotnet tool install
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-tool-install - Installs the specified .NET tool on your machine.
+
+SYNOPSIS
+              dotnet tool install &lt;PACKAGE_NAME&gt; -g|--global
+                  [--add-source &lt;SOURCE&gt;] [--configfile &lt;FILE&gt;] [--disable-parallel]
+                  [--framework &lt;FRAMEWORK&gt;] [--ignore-failed-sources] [--interactive]
+                  [--no-cache] [--prerelease]
+                  [--tool-manifest &lt;PATH&gt;] [-v|--verbosity &lt;LEVEL&gt;]
+                  [--version &lt;VERSION_NUMBER&gt;]
+
+              dotnet tool install &lt;PACKAGE_NAME&gt; --tool-path &lt;PATH&gt;
+                  [--add-source &lt;SOURCE&gt;] [--configfile &lt;FILE&gt;] [--disable-parallel]
+                  [--framework &lt;FRAMEWORK&gt;] [--ignore-failed-sources] [--interactive]
+                  [--no-cache] [--prerelease]
+                  [--tool-manifest &lt;PATH&gt;] [-v|--verbosity &lt;LEVEL&gt;]
+                  [--version &lt;VERSION_NUMBER&gt;]
+
+              dotnet tool install &lt;PACKAGE_NAME&gt; [--local]
+                  [--add-source &lt;SOURCE&gt;] [--configfile &lt;FILE&gt;] [--disable-parallel]
+                  [--framework &lt;FRAMEWORK&gt;] [--ignore-failed-sources] [--interactive]
+                  [--no-cache] [--prerelease]
+                  [--tool-manifest &lt;PATH&gt;] [-v|--verbosity &lt;LEVEL&gt;]
+                  [--version &lt;VERSION_NUMBER&gt;]
+
+              dotnet tool install -h|--help
+
+DESCRIPTION
+       The dotnet tool install command provides a way for you to install .NET tools on your machine.  To use the command, you spec‐
+       ify one of the following installation options:
+
+       • To install a global tool in the default location, use the --global option.
+
+       • To install a global tool in a custom location, use the --tool-path option.
+
+       • To install a local tool, omit the --global and --tool-path options.
+
+       Global tools are installed in the following directories by default when you specify the -g or --global option:
+
+       OS            Path
+       ──────────────────────────────────────────
+       Linux/macOS   $HOME/.dotnet/tools
+       Windows       %USERPROFILE%\.dotnet\tools
+
+       Local tools are added to a dotnet-tools.json file in a .config directory under the current directory.  If  a  manifest  file
+       doesn’t exist yet, create it by running the following command:
+
+              dotnet new tool-manifest
+
+       For more information, see Install a local tool.
+
+ARGUMENTS
+       • PACKAGE_NAME
+
+         Name/ID of the NuGet package that contains the .NET tool to install.
+
+OPTIONS
+       • --add-source &lt;SOURCE&gt;
+
+         Adds  an  additional NuGet package source to use during installation.  Feeds are accessed in parallel, not sequentially in
+         some order of precedence.  If the same package and version is in multiple feeds, the fastest feed wins.  For more informa‐
+         tion, see What happens when a NuGet package is installed?.
+
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • --disable-parallel
+
+         Prevent restoring multiple projects in parallel.
+
+       • --framework &lt;FRAMEWORK&gt;
+
+         Specifies  the  target  framework  to install the tool for.  By default, the .NET SDK tries to choose the most appropriate
+         target framework.
+
+       • -g|--global
+
+         Specifies that the installation is user wide.  Can’t be combined with the --tool-path option.  Omitting both --global  and
+         --tool-path specifies a local tool installation.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --ignore-failed-sources
+
+         Treat package source failures as warnings.
+
+       • --interactive
+
+         Allows the command to stop and wait for user input or action.  For example, to complete authentication.
+
+       • --local
+
+         Update the tool and the local tool manifest.  Can’t be combined with the --global option or the --tool-path option.
+
+       • --no-cache
+
+         Do not cache packages and HTTP requests.
+
+       • --prerelease
+
+         Include prerelease packages.
+
+       • --tool-manifest &lt;PATH&gt;
+
+         Path to the manifest file.
+
+       • --tool-path &lt;PATH&gt;
+
+         Specifies  the  location  where to install the Global Tool.  PATH can be absolute or relative.  If PATH doesn’t exist, the
+         command tries to create it.  Omitting both --global and --tool-path specifies a local tool installation.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed],  and  diag[nostic].
+         For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+       • --version &lt;VERSION_NUMBER&gt;
+
+         The  version  of the tool to install.  By default, the latest stable package version is installed.  Use this option to in‐
+         stall preview or older versions of the tool.
+
+EXAMPLES
+       • dotnet tool install -g dotnetsay
+
+         Installs dotnetsay (https://www.nuget.org/packages/dotnetsay/) as a global tool in the default location.
+
+       • dotnet tool install dotnetsay --tool-path c:\global-tools
+
+         Installs dotnetsay (https://www.nuget.org/packages/dotnetsay/) as a global tool in a specific Windows directory.
+
+       • dotnet tool install dotnetsay --tool-path ~/bin
+
+         Installs dotnetsay (https://www.nuget.org/packages/dotnetsay/) as a global tool in a specific Linux/macOS directory.
+
+       • dotnet tool install -g dotnetsay --version 2.0.0
+
+         Installs version 2.0.0 of dotnetsay (https://www.nuget.org/packages/dotnetsay/) as a global tool.
+
+       • dotnet tool install dotnetsay
+
+         Installs dotnetsay (https://www.nuget.org/packages/dotnetsay/) as a local tool for the current directory.
+
+SEE ALSO
+       • .NET tools
+
+       • Tutorial: Install and use a .NET global tool using the .NET CLI
+
+       • Tutorial: Install and use a .NET local tool using the .NET CLI
+
+                                                             2022-10-10                                      dotnet-tool-install(1)
+</pre>
+</body>
+</html>

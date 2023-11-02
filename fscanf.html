@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>scanf(3)                                              Library Functions Manual                                             scanf(3)
+
+NAME
+       scanf, fscanf, vscanf, vfscanf - input FILE format conversion
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       int scanf(const char *restrict format, ...);
+       int fscanf(FILE *restrict stream,
+                  const char *restrict format, ...);
+
+       #include &lt;stdarg.h&gt;
+
+       int vscanf(const char *restrict format, va_list ap);
+       int vfscanf(FILE *restrict stream,
+                  const char *restrict format, va_list ap);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       vscanf(), vfscanf():
+           _ISOC99_SOURCE || _POSIX_C_SOURCE &gt;= 200112L
+
+DESCRIPTION
+       The  scanf()  family of functions scans input like sscanf(3), but read from a FILE.  It is very difficult to use these func‐
+       tions correctly, and it is preferable to read entire lines with fgets(3) or getline(3) and parse them later  with  sscanf(3)
+       or more specialized functions such as strtol(3).
+
+       The  scanf()  function  reads  input  from  the standard input stream stdin and fscanf() reads input from the stream pointer
+       stream.
+
+       The vfscanf() function is analogous to vfprintf(3) and reads input from the stream pointer stream using a variable  argument
+       list of pointers (see stdarg(3).  The vscanf() function is analogous to vprintf(3) and reads from the standard input.
+
+RETURN VALUE
+       On  success, these functions return the number of input items successfully matched and assigned; this can be fewer than pro‐
+       vided for, or even zero, in the event of an early matching failure.
+
+       The value EOF is returned if the end of input is reached before either the first successful conversion or a matching failure
+       occurs.   EOF  is  also returned if a read error occurs, in which case the error indicator for the stream (see ferror(3)) is
+       set, and errno is set to indicate the error.
+
+ERRORS
+       EAGAIN The file descriptor underlying stream is marked nonblocking, and the read operation would block.
+
+       EBADF  The file descriptor underlying stream is invalid, or not open for reading.
+
+       EILSEQ Input byte sequence does not form a valid character.
+
+       EINTR  The read operation was interrupted by a signal; see signal(7).
+
+       EINVAL Not enough arguments; or format is NULL.
+
+       ENOMEM Out of memory.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────┐
+       │Interface                                                                                 │ Attribute     │ Value          │
+       ├──────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────┤
+       │scanf(), fscanf(), vscanf(), vfscanf()                                                    │ Thread safety │ MT-Safe locale │
+       └──────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────┘
+
+STANDARDS
+       These functions conform to C99 and POSIX.1-2001.
+
+SEE ALSO
+       fgets(3), getline(3), sscanf(3)
+
+Linux man-pages 6.03                                         2022-12-29                                                    scanf(3)
+</pre>
+</body>
+</html>

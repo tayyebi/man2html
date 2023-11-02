@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>AA-EXEC(1)                                                    AppArmor                                                   AA-EXEC(1)
+
+NAME
+       aa-exec - confine a program with the specified AppArmor profile
+
+SYNOPSIS
+       aa-exec [options] [--] [&lt;command&gt; ...]
+
+DESCRIPTION
+       aa-exec is used to launch a program confined by the specified profile and or namespace.  If both a profile and namespace are
+       specified command will be confined by profile in the new policy namespace.  If only a namespace is specified, the profile
+       name of the current confinement will be used.  If neither a profile or namespace is specified command will be run using
+       standard profile attachment (ie. as if run without the aa-exec command).
+
+       If the arguments are to be pasted to the &lt;command&gt; being invoked by aa-exec then -- should be used to separate aa-exec
+       arguments from the command.
+         aa-exec -p profile1 -- ls -l
+
+OPTIONS aa-exec accepts the following arguments:
+       -p PROFILE, --profile=PROFILE
+           confine &lt;command&gt; with PROFILE. If the PROFILE is not specified use the current profile name (likely unconfined).
+
+       -n NAMESPACE, --namespace=NAMESPACE
+           use profiles in NAMESPACE.  This will result in confinement transitioning to using the new profile namespace.
+
+       -i, --immediate
+           transition to PROFILE before doing executing &lt;command&gt;.  This subjects the running of &lt;command&gt; to the exec transition
+           rules of the current profile.
+
+       -v, --verbose
+           show commands being performed
+
+       -d, --debug
+           show commands and error codes
+
+       --  Signal the end of options and disables further option processing. Any arguments after the -- are treated as arguments of
+           the command.  This is useful when passing arguments to the &lt;command&gt; being invoked by aa-exec.
+
+BUGS
+       If you find any bugs, please report them at &lt;https://gitlab.com/apparmor/apparmor/-/issues&gt;
+
+SEE ALSO
+       aa-stack(8), aa-namespace(8), apparmor(7), apparmor.d(5), aa_change_profile(3), aa_change_onexec(3) and
+       &lt;https://wiki.apparmor.net&gt;.
+
+AppArmor 3.0.8                                               2023-06-06                                                  AA-EXEC(1)
+</pre>
+</body>
+</html>

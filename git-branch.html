@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-BRANCH(1)                                                Git Manual                                               GIT-BRANCH(1)
+
+NAME
+       git-branch - List, create, or delete branches
+
+SYNOPSIS
+       git branch [--color[=&lt;when&gt;] | --no-color] [--show-current]
+               [-v [--abbrev=&lt;n&gt; | --no-abbrev]]
+               [--column[=&lt;options&gt;] | --no-column] [--sort=&lt;key&gt;]
+               [--merged [&lt;commit&gt;]] [--no-merged [&lt;commit&gt;]]
+               [--contains [&lt;commit&gt;]] [--no-contains [&lt;commit&gt;]]
+               [--points-at &lt;object&gt;] [--format=&lt;format&gt;]
+               [(-r | --remotes) | (-a | --all)]
+               [--list] [&lt;pattern&gt;...]
+       git branch [--track[=(direct|inherit)] | --no-track] [-f]
+               [--recurse-submodules] &lt;branchname&gt; [&lt;start-point&gt;]
+       git branch (--set-upstream-to=&lt;upstream&gt; | -u &lt;upstream&gt;) [&lt;branchname&gt;]
+       git branch --unset-upstream [&lt;branchname&gt;]
+       git branch (-m | -M) [&lt;oldbranch&gt;] &lt;newbranch&gt;
+       git branch (-c | -C) [&lt;oldbranch&gt;] &lt;newbranch&gt;
+       git branch (-d | -D) [-r] &lt;branchname&gt;...
+       git branch --edit-description [&lt;branchname&gt;]
+
+DESCRIPTION
+       If --list is given, or if there are no non-option arguments, existing branches are listed; the current branch will be
+       highlighted in green and marked with an asterisk. Any branches checked out in linked worktrees will be highlighted in cyan
+       and marked with a plus sign. Option -r causes the remote-tracking branches to be listed, and option -a shows both local and
+       remote branches.
+
+       If a &lt;pattern&gt; is given, it is used as a shell wildcard to restrict the output to matching branches. If multiple patterns
+       are given, a branch is shown if it matches any of the patterns.
+
+       Note that when providing a &lt;pattern&gt;, you must use --list; otherwise the command may be interpreted as branch creation.
+
+       With --contains, shows only the branches that contain the named commit (in other words, the branches whose tip commits are
+       descendants of the named commit), --no-contains inverts it. With --merged, only branches merged into the named commit (i.e.
+       the branches whose tip commits are reachable from the named commit) will be listed. With --no-merged only branches not
+       merged into the named commit will be listed. If the &lt;commit&gt; argument is missing it defaults to HEAD (i.e. the tip of the
+       current branch).
+
+       The command’s second form creates a new branch head named &lt;branchname&gt; which points to the current HEAD, or &lt;start-point&gt; if
+       given. As a special case, for &lt;start-point&gt;, you may use "A...B" as a shortcut for the merge base of A and B if there is
+       exactly one merge base. You can leave out at most one of A and B, in which case it defaults to HEAD.
+
+       Note that this will create the new branch, but it will not switch the working tree to it; use "git switch &lt;newbranch&gt;" to
+       switch to the new branch.
+
+       When a local branch is started off a remote-tracking branch, Git sets up the branch (specifically the branch.&lt;name&gt;.remote
+       and branch.&lt;name&gt;.merge configuration entries) so that git pull will appropriately merge from the remote-tracking branch.
+       This behavior may be changed via the global branch.autoSetupMerge configuration flag. That setting can be overridden by
+       using the --track and --no-track options, and changed later using git branch --set-upstream-to.
+
+       With a -m or -M option, &lt;oldbranch&gt; will be renamed to &lt;newbranch&gt;. If &lt;oldbranch&gt; had a corresponding reflog, it is renamed
+       to match &lt;newbranch&gt;, and a reflog entry is created to remember the branch renaming. If &lt;newbranch&gt; exists, -M must be used
+       to force the rename to happen.
+
+       The -c and -C options have the exact same semantics as -m and -M, except instead of the branch being renamed, it will be
+       copied to a new name, along with its config and reflog.
+
+       With a -d or -D option, &lt;branchname&gt; will be deleted. You may specify more than one branch for deletion. If the branch
+       currently has a reflog then the reflog will also be deleted.
+
+       Use -r together with -d to delete remote-tracking branches. Note, that it only makes sense to delete remote-tracking
+       branches if they no longer exist in the remote repository or if git fetch was configured not to fetch them again. See also
+       the prune subcommand of git-remote(1) for a way to clean up all obsolete remote-tracking branches.
+
+OPTIONS
+       -d, --delete
+           Delete a branch. The branch must be fully merged in its upstream branch, or in HEAD if no upstream was set with --track
+           or --set-upstream-to.
+
+       -D
+           Shortcut for --delete --force.
+
+       --create-reflog
+           Create the branch’s reflog. This activates recording of all changes made to the branch ref, enabling use of date based
+           sha1 expressions such as "&lt;branchname&gt;@{yesterday}". Note that in non-bare repositories, reflogs are usually enabled by
+           default by the core.logAllRefUpdates config option. The negated form --no-create-reflog only overrides an earlier
+           --create-reflog, but currently does not negate the setting of core.logAllRefUpdates.
+
+       -f, --force
+           Reset &lt;branchname&gt; to &lt;startpoint&gt;, even if &lt;branchname&gt; exists already. Without -f, git branch refuses to change an
+           existing branch. In combination with -d (or --delete), allow deleting the branch irrespective of its merged status, or
+           whether it even points to a valid commit. In combination with -m (or --move), allow renaming the branch even if the new
+           branch name already exists, the same applies for -c (or --copy).
+
+       -m, --move
+           Move/rename a branch, together with its config and reflog.
+
+       -M
+           Shortcut for --move --force.
+
+       -c, --copy
+           Copy a branch, together with its config and reflog.
+
+       -C
+           Shortcut for --copy --force.
+
+       --color[=&lt;when&gt;]
+           Color branches to highlight current, local, and remote-tracking branches. The value must be always (the default), never,
+           or auto.
+
+       --no-color
+           Turn off branch colors, even when the configuration file gives the default to color output. Same as --color=never.
+
+       -i, --ignore-case
+           Sorting and filtering branches are case insensitive.
+
+       --column[=&lt;options&gt;], --no-column
+           Display branch listing in columns. See configuration variable column.branch for option syntax.  --column and --no-column
+           without options are equivalent to always and never respectively.
+
+           This option is only applicable in non-verbose mode.
+
+       -r, --remotes
+           List or delete (if used with -d) the remote-tracking branches. Combine with --list to match the optional pattern(s).
+
+       -a, --all
+           List both remote-tracking branches and local branches. Combine with --list to match optional pattern(s).
+
+       -l, --list
+           List branches. With optional &lt;pattern&gt;..., e.g.  git branch --list 'maint-*', list only the branches that match the
+           pattern(s).
+
+       --show-current
+           Print the name of the current branch. In detached HEAD state, nothing is printed.
+
+       -v, -vv, --verbose
+           When in list mode, show sha1 and commit subject line for each head, along with relationship to upstream branch (if any).
+           If given twice, print the path of the linked worktree (if any) and the name of the upstream branch, as well (see also
+           git remote show &lt;remote&gt;). Note that the current worktree’s HEAD will not have its path printed (it will always be your
+           current directory).
+
+       -q, --quiet
+           Be more quiet when creating or deleting a branch, suppressing non-error messages.
+
+       --abbrev=&lt;n&gt;
+           In the verbose listing that show the commit object name, show the shortest prefix that is at least &lt;n&gt; hexdigits long
+           that uniquely refers the object. The default value is 7 and can be overridden by the core.abbrev config option.
+
+       --no-abbrev
+           Display the full sha1s in the output listing rather than abbreviating them.
+
+       -t, --track[=(direct|inherit)]
+           When creating a new branch, set up branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge configuration entries to set "upstream"
+           tracking configuration for the new branch. This configuration will tell git to show the relationship between the two
+           branches in git status and git branch -v. Furthermore, it directs git pull without arguments to pull from the upstream
+           when the new branch is checked out.
+
+           The exact upstream branch is chosen depending on the optional argument: -t, --track, or --track=direct means to use the
+           start-point branch itself as the upstream; --track=inherit means to copy the upstream configuration of the start-point
+           branch.
+
+           The branch.autoSetupMerge configuration variable specifies how git switch, git checkout and git branch should behave
+           when neither --track nor --no-track are specified:
+
+           The default option, true, behaves as though --track=direct were given whenever the start-point is a remote-tracking
+           branch.  false behaves as if --no-track were given.  always behaves as though --track=direct were given.  inherit
+           behaves as though --track=inherit were given.  simple behaves as though --track=direct were given only when the
+           start-point is a remote-tracking branch and the new branch has the same name as the remote branch.
+
+           See git-pull(1) and git-config(1) for additional discussion on how the branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge
+           options are used.
+
+       --no-track
+           Do not set up "upstream" configuration, even if the branch.autoSetupMerge configuration variable is set.
+
+       --recurse-submodules
+           THIS OPTION IS EXPERIMENTAL! Causes the current command to recurse into submodules if submodule.propagateBranches is
+           enabled. See submodule.propagateBranches in git-config(1). Currently, only branch creation is supported.
+
+           When used in branch creation, a new branch &lt;branchname&gt; will be created in the superproject and all of the submodules in
+           the superproject’s &lt;start-point&gt;. In submodules, the branch will point to the submodule commit in the superproject’s
+           &lt;start-point&gt; but the branch’s tracking information will be set up based on the submodule’s branches and remotes e.g.
+           git branch --recurse-submodules topic origin/main will create the submodule branch "topic" that points to the submodule
+           commit in the superproject’s "origin/main", but tracks the submodule’s "origin/main".
+
+       --set-upstream
+           As this option had confusing syntax, it is no longer supported. Please use --track or --set-upstream-to instead.
+
+       -u &lt;upstream&gt;, --set-upstream-to=&lt;upstream&gt;
+           Set up &lt;branchname&gt;'s tracking information so &lt;upstream&gt; is considered &lt;branchname&gt;'s upstream branch. If no
+           &lt;branchname&gt; is specified, then it defaults to the current branch.
+
+       --unset-upstream
+           Remove the upstream information for &lt;branchname&gt;. If no branch is specified it defaults to the current branch.
+
+       --edit-description
+           Open an editor and edit the text to explain what the branch is for, to be used by various other commands (e.g.
+           format-patch, request-pull, and merge (if enabled)). Multi-line explanations may be used.
+
+       --contains [&lt;commit&gt;]
+           Only list branches which contain the specified commit (HEAD if not specified). Implies --list.
+
+       --no-contains [&lt;commit&gt;]
+           Only list branches which don’t contain the specified commit (HEAD if not specified). Implies --list.
+
+       --merged [&lt;commit&gt;]
+           Only list branches whose tips are reachable from the specified commit (HEAD if not specified). Implies --list.
+
+       --no-merged [&lt;commit&gt;]
+           Only list branches whose tips are not reachable from the specified commit (HEAD if not specified). Implies --list.
+
+       &lt;branchname&gt;
+           The name of the branch to create or delete. The new branch name must pass all checks defined by git-check-ref-format(1).
+           Some of these checks may restrict the characters allowed in a branch name.
+
+       &lt;start-point&gt;
+           The new branch head will point to this commit. It may be given as a branch name, a commit-id, or a tag. If this option
+           is omitted, the current HEAD will be used instead.
+
+       &lt;oldbranch&gt;
+           The name of an existing branch to rename.
+
+       &lt;newbranch&gt;
+           The new name for an existing branch. The same restrictions as for &lt;branchname&gt; apply.
+
+       --sort=&lt;key&gt;
+           Sort based on the key given. Prefix - to sort in descending order of the value. You may use the --sort=&lt;key&gt; option
+           multiple times, in which case the last key becomes the primary key. The keys supported are the same as those in git
+           for-each-ref. Sort order defaults to the value configured for the branch.sort variable if exists, or to sorting based on
+           the full refname (including refs/...  prefix). This lists detached HEAD (if present) first, then local branches and
+           finally remote-tracking branches. See git-config(1).
+
+       --points-at &lt;object&gt;
+           Only list branches of the given object.
+
+       --format &lt;format&gt;
+           A string that interpolates %(fieldname) from a branch ref being shown and the object it points at. The format is the
+           same as that of git-for-each-ref(1).
+
+CONFIGURATION
+       pager.branch is only respected when listing branches, i.e., when --list is used or implied. The default is to use a pager.
+       See git-config(1).
+
+       Everything above this line in this section isn’t included from the git-config(1) documentation. The content that follows is
+       the same as what’s found there:
+
+       branch.autoSetupMerge
+           Tells git branch, git switch and git checkout to set up new branches so that git-pull(1) will appropriately merge from
+           the starting point branch. Note that even if this option is not set, this behavior can be chosen per-branch using the
+           --track and --no-track options. The valid settings are: false — no automatic setup is done; true — automatic setup is
+           done when the starting point is a remote-tracking branch; always —  automatic setup is done when the starting point is
+           either a local branch or remote-tracking branch; inherit — if the starting point has a tracking configuration, it is
+           copied to the new branch; simple — automatic setup is done only when the starting point is a remote-tracking branch and
+           the new branch has the same name as the remote branch. This option defaults to true.
+
+       branch.autoSetupRebase
+           When a new branch is created with git branch, git switch or git checkout that tracks another branch, this variable tells
+           Git to set up pull to rebase instead of merge (see "branch.&lt;name&gt;.rebase"). When never, rebase is never automatically
+           set to true. When local, rebase is set to true for tracked branches of other local branches. When remote, rebase is set
+           to true for tracked branches of remote-tracking branches. When always, rebase will be set to true for all tracking
+           branches. See "branch.autoSetupMerge" for details on how to set up a branch to track another branch. This option
+           defaults to never.
+
+       branch.sort
+           This variable controls the sort ordering of branches when displayed by git-branch(1). Without the "--sort=&lt;value&gt;"
+           option provided, the value of this variable will be used as the default. See git-for-each-ref(1) field names for valid
+           values.
+
+       branch.&lt;name&gt;.remote
+           When on branch &lt;name&gt;, it tells git fetch and git push which remote to fetch from/push to. The remote to push to may be
+           overridden with remote.pushDefault (for all branches). The remote to push to, for the current branch, may be further
+           overridden by branch.&lt;name&gt;.pushRemote. If no remote is configured, or if you are not on any branch and there is more
+           than one remote defined in the repository, it defaults to origin for fetching and remote.pushDefault for pushing.
+           Additionally, .  (a period) is the current local repository (a dot-repository), see branch.&lt;name&gt;.merge's final note
+           below.
+
+       branch.&lt;name&gt;.pushRemote
+           When on branch &lt;name&gt;, it overrides branch.&lt;name&gt;.remote for pushing. It also overrides remote.pushDefault for pushing
+           from branch &lt;name&gt;. When you pull from one place (e.g. your upstream) and push to another place (e.g. your own
+           publishing repository), you would want to set remote.pushDefault to specify the remote to push to for all branches, and
+           use this option to override it for a specific branch.
+
+       branch.&lt;name&gt;.merge
+           Defines, together with branch.&lt;name&gt;.remote, the upstream branch for the given branch. It tells git fetch/git pull/git
+           rebase which branch to merge and can also affect git push (see push.default). When in branch &lt;name&gt;, it tells git fetch
+           the default refspec to be marked for merging in FETCH_HEAD. The value is handled like the remote part of a refspec, and
+           must match a ref which is fetched from the remote given by "branch.&lt;name&gt;.remote". The merge information is used by git
+           pull (which at first calls git fetch) to lookup the default branch for merging. Without this option, git pull defaults
+           to merge the first refspec fetched. Specify multiple values to get an octopus merge. If you wish to setup git pull so
+           that it merges into &lt;name&gt; from another branch in the local repository, you can point branch.&lt;name&gt;.merge to the desired
+           branch, and use the relative path setting .  (a period) for branch.&lt;name&gt;.remote.
+
+       branch.&lt;name&gt;.mergeOptions
+           Sets default options for merging into branch &lt;name&gt;. The syntax and supported options are the same as those of git-
+           merge(1), but option values containing whitespace characters are currently not supported.
+
+       branch.&lt;name&gt;.rebase
+           When true, rebase the branch &lt;name&gt; on top of the fetched branch, instead of merging the default branch from the default
+           remote when "git pull" is run. See "pull.rebase" for doing this in a non branch-specific manner.
+
+           When merges (or just m), pass the --rebase-merges option to git rebase so that the local merge commits are included in
+           the rebase (see git-rebase(1) for details).
+
+           When the value is interactive (or just i), the rebase is run in interactive mode.
+
+           NOTE: this is a possibly dangerous operation; do not use it unless you understand the implications (see git-rebase(1)
+           for details).
+
+       branch.&lt;name&gt;.description
+           Branch description, can be edited with git branch --edit-description. Branch description is automatically added in the
+           format-patch cover letter or request-pull summary.
+
+EXAMPLES
+       Start development from a known tag
+
+               $ git clone git://git.kernel.org/pub/scm/.../linux-2.6 my2.6
+               $ cd my2.6
+               $ git branch my2.6.14 v2.6.14   (1)
+               $ git switch my2.6.14
+
+           1. This step and the next one could be combined into a single step with "checkout -b my2.6.14 v2.6.14".
+
+       Delete an unneeded branch
+
+               $ git clone git://git.kernel.org/.../git.git my.git
+               $ cd my.git
+               $ git branch -d -r origin/todo origin/html origin/man   (1)
+               $ git branch -D test                                    (2)
+
+           1. Delete the remote-tracking branches "todo", "html" and "man". The next fetch or pull will create them again unless
+           you configure them not to. See git-fetch(1).
+           2. Delete the "test" branch even if the "master" branch (or whichever branch is currently checked out) does not have all
+           commits from the test branch.
+
+       Listing branches from a specific remote
+
+               $ git branch -r -l '&lt;remote&gt;/&lt;pattern&gt;'                 (1)
+               $ git for-each-ref 'refs/remotes/&lt;remote&gt;/&lt;pattern&gt;'    (2)
+
+           1. Using -a would conflate &lt;remote&gt; with any local branches you happen to have been prefixed with the same &lt;remote&gt;
+           pattern.
+           2. for-each-ref can take a wide range of options. See git-for-each-ref(1)
+
+       Patterns will normally need quoting.
+
+NOTES
+       If you are creating a branch that you want to switch to immediately, it is easier to use the "git switch" command with its
+       -c option to do the same thing with a single command.
+
+       The options --contains, --no-contains, --merged and --no-merged serve four related but different purposes:
+
+       •   --contains &lt;commit&gt; is used to find all branches which will need special attention if &lt;commit&gt; were to be rebased or
+           amended, since those branches contain the specified &lt;commit&gt;.
+
+       •   --no-contains &lt;commit&gt; is the inverse of that, i.e. branches that don’t contain the specified &lt;commit&gt;.
+
+       •   --merged is used to find all branches which can be safely deleted, since those branches are fully contained by HEAD.
+
+       •   --no-merged is used to find branches which are candidates for merging into HEAD, since those branches are not fully
+           contained by HEAD.
+
+       When combining multiple --contains and --no-contains filters, only references that contain at least one of the --contains
+       commits and contain none of the --no-contains commits are shown.
+
+       When combining multiple --merged and --no-merged filters, only references that are reachable from at least one of the
+       --merged commits and from none of the --no-merged commits are shown.
+
+SEE ALSO
+       git-check-ref-format(1), git-fetch(1), git-remote(1), “Understanding history: What is a branch?”[1] in the Git User’s
+       Manual.
+
+GIT
+       Part of the git(1) suite
+
+NOTES
+        1. “Understanding history: What is a branch?”
+           file:///usr/share/doc/git/html/user-manual.html#what-is-a-branch
+
+Git 2.39.2                                                   04/24/2023                                               GIT-BRANCH(1)
+</pre>
+</body>
+</html>

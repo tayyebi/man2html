@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Deps::Multiple(3perl)                                 libdpkg-perl                                Dpkg::Deps::Multiple(3perl)
+
+NAME
+       Dpkg::Deps::Multiple - base module to represent multiple dependencies
+
+DESCRIPTION
+       The Dpkg::Deps::Multiple module provides objects implementing various types of dependencies. It is the base class for
+       Dpkg::Deps::{AND,OR,Union}.
+
+METHODS
+       $dep = Dpkg::Deps::Multiple-&gt;new(%opts);
+           Creates a new object.
+
+       $dep-&gt;reset()
+           Clears any dependency information stored in $dep so that $dep-&gt;is_empty() returns true.
+
+       $dep-&gt;add(@deps)
+           Adds new dependency objects at the end of the list.
+
+       $dep-&gt;get_deps()
+           Returns a list of sub-dependencies.
+
+       $dep-&gt;sort()
+           Sorts alphabetically the internal list of dependencies.
+
+       $dep-&gt;arch_is_concerned($arch)
+           Returns true if at least one of the sub-dependencies apply to this architecture.
+
+       $dep-&gt;reduce_arch($arch)
+           Simplifies the dependencies to contain only information relevant to the given architecture. The non-relevant sub-
+           dependencies are simply removed.
+
+           This trims off the architecture restriction list of Dpkg::Deps::Simple objects.
+
+       $dep-&gt;has_arch_restriction()
+           Returns the list of package names that have such a restriction.
+
+       $dep-&gt;profile_is_concerned()
+           Returns true if at least one of the sub-dependencies apply to this profile.
+
+       $dep-&gt;reduce_profiles()
+           Simplifies the dependencies to contain only information relevant to the given profile. The non-relevant sub-dependencies
+           are simply removed.
+
+           This trims off the profile restriction list of Dpkg::Deps::Simple objects.
+
+       $dep-&gt;is_empty()
+           Returns true if the dependency is empty and doesn't contain any useful information. This is true when a (descendant of)
+           Dpkg::Deps::Multiple contains an empty list of dependencies.
+
+       $dep-&gt;merge_union($other_dep)
+           This method is not meaningful for this object, and will always croak.
+
+CHANGES
+   Version 1.02 (dpkg 1.17.10)
+       New methods: Add $dep-&gt;profile_is_concerned() and $dep-&gt;reduce_profiles().
+
+   Version 1.01 (dpkg 1.16.1)
+       New method: Add $dep-&gt;reset().
+
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                                 Dpkg::Deps::Multiple(3perl)
+</pre>
+</body>
+</html>

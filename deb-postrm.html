@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>deb-postrm(5)                                                dpkg suite                                               deb-postrm(5)
+
+NAME
+       deb-postrm - package post-removal maintainer script
+
+SYNOPSIS
+       DEBIAN/postrm
+
+DESCRIPTION
+       A package can perform several post-removal actions via maintainer scripts, by including an executable postrm file in its
+       control archive (i.e. DEBIAN/postrm during package creation).
+
+       The script can be called in the following ways:
+
+       postrm remove
+           After the package was removed.
+
+       postrm purge
+           After the package was purged.
+
+       old-postrm upgrade new-version
+           After the package was upgraded.
+
+       new-postrm failed-upgrade old-version new-version
+           If the above upgrade call fails.
+
+           The new-version is passed only since dpkg 1.18.5.
+
+       postrm disappear overwriter-package overwriter-version
+           After all of the packages files have been replaced.
+
+       new-postrm abort-install
+           If preinst fails during install.
+
+       new-postrm abort-install old-version new-version
+           If preinst fails during install for an upgrade of a removed package.
+
+           The new-version is passed only since dpkg 1.18.5.
+
+       new-postrm abort-upgrade old-version new-version
+           If preinst fails during upgrade.
+
+           The new-version is passed only since dpkg 1.18.5.
+
+SEE ALSO
+       dpkg(1).
+
+1.21.21                                                      2023-03-02                                               deb-postrm(5)
+</pre>
+</body>
+</html>

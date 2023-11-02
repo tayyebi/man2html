@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-CHECK-MAILMAP(1)                                         Git Manual                                        GIT-CHECK-MAILMAP(1)
+
+NAME
+       git-check-mailmap - Show canonical names and email addresses of contacts
+
+SYNOPSIS
+       git check-mailmap [&lt;options&gt;] &lt;contact&gt;...
+
+DESCRIPTION
+       For each “Name &lt;user@host&gt;” or “&lt;user@host&gt;” from the command-line or standard input (when using --stdin), look up the
+       person’s canonical name and email address (see "Mapping Authors" below). If found, print them; otherwise print the input
+       as-is.
+
+OPTIONS
+       --stdin
+           Read contacts, one per line, from the standard input after exhausting contacts provided on the command-line.
+
+OUTPUT
+       For each contact, a single line is output, terminated by a newline. If the name is provided or known to the mailmap, “Name
+       &lt;user@host&gt;” is printed; otherwise only “&lt;user@host&gt;” is printed.
+
+CONFIGURATION
+       See mailmap.file and mailmap.blob in git-config(1) for how to specify a custom .mailmap target file or object.
+
+MAPPING AUTHORS
+       See gitmailmap(5).
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                        GIT-CHECK-MAILMAP(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>EVP_KDF-SSHKDF(7SSL)                                          OpenSSL                                          EVP_KDF-SSHKDF(7SSL)
+
+NAME
+       EVP_KDF-SSHKDF - The SSHKDF EVP_KDF implementation
+
+DESCRIPTION
+       Support for computing the SSHKDF KDF through the EVP_KDF API.
+
+       The EVP_KDF-SSHKDF algorithm implements the SSHKDF key derivation function.  It is defined in RFC 4253, section 7.2 and is
+       used by SSH to derive IVs, encryption keys and integrity keys.  Five inputs are required to perform key derivation: The
+       hashing function (for example SHA256), the Initial Key, the Exchange Hash, the Session ID, and the derivation key type.
+
+   Identity
+       "SSHKDF" is the name for this implementation; it can be used with the EVP_KDF_fetch() function.
+
+   Supported parameters
+       The supported parameters are:
+
+       "properties" (OSSL_KDF_PARAM_PROPERTIES) &lt;UTF8 string&gt;
+       "digest" (OSSL_KDF_PARAM_DIGEST) &lt;UTF8 string&gt;
+       "key" (OSSL_KDF_PARAM_KEY) &lt;octet string&gt;
+           These parameters work as described in "PARAMETERS" in EVP_KDF(3).
+
+       "xcghash" (OSSL_KDF_PARAM_SSHKDF_XCGHASH) &lt;octet string&gt;
+       "session_id" (OSSL_KDF_PARAM_SSHKDF_SESSION_ID) &lt;octet string&gt;
+           These parameters set the respective values for the KDF.  If a value is already set, the contents are replaced.
+
+       "type" (OSSL_KDF_PARAM_SSHKDF_TYPE) &lt;UTF8 string&gt;
+           This parameter sets the type for the SSHKDF operation.  There are six supported types:
+
+           EVP_KDF_SSHKDF_TYPE_INITIAL_IV_CLI_TO_SRV
+               The Initial IV from client to server.  A single char of value 65 (ASCII char 'A').
+
+           EVP_KDF_SSHKDF_TYPE_INITIAL_IV_SRV_TO_CLI
+               The Initial IV from server to client A single char of value 66 (ASCII char 'B').
+
+           EVP_KDF_SSHKDF_TYPE_ENCRYPTION_KEY_CLI_TO_SRV
+               The Encryption Key from client to server A single char of value 67 (ASCII char 'C').
+
+           EVP_KDF_SSHKDF_TYPE_ENCRYPTION_KEY_SRV_TO_CLI
+               The Encryption Key from server to client A single char of value 68 (ASCII char 'D').
+
+           EVP_KDF_SSHKDF_TYPE_INTEGRITY_KEY_CLI_TO_SRV
+               The Integrity Key from client to server A single char of value 69 (ASCII char 'E').
+
+           EVP_KDF_SSHKDF_TYPE_INTEGRITY_KEY_SRV_TO_CLI
+               The Integrity Key from client to server A single char of value 70 (ASCII char 'F').
+
+NOTES
+       A context for SSHKDF can be obtained by calling:
+
+        EVP_KDF *kdf = EVP_KDF_fetch(NULL, "SSHKDF", NULL);
+        EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);
+
+       The output length of the SSHKDF derivation is specified via the keylen parameter to the EVP_KDF_derive(3) function.  Since
+       the SSHKDF output length is variable, calling EVP_KDF_CTX_get_kdf_size(3) to obtain the requisite length is not meaningful.
+       The caller must allocate a buffer of the desired length, and pass that buffer to the EVP_KDF_derive(3) function along with
+       the desired length.
+
+EXAMPLES
+       This example derives an 8 byte IV using SHA-256 with a 1K "key" and appropriate "xcghash" and "session_id" values:
+
+        EVP_KDF *kdf;
+        EVP_KDF_CTX *kctx;
+        char type = EVP_KDF_SSHKDF_TYPE_INITIAL_IV_CLI_TO_SRV;
+        unsigned char key[1024] = "01234...";
+        unsigned char xcghash[32] = "012345...";
+        unsigned char session_id[32] = "012345...";
+        unsigned char out[8];
+        size_t outlen = sizeof(out);
+        OSSL_PARAM params[6], *p = params;
+
+        kdf = EVP_KDF_fetch(NULL, "SSHKDF", NULL);
+        kctx = EVP_KDF_CTX_new(kdf);
+        EVP_KDF_free(kdf);
+
+        *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
+                                                SN_sha256, strlen(SN_sha256));
+        *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
+                                                 key, (size_t)1024);
+        *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SSHKDF_XCGHASH,
+                                                 xcghash, (size_t)32);
+        *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SSHKDF_SESSION_ID,
+                                                 session_id, (size_t)32);
+        *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_SSHKDF_TYPE,
+                                                &amp;type, sizeof(type));
+        *p = OSSL_PARAM_construct_end();
+        if (EVP_KDF_derive(kctx, out, outlen, params) &lt;= 0)
+            /* Error */
+
+CONFORMING TO
+       RFC 4253
+
+SEE ALSO
+       EVP_KDF(3), EVP_KDF_CTX_new(3), EVP_KDF_CTX_free(3), EVP_KDF_CTX_set_params(3), EVP_KDF_CTX_get_kdf_size(3),
+       EVP_KDF_derive(3), "PARAMETERS" in EVP_KDF(3)
+
+HISTORY
+       This functionality was added in OpenSSL 3.0.
+
+COPYRIGHT
+       Copyright 2016-2022 The OpenSSL Project Authors. All Rights Reserved.
+
+       Licensed under the Apache License 2.0 (the "License").  You may not use this file except in compliance with the License.
+       You can obtain a copy in the file LICENSE in the source distribution or at &lt;https://www.openssl.org/source/license.html&gt;.
+
+3.0.8                                                        2023-05-24                                        EVP_KDF-SSHKDF(7SSL)
+</pre>
+</body>
+</html>

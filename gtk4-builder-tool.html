@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GTK4-BUILDER-TOOL()                                                                                             GTK4-BUILDER-TOOL()
+
+NAME
+       gtk4-builder-tool - GtkBuilder File Utility
+
+SYNOPSIS
+       gtk4-builder-tool &lt;COMMAND&gt; [OPTIONS...] &lt;FILE&gt;
+
+       gtk4-builder-tool validate [OPTIONS...] &lt;FILE&gt;
+       gtk4-builder-tool enumerate [OPTIONS...] &lt;FILE&gt;
+       gtk4-builder-tool simplify [OPTIONS...] &lt;FILE&gt;
+       gtk4-builder-tool preview [OPTIONS...] &lt;FILE&gt;
+       gtk4-builder-tool screenshot [OPTIONS...] &lt;FILE&gt;
+
+DESCRIPTION
+       gtk4-builder-tool can perform various operations on GtkBuilder UI definition files.
+
+COMMANDS
+   Validation
+       The validate command validates the given UI definition file and reports errors to stderr.
+
+       Note  that  there  are  limitations  to  the  validation  that can be done for templates, since they are closely tied to the
+       class_init function they are used in.  If your UI file uses types from third-party libraries, it may help to add  those  li‐
+       braries to the LD_PRELOAD environment variable.
+
+       --deprecations
+          Warn about uses of deprecated types in the UI definition file.
+
+   Enumeration
+       The enumerate command prints all the named objects that are present in the UI definition file.
+
+       --callbacks
+          Print the names of callbacks as well.
+
+   Preview
+       The preview command displays the UI definition file.
+
+       This command accepts options to specify the ID of the toplevel object and a CSS file to use.
+
+       --id=ID
+          The ID of the object to preview. If not specified, gtk4-builder-tool will choose a suitable object on its own.
+
+       --css=FILE
+          Load style information from the given CSS file.
+
+   Screenshot
+       The  screenshot  command  saves  a  rendering of the UI definition file as a png image or node file. The name of the file to
+       write can be specified as a second FILE argument.
+
+       This command accepts options to specify the ID of the toplevel object and a CSS file to use.
+
+       --id=ID
+          The ID of the object to preview. If not specified, gtk4-builder-tool will choose a suitable object on its own.
+
+       --css=FILE
+          Load style information from the given CSS file.
+
+       --node
+          Write a serialized node file instead of a png image.
+
+       --force
+          Overwrite an existing file.
+
+   Simplification
+       The simplify command simplifies the UI definition file by removing properties that are  set  to  their  default  values  and
+       writes the resulting XML to the standard output, or back to the input file.
+
+       When  the  --3to4 option is specified, the simplify command interprets the input as a GTK 3 UI definuition file and attempts
+       to convert it to GTK 4 equivalents. It performs various conversions, such as renaming properties, translating child  proper‐
+       ties to layout properties, rewriting the setup for GtkNotebook, GtkStack, GtkAssistant  or changing toolbars into boxes.
+
+       You should always test the modified UI definition files produced by gtk4-builder-tool before using them in production.
+
+       Note  in  particular that the conversion done with --3to4 is meant as a starting point for a port from GTK 3 to GTK 4. It is
+       expected that you will have to do manual fixups  after the initial conversion.
+
+       --replace
+          Write the content back to the UI definition file instead of using the standard output.
+
+       --3to4
+          Transform a GTK 3 UI definition file to the equivalent GTK 4 definitions.
+
+                                                                                                                GTK4-BUILDER-TOOL()
+</pre>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>ilogb(3)                                              Library Functions Manual                                             ilogb(3)
+
+NAME
+       ilogb, ilogbf, ilogbl - get integer exponent of a floating-point value
+
+LIBRARY
+       Math library (libm, -lm)
+
+SYNOPSIS
+       #include &lt;math.h&gt;
+
+       int ilogb(double x);
+       int ilogbf(float x);
+       int ilogbl(long double x);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       ilogb():
+           _ISOC99_SOURCE || _POSIX_C_SOURCE &gt;= 200112L
+               || _XOPEN_SOURCE &gt;= 500
+               || /* Since glibc 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+       ilogbf(), ilogbl():
+           _ISOC99_SOURCE || _POSIX_C_SOURCE &gt;= 200112L
+               || /* Since glibc 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       These  functions  return the exponent part of their argument as a signed integer.  When no error occurs, these functions are
+       equivalent to the corresponding logb(3) functions, cast to int.
+
+RETURN VALUE
+       On success, these functions return the exponent of x, as a signed integer.
+
+       If x is zero, then a domain error occurs, and the functions return FP_ILOGB0.
+
+       If x is a NaN, then a domain error occurs, and the functions return FP_ILOGBNAN.
+
+       If x is negative infinity or positive infinity, then a domain error occurs, and the functions return INT_MAX.
+
+ERRORS
+       See math_error(7) for information on how to determine whether an error has occurred when calling these functions.
+
+       The following errors can occur:
+
+       Domain error: x is 0 or a NaN
+              An invalid floating-point exception (FE_INVALID) is raised, and errno is set to EDOM (but see BUGS).
+
+       Domain error: x is an infinity
+              An invalid floating-point exception (FE_INVALID) is raised, and errno is set to EDOM (but see BUGS).
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │ilogb(), ilogbf(), ilogbl()                                                                      │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       C99, POSIX.1-2001, POSIX.1-2008.
+
+BUGS
+       Before glibc 2.16, the following bugs existed in the glibc implementation of these functions:
+
+       •  The domain error case where x is 0 or a NaN did not cause errno to be set or (on some architectures)  raise  a  floating-
+          point exception.
+
+       •  The domain error case where x is an infinity did not cause errno to be set or raise a floating-point exception.
+
+SEE ALSO
+       log(3), logb(3), significand(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                    ilogb(3)
+</pre>
+</body>
+</html>

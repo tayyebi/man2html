@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DISTRO-INFO(1)                                        General Commands Manual                                        DISTRO-INFO(1)
+
+NAME
+       distro-info - provides information about the distributions' releases
+
+SYNOPSIS
+       distro-info [OPTIONS]
+
+DESCRIPTION
+       distro-info  is a symlink to the distro-info command for your distribution.  On Debian it links to debian-distro-info and on
+       Ubuntu it links to ubuntu-distro-info.  All options described in this manual page are available in all distro-info commands.
+       All other options, which are not described here, are distribution specific.
+
+OPTIONS
+       --date=DATE
+              date for calculating the version (default: today)
+
+       -h, --help
+              display help message and exit
+
+       -a, --all
+              list all known versions
+
+       -y[MILESTONE], --days[=MILESTONE]
+              display number of days until specified version reaches the specified milestone.  MILESTONE may be one of created, re‐
+              lease, eol, or eol-server.  If no milestone is specified, assume release.  For options that return  a  list,  display
+              the normal output followed by whitespace and the number of days until the specified milestone.
+
+       -d, --devel
+              latest development version
+
+       --series=SERIES
+              series to calculate the version for
+
+       -s, --stable
+              latest stable version
+
+       --supported
+              list of all supported versions, including development releases
+
+       --unsupported
+              list of all unsupported stable versions
+
+       -c, --codename
+              print the codename (default)
+
+       -r, --release
+              print the release version
+
+       -f, --fullname
+              print the full name
+
+SEE ALSO
+       debian-distro-info(1), ubuntu-distro-info(1)
+
+AUTHOR
+       The script and this manual page was written by Benjamin Drung &lt;bdrung@debian.org&gt;.
+
+distro-info                                                 August 2013                                              DISTRO-INFO(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>snmp.conf(5)                                                OpenPrinting                                               snmp.conf(5)
+
+NAME
+       snmp.conf - snmp configuration file for cups (deprecated)
+
+DESCRIPTION
+       The  snmp.conf file configures how the standard CUPS network backends (http, https, ipp, ipps, lpd, snmp, and socket) access
+       printer information using SNMPv1 and is normally located in the /etc/cups directory.  Each line in the file can be a config‐
+       uration directive, a blank line, or a comment. Comment lines start with the # character.
+
+       The  Community  and  DebugLevel  directives  are  used by all backends. The remainder apply only to the SNMP backend - cups-
+       snmp(8).
+
+DIRECTIVES
+       The following directives are understood by the CUPS network backends:
+
+       Address @IF(name)
+
+       Address @LOCAL
+
+       Address address
+            Sends SNMP broadcast queries (for discovery) to the specified address(es).  There is no default for the  broadcast  ad‐
+            dress.
+
+       Community name
+            Specifies  the  community  name  to use.  Only a single community name may be specified.  The default community name is
+            "public".  If no name is specified, all SNMP functions are disabled.
+
+       DebugLevel number
+            Specifies the logging level from 0 (none) to 3 (everything).  Typically only used for debugging (thus the  name).   The
+            default debug level is 0.
+
+       DeviceURI "regular expression" device-uri [... device-uri]
+            Specifies  one  or  more  device URIs that should be used for a given make and model string.  The regular expression is
+            used to match the detected make and model, and the device URI strings must be of the form  "scheme://%s[:port]/[path]",
+            where "%s" represents the detected address or hostname.  There are no default device URI matching rules.
+
+       HostNameLookups on
+
+       HostNameLookups off
+            Specifies  whether the addresses of printers should be converted to hostnames or left as numeric IP addresses.  The de‐
+            fault is "off".
+
+       MaxRunTime seconds
+            Specifies the maximum number of seconds that the SNMP backend will scan the network for printers.  The default  is  120
+            seconds (2 minutes).
+
+NOTES
+       CUPS backends are deprecated and will no longer be supported in a future feature release of CUPS.  Printers that do not sup‐
+       port IPP can be supported using applications such as ippeveprinter(1).
+
+SEE ALSO
+       cups-snmp(8), CUPS Online Help (http://localhost:631/help)
+
+COPYRIGHT
+       Copyright © 2021-2022 by OpenPrinting.
+
+2021-02-28                                                      CUPS                                                   snmp.conf(5)
+</pre>
+</body>
+</html>

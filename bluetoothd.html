@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>BLUETOOTHD(8)                                        System management commands                                       BLUETOOTHD(8)
+
+NAME
+       bluetoothd - Bluetooth daemon
+
+SYNOPSIS
+       bluetoothd [--version] | [--help]
+
+       bluetoothd  [--nodetach]  [--compat] [--experimental] [--debug=&lt;files&gt;] [--plugin=&lt;plugins&gt;] [--noplugin=&lt;plugins&gt;]
+
+DESCRIPTION
+       This  manual page documents briefly the bluetoothd daemon, which manages all the Bluetooth devices. bluetoothd can also pro‐
+       vide a number of services via the D-Bus message bus system.
+
+OPTIONS
+       -v, --version
+              Print bluetoothd version and exit.
+
+       -h, --help
+              Print bluetoothd options and exit.
+
+       -n, --nodetach
+              Enable logging in foreground. Directs log output to the controlling terminal in addition to syslog.
+
+       -f, --configfile
+              Specifies an explicit config file path instead of relying on the default path(/etc/bluetooth/main.conf) for the  con‐
+              fig file.
+
+       -d, --debug=&lt;file1&gt;:&lt;file2&gt;:...
+              Sets  how  much information bluetoothd sends to the log destination (usually syslog's "daemon" facility). If the file
+              options are omitted, then debugging information from all the source files are printed. If file options  are  present,
+              then  only debug prints from that source file are printed. The option can be a pattern containing "*" and "?" charac‐
+              ters.
+
+              Example: --debug=src/adapter.c:src/agent.c
+
+       -p, --plugin=&lt;plugin1&gt;,&lt;plugin2&gt;,..
+              Load these plugins only. The option can be a pattern containing  "*" and "?" characters.
+
+       -P, --noplugin=&lt;plugin1&gt;,&lt;plugin2&gt;,..
+              Never load these plugins. The option can be a pattern containing "*" and "?"  characters.
+
+       -C, --compat
+              Provide deprecated command line interfaces.
+
+       -E, --experimental
+              Enable experimental interfaces. Those interfaces are not guaranteed to be compatible or present in future releases.
+
+       -K, --kernel=&lt;uuid1&gt;,&lt;uuid2&gt;,...
+              Enable Kernel experimental features. Kernel experimental features are considered unstable and may be removed from fu‐
+              ture kernel releases.
+
+FILES
+       /etc/bluetooth/main.conf
+              Location of the global configuration file.
+
+RESOURCES
+       http://www.bluez.org
+
+REPORTING BUGS
+       linux-bluetooth@vger.kernel.org
+
+AUTHOR
+       Marcel Holtmann, Philipp Matthias Hahn, Fredrik Noring
+
+COPYRIGHT
+       Free use of this software is granted under ther terms of the GNU Lesser General Public Licenses (LGPL).
+
+BlueZ                                                       March, 2004                                               BLUETOOTHD(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>ARPTABLES-SAVE(8)                                                                                                 ARPTABLES-SAVE(8)
+
+NAME
+       arptables-save - dump arptables rules to stdout (nft-based)
+
+SYNOPSIS
+       arptables-save [-M modprobe] [-c]
+
+       arptables-save [-V]
+
+DESCRIPTION
+       arptables-save  is  used to dump the contents of an ARP Table in easily parseable format to STDOUT. Use I/O-redirection pro‐
+       vided by your shell to write to a file.
+
+       -M, --modprobe modprobe_program
+              Specify the path to the modprobe program. By default, arptables-save will inspect /proc/sys/kernel/modprobe to deter‐
+              mine the executable's path.
+
+       -c, --counters
+              Include the current values of all packet and byte counters in the output.
+
+       -V, --version
+              Print version information and exit.
+
+AUTHOR
+       Jesper Dangaard Brouer &lt;brouer@redhat.com&gt;
+
+SEE ALSO
+       arptables-restore(8), arptables(8)
+
+                                                             March 2019                                           ARPTABLES-SAVE(8)
+</pre>
+</body>
+</html>

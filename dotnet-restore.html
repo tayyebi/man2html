@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-restore(1)                                        .NET Documentation                                       dotnet-restore(1)
+
+dotnet restore
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-restore - Restores the dependencies and tools of a project.
+
+SYNOPSIS
+              dotnet restore [&lt;ROOT&gt;] [--configfile &lt;FILE&gt;] [--disable-parallel]
+                  [-f|--force] [--force-evaluate] [--ignore-failed-sources]
+                  [--interactive] [--lock-file-path &lt;LOCK_FILE_PATH&gt;] [--locked-mode]
+                  [--no-cache] [--no-dependencies] [--packages &lt;PACKAGES_DIRECTORY&gt;]
+                  [-r|--runtime &lt;RUNTIME_IDENTIFIER&gt;] [-s|--source &lt;SOURCE&gt;]
+                  [--use-lock-file] [-v|--verbosity &lt;LEVEL&gt;]
+
+              dotnet restore -h|--help
+
+DESCRIPTION
+       The  dotnet  restore  command uses NuGet to restore dependencies as well as project-specific tools that are specified in the
+       project file.  In most cases, you don’t need to explicitly use the dotnet restore command, since a NuGet restore is run  im‐
+       plicitly if necessary when you run the following commands:
+
+       • dotnet new
+
+       • dotnet build
+
+       • dotnet build-server
+
+       • dotnet run
+
+       • dotnet test
+
+       • dotnet publish
+
+       • dotnet pack
+
+       Sometimes, it might be inconvenient to run the implicit NuGet restore with these commands.  For example, some automated sys‐
+       tems, such as build systems, need to call dotnet restore explicitly to control when the restore occurs so that they can con‐
+       trol  network usage.  To prevent the implicit NuGet restore, you can use the --no-restore flag with any of these commands to
+       disable implicit restore.
+
+              Signed package verification during restore operations requires a certificate root store that is valid for  both  code
+              signing and timestamping.  See NuGet signed package verification for details.
+
+   Specify feeds
+       To  restore  the  dependencies,  NuGet  needs  the feeds where the packages are located.  Feeds are usually provided via the
+       nuget.config configuration file.  A default configuration file is provided when the .NET SDK is installed.  To specify addi‐
+       tional feeds, do one of the following:
+
+       • Create  your  own  nuget.config  file in the project directory.  For more information, see Common NuGet configurations and
+         nuget.config differences later in this article.
+
+       • Use dotnet nuget commands such as dotnet nuget add source.
+
+       You can override the nuget.config feeds with the -s option.
+
+       For information about how to use authenticated feeds, see Consuming packages from authenticated feeds.
+
+   Global packages folder
+       For dependencies, you can specify where the restored packages are placed during the restore operation using  the  --packages
+       argument.  If not specified, the default NuGet package cache is used, which is found in the .nuget/packages directory in the
+       user’s home directory on all operating systems.  For example, /home/user1 on Linux or C: on Windows.
+
+   Project-specific tooling
+       For project-specific tooling, dotnet restore first restores the package in which the tool is packed, and  then  proceeds  to
+       restore the tool’s dependencies as specified in its project file.
+
+   nuget.config differences
+       The  behavior  of the dotnet restore command is affected by the settings in the nuget.config file, if present.  For example,
+       setting the globalPackagesFolder in nuget.config places the restored NuGet packages in the specified folder.  This is an al‐
+       ternative  to  specifying  the  --packages option on the dotnet restore command.  For more information, see the nuget.config
+       reference.
+
+       There are three specific settings that dotnet restore ignores:
+
+       • bindingRedirects
+
+         Binding redirects don’t work with &lt;PackageReference&gt; elements and .NET only supports &lt;PackageReference&gt; elements for NuGet
+         packages.
+
+       • solution
+
+         This setting is Visual Studio specific and doesn’t apply to .NET.  .NET doesn’t use a packages.config file and instead us‐
+         es &lt;PackageReference&gt; elements for NuGet packages.
+
+       • trustedSigners
+
+         Support for cross-platform package signature verification was added in the .NET 5.0.100 SDK.
+
+   Workload manifest downloads
+       When you run this command, it initiates an asynchronous background download of advertising manifests for workloads.  If  the
+       download  is still running when this command finishes, the download is stopped.  For more information, see Advertising mani‐
+       fests.
+
+ARGUMENTS
+       • ROOT
+
+         Optional path to the project file to restore.
+
+OPTIONS
+       • --configfile &lt;FILE&gt;
+
+         The NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If  not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • --disable-parallel
+
+         Disables restoring multiple projects in parallel.
+
+       • --force
+
+         Forces all dependencies to be resolved even if the last restore was successful.  Specifying  this  flag  is  the  same  as
+         deleting the project.assets.json file.
+
+       • --force-evaluate
+
+         Forces restore to reevaluate all dependencies even if a lock file already exists.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --ignore-failed-sources
+
+         Only warn about failed sources if there are packages meeting the version requirement.
+
+       • --interactive
+
+         Allows the command to stop and wait for user input or action.  For example, to complete authentication.
+
+       • --lock-file-path &lt;LOCK_FILE_PATH&gt;
+
+         Output location where project lock file is written.  By default, this is PROJECT_ROOT.lock.json.
+
+       • --locked-mode
+
+         Don’t allow updating project lock file.
+
+       • --no-cache
+
+         Specifies to not cache HTTP requests.
+
+       • --no-dependencies
+
+         When restoring a project with project-to-project (P2P) references, restores the root project and not the references.
+
+       • --packages &lt;PACKAGES_DIRECTORY&gt;
+
+         Specifies the directory for restored packages.
+
+       • -r|--runtime &lt;RUNTIME_IDENTIFIER&gt;
+
+         Specifies  a  runtime for the package restore.  This is used to restore packages for runtimes not explicitly listed in the
+         &lt;RuntimeIdentifiers&gt; tag in the .csproj file.  For a list of Runtime Identifiers (RIDs), see the RID catalog.
+
+       • -s|--source &lt;SOURCE&gt;
+
+         Specifies the URI of the NuGet package source to use during the restore operation.  This  setting  overrides  all  of  the
+         sources specified in the nuget.config files.  Multiple sources can be provided by specifying this option multiple times.
+
+       • --use-lock-file
+
+         Enables project lock file to be generated and used with restore.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+EXAMPLES
+       • Restore dependencies and tools for the project in the current directory:
+
+                dotnet restore
+
+       • Restore dependencies and tools for the app1 project found in the given path:
+
+                dotnet restore ./projects/app1/app1.csproj
+
+       • Restore the dependencies and tools for the project in the current directory using the file path provided as the source:
+
+                dotnet restore -s c:\packages\mypackages
+
+       • Restore the dependencies and tools for the project in the current directory using the two file paths provided as sources:
+
+                dotnet restore -s c:\packages\mypackages -s c:\packages\myotherpackages
+
+       • Restore dependencies and tools for the project in the current directory showing detailed output:
+
+                dotnet restore --verbosity detailed
+
+                                                             2022-11-08                                           dotnet-restore(1)
+</pre>
+</body>
+</html>

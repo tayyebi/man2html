@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>BIO(7SSL)                                                     OpenSSL                                                     BIO(7SSL)
+
+NAME
+       bio - Basic I/O abstraction
+
+SYNOPSIS
+        #include &lt;openssl/bio.h&gt;
+
+DESCRIPTION
+       A BIO is an I/O abstraction, it hides many of the underlying I/O details from an application. If an application uses a BIO
+       for its I/O it can transparently handle SSL connections, unencrypted network connections and file I/O.
+
+       There are two types of BIO, a source/sink BIO and a filter BIO.
+
+       As its name implies a source/sink BIO is a source and/or sink of data, examples include a socket BIO and a file BIO.
+
+       A filter BIO takes data from one BIO and passes it through to another, or the application. The data may be left unmodified
+       (for example a message digest BIO) or translated (for example an encryption BIO). The effect of a filter BIO may change
+       according to the I/O operation it is performing: for example an encryption BIO will encrypt data if it is being written to
+       and decrypt data if it is being read from.
+
+       BIOs can be joined together to form a chain (a single BIO is a chain with one component). A chain normally consists of one
+       source/sink BIO and one or more filter BIOs. Data read from or written to the first BIO then traverses the chain to the end
+       (normally a source/sink BIO).
+
+       Some BIOs (such as memory BIOs) can be used immediately after calling BIO_new(). Others (such as file BIOs) need some
+       additional initialization, and frequently a utility function exists to create and initialize such BIOs.
+
+       If BIO_free() is called on a BIO chain it will only free one BIO resulting in a memory leak.
+
+       Calling BIO_free_all() on a single BIO has the same effect as calling BIO_free() on it other than the discarded return
+       value.
+
+       Normally the type argument is supplied by a function which returns a pointer to a BIO_METHOD. There is a naming convention
+       for such functions: a source/sink BIO typically starts with BIO_s_ and a filter BIO with BIO_f_.
+
+EXAMPLES
+       Create a memory BIO:
+
+        BIO *mem = BIO_new(BIO_s_mem());
+
+SEE ALSO
+       BIO_ctrl(3), BIO_f_base64(3), BIO_f_buffer(3), BIO_f_cipher(3), BIO_f_md(3), BIO_f_null(3), BIO_f_ssl(3),
+       BIO_f_readbuffer(3), BIO_find_type(3), BIO_new(3), BIO_new_bio_pair(3), BIO_push(3), BIO_read_ex(3), BIO_s_accept(3),
+       BIO_s_bio(3), BIO_s_connect(3), BIO_s_fd(3), BIO_s_file(3), BIO_s_mem(3), BIO_s_null(3), BIO_s_socket(3),
+       BIO_set_callback(3), BIO_should_retry(3)
+
+COPYRIGHT
+       Copyright 2000-2021 The OpenSSL Project Authors. All Rights Reserved.
+
+       Licensed under the Apache License 2.0 (the "License").  You may not use this file except in compliance with the License.
+       You can obtain a copy in the file LICENSE in the source distribution or at &lt;https://www.openssl.org/source/license.html&gt;.
+
+3.0.8                                                        2023-05-24                                                   BIO(7SSL)
+</pre>
+</body>
+</html>

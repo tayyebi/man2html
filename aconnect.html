@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>aconnect(1)                                           General Commands Manual                                           aconnect(1)
+
+NAME
+       aconnect - ALSA sequencer connection manager
+
+SYNOPSIS
+       aconnect [-d] [-options] sender receiver
+       aconnect -i|-o [-options]
+       aconnect -x
+
+DESCRIPTION
+       aconnect  is  a utility to connect and disconnect two existing ports on ALSA sequencer system.  The ports with the arbitrary
+       subscription permission, such as created by aseqview(1), can be connected to any (MIDI) device ports  using  aconnect.   For
+       example, to connect from port 64:0 to 65:0, run as follows:
+
+           % aconnect 64:0 65:0
+
+       The connection is one-way, and the whole data to the sender port (64:0) is redirected to the receiver port (65:0).  When an‐
+       other port (e.g. 65:1) is attached to the same sender port, the data is sent to both receiver ports.  For disconnection, use
+       -d option.
+
+       % aconnect -d 64:0 65:0
+
+       The address can be given using the client's name.
+
+       % aconnect External:0 Emu8000:1
+
+       Then the port 0 of the client matching with the string "External" is connected to the port 1 of the client matching with the
+       "Emu8000".
+
+       Another function of aconnect is to list the present ports on the given condition.  The input ports, which may become  sender
+       ports, can be listed with -i option.
+
+       % aconnect -i
+       client 0: 'System' [type=kernel]
+           0 'Timer           '
+           1 'Announce        '
+       client 64: 'External MIDI-0' [type=kernel]
+           0 'MIDI 0-0        '
+
+       Similarly, to see the output ports, use -o flag.
+
+       You can remove all existing exported connections using -x option.  This function is useful for terminating the ALSA drivers,
+       because the modules with sequencer connections cannot be unloaded unless their connections are removed.
+
+OPTIONS
+   CONNECTION MANAGEMENT
+       -d, --disconnect
+              Disconnect the given subscription.
+
+       -e, --exclusive
+              Connect ports with exclusive mode.  Both sender and receiver ports can be no longer connected by any other ports.
+
+       -r, --real queue
+              Convert time-stamps of event packets to the current value of the given real-time queue.  This is option is,  however,
+              not so useful, since the receiver port must use (not necessarily own) the specified queue.
+
+       -t, --tick queue
+              Like -r option, but time-stamps are converted to the current value of the given tick queue.
+
+   LIST PORTS
+       -i, --input
+              List existing input (readable) ports.  This option is exclusive to -o.
+
+       -o, --output
+              List existing output (writable) ports.  This option is exclusive to -i.
+
+       -l, --list
+              List  the  current connection status.  The connected and connecting ports from/to each port are listed together.  The
+              suffix flag [ex] means the connection is exclusive.  The suffix flag [real:#] and [tick:#] mean  the  connection  in‐
+              cludes real-time and tick conversion on the listed queue, respectively.
+
+   REMOVE ALL CONNECTIONS
+       -x, --removeall
+              Remove all exported connections.
+
+SEE ALSO
+       aseqnet(1), aseqview(1)
+
+AUTHOR
+       Takashi Iwai &lt;tiwai@suse.de&gt;
+
+                                                          August 31, 2000                                               aconnect(1)
+</pre>
+</body>
+</html>

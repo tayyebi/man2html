@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>getsockname(2)                                          System Calls Manual                                          getsockname(2)
+
+NAME
+       getsockname - get socket name
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;sys/socket.h&gt;
+
+       int getsockname(int sockfd, struct sockaddr *restrict addr,
+                       socklen_t *restrict addrlen);
+
+DESCRIPTION
+       getsockname()  returns  the  current address to which the socket sockfd is bound, in the buffer pointed to by addr.  The ad‐
+       drlen argument should be initialized to indicate the amount of space (in bytes) pointed to by addr.  On return  it  contains
+       the actual size of the socket address.
+
+       The  returned  address  is  truncated if the buffer provided is too small; in this case, addrlen will return a value greater
+       than was supplied to the call.
+
+RETURN VALUE
+       On success, zero is returned.  On error, -1 is returned, and errno is set to indicate the error.
+
+ERRORS
+       EBADF  The argument sockfd is not a valid file descriptor.
+
+       EFAULT The addr argument points to memory not in a valid part of the process address space.
+
+       EINVAL addrlen is invalid (e.g., is negative).
+
+       ENOBUFS
+              Insufficient resources were available in the system to perform the operation.
+
+       ENOTSOCK
+              The file descriptor sockfd does not refer to a socket.
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD (getsockname() first appeared in 4.2BSD).
+
+NOTES
+       For background on the socklen_t type, see accept(2).
+
+SEE ALSO
+       bind(2), socket(2), getifaddrs(3), ip(7), socket(7), unix(7)
+
+Linux man-pages 6.03                                         2022-10-30                                              getsockname(2)
+</pre>
+</body>
+</html>

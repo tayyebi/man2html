@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>ematch(8)                                                      Linux                                                      ematch(8)
+
+NAME
+       ematch - extended matches for use with "basic", "cgroup"  or "flow" filters
+
+SYNOPSIS
+       tc filter add .. basic match EXPR .. flowid ..
+
+       EXPR := TERM [ { and | or } EXPR ]
+
+       TERM := [ not ] { MATCH | '(' EXPR ')' }
+
+       MATCH := module '(' ARGS ')'
+
+       ARGS := ARG1 ARG2 ..
+
+MATCHES
+   cmp
+       Simple comparison ematch: arithmetic compare of packet data to a given value.
+
+       cmp( ALIGN at OFFSET [ ATTRS ] { eq | lt | gt } VALUE )
+
+       ALIGN := { u8 | u16 | u32 }
+
+       ATTRS := [ layer LAYER ] [ mask MASK ] [ trans ]
+
+       LAYER := { link | network | transport | 0..2 }
+
+   meta
+       Metadata ematch
+
+       meta( OBJECT { eq | lt |gt } OBJECT )
+
+       OBJECT := { META_ID |  VALUE }
+
+       META_ID := id [ shift SHIFT ] [ mask MASK ]
+
+       meta attributes:
+
+              random 32 bit random value
+
+              loadavg_1 Load average in last 5 minutes
+
+              nf_mark Netfilter mark
+
+              vlan Vlan tag
+
+              sk_rcvbuf Receive buffer size
+
+              sk_snd_queue Send queue length
+
+       A full list of meta attributes can be obtained via
+
+       # tc filter add dev eth1 basic match 'meta(list)'
+
+   nbyte
+       match packet data byte sequence
+
+       nbyte( NEEDLE at OFFSET [ layer LAYER ] )
+
+       NEEDLE := { string | c-escape-sequence  }
+
+       OFFSET := int
+
+       LAYER := { link | network | transport | 0..2 }
+
+   u32
+       u32 ematch
+
+       u32( ALIGN VALUE MASK at [ nexthdr+ ] OFFSET )
+
+       ALIGN := { u8 | u16 | u32 }
+
+   ipset
+       test packet against ipset membership
+
+       ipset( SETNAME FLAGS )
+
+       SETNAME := string
+
+       FLAGS := { FLAG [, FLAGS] }
+
+       The flag options are the same as those used by the iptables "set" match.
+
+       When using the ipset ematch with the "ip_set_hash:net,iface" set type, the interface can be queried using "src,dst (source
+       ip address, outgoing interface) or "src,src" (source ip address, incoming interface) syntax.
+
+   ipt
+       test packet against xtables matches
+
+       ipt( [-6] -m MATCH_NAME FLAGS )
+
+       MATCH_NAME := string
+
+       FLAGS := { FLAG [, FLAGS] }
+
+       The flag options are the same as those used by the xtable match used.
+
+   canid
+       ematch rule to match CAN frames
+
+       canid( IDLIST )
+
+       IDLIST :=  IDSPEC[IDLIST]
+
+       IDSPEC := { ’sff’ CANID | ’eff’ CANID }
+
+       CANID := ID[:MASK]
+
+       ID, MASK := hexadecimal number (i.e. 0x123)
+
+CAVEATS
+       The ematch syntax uses '(' and ')' to group expressions. All braces need to be escaped properly to prevent shell commandline
+       from interpreting these directly.
+
+       When using the ipset ematch with the "ifb" device, the outgoing device will be the ifb device itself, e.g. "ifb0".  The
+       original interface (i.e. the device the packet arrived on) is treated as the incoming interface.
+
+EXAMPLE &amp; USAGE
+       # tc filter add .. basic match ...
+
+       # 'cmp(u16 at 3 layer 2 mask 0xff00 gt 20)'
+
+       # 'meta(nfmark gt 24)' and 'meta(tcindex mask 0xf0 eq 0xf0)'
+
+       # 'nbyte("ababa" at 12 layer 1)'
+
+       # 'u32(u16 0x1122 0xffff at nexthdr+4)'
+
+       Check if packet source ip address is member of set named bulk:
+
+       # 'ipset(bulk src)'
+
+       Check if packet source ip and the interface the packet arrived on is member of "hash:net,iface" set named interactive:
+
+       # 'ipset(interactive src,src)'
+
+       Check if packet matches an IPSec state with reqid 1:
+
+       # 'ipt(-m policy --dir in --pol ipsec --reqid 1)'
+
+AUTHOR
+       The extended match infrastructure was added by Thomas Graf.
+
+iproute2                                                   6 August 2012                                                  ematch(8)
+</pre>
+</body>
+</html>

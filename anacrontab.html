@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>ANACRONTAB(5)                                          Anacron Users' Manual                                          ANACRONTAB(5)
+
+NAME
+       /etc/anacrontab - configuration file for anacron
+
+DESCRIPTION
+       The  file  /etc/anacrontab  describes  the jobs controlled by anacron(8).  Its lines can be of three kinds:  job-description
+       lines, environment assignments, or empty lines.
+
+       Job-description lines are of one of these two forms:
+
+          period  delay  job-identifier  command
+
+          @period_name delay job-identify command
+
+       The period is specified in days, the delay in minutes.  The job-identifier  can  contain  any  non-blank  character,  except
+       slashes.  It is used to identify the job in Anacron messages, and as the name for the job's timestamp file.  The command can
+       be any shell command. The fields can be separated by blank spaces or tabs.  The period_name can only be set  to  monthly  at
+       the present time. This will ensure jobs are only run once a month, no matter the number of days in this month, or the previ‐
+       ous month.
+
+       Environment assignment lines are of the form:
+
+          VAR = VALUE
+
+       Spaces around VAR are removed.  No spaces around VALUE are allowed (unless you want them to be part of the value).  The  as‐
+       signment takes effect from the next line to the end of the file, or to the next assignment of the same variable.
+
+       Empty  lines  are either blank lines, line containing white-space only, or lines with white-space followed by a '#' followed
+       by an arbitrary comment.
+
+       You can continue a line onto the next line by ending it with a '\'.
+
+SEE ALSO
+       anacron(8)
+
+       The Anacron README file.
+
+AUTHOR
+       Itai Tzur &lt;itzur@actcom.co.il&gt;
+
+       Currently maintained by Pascal Hakim &lt;pasc@(debian.org|redellipse.net)&gt;.
+
+Pascal Hakim                                                 2004-07-11                                               ANACRONTAB(5)
+</pre>
+</body>
+</html>

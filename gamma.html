@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>gamma(3)                                              Library Functions Manual                                             gamma(3)
+
+NAME
+       gamma, gammaf, gammal - (logarithm of the) gamma function
+
+LIBRARY
+       Math library (libm, -lm)
+
+SYNOPSIS
+       #include &lt;math.h&gt;
+
+       [[deprecated]] double gamma(double x);
+       [[deprecated]] float gammaf(float x);
+       [[deprecated]] long double gammal(long double x);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       gamma():
+           _XOPEN_SOURCE
+               || /* Since glibc 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+       gammaf(), gammal():
+           _XOPEN_SOURCE &gt;= 600 || (_XOPEN_SOURCE &amp;&amp; _ISOC99_SOURCE)
+               || /* Since glibc 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       These functions are deprecated: instead, use either the tgamma(3) or the lgamma(3) functions, as appropriate.
+
+       For the definition of the Gamma function, see tgamma(3).
+
+   *BSD version
+       The  libm  in  4.4BSD and some versions of FreeBSD had a gamma() function that computes the Gamma function, as one would ex‐
+       pect.
+
+   glibc version
+       glibc has a gamma() function that is equivalent to lgamma(3) and computes the natural logarithm of the Gamma function.
+
+RETURN VALUE
+       See lgamma(3).
+
+ERRORS
+       See lgamma(3).
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────────────┐
+       │Interface                                                                         │ Attribute     │ Value                  │
+       ├──────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────────┤
+       │gamma(), gammaf(), gammal()                                                       │ Thread safety │ MT-Unsafe race:signgam │
+       └──────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────────────┘
+
+STANDARDS
+       Because of historical variations in behavior across systems, this function is not specified in any recent standard.  It  was
+       documented in SVID 2.
+
+NOTES
+   History
+       4.2BSD  had  a  gamma()  that computed ln(|Gamma(|x|)|), leaving the sign of Gamma(|x|) in the external integer signgam.  In
+       4.3BSD the name was changed to lgamma(3), and the man page promises
+
+           "At some time in the future the name gamma will be rehabilitated and used for the Gamma function"
+
+       This did indeed happen in 4.4BSD, where gamma() computes the Gamma function (with no effect on signgam).  However, this came
+       too late, and we now have tgamma(3), the "true gamma" function.
+
+SEE ALSO
+       lgamma(3), signgam(3), tgamma(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                    gamma(3)
+</pre>
+</body>
+</html>

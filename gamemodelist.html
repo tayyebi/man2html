@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>gamemodelist(1)                                        gamemodelist man page                                        gamemodelist(1)
+
+NAME
+       gamemodelist - search for processes running with gamemode
+
+SYNOPSIS
+       gamemodelist
+
+DESCRIPTION
+       gamemodelist  will  search the runtime of all processes running which started GameMode via libgamemodeauto.so and print them
+       with ps(1) command output.  This helper script makes it easy to find which processes are utilizing GameMode via  libgamemod‐
+       eauto.so when troubleshooting potential game issues.
+
+USAGE
+       libgamemodeauto.so.0  will  be  found  in the shared object maps of running processes utilizing GameMode.  Run the following
+       command to print processes loaded with libgamemodeauto.so.0.  GameMode can be started other ways but this script  will  only
+       detect processes utilizing GameMode via libgamemodeauto.so.
+
+           gamemodelist
+
+OUTPUT
+       The output is a process table from ps(1) command.
+
+           PID PPID USER NI PSR COMMAND
+
+       Where each of these fields are defined in ps(1) manual.  For your convenience here's a definition for each field.
+
+           COLUMN    DESCRIPTION
+           PID       Process ID
+           PPID      Parent process ID
+           USER      User name owning the process.
+           NI        Nice value. This ranges from 19 (nicest)
+                     to  -20  (not  nice  to   others),   See
+                     nice(1).
+           PSR       Processor  that process is currently as‐
+                     signed to.  Useful when setting  process
+                     affinity using taskset(1) utility.
+           COMMAND   Command name (only the executable name).
+
+SEE ALSO
+       gamemodrun(1), nice(1), ps(1), taskset(1).
+
+ABOUT
+       GameMode source can be found at https://github.com/FeralInteractive/gamemode.git
+
+AUTHOR
+       gamemodelist was authored by Sam Gleske (https://github.com/samrocketman/)
+
+       GameMode was authored by Feral Interactive (linux-contact@feralinteractive.com)
+
+1.7                                                          4 May 2020                                             gamemodelist(1)
+</pre>
+</body>
+</html>

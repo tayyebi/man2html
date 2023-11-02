@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-REMOTE-FD(1)                                             Git Manual                                            GIT-REMOTE-FD(1)
+
+NAME
+       git-remote-fd - Reflect smart transport stream back to caller
+
+SYNOPSIS
+       "fd::&lt;infd&gt;[,&lt;outfd&gt;][/&lt;anything&gt;]" (as URL)
+
+DESCRIPTION
+       This helper uses specified file descriptors to connect to a remote Git server. This is not meant for end users but for
+       programs and scripts calling git fetch, push or archive.
+
+       If only &lt;infd&gt; is given, it is assumed to be a bidirectional socket connected to remote Git server (git-upload-pack,
+       git-receive-pack or git-upload-archive). If both &lt;infd&gt; and &lt;outfd&gt; are given, they are assumed to be pipes connected to a
+       remote Git server (&lt;infd&gt; being the inbound pipe and &lt;outfd&gt; being the outbound pipe.
+
+       It is assumed that any handshaking procedures have already been completed (such as sending service request for git://)
+       before this helper is started.
+
+       &lt;anything&gt; can be any string. It is ignored. It is meant for providing information to user in the URL in case that URL is
+       displayed in some context.
+
+ENVIRONMENT VARIABLES
+       GIT_TRANSLOOP_DEBUG
+           If set, prints debugging information about various reads/writes.
+
+EXAMPLES
+       git fetch fd::17 master
+           Fetch master, using file descriptor #17 to communicate with git-upload-pack.
+
+       git fetch fd::17/foo master
+           Same as above.
+
+       git push fd::7,8 master (as URL)
+           Push master, using file descriptor #7 to read data from git-receive-pack and file descriptor #8 to write data to same
+           service.
+
+       git push fd::7,8/bar master
+           Same as above.
+
+SEE ALSO
+       gitremote-helpers(7)
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                            GIT-REMOTE-FD(1)
+</pre>
+</body>
+</html>

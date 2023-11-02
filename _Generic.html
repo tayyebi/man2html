@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>_Generic(3)                                           Library Functions Manual                                          _Generic(3)
+
+NAME
+       _Generic - type-generic selection
+
+SYNOPSIS
+       _Generic(expression, type1: e1, ... /*, default: e */);
+
+DESCRIPTION
+       _Generic()  evaluates  the  path of code under the type selector that is compatible with the type of the controlling expres‐
+       sion, or default: if no type is compatible.
+
+       expression is not evaluated.
+
+       This is especially useful for writing type-generic macros, that will behave differently depending on the type of  the  argu‐
+       ment.
+
+STANDARDS
+       C11 and later.
+
+EXAMPLES
+       The  following  program demonstrates how to write a replacement for the standard imaxabs(3) function, which being a function
+       can't really provide what it promises: seamlessly upgrading to the widest available type.
+
+              #include &lt;stdint.h&gt;
+              #include &lt;stdio.h&gt;
+              #include &lt;stdlib.h&gt;
+
+              #define my_imaxabs  _Generic(INTMAX_C(0),  \
+                  long:           labs,                  \
+                  long long:      llabs                  \
+               /* long long long: lllabs */              \
+              )
+
+              int
+              main(void)
+              {
+                  off_t  a;
+
+                  a = -42;
+                  printf("imaxabs(%jd) == %jd\n", (intmax_t) a, my_imaxabs(a));
+                  printf("&amp;imaxabs == %p\n", &amp;my_imaxabs);
+                  printf("&amp;labs    == %p\n", &amp;labs);
+                  printf("&amp;llabs   == %p\n", &amp;llabs);
+
+                  exit(EXIT_SUCCESS);
+              }
+
+Linux man-pages 6.03                                         2023-02-12                                                 _Generic(3)
+</pre>
+</body>
+</html>

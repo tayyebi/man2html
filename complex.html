@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>complex(7)                                        Miscellaneous Information Manual                                       complex(7)
+
+NAME
+       complex - basics of complex mathematics
+
+SYNOPSIS
+       #include &lt;complex.h&gt;
+
+DESCRIPTION
+       Complex numbers are numbers of the form z = a+b*i, where a and b are real numbers and i = sqrt(-1), so that i*i = -1.
+
+       There  are other ways to represent that number.  The pair (a,b) of real numbers may be viewed as a point in the plane, given
+       by X- and Y-coordinates.  This same point may also be described by giving the pair of real numbers (r,phi), where r  is  the
+       distance   to  the  origin  O,  and  phi  the  angle  between  the  X-axis  and  the  line  Oz.   Now  z  =  r*exp(i*phi)  =
+       r*(cos(phi)+i*sin(phi)).
+
+       The basic operations are defined on z = a+b*i and w = c+d*i as:
+
+       addition: z+w = (a+c) + (b+d)*i
+
+       multiplication: z*w = (a*c - b*d) + (a*d + b*c)*i
+
+       division: z/w = ((a*c + b*d)/(c*c + d*d)) + ((b*c - a*d)/(c*c + d*d))*i
+
+       Nearly all math function have a complex counterpart but there are some complex-only functions.
+
+EXAMPLES
+       Your C-compiler can work with complex numbers if it supports the C99 standard.  Link with -lm.  The imaginary unit is repre‐
+       sented by I.
+
+       /* check that exp(i * pi) == -1 */
+       #include &lt;math.h&gt;        /* for atan */
+       #include &lt;stdio.h&gt;
+       #include &lt;complex.h&gt;
+
+       int
+       main(void)
+       {
+           double pi = 4 * atan(1.0);
+           double complex z = cexp(I * pi);
+           printf("%f + %f * i\n", creal(z), cimag(z));
+       }
+
+SEE ALSO
+       cabs(3),  cacos(3),  cacosh(3),  carg(3),  casin(3),  casinh(3),  catan(3),  catanh(3), ccos(3), ccosh(3), cerf(3), cexp(3),
+       cexp2(3), cimag(3), clog(3), clog10(3),  clog2(3),  conj(3),  cpow(3),  cproj(3),  creal(3),  csin(3),  csinh(3),  csqrt(3),
+       ctan(3), ctanh(3)
+
+Linux man-pages 6.03                                         2022-10-30                                                  complex(7)
+</pre>
+</body>
+</html>

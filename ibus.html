@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>IBUS(1)                                                    User Commands                                                    IBUS(1)
+
+NAME
+       ibus - command line utility for ibus
+
+SYNOPSIS
+       ibus COMMAND [OPTION]...
+
+DESCRIPTION
+       IBus  is an Intelligent Input Bus. It is a new input framework for Linux OS. It provides full featured and user friendly in‐
+       put method user interface.  It also may help developers to develop input method easily.
+
+       ibus is a command line utility which can restart or exit ibus-daemon, get or set the current ibus engine or  list  the  ibus
+       engines.
+
+       Homepage: https://github.com/ibus/ibus/wiki
+
+COMMAND
+       help   Show the commands list.
+
+       engine [ENGINE_NAME]
+              Show the curent ibus engine when ENGINE_NAME is not given. Set ENGINE_NAME to the current ibus engine.
+
+       exit   Exit ibus-daemon.
+
+       list-engine
+              Show ibus engines list.
+
+       restart [--type=TYPE|--verbose|--help]
+              Restart ibus-daemon. This command tries to restart ibus-daemon via systemd firstly and directly secondary by default.
+              If --type=systemd is given, It tries to restart via systemd only. If --type=direct is given, It tries to restart with
+              an IBus API only. GNOME desktop runs ibus-daemon via systemd and other desktops run ibus-daemon directly.
+
+       start [--type=TYPE|--verbose|--help]
+              Start  ibus-daemon. This command tries to start ibus-daemon via systemd firstly and directly secondary by default. If
+              --type=systemd is given, It tries to start as a background process via systemd only. If --type=direct  is  given,  It
+              tries to start directly only as a foreground process and other option arguments of ibus command are sent to ibus-dae‐
+              mon. E.g.  ibus start --type=direct --xim &amp; GNOME desktop runs ibus-daemon via systemd and other desktops  run  ibus-
+              daemon directly.
+
+       version
+              Show the ibus version.
+
+       read-cache [--system|--file=FILE|--help]
+              Show  the content of the user registry cache if --system is not given.  Show the content of the system registry cache
+              if --system is given.  Show the content of the custom registry cache FILE if --file=FILE is given.
+
+       write-cache [--system|--file=FILE|--help]
+              Save the user registry cache if --system is not given.  Save the system registry cache if --system  is  given.   Save
+              the custom registry cache FILE if --file=FILE is given.
+
+              By  default,  it reads the component XML files from the standard component directory (/usr/share/ibus/component), you
+              can set IBUS_COMPONENT_PATH environment variable for custom component directories, separated by ':'.
+
+       address
+              Show the D-Bus address of ibus-daemon.
+
+       read-config
+              Print the setting values in a gsettings configuration file.
+
+       reset-config
+              Reset the user setting values to the default ones in a gsettings configuration file.
+
+       watch  Under construction.
+
+       emoji [--font=FONT|--lang=LANG|--help|--partial-match]
+              Launch IBus Emojier ( ibus-emoji (1) ) and save the selected emoji to your clipboard. Can choose an emoji  font  with
+              --font  option.  Can  choose  a  language  of  emoji annotations with --lang option. If LANG="en", IBus Emojier loads
+              /usr/share/ibus/dicts/emoji-en.dict .  --partial-match option enables to match annotations  with  a  partial  string.
+              These settings are available with ibus-setup (1) utility.
+
+       im-module [--type=TYPE|--help]
+              Show an internal im-module value in a virtual GTK application. If IBus is installed and configured properly, the out‐
+              put is "ibus". This sub-command is useful for some users who build IBus from the source codes and check the  configu‐
+              rations.  Currently  the  sub-command  supports GTK applications only and the default is GTK3. If you wish to check a
+              GTK4 application, you can specify --type=gtk4 option and you can choose one of "gtk2", "gtk3" and "gtk4".
+
+BUGS
+       If you find a bug, please report it at https://github.com/ibus/ibus/issues
+
+SEE ALSO
+       ibus-emoji(7)
+
+1.5.28                                                        Jul 2022                                                      IBUS(1)
+</pre>
+</body>
+</html>

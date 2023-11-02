@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>E2SCRUB(8)                                            System Manager's Manual                                            E2SCRUB(8)
+
+NAME
+       e2scrub_all - check all mounted ext[234] file systems for errors.
+
+SYNOPSIS
+       e2scrub_all [OPTION]
+
+DESCRIPTION
+       Searches the system for all LVM logical volumes containing an ext2, ext3, or ext4 file system, and checks them for problems.
+       The checking is performed by invoking the e2scrub tool, which will look for  corruptions.   Corrupt  file  systems  will  be
+       tagged  as  having  errors so that fsck will be invoked before the next mount.  If no errors are encountered, fstrim will be
+       called on the file system if it is mounted.  See the e2scrub manual page for more information about how the checking is per‐
+       formed.
+
+OPTIONS
+       -n     Print what commands e2scrub_all would execute to initiate the e2scrub operations.  (Note: these commands will not ac‐
+              tually be executed; however, since e2scrub_all needs to run some additional, privileged commands to query the  system
+              to determine which e2scrub commands would be executed, it still needs to be run as root.)
+
+       -r     Remove e2scrub snapshots but do not check anything.
+
+       -A     Scrub all ext[234] file systems even if they are not mounted.
+
+       -V     Print version information and exit.
+
+SEE ALSO
+       e2scrub(8)
+
+AUTHOR
+       Darrick J. Wong &lt;darrick.wong@oracle.com&gt;
+
+COPYRIGHT
+       Copyright ©2018 Oracle.  License is GPLv2+. &lt;http://www.gnu.org/licenses/gpl-2.0.html&gt;
+
+E2fsprogs version 1.47.0                                   February 2023                                                 E2SCRUB(8)
+</pre>
+</body>
+</html>

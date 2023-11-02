@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>File::MimeInfo::Rox(3pm)                        User Contributed Perl Documentation                        File::MimeInfo::Rox(3pm)
+
+NAME
+       File::MimeInfo::Rox - Open files by mimetype "Rox style"
+
+SYNOPSIS
+         use File::MimeInfo::Magic;
+         use File::MimeInfo::Rox qw/:magic/;
+
+         # open some file with the appropriate program
+         mime_system($somefile);
+
+         # more verbose version
+         my $mt = mimetype($somefile)
+           || die "Could not find mimetype for $somefile\n";
+         mime_system($somefile, $mt)
+           || die "No program to open $somefile available\n";
+
+DESCRIPTION
+       This module tries to mimic the behaviour of the rox file browser &lt;http://rox.sf.net&gt; when "opening" data files.  It
+       determines the mime type and searches in rox's "Choices" directories for a program to handle that mimetype.
+
+       See the rox documentation for an extensive discussion of this mechanism.
+
+EXPORT
+       The methods "mime_exec" and "mime_system" are exported, if you use the export tag ":magic" you get the same methods but
+       File::MimeInfo::Magic will be used for mimetype lookup.
+
+ENVIRONMENT
+       The environment variable "CHOICESPATH" is used when searching for rox's config dirs. It defaults to
+       "$ENV{HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices"
+
+METHODS
+       "mime_system($file)"
+       "mime_system($file, $mimetype, @_)"
+           Try to open $file with the appropriate program for files of it's mimetype. You can use $mimetype to force the mimetype.
+           Also if you already know the mimetype it saves a lot of time to just tell it.
+
+           If either the mimetype couldn't be determined or no appropriate program could be found "undef" is returned.  If the
+           actual system fails an exception is raised.
+
+           All remaining arguments are passed on to the handler.
+
+       "mime_exec($file)"
+       "mime_exec($file, $mimetype, @_)"
+           Like "mime_system()" but uses exec instead of system, so it never returns if successful.
+
+       "suggest_script_name($mimetype)"
+           Returns the list "($dir, $file)" for the suggested place to write new script files (or symlinks) for mimetype $mimetype.
+           The suggested dir doesn't need to exist.
+
+AUTHOR
+       Jaap Karssenberg &lt;pardus@cpan.org&gt; Maintained by Michiel Beijen &lt;mb@x14.nl&gt;
+
+COPYRIGHT
+       Copyright (c) 2003, 2012 Jaap G Karssenberg. All rights reserved.  This program is free software; you can redistribute it
+       and/or modify it under the same terms as Perl itself.
+
+SEE ALSO
+       File::MimeInfo, File::MimeInfo::Magic, &lt;http://rox.sourceforce.net&gt;
+
+perl v5.34.0                                                 2022-07-15                                    File::MimeInfo::Rox(3pm)
+</pre>
+</body>
+</html>

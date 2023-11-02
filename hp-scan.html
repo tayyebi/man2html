@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>hp-scan(1)                                                  User Manuals                                                 hp-scan(1)
+
+NAME
+       hp-scan - Scan Utility
+
+DESCRIPTION
+       SANE-based scan utility for HPLIP supported all-in-one/mfp devices.
+
+SYNOPSIS
+       hp-scan [DEVICE_URI|PRINTER_NAME] [MODE] [OPTIONS]
+
+PRINTER|DEVICE-URI
+       To specify a device-URI:
+              -d&lt;device-uri&gt; or --device=&lt;device-uri&gt;
+
+       To specify a CUPS printer:
+              -p&lt;printer&gt; or --printer=&lt;printer&gt;
+
+MODE
+       Run in interactive mode:
+              -i or --interactive
+
+OPTIONS
+       Set the logging level:
+              -l&lt;level&gt; or --logging=&lt;level&gt; &lt;level&gt;: none, info*, error, warn, debug (*default)
+
+       Run in debug mode:
+              -g (same as option: -ldebug)
+
+       This help information:
+              -h or --help
+
+OPTIONS (GENERAL)
+       Scan destinations:
+              -s&lt;dest_list&gt;  or  --dest=&lt;dest_list&gt; where &lt;dest_list&gt; is a comma separated list containing one or more of: 'file' ,
+              'viewer', 'editor', 'pdf', or 'print'. Use only commas between values, no spaces.
+
+       Scan mode:
+              -m&lt;mode&gt; or --mode=&lt;mode&gt;. Where &lt;mode&gt; is 'gray'*, 'color' or 'lineart'.
+
+       Scanning resolution:
+              -r&lt;resolution_in_dpi&gt; or --res=&lt;resolution_in_dpi&gt; or --resolution=&lt;resolution_in_dpi&gt; where 300 is default.
+
+       Image resize:
+              --resize=&lt;scale_in_%&gt; (min=1%, max=400%, default=100%)
+
+       Color Dropout Red :
+              -color_dropout_red_value=&lt;color_dropout_red_value&gt; or --color_dropout_red_value=&lt;color_dropout_red_value&gt;
+
+       Color Dropout Green :
+              -color_dropout_green_value=&lt;color_dropout_green_value&gt; or --color_dropout_green_value=&lt;color_dropout_green_value&gt;
+
+       Color Dropout Blue :
+              -color_dropout_blue_value=&lt;color_dropout_blue_value&gt; or --color_dropout_blue_value=&lt;color_dropout_blue_value&gt;
+
+       Color Dropout Range :
+              -color_range=&lt;color_range&gt; or --color_range=&lt;color_range&gt;
+
+       Image contrast:
+              -c=&lt;contrast&gt; or --contrast=&lt;contrast&gt; The contrast range varies from device to device.
+
+       Image brightness:
+              -b=&lt;brightness&gt; or --brightness=&lt;brightness&gt; The brightness range varies from device to device.
+
+       ADF mode:
+              --adf (Note, only PDF output is supported when using the ADF) --duplex or --dup for duplex scanning using ADF.
+
+OPTIONS (SCAN AREA)
+       Specify the units for area/box measurements:
+              -t&lt;units&gt; or --units=&lt;units&gt; where &lt;units&gt; is 'mm'*, 'cm', 'in', 'px', or 'pt' ('mm' is default).
+
+       Scan area:
+              -a&lt;tlx&gt;,&lt;tly&gt;,&lt;brx&gt;,&lt;bry&gt; or --area=&lt;tlx&gt;,&lt;tly&gt;,&lt;brx&gt;,&lt;bry&gt; Coordinates are relative to the upper left corner of  the
+              scan  area.  Units for tlx, tly, brx, and bry are specified by -t/--units (default is 'mm').  Use only commas between
+              values, no spaces.
+
+       Scan box:
+              --box=&lt;tlx&gt;,&lt;tly&gt;,&lt;width&gt;,&lt;height&gt; tlx and tly coordinates are relative to the upper left corner of  the  scan  area.
+              Units for tlx, tly, width, and height are specified by -t/--units (default is 'mm').  Use only commas between values,
+              no spaces.
+
+       Top left x of the scan area:
+              --tlx=&lt;tlx&gt; Coordinates are relative to the upper left corner of the scan area.  Units are  specified  by  -t/--units
+              (default is 'mm').
+
+       Top left y of the scan area:
+              --tly=&lt;tly&gt;  Coordinates  are  relative to the upper left corner of the scan area.  Units are specified by -t/--units
+              (default is 'mm').
+
+       Bottom right x of the scan area:
+              --brx=&lt;brx&gt; Coordinates are relative to the upper left corner of the scan area.  Units are  specified  by  -t/--units
+              (default is 'mm').
+
+       Bottom right y   of the scan area:
+              --bry=&lt;bry&gt;  Coordinates  are  relative to the upper left corner of the scan area.  Units are specified by -t/--units
+              (default is 'mm').
+
+       Specify the scan area based on a paper size:
+              --size=&lt;paper size name&gt; where &lt;paper size name&gt; is one of: 3x5, 4x6, 5x7, a2_env, a3, a4, a5, a6,  b4,  b5,  c6_env,
+              dl_env, exec, flsa, higaki, japan_env_3, japan_env_4, legal, letter, no_10_env, oufufu-hagaki, photo, super_b
+
+OPTIONS ('FILE' DEST)
+       Filename for 'file' destination:
+              -o&lt;file&gt; or -f&lt;file&gt; or --file=&lt;file&gt; or --output=&lt;file&gt;
+
+OPTIONS ('PDF' DEST)
+       PDF viewer application:
+              --pdf=&lt;pdf_viewer&gt;
+
+OPTIONS ('VIEWER' DEST)
+       Image viewer application:
+              -v&lt;viewer&gt; or --viewer=&lt;viewer&gt;
+
+OPTIONS ('EDITOR' DEST)
+       Image editor application:
+              -e&lt;editor&gt; or --editor=&lt;editor&gt;
+
+OPTIONS ('EMAIL' DEST)
+       From: address for 'email' dest:
+              --email-from=&lt;email_from_address&gt; (required for 'email' dest.)
+
+       To: address for 'email' dest:
+              --email-to=&lt;email__to_address&gt; (required for 'email' dest.)
+
+       Email subject for 'email' dest:
+              --email-subject="&lt;subject&gt;"  or  --subject="&lt;subject&gt;"  Use double quotes (") around the subject if it contains space
+              characters.
+
+       Note or message for the 'email' dest:
+              --email-msg="&lt;msg&gt;" or --email-note="&lt;note&gt;" Use double quotes (") around the note/message if it contains space char‐
+              acters.
+
+OPTIONS ('PRINTER' DEST)
+       Printer queue/printer dest:
+              --dp=&lt;printer_name&gt; or --dest-printer=&lt;printer_name&gt;
+
+       Printer device-URI dest:
+              --dd=&lt;device-uri&gt; or --dest-device=&lt;device-uri&gt;
+
+OPTIONS (ADVANCED)
+       Set the scanner compression mode:
+              -x&lt;mode&gt;  or  --compression=&lt;mode&gt;,  &lt;mode&gt;='raw', 'none' or 'jpeg' ('jpeg' is default) ('raw' and 'none' are equiva‐
+              lent)
+
+SEE ALSO
+AUTHOR
+       HPLIP (HP Linux Imaging and Printing) is an HP developed solution for printing, scanning, and  faxing  with  HP  inkjet  and
+       laser based printers in Linux.
+
+REPORTING BUGS
+       The  HPLIP  Launchpad.net  site https://launchpad.net/hplip is available to get help, report bugs, make suggestions, discuss
+       the HPLIP project or otherwise contact the HPLIP Team.
+
+COPYRIGHT
+       Copyright (c) 2001-18 HP Development Company, L.P.
+
+       This software comes with ABSOLUTELY NO WARRANTY.  This is free software, and you are welcome to distribute it under  certain
+       conditions. See COPYING file for more details.
+
+Linux                                                           2.2                                                      hp-scan(1)
+</pre>
+</body>
+</html>

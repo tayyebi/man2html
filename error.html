@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>error(3)                                              Library Functions Manual                                             error(3)
+
+NAME
+       error, error_at_line, error_message_count, error_one_per_line, error_print_progname - glibc error reporting functions
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;error.h&gt;
+
+       void error(int status, int errnum, const char *format, ...);
+       void error_at_line(int status, int errnum, const char *filename,
+                          unsigned int linenum, const char *format, ...);
+
+       extern unsigned int error_message_count;
+       extern int error_one_per_line;
+
+       extern void (*error_print_progname)(void);
+
+DESCRIPTION
+       error()  is a general error-reporting function.  It flushes stdout, and then outputs to stderr the program name, a colon and
+       a space, the message specified by the printf(3)-style format string format, and, if errnum is nonzero, a second colon and  a
+       space followed by the string given by strerror(errnum).  Any arguments required for format should follow format in the argu‐
+       ment list.  The output is terminated by a newline character.
+
+       The program name printed by error() is the value of the global variable program_invocation_name(3).  program_invocation_name
+       initially  has  the  same value as main()'s argv[0].  The value of this variable can be modified to change the output of er‐
+       ror().
+
+       If status has a nonzero value, then error() calls exit(3) to terminate the program using the given value as the exit status;
+       otherwise it returns after printing the error message.
+
+       The  error_at_line() function is exactly the same as error(), except for the addition of the arguments filename and linenum.
+       The output produced is as for error(), except that after the program name are written: a colon, the  value  of  filename,  a
+       colon,  and the value of linenum.  The preprocessor values __LINE__ and __FILE__ may be useful when calling error_at_line(),
+       but other values can also be used.  For example, these arguments could refer to a location in an input file.
+
+       If the global variable error_one_per_line is set nonzero, a sequence of error_at_line() calls with the same value  of  file‐
+       name and linenum will result in only one message (the first) being output.
+
+       The global variable error_message_count counts the number of messages that have been output by error() and error_at_line().
+
+       If the global variable error_print_progname is assigned the address of a function (i.e., is not NULL), then that function is
+       called instead of prefixing the message with the program name and colon.  The function should print  a  suitable  string  to
+       stderr.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌────────────────┬───────────────┬──────────────────────────────────────────────────────────────────────────────────────────┐
+       │Interface       │ Attribute     │ Value                                                                                    │
+       ├────────────────┼───────────────┼──────────────────────────────────────────────────────────────────────────────────────────┤
+       │error()         │ Thread safety │ MT-Safe locale                                                                           │
+       ├────────────────┼───────────────┼──────────────────────────────────────────────────────────────────────────────────────────┤
+       │error_at_line() │ Thread safety │ MT-Unsafe race: error_at_line/error_one_per_line locale                                  │
+       └────────────────┴───────────────┴──────────────────────────────────────────────────────────────────────────────────────────┘
+
+       The  internal error_one_per_line variable is accessed (without any form of synchronization, but since it's an int used once,
+       it should be safe enough) and, if error_one_per_line is set nonzero, the internal static variables (not  exposed  to  users)
+       used  to hold the last printed filename and line number are accessed and modified without synchronization; the update is not
+       atomic and it occurs before disabling cancelation, so it can be interrupted only after one of the two variables is modified.
+       After that, error_at_line() is very much like error().
+
+STANDARDS
+       These functions and variables are GNU extensions, and should not be used in programs intended to be portable.
+
+SEE ALSO
+       err(3), errno(3), exit(3), perror(3), program_invocation_name(3), strerror(3)
+
+Linux man-pages 6.03                                         2022-12-15                                                    error(3)
+</pre>
+</body>
+</html>

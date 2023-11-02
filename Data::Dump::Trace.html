@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Data::Dump::Trace(3pm)                          User Contributed Perl Documentation                          Data::Dump::Trace(3pm)
+
+NAME
+       Data::Dump::Trace - Helpers to trace function and method calls
+
+SYNOPSIS
+         use Data::Dump::Trace qw(autowrap mcall);
+
+         autowrap("LWP::UserAgent" =&gt; "ua", "HTTP::Response" =&gt; "res");
+
+         use LWP::UserAgent;
+         $ua = mcall(LWP::UserAgent =&gt; "new");      # instead of LWP::UserAgent-&gt;new;
+         $ua-&gt;get("http://www.example.com")-&gt;dump;
+
+DESCRIPTION
+       The following functions are provided:
+
+       autowrap( $class )
+       autowrap( $class =&gt; $prefix )
+       autowrap( $class1 =&gt; $prefix1,  $class2 =&gt; $prefix2, ... )
+       autowrap( $class1 =&gt; \%info1, $class2 =&gt; \%info2, ... )
+           Register classes whose objects are automatically wrapped when returned by one of the call functions below.  If $prefix
+           is provided it will be used as to name the objects.
+
+           Alternative is to pass an %info hash for each class.  The recognized keys are:
+
+           prefix =&gt; $string
+               The prefix string used to name objects of this type.
+
+           proto =&gt; \%hash
+               A hash of prototypes to use for the methods when an object is wrapped.
+
+       wrap( name =&gt; $str, func =&gt; \&amp;func, proto =&gt; $proto )
+       wrap( name =&gt; $str, obj =&gt; $obj, proto =&gt; \%hash )
+           Returns a wrapped function or object.  When a wrapped function is invoked then a trace is printed after the underlying
+           function has returned.  When a method on a wrapped object is invoked then a trace is printed after the methods on the
+           underlying objects has returned.
+
+           See "Prototypes" for description of the "proto" argument.
+
+       call( $name, \&amp;func, $proto, @ARGS )
+           Calls the given function with the given arguments.  The trace will use $name as the name of the function.
+
+           See "Prototypes" for description of the $proto argument.
+
+       mcall( $class, $method, $proto, @ARGS )
+       mcall( $object, $method, $proto, @ARGS )
+           Calls the given method with the given arguments.
+
+           See "Prototypes" for description of the $proto argument.
+
+       trace( $symbol, $prototype )
+           Replaces the function given by $symbol with a wrapped function.
+
+   Prototypes
+       Note: The prototype string syntax described here is experimental and likely to change in revisions of this interface.
+
+       The $proto argument to call() and mcall() can optionally provide a prototype for the function call.  This give the tracer
+       hints about how to best format the argument lists and if there are in/out or out arguments.  The general form for the
+       prototype string is:
+
+          &lt;arguments&gt; = &lt;return_value&gt;
+
+       The default prototype is "@ = @"; list of values as input and list of values as output.
+
+       The value '%' can be used for both arguments and return value to say that key/value pair style lists are used.
+
+       Alternatively, individual positional arguments can be listed each represented by a letter:
+
+       "i" input argument
+
+       "o" output argument
+
+       "O" both input and output argument
+
+       If the return value prototype has "!" appended, then it signals that this function sets errno ($!) when it returns a false
+       value.  The trace will display the current value of errno in that case.
+
+       If the return value prototype looks like a variable name (with "$" prefix), and the function returns a blessed object, then
+       the variable name will be used as prefix and the returned object automatically traced.
+
+SEE ALSO
+       Data::Dump
+
+perl v5.32.1                                                 2021-09-26                                      Data::Dump::Trace(3pm)
+</pre>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>foo2slx(1)                                            General Commands Manual                                            foo2slx(1)
+
+NAME
+       foo2slx - Convert Ghostscript pbmraw or bitcmyk format into a SLX printer stream
+
+SYNOPSIS
+       foo2slx [options] &lt;pbmraw-file &gt;slx-file
+
+       foo2slx [options] &lt;bitcmyk-file &gt;slx-file
+
+       foo2slx [options] &lt;pksmraw-file &gt;slx-file
+
+DESCRIPTION
+       foo2slx  converts Ghostscript pbmraw, bitcmyk, or pksmraw output formats to monochrome or color SLX streams, for driving the
+       Lexmark C500 network color laser printer and other SLZ-based printers.  The SLX stream is a variant of ZjStream produced  by
+       Software Imaging K.K.
+
+COMMAND LINE OPTIONS
+   Normal Options
+       These are the options used to select the parameters of a print job that are usually controlled on a per job basis.
+
+       -c     Force color mode if autodetect doesn't work.
+
+       -g xpixxypix
+              Set page dimensions in pixels [10200x6600].
+
+       -m media
+              Media code to send to printer [0].
+
+              ───────────────────────
+              Media          SLX
+              ───────────────────────
+              plain           0
+              transparency    1
+              labels          2
+              thick1          3
+              envelope1       4
+              thin            5
+              thick2          6
+              envelope2       7
+              middle          8
+              special         9
+
+       -p paper
+              Paper code to send to printer [6].
+
+              ┌───────────────┬─────────────┐
+              │ 6   letter    │  2   A4     │
+              │ 9   legal     │  4   B5     │
+              │ 8   executive │  5   B5iso  │
+              │10   env #10   │ 11   env DL │
+              └───────────────┴─────────────┘
+       -n copies
+              Number of copies [1].
+
+       -r xresxyres
+              Set device resolution in pixels/inch [1200x600].
+
+       -s source
+              Source (InputSlot) code to send to printer [0].
+
+              │0   auto │ 1   cassette1
+
+   Printer Tweaking Options
+       These are the options used to customize the operation of foo2slx for a particular printer.
+
+       -u xoffxyoff
+              Set the offset of the start of the printable region from the upper left corner, in pixels [0x0].
+
+       -l xoffxyoff
+              Set the offset of the end of the printable region from the lower right corner, in pixels [0x0].
+
+       -L mask
+              Send logical clipping amounts implied by -u/-l in the ZjStream [3].
+
+              0   don't send any logical clipping amounts
+              1   only send Y clipping amount
+              2   only send X clipping amount
+              3   send both X and Y clipping amounts
+
+       -A     AllIsBlack: convert C=1,M=1,Y=1 to just K=1.  Works with bitcmyk input only.
+
+       -B     BlackClears: K=1 forces C,M,Y to 0.  Works with bitcmyk input only.
+
+          Debugging Options
+              These options are used for debugging foo2slx.
+
+       -S plane
+              Output  just  a  single color plane from a color print and print it on the black plane.  The default is to output all
+              color planes.
+
+              1   Cyan
+              2   Magenta
+              3   Yellow
+              4   Black
+
+       -D level
+              Set Debug level [0].
+
+EXAMPLES
+       Create a black and white SLX stream:
+
+              gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE
+                  -sPAPERSIZE=letter -r1200x600 -sDEVICE=pbmraw
+                  -sOutputFile=- - &lt; testpage.ps
+              | foo2slx -r1200x600 -g10200x6600 -p1 &gt;testpage.zm
+
+       Create a color SLX stream:
+
+              gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE
+                  -sPAPERSIZE=letter -g10200x6600 -r1200x600 -sDEVICE=bitcmyk
+                  -sOutputFile=- - &lt; testpage.ps
+              | foo2slx -r1200x600 -g10200x6600 -p1 &gt;testpage.zc
+
+FILES
+       /usr/bin/foo2slx
+
+SEE ALSO
+       foo2slx-wrapper(1), slxdecode(1)
+
+AUTHOR
+       Rick Richardson &lt;rick.richardson@comcast.net&gt;
+       http://foo2slx.rkkda.com/
+
+</pre>
+</body>
+</html>

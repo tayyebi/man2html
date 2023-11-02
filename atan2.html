@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>atan2(3)                                              Library Functions Manual                                             atan2(3)
+
+NAME
+       atan2, atan2f, atan2l - arc tangent function of two variables
+
+LIBRARY
+       Math library (libm, -lm)
+
+SYNOPSIS
+       #include &lt;math.h&gt;
+
+       double atan2(double y, double x);
+       float atan2f(float y, float x);
+       long double atan2l(long double y, long double x);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       atan2f(), atan2l():
+           _ISOC99_SOURCE || _POSIX_C_SOURCE &gt;= 200112L
+               || /* Since glibc 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       These  functions  calculate the principal value of the arc tangent of y/x, using the signs of the two arguments to determine
+       the quadrant of the result.
+
+RETURN VALUE
+       On success, these functions return the principal value of the arc tangent of y/x in radians; the  return  value  is  in  the
+       range [-pi, pi].
+
+       If y is +0 (-0) and x is less than 0, +pi (-pi) is returned.
+
+       If y is +0 (-0) and x is greater than 0, +0 (-0) is returned.
+
+       If y is less than 0 and x is +0 or -0, -pi/2 is returned.
+
+       If y is greater than 0 and x is +0 or -0, pi/2 is returned.
+
+       If either x or y is NaN, a NaN is returned.
+
+       If y is +0 (-0) and x is -0, +pi (-pi) is returned.
+
+       If y is +0 (-0) and x is +0, +0 (-0) is returned.
+
+       If y is a finite value greater (less) than 0, and x is negative infinity, +pi (-pi) is returned.
+
+       If y is a finite value greater (less) than 0, and x is positive infinity, +0 (-0) is returned.
+
+       If y is positive infinity (negative infinity), and x is finite, pi/2 (-pi/2) is returned.
+
+       If y is positive infinity (negative infinity) and x is negative infinity, +3*pi/4 (-3*pi/4) is returned.
+
+       If y is positive infinity (negative infinity) and x is positive infinity, +pi/4 (-pi/4) is returned.
+
+ERRORS
+       No errors occur.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │atan2(), atan2f(), atan2l()                                                                      │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       C99, POSIX.1-2001, POSIX.1-2008.
+
+       The variant returning double also conforms to SVr4, 4.3BSD.
+
+SEE ALSO
+       acos(3), asin(3), atan(3), carg(3), cos(3), sin(3), tan(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                    atan2(3)
+</pre>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>catgets(3)                                            Library Functions Manual                                           catgets(3)
+
+NAME
+       catgets - get message from a message catalog
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;nl_types.h&gt;
+
+       char *catgets(nl_catd catalog, int set_number, int message_number,
+                     const char *message);
+
+DESCRIPTION
+       catgets() reads the message message_number, in set set_number, from the message catalog identified by catalog, where catalog
+       is a catalog descriptor returned from an earlier call to catopen(3).  The fourth argument, message, points to a default mes‐
+       sage  string which will be returned by catgets() if the identified message catalog is not currently available.  The message-
+       text is contained in an internal buffer area and should be copied by the application if it is to be saved or modified.   The
+       return string is always terminated with a null byte ('\0').
+
+RETURN VALUE
+       On  success, catgets() returns a pointer to an internal buffer area containing the null-terminated message string.  On fail‐
+       ure, catgets() returns the value message.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │catgets()                                                                                        │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008.
+
+NOTES
+       The catgets() function is available only in libc.so.4.4.4c and above.  The Jan 1987 X/Open  Portability  Guide  specifies  a
+       more  subtle  error return: message is returned if the message catalog specified by catalog is not available, while an empty
+       string is returned when the message catalog is available but does not contain the specified message.  These two possible er‐
+       ror returns seem to be discarded in SUSv2 in favor of always returning message.
+
+SEE ALSO
+       catopen(3), setlocale(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                  catgets(3)
+</pre>
+</body>
+</html>

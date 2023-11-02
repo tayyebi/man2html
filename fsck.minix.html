@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>FSCK.MINIX(8)                                          System Administration                                          FSCK.MINIX(8)
+
+NAME
+       fsck.minix - check consistency of Minix filesystem
+
+SYNOPSIS
+       fsck.minix [options] device
+
+DESCRIPTION
+       fsck.minix performs a consistency check for the Linux MINIX filesystem.
+
+       The program assumes the filesystem is quiescent. fsck.minix should not be used on a mounted device unless you can be sure
+       nobody is writing to it. Remember that the kernel can write to device when it searches for files.
+
+       The device name will usually have the following form:
+
+          ┌───────────────┬─────────────┐
+          │               │             │
+          │/dev/hda[1-63] │ IDE disk 1  │
+          ├───────────────┼─────────────┤
+          │               │             │
+          │/dev/hdb[1-63] │ IDE disk 2  │
+          ├───────────────┼─────────────┤
+          │               │             │
+          │/dev/sda[1-15] │ SCSI disk 1 │
+          ├───────────────┼─────────────┤
+          │               │             │
+          │/dev/sdb[1-15] │ SCSI disk 2 │
+          └───────────────┴─────────────┘
+
+       If the filesystem was changed, i.e., repaired, then fsck.minix will print "FILE SYSTEM HAS BEEN CHANGED" and will
+       sync(2) three times before exiting. There is no need to reboot after check.
+
+WARNING
+       fsck.minix should not be used on a mounted filesystem. Using fsck.minix on a mounted filesystem is very dangerous, due
+       to the possibility that deleted files are still in use, and can seriously damage a perfectly good filesystem! If you
+       absolutely have to run fsck.minix on a mounted filesystem, such as the root filesystem, make sure nothing is writing
+       to the disk, and that no files are "zombies" waiting for deletion.
+
+OPTIONS
+       -l, --list
+           List all filenames.
+
+       -r, --repair
+           Perform interactive repairs.
+
+       -a, --auto
+           Perform automatic repairs. This option implies --repair and serves to answer all of the questions asked with the
+           default. Note that this can be extremely dangerous in the case of extensive filesystem damage.
+
+       -v, --verbose
+           Be verbose.
+
+       -s, --super
+           Output super-block information.
+
+       -m, --uncleared
+           Activate MINIX-like "mode not cleared" warnings.
+
+       -f, --force
+           Force a filesystem check even if the filesystem was marked as valid. Marking is done by the kernel when the
+           filesystem is unmounted.
+
+       -h, --help
+           Display help text and exit.
+
+       -V, --version
+           Print version and exit.
+
+DIAGNOSTICS
+       There are numerous diagnostic messages. The ones mentioned here are the most commonly seen in normal usage.
+
+       If the device does not exist, fsck.minix will print "unable to read super block". If the device exists, but is not a
+       MINIX filesystem, fsck.minix will print "bad magic number in super-block".
+
+EXIT STATUS
+       The exit status returned by fsck.minix is the sum of the following:
+
+       0
+           No errors
+
+       3
+           Filesystem errors corrected, system should be rebooted if filesystem was mounted
+
+       4
+           Filesystem errors left uncorrected
+
+       7
+           Combination of exit statuses 3 and 4
+
+       8
+           Operational error
+
+       16
+           Usage or syntax error
+
+AUTHORS
+       Linus Torvalds &lt;torvalds@cs.helsinki.fi&gt;. Exit status values by Rik Faith &lt;faith@cs.unc.edu&gt; Added support for
+       filesystem valid flag: Dr. Wettstein &lt;greg%wind.uucp@plains.nodak.edu&gt;. Check to prevent fsck of mounted filesystem
+       added by Daniel Quinlan &lt;quinlan@yggdrasil.com&gt;. Minix v2 fs support by Andreas Schwab
+       &lt;schwab@issan.informatik.uni-dortmund.de&gt;, updated by Nicolai Langfeldt &lt;janl@math.uio.no&gt;. Portability patch by
+       Russell King &lt;rmk@ecs.soton.ac.uk&gt;.
+
+SEE ALSO
+       fsck(8), fsck.ext2(8), mkfs(8), mkfs.ext2(8), mkfs.minix(8), reboot(8)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at https://github.com/util-linux/util-linux/issues.
+
+AVAILABILITY
+       The fsck.minix command is part of the util-linux package which can be downloaded from Linux Kernel Archive
+       &lt;https://www.kernel.org/pub/linux/utils/util-linux/&gt;.
+
+util-linux 2.38.1                                            2022-05-11                                               FSCK.MINIX(8)
+</pre>
+</body>
+</html>

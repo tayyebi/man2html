@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>avahi.service(5)                                        File Formats Manual                                        avahi.service(5)
+
+NAME
+       avahi.service - avahi-daemon static service file
+
+SYNOPSIS
+       /etc/avahi/services/*.service
+
+DESCRIPTION
+       /etc/avahi/services/*.service are XML fragments containing static DNS-SD service data. Every service file can contain multi‐
+       ple service definitions which share the same name. This is useful for publishing service data for services  which  implement
+       multiple protocols. (i.e. a printer implementing _ipp._tcp and _printer._tcp)
+
+XML TAGS
+       &lt;service-group&gt; The document tag of avahi service files. Should contain one &lt;name&gt; and one or more &lt;service&gt; elements.
+
+       &lt;name  replace-wildcards="yes|no"&gt; The service name. If replace-wildcards is "yes", any occurence of the string "%h" will be
+       replaced by the local host name. This can be used for service names like "Remote Terminal on %h".  If  replace-wildcards  is
+       not specified, defaults to "no".
+
+       &lt;service  protocol="ipv4|ipv6|any"&gt; Contains the service information for exactly one service type. Should contain one &lt;type&gt;
+       and one &lt;port&gt; element. Optionally it may contain one &lt;domain-name&gt;, one &lt;host-name&gt;, any number of &lt;subtype&gt; and any number
+       of  &lt;txt-record&gt;  elements. The attribute protocol specifies the protocol to advertise the service on. If any is used (which
+       is the default), the service will be advertised on both IPv4 and IPv6.
+
+       &lt;type&gt; Contains the DNS-SD service type for this service. e.g. "_http._tcp".
+
+       &lt;subtype&gt; Contains an additional DNS-SD service subtype for this service. e.g. "_anon._sub._ftp._tcp".
+
+       &lt;domain-name&gt; The domain name this service should be registered. If omited defaults to the default domain of the avahi  dae‐
+       mon. (probably .local)
+
+       &lt;host-name&gt;  The  host name of the host that provides this service. This should be a host that is resolvable by multicast or
+       unicast DNS. Please note that you need to specify a fully-qualified domain name (FQDN) here, i.e. .local is not appended im‐
+       plicitly! The host name doesn't need to be part of the domain specified in &lt;domain-name&gt;. See avahi.hosts(5) for more infor‐
+       mation how to publish additional host name mappings.
+
+       &lt;port&gt; The IP port number the service listens on.
+
+       &lt;txt-record value-format="text|binary-hex|binary-base64"&gt; DNS-SD TXT record data. If value-format is "text",  the  value  of
+       the TXT record is taken verbatim. If value-format is "binary-hex" then the value of TXT record is decoded by taking pairs of
+       characters after the "=" char and interpreting them as the textual representation of the two-digit hexadecimal number.  Both
+       uppercase  and lowercase hexadecimal digits are allowed. The 0x or 0X prefix is not allowed. This requires the length of the
+       value to be even. If value-format is "binary-base64" then the value of TXT record is decoded  with  a  base64  decoder.  The
+       character  set  used is A-Za-z0-9+/. This requires the length of the value to be a multiple of 4, with "=" as padding at the
+       end. If value-format is not specified, defaults to "text". Examples (all the values are decoded to the string "value"  with‐
+       out quotes):
+
+              &lt;txt-record&gt;key=value&lt;txt-record&gt;
+
+              &lt;txt-record value-format="text"&gt;key=value&lt;txt-record&gt;
+
+              &lt;txt-record value-format="binary-hex"&gt;key=76616c7565&lt;txt-record&gt;
+
+              &lt;txt-record value-format="binary-base64"&gt;key=dmFsdWU=&lt;txt-record&gt;
+
+AUTHORS
+       The Avahi Developers &lt;avahi (at) lists (dot) freedesktop (dot) org&gt;; Avahi is available from http://avahi.org/
+
+SEE ALSO
+       avahi-daemon(8), avahi.hosts(5)
+
+COMMENTS
+       This man page was written using xml2man(1) by Oliver Kurth.
+
+Manuals                                                         User                                               avahi.service(5)
+</pre>
+</body>
+</html>

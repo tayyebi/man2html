@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-CHERRY(1)                                                Git Manual                                               GIT-CHERRY(1)
+
+NAME
+       git-cherry - Find commits yet to be applied to upstream
+
+SYNOPSIS
+       git cherry [-v] [&lt;upstream&gt; [&lt;head&gt; [&lt;limit&gt;]]]
+
+DESCRIPTION
+       Determine whether there are commits in &lt;head&gt;..&lt;upstream&gt; that are equivalent to those in the range &lt;limit&gt;..&lt;head&gt;.
+
+       The equivalence test is based on the diff, after removing whitespace and line numbers. git-cherry therefore detects when
+       commits have been "copied" by means of git-cherry-pick(1), git-am(1) or git-rebase(1).
+
+       Outputs the SHA1 of every commit in &lt;limit&gt;..&lt;head&gt;, prefixed with - for commits that have an equivalent in &lt;upstream&gt;, and
+       + for commits that do not.
+
+OPTIONS
+       -v
+           Show the commit subjects next to the SHA1s.
+
+       &lt;upstream&gt;
+           Upstream branch to search for equivalent commits. Defaults to the upstream branch of HEAD.
+
+       &lt;head&gt;
+           Working branch; defaults to HEAD.
+
+       &lt;limit&gt;
+           Do not report commits up to (and including) limit.
+
+EXAMPLES
+   Patch workflows
+       git-cherry is frequently used in patch-based workflows (see gitworkflows(7)) to determine if a series of patches has been
+       applied by the upstream maintainer. In such a workflow you might create and send a topic branch like this:
+
+           $ git checkout -b topic origin/master
+           # work and create some commits
+           $ git format-patch origin/master
+           $ git send-email ... 00*
+
+       Later, you can see whether your changes have been applied by saying (still on topic):
+
+           $ git fetch  # update your notion of origin/master
+           $ git cherry -v
+
+   Concrete example
+       In a situation where topic consisted of three commits, and the maintainer applied two of them, the situation might look
+       like:
+
+           $ git log --graph --oneline --decorate --boundary origin/master...topic
+           * 7654321 (origin/master) upstream tip commit
+           [... snip some other commits ...]
+           * cccc111 cherry-pick of C
+           * aaaa111 cherry-pick of A
+           [... snip a lot more that has happened ...]
+           | * cccc000 (topic) commit C
+           | * bbbb000 commit B
+           | * aaaa000 commit A
+           |/
+           o 1234567 branch point
+
+       In such cases, git-cherry shows a concise summary of what has yet to be applied:
+
+           $ git cherry origin/master topic
+           - cccc000... commit C
+           + bbbb000... commit B
+           - aaaa000... commit A
+
+       Here, we see that the commits A and C (marked with -) can be dropped from your topic branch when you rebase it on top of
+       origin/master, while the commit B (marked with +) still needs to be kept so that it will be sent to be applied to
+       origin/master.
+
+   Using a limit
+       The optional &lt;limit&gt; is useful in cases where your topic is based on other work that is not in upstream. Expanding on the
+       previous example, this might look like:
+
+           $ git log --graph --oneline --decorate --boundary origin/master...topic
+           * 7654321 (origin/master) upstream tip commit
+           [... snip some other commits ...]
+           * cccc111 cherry-pick of C
+           * aaaa111 cherry-pick of A
+           [... snip a lot more that has happened ...]
+           | * cccc000 (topic) commit C
+           | * bbbb000 commit B
+           | * aaaa000 commit A
+           | * 0000fff (base) unpublished stuff F
+           [... snip ...]
+           | * 0000aaa unpublished stuff A
+           |/
+           o 1234567 merge-base between upstream and topic
+
+       By specifying base as the limit, you can avoid listing commits between base and topic:
+
+           $ git cherry origin/master topic base
+           - cccc000... commit C
+           + bbbb000... commit B
+           - aaaa000... commit A
+
+SEE ALSO
+       git-patch-id(1)
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                               GIT-CHERRY(1)
+</pre>
+</body>
+</html>

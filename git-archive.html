@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-ARCHIVE(1)                                               Git Manual                                              GIT-ARCHIVE(1)
+
+NAME
+       git-archive - Create an archive of files from a named tree
+
+SYNOPSIS
+       git archive [--format=&lt;fmt&gt;] [--list] [--prefix=&lt;prefix&gt;/] [&lt;extra&gt;]
+                     [-o &lt;file&gt; | --output=&lt;file&gt;] [--worktree-attributes]
+                     [--remote=&lt;repo&gt; [--exec=&lt;git-upload-archive&gt;]] &lt;tree-ish&gt;
+                     [&lt;path&gt;...]
+
+DESCRIPTION
+       Creates an archive of the specified format containing the tree structure for the named tree, and writes it out to the
+       standard output. If &lt;prefix&gt; is specified it is prepended to the filenames in the archive.
+
+       git archive behaves differently when given a tree ID versus when given a commit ID or tag ID. In the first case the current
+       time is used as the modification time of each file in the archive. In the latter case the commit time as recorded in the
+       referenced commit object is used instead. Additionally the commit ID is stored in a global extended pax header if the tar
+       format is used; it can be extracted using git get-tar-commit-id. In ZIP files it is stored as a file comment.
+
+OPTIONS
+       --format=&lt;fmt&gt;
+           Format of the resulting archive. Possible values are tar, zip, tar.gz, tgz, and any format defined using the
+           configuration option tar.&lt;format&gt;.command. If --format is not given, and the output file is specified, the format is
+           inferred from the filename if possible (e.g. writing to foo.zip makes the output to be in the zip format). Otherwise the
+           output format is tar.
+
+       -l, --list
+           Show all available formats.
+
+       -v, --verbose
+           Report progress to stderr.
+
+       --prefix=&lt;prefix&gt;/
+           Prepend &lt;prefix&gt;/ to paths in the archive. Can be repeated; its rightmost value is used for all tracked files. See below
+           which value gets used by --add-file and --add-virtual-file.
+
+       -o &lt;file&gt;, --output=&lt;file&gt;
+           Write the archive to &lt;file&gt; instead of stdout.
+
+       --add-file=&lt;file&gt;
+           Add a non-tracked file to the archive. Can be repeated to add multiple files. The path of the file in the archive is
+           built by concatenating the value of the last --prefix option (if any) before this --add-file and the basename of &lt;file&gt;.
+
+       --add-virtual-file=&lt;path&gt;:&lt;content&gt;
+           Add the specified contents to the archive. Can be repeated to add multiple files. The path of the file in the archive is
+           built by concatenating the value of the last --prefix option (if any) before this --add-virtual-file and &lt;path&gt;.
+
+           The &lt;path&gt; argument can start and end with a literal double-quote character; the contained file name is interpreted as a
+           C-style string, i.e. the backslash is interpreted as escape character. The path must be quoted if it contains a colon,
+           to avoid the colon from being misinterpreted as the separator between the path and the contents, or if the path begins
+           or ends with a double-quote character.
+
+           The file mode is limited to a regular file, and the option may be subject to platform-dependent command-line limits. For
+           non-trivial cases, write an untracked file and use --add-file instead.
+
+       --worktree-attributes
+           Look for attributes in .gitattributes files in the working tree as well (see the section called “ATTRIBUTES”).
+
+       &lt;extra&gt;
+           This can be any options that the archiver backend understands. See next section.
+
+       --remote=&lt;repo&gt;
+           Instead of making a tar archive from the local repository, retrieve a tar archive from a remote repository. Note that
+           the remote repository may place restrictions on which sha1 expressions may be allowed in &lt;tree-ish&gt;. See git-upload-
+           archive(1) for details.
+
+       --exec=&lt;git-upload-archive&gt;
+           Used with --remote to specify the path to the git-upload-archive on the remote side.
+
+       &lt;tree-ish&gt;
+           The tree or commit to produce an archive for.
+
+       &lt;path&gt;
+           Without an optional path parameter, all files and subdirectories of the current working directory are included in the
+           archive. If one or more paths are specified, only these are included.
+
+BACKEND EXTRA OPTIONS
+   zip
+       -&lt;digit&gt;
+           Specify compression level. Larger values allow the command to spend more time to compress to smaller size. Supported
+           values are from -0 (store-only) to -9 (best ratio). Default is -6 if not given.
+
+   tar
+       -&lt;number&gt;
+           Specify compression level. The value will be passed to the compression command configured in tar.&lt;format&gt;.command. See
+           manual page of the configured command for the list of supported levels and the default level if this option isn’t
+           specified.
+
+CONFIGURATION
+       tar.umask
+           This variable can be used to restrict the permission bits of tar archive entries. The default is 0002, which turns off
+           the world write bit. The special value "user" indicates that the archiving user’s umask will be used instead. See
+           umask(2) for details. If --remote is used then only the configuration of the remote repository takes effect.
+
+       tar.&lt;format&gt;.command
+           This variable specifies a shell command through which the tar output generated by git archive should be piped. The
+           command is executed using the shell with the generated tar file on its standard input, and should produce the final
+           output on its standard output. Any compression-level options will be passed to the command (e.g., -9).
+
+           The tar.gz and tgz formats are defined automatically and use the magic command git archive gzip by default, which
+           invokes an internal implementation of gzip.
+
+       tar.&lt;format&gt;.remote
+           If true, enable the format for use by remote clients via git-upload-archive(1). Defaults to false for user-defined
+           formats, but true for the tar.gz and tgz formats.
+
+ATTRIBUTES
+       export-ignore
+           Files and directories with the attribute export-ignore won’t be added to archive files. See gitattributes(5) for
+           details.
+
+       export-subst
+           If the attribute export-subst is set for a file then Git will expand several placeholders when adding this file to an
+           archive. See gitattributes(5) for details.
+
+       Note that attributes are by default taken from the .gitattributes files in the tree that is being archived. If you want to
+       tweak the way the output is generated after the fact (e.g. you committed without adding an appropriate export-ignore in its
+       .gitattributes), adjust the checked out .gitattributes file as necessary and use --worktree-attributes option. Alternatively
+       you can keep necessary attributes that should apply while archiving any tree in your $GIT_DIR/info/attributes file.
+
+EXAMPLES
+       git archive --format=tar --prefix=junk/ HEAD | (cd /var/tmp/ &amp;&amp; tar xf -)
+           Create a tar archive that contains the contents of the latest commit on the current branch, and extract it in the
+           /var/tmp/junk directory.
+
+       git archive --format=tar --prefix=git-1.4.0/ v1.4.0 | gzip &gt;git-1.4.0.tar.gz
+           Create a compressed tarball for v1.4.0 release.
+
+       git archive --format=tar.gz --prefix=git-1.4.0/ v1.4.0 &gt;git-1.4.0.tar.gz
+           Same as above, but using the builtin tar.gz handling.
+
+       git archive --prefix=git-1.4.0/ -o git-1.4.0.tar.gz v1.4.0
+           Same as above, but the format is inferred from the output file.
+
+       git archive --format=tar --prefix=git-1.4.0/ v1.4.0^{tree} | gzip &gt;git-1.4.0.tar.gz
+           Create a compressed tarball for v1.4.0 release, but without a global extended pax header.
+
+       git archive --format=zip --prefix=git-docs/ HEAD:Documentation/ &gt; git-1.4.0-docs.zip
+           Put everything in the current head’s Documentation/ directory into git-1.4.0-docs.zip, with the prefix git-docs/.
+
+       git archive -o latest.zip HEAD
+           Create a Zip archive that contains the contents of the latest commit on the current branch. Note that the output format
+           is inferred by the extension of the output file.
+
+       git archive -o latest.tar --prefix=build/ --add-file=configure --prefix= HEAD
+           Creates a tar archive that contains the contents of the latest commit on the current branch with no prefix and the
+           untracked file configure with the prefix build/.
+
+       git config tar.tar.xz.command "xz -c"
+           Configure a "tar.xz" format for making LZMA-compressed tarfiles. You can use it specifying --format=tar.xz, or by
+           creating an output file like -o foo.tar.xz.
+
+SEE ALSO
+       gitattributes(5)
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                              GIT-ARCHIVE(1)
+</pre>
+</body>
+</html>

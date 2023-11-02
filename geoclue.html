@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GEOCLUE CONFIGURATION(5)                                File Formats Manual                                GEOCLUE CONFIGURATION(5)
+
+NAME
+       geoclue.conf - geoclue configuration parameters
+
+SYNOPSIS
+       /etc/geoclue/geoclue.conf
+
+DESCRIPTION
+       The geoclue geoclue.conf configuration file specifies parameters that control the operation of geoclue.
+
+       All  configurations  settings below are mandatory and the defaults are what you see before you edit them in geoclue.conf. If
+       you want to keep the default values around, copy and comment out the appropriate line(s) before changing them.
+
+AGENT CONFIGURATION OPTIONS
+       [agent] is used to begin the agent configuration.
+
+       whitelist
+              Whitelist of desktop IDs (without .desktop part) of all agents we recognise, separated by a ';'.
+
+              whitelist=geoclue-demo-agent;gnome-shell;io.elementary.desktop.agent-geoclue2
+
+       [network-nmea]
+              Network NMEA source configuration options
+
+              enable=true
+              Fetch location from NMEA sources on local network?
+
+       [3G]
+              3G source configuration options
+
+              enable=true
+              Enable 3G source
+
+       [cdma]
+              CDMA source configuration options
+
+              enable=true
+              Enable CDMA source
+
+       [modem-gps]
+              Modem GPS source configuration options
+
+              enable=true
+              Enable Modem-GPS source
+
+       [wifi]
+              WiFi source configuration options
+
+              enable=true
+              Enable WiFi source
+
+              url=https://location.services.mozilla.com/v1/geolocate?key=geoclue
+              URL to the wifi geolocation service. The key can currenty be anything, just needs to be present but  that  is  likely
+              going to change in future.
+
+              submit-data=false Submit data to Mozilla Location Service
+              If set to true, geoclue will automatically submit network data to Mozilla each time it gets a GPS lock.
+
+              submission-url=https://location.services.mozilla.com/v1/submit?key=geoclue
+              URL to submission API of Mozilla Location Service
+
+              submission-nick=geoclue
+              A nickname to submit network data with. A nickname must be 2-32 characters long.
+
+APPLICATION CONFIGURATION OPTIONS
+       Having  an  entry  here for an application with allowed=true means that geoclue will not ask agent to authorize the applica‐
+       tion. This is to ensure that applications with built-in authorization mechanism (e.g web browsers) do not have to  be  bound
+       to agents.
+
+       If  your  application  is  denied  access to location information and your operating system doesn't provide any mechanism to
+       change that, it is likely a bug in your operation system (or geoclue). The solution is to report the issue with all details,
+       rather than adding your application to this list.
+
+       Format:
+              [random-app]
+              Desktop ID of application without .desktop part
+
+              allowed=true|false
+              Allowed access to location information?
+
+              system=true|false
+              Is application a system component?
+
+              users=
+              List  of UIDs of all users for which this application is allowed location info access, separate by ';'. Keep it empty
+              for allowing it for all users.
+
+       Examples:
+              [gnome-datetime-panel]
+              allowed=true
+              system=true
+              users=
+
+              [gnome-color-panel]
+              allowed=true
+              system=true
+              users=
+
+              [org.gnome.Shell]
+              allowed=true
+              system=true
+              users=
+
+              [io.elementary.desktop.agent-geoclue2]
+              allowed=true
+              system=true
+              users=
+
+              [epiphany]
+              allowed=true
+              system=false
+              users=
+
+              [firefox]
+              allowed=true
+              system=false
+              users=
+
+AUTHOR
+       Sachin Chand
+
+                                                                                                           GEOCLUE CONFIGURATION(5)
+</pre>
+</body>
+</html>

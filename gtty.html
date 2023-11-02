@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>UNIMPLEMENTED(2)                                        System Calls Manual                                        UNIMPLEMENTED(2)
+
+NAME
+       afs_syscall,  break,  fattach,  fdetach, ftime, getmsg, getpmsg, gtty, isastream, lock, madvise1, mpx, prof, profil, putmsg,
+       putpmsg, security, stty, tuxcall, ulimit, vserver - unimplemented system calls
+
+SYNOPSIS
+       Unimplemented system calls.
+
+DESCRIPTION
+       These system calls are not implemented in the Linux kernel.
+
+RETURN VALUE
+       These system calls always return -1 and set errno to ENOSYS.
+
+NOTES
+       Note that ftime(3), profil(3), and ulimit(3) are implemented as library functions.
+
+       Some system calls, like alloc_hugepages(2), free_hugepages(2), ioperm(2), iopl(2), and vm86(2) exist only on certain  archi‐
+       tectures.
+
+       Some  system calls, like ipc(2), create_module(2), init_module(2), and delete_module(2) exist only when the Linux kernel was
+       built with support for them.
+
+SEE ALSO
+       syscalls(2)
+
+Linux man-pages 6.03                                         2022-10-09                                            UNIMPLEMENTED(2)
+</pre>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DH_PERL_OPENSSL(1)                              User Contributed Perl Documentation                              DH_PERL_OPENSSL(1)
+
+NAME
+       dh_perl_openssl - add dependencies required for OpenSSL modules
+
+SYNOPSIS
+       dh_perl_openssl [debhelper options]
+
+DESCRIPTION
+       dh_perl_openssl is a debhelper program that is responsible for adding a dependency on perl-openssl-abi-* to the
+       ${perl:Depends} substitution variable.  Such a dependency is needed for packages that expose the OpenSSL binary interface to
+       Perl code, such as pointers to "SSL_CTX" structs.
+
+       A debhelper addon is also provided.  This makes it possible to just use
+
+         #!/usr/bin/make -f
+         %:
+                 dh $@ --with perl_openssl
+
+       for debian/rules.
+
+       Alternatively, since perl-openssl-defaults/4 you can just build depend on dh-sequence-perl-openssl and omit the "--with
+       perl_openssl" part.
+
+SEE ALSO
+       debhelper(7)
+
+       &lt;http://bugs.debian.org/848113&gt;
+
+COPYRIGHT AND LICENSE
+       Based on dh_perl_dbi in the libdbi-perl package by Angar Buchardt.
+
+       Copyright 2010, Ansgar Burchardt &lt;ansgar@debian.org&gt;
+
+       Copyright 2016, Niko Tyni &lt;ntyni@debian.org&gt;
+
+       This program is free software, you can redistribute it and/or modify it under the same terms as Perl itself.
+
+perl v5.34.0                                                 2022-05-02                                          DH_PERL_OPENSSL(1)
+</pre>
+</body>
+</html>

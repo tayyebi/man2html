@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GStreamer(1)                                          General Commands Manual                                          GStreamer(1)
+
+NAME
+       gst-inspect-1.0 - print info about a GStreamer plugin or element
+
+SYNOPSIS
+       gst-inspect-1.0 [OPTION...] [PLUGIN|ELEMENT]
+
+DESCRIPTION
+       gst-inspect-1.0 is a tool that prints out information on available GStreamer plugins, information about a particular plugin,
+       or information about a particular element.  When executed with no PLUGIN or ELEMENT argument, gst-inspect-1.0 will  print  a
+       list  of all plugins and elements together with a summary.  When executed with a PLUGIN or ELEMENT argument, gst-inspect-1.0
+       will print information about that plug-in or element.
+
+OPTIONS
+       gst-inspect-1.0 accepts the following arguments and options:
+
+       PLUGIN  Name of a plugin
+
+       ELEMENT Name of an element
+
+       --help  Print help synopsis and available FLAGS
+
+       --gst-info-mask=FLAGS
+               GStreamer info flags to set (list with --help)
+
+       -a, --print-all
+               Print all plugins and elements
+
+       -b, --print-blacklist
+               Print list of blacklisted files
+
+       --plugin
+               List the plugin contents
+
+       --types=Element/Types
+               Allow inspecting only elements that match all the element types filtered in this slash (´/´) separated list of  ele‐
+               ment  types. Those types correspond to what is also called ´klass´ which is a string describing the type of element,
+               like ´Decoder´, ´Audio´, ´Encoder´ etc... This options implies that only elements  will  be  printed  (not  typefind
+               functions or tracers).
+
+       --exists
+               Check if the specified element or plugin exists
+
+       --atleast-version
+               When checking if an element or plugin exists, also check that its version is at least the version specified
+
+       -u, --uri-handlers
+               Print supported URI schemes, with the elements that implement them
+
+       --no-colors
+               Disable  colors  in output. You can also achieve the same by setting ´GST_INSPECT_NO_COLORS´ environment variable to
+               any value.
+
+       -C, --color
+               Color output, even when not connected to a tty.
+
+       --print-plugin-auto-install-info
+               Print a machine-parsable list of features the specified plugin provides.  Useful in connection with  external  auto‐
+               matic plugin installation mechanisms.
+
+       --gst-debug-mask=FLAGS
+               GStreamer debugging flags to set (list with --help)
+
+       --gst-mask=FLAGS
+               GStreamer info and debugging flags to set (list with --help)
+
+       --gst-plugin-spew
+               GStreamer info flags to set Enable printout of errors while loading GStreamer plugins
+
+       --gst-plugin-path=PATH
+               Add directories separated with ':' to the plugin search path
+
+ENVIRONMENT VARIABLES
+       gst-inspect-1.0  reads  the following environment variables, in addition to the generic GStreamer environment variables also
+       described in gst-launch-1.0(1):
+
+       GST_LESS
+               Override the options passed to less (by default "RXF").
+               See less(1) for more information.
+
+SEE ALSO
+       gst-launch-1.0(1), gst-typefind-1.0(1)
+
+AUTHOR
+       The GStreamer team at http://gstreamer.freedesktop.org/
+
+                                                           December 2005                                               GStreamer(1)
+</pre>
+</body>
+</html>

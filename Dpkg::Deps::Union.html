@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Deps::Union(3perl)                                    libdpkg-perl                                   Dpkg::Deps::Union(3perl)
+
+NAME
+       Dpkg::Deps::Union - list of unrelated dependencies
+
+DESCRIPTION
+       This class represents a list of relationships.  It inherits from Dpkg::Deps::Multiple.
+
+METHODS
+       $dep-&gt;output([$fh])
+           The output method uses ", " to join the list of relationships.
+
+       $dep-&gt;implies($other_dep)
+       $dep-&gt;get_evaluation($other_dep)
+           These methods are not meaningful for this object and always return undef.
+
+       $dep-&gt;simplify_deps($facts)
+           The simplification is done to generate an union of all the relationships.  It uses $simple_dep-&gt;merge_union($other_dep)
+           to get its job done.
+
+CHANGES
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                                    Dpkg::Deps::Union(3perl)
+</pre>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-tool-search(1)                                    .NET Documentation                                   dotnet-tool-search(1)
+
+dotnet tool search
+       This article applies to: ✔️ .NET 5 SDK and later versions
+
+NAME
+       dotnet-tool-search - Searches all .NET tools that are published to NuGet.
+
+SYNOPSIS
+              dotnet tool search [--detail]  [--prerelease]
+                  [--skip &lt;NUMBER&gt;] [--take &lt;NUMBER&gt;] &lt;SEARCH TERM&gt;
+
+              dotnet tool search -h|--help
+
+DESCRIPTION
+       The  dotnet tool search command provides a way for you to search NuGet for tools that can be used as .NET global, tool-path,
+       or local tools.  The command searches the tool names and metadata such as titles, descriptions, and tags.
+
+       The command uses the NuGet Search API.  It filters on packageType=dotnettool to select only .NET tool packages.
+
+OPTIONS
+       • --detail
+
+         Shows detailed results from the query.
+
+       • --prerelease
+
+         Includes pre-release packages.
+
+       • --skip &lt;NUMBER&gt;
+
+         Specifies the number of query results to skip.  Used for pagination.
+
+       • --take &lt;NUMBER&gt;
+
+         Specifies the number of query results to show.  Used for pagination.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+EXAMPLES
+       • Search NuGet.org for .NET tools that have “format” in their package name or description:
+
+                dotnet tool search format
+
+         The output looks like the following example:
+
+                Package ID                              Latest Version      Authors                                                                     Downloads      Verified
+                ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+                dotnet-format                           4.1.131201          Microsoft                                                                   496746
+                bsoa.generator                          1.0.0               Microsoft                                                                   533
+
+       • Search NuGet.org for .NET tools that have “format” in their package name or metadata, show only the first result, and show
+         a detailed view.
+
+                dotnet tool search format --take 1 --detail
+
+         The output looks like the following example:
+
+                ----------------
+                dotnet-format
+                Latest Version: 4.1.131201
+                Authors: Microsoft
+                Tags:
+                Downloads: 496746
+                Verified: False
+                Description: Command line tool for formatting C# and Visual Basic code files based on .editorconfig settings.
+                Versions:
+                        3.0.2 Downloads: 1973
+                        3.0.4 Downloads: 9064
+                        3.1.37601 Downloads: 114730
+                        3.2.107702 Downloads: 13423
+                        3.3.111304 Downloads: 131195
+                        4.0.130203 Downloads: 78610
+                        4.1.131201 Downloads: 145927
+
+SEE ALSO
+       • .NET tools
+
+       • Tutorial: Install and use a .NET global tool using the .NET CLI
+
+       • Tutorial: Install and use a .NET local tool using the .NET CLI
+
+                                                             2022-10-10                                       dotnet-tool-search(1)
+</pre>
+</body>
+</html>

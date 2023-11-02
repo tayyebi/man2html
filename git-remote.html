@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-REMOTE(1)                                                Git Manual                                               GIT-REMOTE(1)
+
+NAME
+       git-remote - Manage set of tracked repositories
+
+SYNOPSIS
+       git remote [-v | --verbose]
+       git remote add [-t &lt;branch&gt;] [-m &lt;master&gt;] [-f] [--[no-]tags] [--mirror=(fetch|push)] &lt;name&gt; &lt;URL&gt;
+       git remote rename [--[no-]progress] &lt;old&gt; &lt;new&gt;
+       git remote remove &lt;name&gt;
+       git remote set-head &lt;name&gt; (-a | --auto | -d | --delete | &lt;branch&gt;)
+       git remote set-branches [--add] &lt;name&gt; &lt;branch&gt;...
+       git remote get-url [--push] [--all] &lt;name&gt;
+       git remote set-url [--push] &lt;name&gt; &lt;newurl&gt; [&lt;oldurl&gt;]
+       git remote set-url --add [--push] &lt;name&gt; &lt;newurl&gt;
+       git remote set-url --delete [--push] &lt;name&gt; &lt;URL&gt;
+       git remote [-v | --verbose] show [-n] &lt;name&gt;...
+       git remote prune [-n | --dry-run] &lt;name&gt;...
+       git remote [-v | --verbose] update [-p | --prune] [(&lt;group&gt; | &lt;remote&gt;)...]
+
+DESCRIPTION
+       Manage the set of repositories ("remotes") whose branches you track.
+
+OPTIONS
+       -v, --verbose
+           Be a little more verbose and show remote url after name. For promisor remotes, also show which filter (blob:none etc.)
+           are configured. NOTE: This must be placed between remote and subcommand.
+
+COMMANDS
+       With no arguments, shows a list of existing remotes. Several subcommands are available to perform operations on the remotes.
+
+       add
+           Add a remote named &lt;name&gt; for the repository at &lt;URL&gt;. The command git fetch &lt;name&gt; can then be used to create and
+           update remote-tracking branches &lt;name&gt;/&lt;branch&gt;.
+
+           With -f option, git fetch &lt;name&gt; is run immediately after the remote information is set up.
+
+           With --tags option, git fetch &lt;name&gt; imports every tag from the remote repository.
+
+           With --no-tags option, git fetch &lt;name&gt; does not import tags from the remote repository.
+
+           By default, only tags on fetched branches are imported (see git-fetch(1)).
+
+           With -t &lt;branch&gt; option, instead of the default glob refspec for the remote to track all branches under the
+           refs/remotes/&lt;name&gt;/ namespace, a refspec to track only &lt;branch&gt; is created. You can give more than one -t &lt;branch&gt; to
+           track multiple branches without grabbing all branches.
+
+           With -m &lt;master&gt; option, a symbolic-ref refs/remotes/&lt;name&gt;/HEAD is set up to point at remote’s &lt;master&gt; branch. See
+           also the set-head command.
+
+           When a fetch mirror is created with --mirror=fetch, the refs will not be stored in the refs/remotes/ namespace, but
+           rather everything in refs/ on the remote will be directly mirrored into refs/ in the local repository. This option only
+           makes sense in bare repositories, because a fetch would overwrite any local commits.
+
+           When a push mirror is created with --mirror=push, then git push will always behave as if --mirror was passed.
+
+       rename
+           Rename the remote named &lt;old&gt; to &lt;new&gt;. All remote-tracking branches and configuration settings for the remote are
+           updated.
+
+           In case &lt;old&gt; and &lt;new&gt; are the same, and &lt;old&gt; is a file under $GIT_DIR/remotes or $GIT_DIR/branches, the remote is
+           converted to the configuration file format.
+
+       remove, rm
+           Remove the remote named &lt;name&gt;. All remote-tracking branches and configuration settings for the remote are removed.
+
+       set-head
+           Sets or deletes the default branch (i.e. the target of the symbolic-ref refs/remotes/&lt;name&gt;/HEAD) for the named remote.
+           Having a default branch for a remote is not required, but allows the name of the remote to be specified in lieu of a
+           specific branch. For example, if the default branch for origin is set to master, then origin may be specified wherever
+           you would normally specify origin/master.
+
+           With -d or --delete, the symbolic ref refs/remotes/&lt;name&gt;/HEAD is deleted.
+
+           With -a or --auto, the remote is queried to determine its HEAD, then the symbolic-ref refs/remotes/&lt;name&gt;/HEAD is set to
+           the same branch. e.g., if the remote HEAD is pointed at next, git remote set-head origin -a will set the symbolic-ref
+           refs/remotes/origin/HEAD to refs/remotes/origin/next. This will only work if refs/remotes/origin/next already exists; if
+           not it must be fetched first.
+
+           Use &lt;branch&gt; to set the symbolic-ref refs/remotes/&lt;name&gt;/HEAD explicitly. e.g., git remote set-head origin master will
+           set the symbolic-ref refs/remotes/origin/HEAD to refs/remotes/origin/master. This will only work if
+           refs/remotes/origin/master already exists; if not it must be fetched first.
+
+       set-branches
+           Changes the list of branches tracked by the named remote. This can be used to track a subset of the available remote
+           branches after the initial setup for a remote.
+
+           The named branches will be interpreted as if specified with the -t option on the git remote add command line.
+
+           With --add, instead of replacing the list of currently tracked branches, adds to that list.
+
+       get-url
+           Retrieves the URLs for a remote. Configurations for insteadOf and pushInsteadOf are expanded here. By default, only the
+           first URL is listed.
+
+           With --push, push URLs are queried rather than fetch URLs.
+
+           With --all, all URLs for the remote will be listed.
+
+       set-url
+           Changes URLs for the remote. Sets first URL for remote &lt;name&gt; that matches regex &lt;oldurl&gt; (first URL if no &lt;oldurl&gt; is
+           given) to &lt;newurl&gt;. If &lt;oldurl&gt; doesn’t match any URL, an error occurs and nothing is changed.
+
+           With --push, push URLs are manipulated instead of fetch URLs.
+
+           With --add, instead of changing existing URLs, new URL is added.
+
+           With --delete, instead of changing existing URLs, all URLs matching regex &lt;URL&gt; are deleted for remote &lt;name&gt;. Trying to
+           delete all non-push URLs is an error.
+
+           Note that the push URL and the fetch URL, even though they can be set differently, must still refer to the same place.
+           What you pushed to the push URL should be what you would see if you immediately fetched from the fetch URL. If you are
+           trying to fetch from one place (e.g. your upstream) and push to another (e.g. your publishing repository), use two
+           separate remotes.
+
+       show
+           Gives some information about the remote &lt;name&gt;.
+
+           With -n option, the remote heads are not queried first with git ls-remote &lt;name&gt;; cached information is used instead.
+
+       prune
+           Deletes stale references associated with &lt;name&gt;. By default, stale remote-tracking branches under &lt;name&gt; are deleted,
+           but depending on global configuration and the configuration of the remote we might even prune local tags that haven’t
+           been pushed there. Equivalent to git fetch --prune &lt;name&gt;, except that no new references will be fetched.
+
+           See the PRUNING section of git-fetch(1) for what it’ll prune depending on various configuration.
+
+           With --dry-run option, report what branches would be pruned, but do not actually prune them.
+
+       update
+           Fetch updates for remotes or remote groups in the repository as defined by remotes.&lt;group&gt;. If neither group nor remote
+           is specified on the command line, the configuration parameter remotes.default will be used; if remotes.default is not
+           defined, all remotes which do not have the configuration parameter remote.&lt;name&gt;.skipDefaultUpdate set to true will be
+           updated. (See git-config(1)).
+
+           With --prune option, run pruning against all the remotes that are updated.
+
+DISCUSSION
+       The remote configuration is achieved using the remote.origin.url and remote.origin.fetch configuration variables. (See git-
+       config(1)).
+
+EXIT STATUS
+       On success, the exit status is 0.
+
+       When subcommands such as add, rename, and remove can’t find the remote in question, the exit status is 2. When the remote
+       already exists, the exit status is 3.
+
+       On any other error, the exit status may be any other non-zero value.
+
+EXAMPLES
+       •   Add a new remote, fetch, and check out a branch from it
+
+               $ git remote
+               origin
+               $ git branch -r
+                 origin/HEAD -&gt; origin/master
+                 origin/master
+               $ git remote add staging git://git.kernel.org/.../gregkh/staging.git
+               $ git remote
+               origin
+               staging
+               $ git fetch staging
+               ...
+               From git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+                * [new branch]      master     -&gt; staging/master
+                * [new branch]      staging-linus -&gt; staging/staging-linus
+                * [new branch]      staging-next -&gt; staging/staging-next
+               $ git branch -r
+                 origin/HEAD -&gt; origin/master
+                 origin/master
+                 staging/master
+                 staging/staging-linus
+                 staging/staging-next
+               $ git switch -c staging staging/master
+               ...
+
+       •   Imitate git clone but track only selected branches
+
+               $ mkdir project.git
+               $ cd project.git
+               $ git init
+               $ git remote add -f -t master -m master origin git://example.com/git.git/
+               $ git merge origin
+
+SEE ALSO
+       git-fetch(1) git-branch(1) git-config(1)
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                               GIT-REMOTE(1)
+</pre>
+</body>
+</html>

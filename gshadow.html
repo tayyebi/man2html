@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GSHADOW(5)                                         File Formats and Configuration                                        GSHADOW(5)
+
+NAME
+       gshadow - shadowed group file
+
+DESCRIPTION
+       /etc/gshadow contains the shadowed information for group accounts.
+
+       This file must not be readable by regular users if password security is to be maintained.
+
+       Each line of this file contains the following colon-separated fields:
+
+       group name
+           It must be a valid group name, which exist on the system.
+
+       encrypted password
+           Refer to crypt(3) for details on how this string is interpreted.
+
+           If the password field contains some string that is not a valid result of crypt(3), for instance ! or *, users will not
+           be able to use a unix password to access the group (but group members do not need the password).
+
+           The password is used when a user who is not a member of the group wants to gain the permissions of this group (see
+           newgrp(1)).
+
+           This field may be empty, in which case only the group members can gain the group permissions.
+
+           A password field which starts with an exclamation mark means that the password is locked. The remaining characters on
+           the line represent the password field before the password was locked.
+
+           This password supersedes any password specified in /etc/group.
+
+       administrators
+           It must be a comma-separated list of user names.
+
+           Administrators can change the password or the members of the group.
+
+           Administrators also have the same permissions as the members (see below).
+
+       members
+           It must be a comma-separated list of user names.
+
+           Members can access the group without being prompted for a password.
+
+           You should use the same list of users as in /etc/group.
+
+FILES
+       /etc/group
+           Group account information.
+
+       /etc/gshadow
+           Secure group account information.
+
+SEE ALSO
+       gpasswd(5), group(5), grpck(8), grpconv(8), newgrp(1).
+
+shadow-utils 4.13                                            11/23/2022                                                  GSHADOW(5)
+</pre>
+</body>
+</html>

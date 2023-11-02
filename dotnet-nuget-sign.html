@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-nuget-sign(1)                                     .NET Documentation                                    dotnet-nuget-sign(1)
+
+dotnet nuget sign
+       This article applies to: ✔️ .NET 6 SDK and later versions
+
+NAME
+       dotnet-nuget-sign - Signs all the NuGet packages matching the first argument with a certificate.
+
+SYNOPSIS
+              dotnet nuget sign [&lt;package-path(s)&gt;]
+                  [--certificate-path &lt;PATH&gt;]
+                  [--certificate-store-name &lt;STORENAME&gt;]
+                  [--certificate-store-location &lt;STORELOCATION&gt;]
+                  [--certificate-subject-name &lt;SUBJECTNAME&gt;]
+                  [--certificate-fingerprint &lt;FINGERPRINT&gt;]
+                  [--certificate-password &lt;PASSWORD&gt;]
+                  [--hash-algorithm &lt;HASHALGORITHM&gt;]
+                  [-o|--output &lt;OUTPUT DIRECTORY&gt;]
+                  [--overwrite]
+                  [--timestamp-hash-algorithm &lt;HASHALGORITHM&gt;]
+                  [--timestamper &lt;TIMESTAMPINGSERVER&gt;]
+                  [-v|--verbosity &lt;LEVEL&gt;]
+
+              dotnet nuget sign -h|--help
+
+DESCRIPTION
+       The  dotnet  nuget sign command signs all the packages matching the first argument with a certificate.  The certificate with
+       the private key can be obtained from a file or from a certificate installed in a certificate store by  providing  a  subject
+       name or a SHA-1 fingerprint.
+
+              This  command requires a certificate root store that’s valid for both code signing and timestamping.  For more infor‐
+              mation, see NuGet signed package verification.
+
+ARGUMENTS
+       • package-path(s)
+
+         Specifies the file path to the package(s) to be signed.  Multiple arguments can be passed in to sign multiple packages.
+
+OPTIONS
+       • --certificate-path &lt;PATH&gt;
+
+         Specifies the file path to the certificate to be used in signing the package.
+
+                This option currently supports only PKCS12 (PFX) files that contain the certificate’s private key.
+
+       • --certificate-store-name &lt;STORENAME&gt;
+
+         Specifies the name of the X.509  certificate  store  to  use  to  search  for  the  certificate.   Defaults  to  :::no-loc
+         text=“"My"”:::,  the  X.509  certificate  store for personal certificates.  This option should be used when specifying the
+         certificate via --certificate-subject-name or --certificate-fingerprint options.
+
+       • --certificate-store-location &lt;STORELOCATION&gt;
+
+         Specifies the name of the X.509 certificate store use to search for the certificate.  Defaults to :::no-loc text=“"Curren‐
+         tUser"”:::, the X.509 certificate store used by the current user.  This option should be used when specifying the certifi‐
+         cate via --certificate-subject-name or --certificate-fingerprint options.
+
+       • --certificate-subject-name &lt;SUBJECTNAME&gt;
+
+         Specifies the subject name of the certificate used to search a local certificate store for the certificate.  The search is
+         a case-insensitive string comparison using the supplied value, which will find all certificates with the subject name con‐
+         taining that string, regardless of other subject values.  The certificate store can be specified  by  --certificate-store-
+         name and --certificate-store-location options.
+
+                This  option  currently  supports only a single matching certificate in the result.  If there are multiple matching
+                certificates in the result, or no matching certificate in the result, the sign command will fail.
+
+       • --certificate-fingerprint &lt;FINGERPRINT&gt;
+
+         SHA-1 fingerprint of the certificate used to search a local certificate store for the certificate.
+
+       • --certificate-password &lt;PASSWORD&gt;
+
+         Specifies the certificate password, if needed.  If a certificate is password protected but no password  is  provided,  the
+         sign command will fail.
+
+                The sign command only supports non-interactive mode.  There won’t be any prompt for a password at run time.
+
+       • --hash-algorithm &lt;HASHALGORITHM&gt;
+
+         Hash algorithm to be used to sign the package.  Defaults to SHA256.  Possible values are SHA256, SHA384, and SHA512.
+
+       • -o|--output
+
+         Specifies  the directory where the signed package should be saved.  If this option is not specified, by default the origi‐
+         nal package is overwritten by the signed package.
+
+       • --overwrite
+
+         Indicate that the current signature should be overwritten.  By default the command will fail if the package already has  a
+         signature.
+
+       • --timestamp-hash-algorithm &lt;HASHALGORITHM&gt;
+
+         Hash algorithm to be used by the RFC 3161 timestamp server.  Defaults to SHA256.
+
+       • --timestamper &lt;TIMESTAMPINGSERVER&gt;
+
+         URL to an RFC 3161 timestamping server.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+EXAMPLES
+       • Sign foo.nupkg with certificate cert.pfx (not password protected):
+
+                dotnet nuget sign foo.nupkg --certificate-path cert.pfx
+
+       • Sign foo.nupkg with certificate cert.pfx (password protected):
+
+                dotnet nuget sign foo.nupkg --certificate-path cert.pfx --certificate-password password
+
+       • Sign foo.nupkg with certificate (password protected) matches with the specified SHA-1 fingerprint in the default  certifi‐
+         cate store (CurrentUser):
+
+                dotnet nuget sign foo.nupkg --certificate-fingerprint 89967D1DD995010B6C66AE24FF8E66885E6E03A8 --certificate-password password
+
+       • Sign  foo.nupkg  with  certificate (password protected) matches with the specified subject name :::no-loc text=“"Test cer‐
+         tificate for testing signing"”::: in the default certificate store (CurrentUser):
+
+                dotnet nuget sign foo.nupkg --certificate-subject-name "Test certificate for testing signing" --certificate-password password
+
+       • Sign foo.nupkg with certificate (password protected) matches with the specified SHA-1 fingerprint in the certificate store
+         CurrentUser:
+
+                dotnet nuget sign foo.nupkg --certificate-fingerprint 89967D1DD995010B6C66AE24FF8E66885E6E03A8 --certificate-password password --certificate-store-location CurrentUser --certificate-store-name Root
+
+       • Sign  multiple  NuGet  packages - foo.nupkg and all .nupkg files in the directory specified with certificate cert.pfx (not
+         password protected):
+
+                dotnet nuget sign foo.nupkg c:\mydir\*.nupkg --certificate-path cert.pfx
+
+       • Sign foo.nupkg with certificate cert.pfx (password protected), and timestamp with http://timestamp.test:
+
+                dotnet nuget sign foo.nupkg --certificate-path cert.pfx --certificate-password password --timestamper http://timestamp.test
+
+       • Sign foo.nupkg with certificate cert.pfx (not password protected) and save the signed package under specified directory:
+
+                dotnet nuget sign foo.nupkg --certificate-path cert.pfx --output c:\signed\
+
+       • Sign foo.nupkg with certificate cert.pfx (not password protected) and overwrite the current signature if  the  package  is
+         already signed:
+
+                dotnet nuget sign foo.nupkg --certificate-path cert.pfx --overwrite
+
+                                                             2022-11-08                                        dotnet-nuget-sign(1)
+</pre>
+</body>
+</html>

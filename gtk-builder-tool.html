@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GTK-BUILDER-TOOL(1)                                        User Commands                                        GTK-BUILDER-TOOL(1)
+
+NAME
+       gtk-builder-tool - GtkBuilder file utility
+
+SYNOPSIS
+       gtk-builder-tool [COMMAND] [OPTION...] FILE
+
+DESCRIPTION
+       gtk-builder-tool can perform various operations on GtkBuilder .ui files.
+
+       You should always test the modified .ui files produced by gtk-builder-tool before using them in production.
+
+COMMANDS
+       The following commands are understood:
+
+       validate
+           Validates the .ui file and report errors to stderr.
+
+       simplify
+           Simplifies the .ui file by removing properties that are set to their default values and write the resulting XML to
+           stdout, or back to the input file.
+
+       enumerate
+           Lists all the named objects that are created in the .ui file.
+
+       preview
+           Preview the .ui file. This command accepts options to specify the ID of an object and a .css file to use.
+
+SIMPLIFY OPTIONS
+       The simplify command accepts the following options:
+
+       --replace
+           Write the content back to the .ui file instead of stdout.
+
+PREVIEW OPTIONS
+       The preview command accepts the following options:
+
+       --id=ID
+           The ID of the object to preview. If not specified, gtk-builder-tool will choose a suitable object on its own.
+
+       --css=FILE
+           Load style information from the given .css file.
+
+GTK+                                                                                                            GTK-BUILDER-TOOL(1)
+</pre>
+</body>
+</html>

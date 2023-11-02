@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>flockfile(3)                                          Library Functions Manual                                         flockfile(3)
+
+NAME
+       flockfile, ftrylockfile, funlockfile - lock FILE for stdio
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       void flockfile(FILE *filehandle);
+       int ftrylockfile(FILE *filehandle);
+       void funlockfile(FILE *filehandle);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       All functions shown above:
+           /* Since glibc 2.24: */ _POSIX_C_SOURCE &gt;= 199309L
+               || /* glibc &lt;= 2.23: */ _POSIX_C_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       The stdio functions are thread-safe.  This is achieved by assigning to each FILE object a lockcount and (if the lockcount is
+       nonzero) an owning thread.  For each library call, these functions wait until the FILE object is no longer locked by a  dif‐
+       ferent thread, then lock it, do the requested I/O, and unlock the object again.
+
+       (Note: this locking has nothing to do with the file locking done by functions like flock(2) and lockf(3).)
+
+       All this is invisible to the C-programmer, but there may be two reasons to wish for more detailed control.  On the one hand,
+       maybe a series of I/O actions by one thread belongs together, and should not be interrupted by the I/O of some other thread.
+       On the other hand, maybe the locking overhead should be avoided for greater efficiency.
+
+       To  this  end,  a thread can explicitly lock the FILE object, then do its series of I/O actions, then unlock.  This prevents
+       other threads from coming in between.  If the reason for doing this was to achieve greater efficiency, one does the I/O with
+       the nonlocking versions of the stdio functions: with getc_unlocked(3) and putc_unlocked(3) instead of getc(3) and putc(3).
+
+       The  flockfile()  function waits for *filehandle to be no longer locked by a different thread, then makes the current thread
+       owner of *filehandle, and increments the lockcount.
+
+       The funlockfile() function decrements the lock count.
+
+       The ftrylockfile() function is a nonblocking version of flockfile().  It does nothing in case some other thread owns  *file‐
+       handle, and it obtains ownership and increments the lockcount otherwise.
+
+RETURN VALUE
+       The ftrylockfile() function returns zero for success (the lock was obtained), and nonzero for failure.
+
+ERRORS
+       None.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │flockfile(), ftrylockfile(), funlockfile()                                                       │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008.
+
+       These functions are available when _POSIX_THREAD_SAFE_FUNCTIONS is defined.
+
+SEE ALSO
+       unlocked_stdio(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                flockfile(3)
+</pre>
+</body>
+</html>

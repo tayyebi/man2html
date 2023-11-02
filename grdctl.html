@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GRDCTL(1)                                                  User Commands                                                  GRDCTL(1)
+
+NAME
+       grdctl - Command line tool for configuring GNOME Remote Desktop
+
+SYNOPSIS
+       grdctl [OPTION...] [COMMAND] [SUBCOMMAND...]
+
+DESCRIPTION
+       grdctl provides methods for configuring the GNOME Remote Desktop service, for example setting credentials.
+
+OPTIONS
+       --help
+           Show help text.
+
+GENERAL COMMANDS
+       status
+           Show current status.
+
+RDP COMMANDS
+       rdp enable
+           Enable the RDP backend.
+
+       rdp disable
+           Disable the RDP backend.
+
+       rdp set-tls-cert TLS-CERT
+           Set path to TLS certificate.
+
+       rdp set-tls-key TLS-KEY
+           Set path to TLS key.
+
+       rdp set-credentials USERNAME PASSWORD
+           Set username and password credentials.
+
+       rdp clear-credentials
+           Clear username and password credentials.
+
+       rdp enable-view-only
+           Disable remote control of input devices.
+
+       rdp disable-view-only
+           Enable remote control of input devices.
+
+BUGS
+       The bug tracker can be reached by visiting the website https://gitlab.gnome.org/GNOME/gnome-remote-desktop/issues. Before
+       sending a bug report, please verify that you have the latest version of gnome-remote-desktop. Many bugs (major and minor)
+       are fixed at each release, and if yours is out of date, the problem may already have been solved.
+
+GNOME-REMOTE-DESKTOP                                         March 2022                                                   GRDCTL(1)
+</pre>
+</body>
+</html>

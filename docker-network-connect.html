@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DOCKER(1)                                               Docker User Manuals                                               DOCKER(1)
+
+NAME
+       docker-network-connect - Connect a container to a network
+
+SYNOPSIS
+       docker network connect [OPTIONS] NETWORK CONTAINER
+
+DESCRIPTION
+       Connects  a container to a network. You can connect a container by name or by ID. Once connected, the container can communi‐
+       cate with other containers in the same network.
+
+              $ docker network connect multi-host-network container1
+
+       You can also use the docker run --network=&lt;network-name&gt; option to start a container and immediately connect it  to  a  net‐
+       work.
+
+              $ docker run -itd --network=multi-host-network --ip 172.20.88.22 --ip6 2001:db8::8822 busybox
+
+       You  can  pause,  restart, and stop containers that are connected to a network.  A container connects to its configured net‐
+       works when it runs.
+
+       If specified, the container's IP address(es) is reapplied when a stopped container is restarted. If the  IP  address  is  no
+       longer available, the container fails to start. One way to guarantee that the IP address is available is to specify an --ip-
+       range when creating the network, and choose the static IP address(es) from outside that range. This ensures that the IP  ad‐
+       dress is not given to another container while this container is not on the network.
+
+              $ docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 multi-host-network
+
+              $ docker network connect --ip 172.20.128.2 multi-host-network container2
+
+       To verify the container is connected, use the docker network inspect command. Use docker network disconnect to remove a con‐
+       tainer from the network.
+
+       Once connected in network, containers can communicate using only another container's IP address or name.  For  overlay  net‐
+       works  or  custom  plugins  that  support  multi-host  connectivity, containers connected to the same multi-host network but
+       launched from different Engines can also communicate in this way.
+
+       You can connect a container to one or more networks. The networks need not be the same type. For example, you can connect  a
+       single container bridge and overlay networks.
+
+OPTIONS
+       --alias=[]      Add network-scoped alias for the container
+
+       --driver-opt=[]      driver options for the network
+
+       -h, --help[=false]      help for connect
+
+       --ip=""      IPv4 address (e.g., "172.30.100.104")
+
+       --ip6=""      IPv6 address (e.g., "2001:db8::33")
+
+       --link=      Add link to another container
+
+       --link-local-ip=[]      Add a link-local address for the container
+
+SEE ALSO
+       docker-network(1)
+
+Docker Community                                              Sep 2023                                                    DOCKER(1)
+</pre>
+</body>
+</html>

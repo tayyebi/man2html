@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>CRYPT_PREFERRED_METHOD(3)                           BSD Library Functions Manual                          CRYPT_PREFERRED_METHOD(3)
+
+NAME
+     crypt_preferred_method — get the prefix of the preferred hash method
+
+LIBRARY
+     Crypt Library (libcrypt, -lcrypt)
+
+SYNOPSIS
+     #include &lt;crypt.h&gt;
+
+     const char*
+     crypt_preferred_method(void);
+
+DESCRIPTION
+     crypt_preferred_method is a convenience function to get the prefix of the preferred hash method.  If a preferred method is
+     available, it is the same as the one also used by the crypt_gensalt functions, if their given prefix parameter is NULL.
+
+RETURN VALUES
+     The string returned equals the prefix of the preferred hash method.  If no preferred hash method is available it is NULL.  It
+     is safe to pass the string returned by crypt_preferred_method directly to crypt_gensalt without prior string-sanitizing nor
+     NULL-pointer checks.
+
+FEATURE TEST MACROS
+     &lt;crypt.h&gt; will define the macro CRYPT_PREFERRED_METHOD_AVAILABLE if crypt_preferred_method is available in the current version
+     of libxcrypt.
+
+PORTABILITY NOTES
+     The function crypt_preferred_method is not part of any standard.  It was added to libxcrypt in version 4.4.0.
+
+ATTRIBUTES
+     For an explanation of the terms used in this section, see attributes(7).
+     ┌───────────────────────┬───────────────┬─────────┐
+     │Interface              │ Attribute     │ Value   │
+     ├───────────────────────┼───────────────┼─────────┤
+     │crypt_preferred_method │ Thread safety │ MT-Safe │
+     └───────────────────────┴───────────────┴─────────┘
+
+SEE ALSO
+     crypt_gensalt(3)
+
+libxcrypt                                                November 16, 2018                                                libxcrypt
+</pre>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>__ppc_get_timebase(3)                                 Library Functions Manual                                __ppc_get_timebase(3)
+
+NAME
+       __ppc_get_timebase,  __ppc_get_timebase_freq - get the current value of the Time Base Register on Power architecture and its
+       frequency.
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;sys/platform/ppc.h&gt;
+
+       uint64_t __ppc_get_timebase(void);
+       uint64_t __ppc_get_timebase_freq(void);
+
+DESCRIPTION
+       __ppc_get_timebase() reads the current value of the  Time  Base  Register  and  returns  its  value,  while  __ppc_get_time‐
+       base_freq() returns the frequency in which the Time Base Register is updated.
+
+       The  Time  Base  Register  is a 64-bit register provided by Power Architecture processors.  It stores a monotonically incre‐
+       mented value that is updated at a system-dependent frequency that may be different from the processor frequency.
+
+RETURN VALUE
+       __ppc_get_timebase() returns a 64-bit unsigned integer that represents the current value of the Time Base Register.
+
+       __ppc_get_timebase_freq() returns a 64-bit unsigned integer that represents the frequency at which the Time Base Register is
+       updated.
+
+VERSIONS
+       GNU  C  Library  support  for __ppc_get_timebase() has been provided since glibc 2.16 and __ppc_get_timebase_freq() has been
+       available since glibc 2.17.
+
+STANDARDS
+       Both functions are nonstandard GNU extensions.
+
+EXAMPLES
+       The following program will calculate the time, in microseconds, spent between two calls to __ppc_get_timebase().
+
+   Program source
+
+       #include &lt;inttypes.h&gt;
+       #include &lt;stdint.h&gt;
+       #include &lt;stdio.h&gt;
+       #include &lt;stdlib.h&gt;
+       #include &lt;sys/platform/ppc.h&gt;
+
+       /* Maximum value of the Time Base Register: 2^60 - 1.
+          Source: POWER ISA.  */
+       #define MAX_TB 0xFFFFFFFFFFFFFFF
+
+       int
+       main(void)
+       {
+           uint64_t tb1, tb2, diff;
+           uint64_t freq;
+
+           freq = __ppc_get_timebase_freq();
+           printf("Time Base frequency = %"PRIu64" Hz\n", freq);
+
+           tb1 = __ppc_get_timebase();
+
+           // Do some stuff...
+
+           tb2 = __ppc_get_timebase();
+
+           if (tb2 &gt; tb1) {
+               diff = tb2 - tb1;
+           } else {
+               /* Treat Time Base Register overflow.  */
+               diff = (MAX_TB - tb2) + tb1;
+           }
+
+           printf("Elapsed time  = %1.2f usecs\n",
+                  (double) diff * 1000000 / freq);
+
+           exit(EXIT_SUCCESS);
+       }
+
+SEE ALSO
+       time(2), usleep(3)
+
+Linux man-pages 6.03                                         2023-02-05                                       __ppc_get_timebase(3)
+</pre>
+</body>
+</html>

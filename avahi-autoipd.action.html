@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>avahi-autoipd.action(8)                               System Manager's Manual                               avahi-autoipd.action(8)
+
+NAME
+       avahi-autoipd.action - avahi-autoipd action script
+
+SYNOPSIS
+       /etc/avahi/avahi-autoipd.action
+
+DESCRIPTION
+       avahi-autoipd.action  is  the action script that is called whenever an IP address has been acquired by avahi-autoipd or when
+       it detected an IP address conflict. The script should add or remove the specified address from the specified network  inter‐
+       face.
+
+PARAMETERS
+       argv[1]  An  event  string: one of BIND, CONFLICT, UNBIND or STOP. If BIND is passed an IP address has been successfully ac‐
+       quired and the script shall add it to the network interface. If CONFLICT is passed avahi-autopid detected a  IP  address  on
+       the  local  network, the action script should remove the configured IP address. If UNBIND is passed the IP address should be
+       removed from the interface, too, because a routable address has been configured to the interface by some other  program.  If
+       STOP is passed the avahi-autoipd is being shutdown and the action script should remove the IP address. In short: on BIND the
+       address should be added to the interface, on CONFLICT, UNBIND or STOP it should be removed.
+
+       argv[2] The network interface name.
+
+       argv[3] An IP address from the IPv4LL range.
+
+AUTHORS
+       The Avahi Developers &lt;avahi (at) lists (dot) freedesktop (dot) org&gt;; Avahi is available from http://avahi.org/
+
+SEE ALSO
+       avahi-autoipd(8), dhclient-script(8), ip(8), ifconfig(8)
+
+COMMENTS
+       This man page was written using xml2man(1) by Oliver Kurth.
+
+Manuals                                                         User                                        avahi-autoipd.action(8)
+</pre>
+</body>
+</html>

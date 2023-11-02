@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>HALT(8)                                                         halt                                                        HALT(8)
+
+NAME
+       halt, poweroff, reboot - Halt, power-off or reboot the machine
+
+SYNOPSIS
+       halt [OPTIONS...]
+
+       poweroff [OPTIONS...]
+
+       reboot [OPTIONS...]
+
+DESCRIPTION
+       halt, poweroff, reboot may be used to halt, power-off, or reboot the machine. All three commands take the same options.
+
+OPTIONS
+       The following options are understood:
+
+       --help
+           Print a short help text and exit.
+
+       --halt
+           Halt the machine, regardless of which one of the three commands is invoked.
+
+       -p, --poweroff
+           Power-off the machine, when either halt or poweroff is invoked. This option is ignored when reboot is invoked.
+
+       --reboot
+           Reboot the machine, regardless of which one of the three commands is invoked.
+
+       -f, --force
+           Force immediate halt, power-off, reboot. If specified, the command does not contact the init system. In most cases,
+           filesystems are not properly unmounted before shutdown. For example, the command reboot -f is mostly equivalent to
+           systemctl reboot -ff, instead of systemctl reboot -f.
+
+       -w, --wtmp-only
+           Only write wtmp shutdown entry, do not actually halt, power-off, reboot.
+
+       -d, --no-wtmp
+           Do not write wtmp shutdown entry.
+
+       -n, --no-sync
+           Don't sync hard disks/storage media before halt, power-off, reboot.
+
+       --no-wall
+           Do not send wall message before halt, power-off, reboot.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+NOTES
+       These commands are implemented in a way that preserves basic compatibility with the original SysV commands.  systemctl(1)
+       verbs halt, poweroff, reboot provide the same functionality with some additional features.
+
+       Note that on many SysV systems halt used to be synonymous to poweroff, i.e. both commands would equally result in powering
+       the machine off. systemd is more accurate here, and halt results in halting the machine only (leaving power on), and
+       poweroff is required to actually power it off.
+
+SEE ALSO
+       systemd(1), systemctl(1), shutdown(8), wall(1)
+
+systemd 252                                                                                                                 HALT(8)
+</pre>
+</body>
+</html>

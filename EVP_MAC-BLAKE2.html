@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>EVP_MAC-BLAKE2(7SSL)                                          OpenSSL                                          EVP_MAC-BLAKE2(7SSL)
+
+NAME
+       EVP_MAC-BLAKE2, EVP_MAC-BLAKE2BMAC, EVP_MAC-BLAKE2SMAC - The BLAKE2 EVP_MAC implementations
+
+DESCRIPTION
+       Support for computing BLAKE2 MACs through the EVP_MAC API.
+
+   Identity
+       These implementations are identified with one of these names and properties, to be used with EVP_MAC_fetch():
+
+       "BLAKE2BMAC", "provider=default"
+       "BLAKE2SMAC", "provider=default"
+
+   Supported parameters
+       The general description of these parameters can be found in "PARAMETERS" in EVP_MAC(3).
+
+       All these parameters can be set with EVP_MAC_CTX_set_params().  Furthermore, the "size" parameter can be retrieved with
+       EVP_MAC_CTX_get_params(), or with EVP_MAC_CTX_get_mac_size().  The length of the "size" parameter should not exceed that of
+       a size_t.  Likewise, the "block-size" parameter can be retrieved with EVP_MAC_CTX_get_params(), or with
+       EVP_MAC_CTX_get_block_size().
+
+       "key" (OSSL_MAC_PARAM_KEY) &lt;octet string&gt;
+           Sets the MAC key.  It may be at most 64 bytes for BLAKE2BMAC or 32 for BLAKE2SMAC and at least 1 byte in both cases.
+           Setting this parameter is identical to passing a key to EVP_MAC_init(3).
+
+       "custom" (OSSL_MAC_PARAM_CUSTOM) &lt;octet string&gt;
+           Sets the custom value.  It is an optional value of at most 16 bytes for BLAKE2BMAC or 8 for BLAKE2SMAC, and is empty by
+           default.
+
+       "salt" (OSSL_MAC_PARAM_SALT) &lt;octet string&gt;
+           Sets the salt.  It is an optional value of at most 16 bytes for BLAKE2BMAC or 8 for BLAKE2SMAC, and is empty by default.
+
+       "size" (OSSL_MAC_PARAM_SIZE) &lt;unsigned integer&gt;
+           Sets the MAC size.  It can be any number between 1 and 32 for EVP_MAC_BLAKE2S or between 1 and 64 for EVP_MAC_BLAKE2B.
+           It is 32 and 64 respectively by default.
+
+       "block-size" (OSSL_MAC_PARAM_SIZE) &lt;unsigned integer&gt;
+           Gets the MAC block size.  By default, it is 64 for EVP_MAC_BLAKE2S and 128 for EVP_MAC_BLAKE2B.
+
+SEE ALSO
+       EVP_MAC_CTX_get_params(3), EVP_MAC_CTX_set_params(3), "PARAMETERS" in EVP_MAC(3), OSSL_PARAM(3)
+
+HISTORY
+       The macros and functions described here were added to OpenSSL 3.0.
+
+COPYRIGHT
+       Copyright 2018-2021 The OpenSSL Project Authors. All Rights Reserved.
+
+       Licensed under the Apache License 2.0 (the "License").  You may not use this file except in compliance with the License.
+       You can obtain a copy in the file LICENSE in the source distribution or at &lt;https://www.openssl.org/source/license.html&gt;.
+
+3.0.8                                                        2023-05-24                                        EVP_MAC-BLAKE2(7SSL)
+</pre>
+</body>
+</html>

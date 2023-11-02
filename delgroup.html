@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DELUSER(8)                                            System Manager's Manual                                            DELUSER(8)
+
+NAME
+       deluser, delgroup - remove a user or group from the system
+
+SYNOPSIS
+       deluser [[options]] [--no-preserve-root] [--remove-home] [--remove-all-files] [--backup] [--backup-to dir] [user]
+       deluser [--group] [[options]] [group]
+       delgroup [[options]] [--only-if-empty] [group]
+       deluser [[options]] [user] [group]
+
+DESCRIPTION
+       deluser and delgroup remove users and groups from the system according to command line options and configuration information
+       in /etc/deluser.conf and /etc/adduser.conf.  They are friendlier front ends to the userdel and groupdel  programs,  removing
+       the  home  directory as option or even all files on the system owned by the user to be removed, running a custom script, and
+       other features.  deluser and delgroup can be run in one of three modes:
+
+   Remove a normal user
+       If called with one non-option argument and without the --group option, deluser will remove a normal user.
+
+       By default, deluser will remove the user without removing the home directory, the mail spool  or any other files on the sys‐
+       tem owned by the user.  Removing the home directory and mail spool can be achieved using the --remove-home option.
+
+       The   --remove-all-files  option  removes all files on the system owned by the user.  Note that if you activate both options
+       --remove-home will have no effect because all files including the home directory and mail spool are already covered  by  the
+       --remove-all-files option.
+
+       If  you  want  to  backup all files before deleting them you can activate the --backup option which will create a file user‐
+       name.tar(.gz|.bz2) in the directory specified by the --backup-to option (defaulting to the current working directory).
+
+         By default, the backup archive is compressed with gzip. To change this, the --backup-suffix option can be set to any  suf‐
+       fix supported by tar --auto-compress (e.g. .gz, .bz2, .xz).
+
+       The  remove,  suffix,  and  backup  options can also be activated by default in the configuration file etc/deluser.conf. See
+       deluser.conf(5) for details.
+
+       If you want to remove the root account (uid 0), then use the --no-preserve-root parameter; this may prevent  to  remove  the
+       root user by accident.
+
+       If the file /usr/local/sbin/deluser.local exists, it will be executed after the user account has been removed in order to do
+       any local cleanup.  The arguments passed to deluser.local are:
+       username uid gid home-directory
+
+   Remove a group
+       If deluser is called with the --group  option, or delgroup is called, a group will be removed.
+
+       Warning: The primary group of an existing user cannot be removed.
+
+       If the option --only-if-empty is given, the group won't be removed if it has any members left.
+
+   Remove a user from a specific group
+       If called with two non-option arguments, deluser will remove a user from a specific group.
+
+OPTIONS
+       --conf file,-c file
+              Use file instead of the default files /etc/deluser.conf and /etc/adduser.conf.
+
+       --group
+              Remove a group. This is the default action if the program is invoked as delgroup.
+
+       --help, -h
+              Display brief instructions.
+
+       --quiet, -q
+              Suppress progress messages.
+
+       --debug
+              Be verbose, most useful if you want to nail down a problem.
+
+       --system
+              Only delete if user/group is a system user/group. This avoids accidentally deleting  non-system  users/groups.  Addi‐
+              tionally, if the user does not exist, no error value is returned. Debian package maintainer scripts may use this flag
+              to remove system users or groups while ignoring the case where the removal already occurred.
+
+       --only-if-empty
+              Only remove if no members are left.
+
+       --backup
+              Backup all files contained in the userhome and  the  mailspool  file  to  a  file  named  username.tar.bz2  or  user‐
+              name.tar.gz.
+
+       --backup-to dir
+              Place the backup files not in the current directory but in dir.  This implicitly sets --backup also.
+
+       --remove-home
+              Remove  the home directory of the user and its mailspool.  If --backup is specified, the files are deleted after hav‐
+              ing performed the backup.
+
+       --remove-all-files
+              Remove all files from the system owned by this user.  Note: --remove-home does not  have  an  effect  any  more.   If
+              --backup is specified, the files are deleted after having performed the backup.
+
+       --version
+              Display version and copyright information.
+
+RETURN VALUE
+       0      Success: The action was successfully executed.
+
+       1      The user to delete was not a system account.  No action was performed.
+
+       2      There is no such user.  No action was performed.
+
+       3      There is no such group.  No action was performed.
+
+       4      Internal error.  No action was performed.
+
+       5      The group to delete is not empty.  No action was performed.
+
+       6      The user does not belong to the specified group.  No action was performed.
+
+       7      You cannot remove a user from its primary group.  No action was performed.
+
+       8      The required perl 'perl' is not installed.  This package is required to perform the requested actions.  No action was
+              performed.
+
+       9      For removing the root account the parameter --no-preserve-root is required.  No action was performed.
+
+SECURITY
+       deluser needs root privileges and offers, via the --conf command line option to use a different configuration file.  Do  not
+       use  sudo  or  similar  tools to give partial privileges to deluser with restricted command line parameters. This is easy to
+       circumvent and might allow users to create arbitrary accounts. If you want this, consider writing your  own  wrapper  script
+       and giving privileges to execute that script.
+
+FILES
+       /etc/deluser.conf Default configuration file for deluser and delgroup
+
+       /usr/local/sbin/deluser.local
+              Optional custom add-ons.
+
+SEE ALSO
+       adduser(8), deluser.conf(5), groupdel(8), userdel(8)
+
+COPYRIGHT
+       Copyright  (C) 2000 Roland Bauerschmidt. Modifications (C) 2004 Marc Haber and Joerg Hoh.  This manpage and the deluser pro‐
+       gram are based on adduser which is:
+       Copyright (C) 1997, 1998, 1999 Guy Maor.
+       Copyright (C) 1995 Ted Hajek, with a great deal borrowed from the original Debian adduser
+       Copyright (C) 1994 Ian Murdock.  deluser is free software; see the GNU General Public Licence version 2 or later for copying
+       conditions.  There is no warranty.
+
+Debian GNU/Linux                                                                                                         DELUSER(8)
+</pre>
+</body>
+</html>

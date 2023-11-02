@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>deb-origin(5)                                                dpkg suite                                               deb-origin(5)
+
+NAME
+       deb-origin - Vendor-specific information files
+
+SYNOPSIS
+       /etc/dpkg/origins/filename
+
+DESCRIPTION
+       The files in /etc/dpkg/origins can provide information about various vendors who are providing Debian packages.
+
+       They contain a number of fields, or comments when the line starts with ‘#’.  Each field begins with a tag, such as Vendor or
+       Parent, followed by a colon and the body of the field. Fields are delimited only by field tags. In other words, field text
+       may be multiple lines in length, but the tools will join lines when processing the body of the field.
+
+       The file should be named according to the vendor name.  The usual convention is to name the vendor file using the vendor
+       name in all lowercase, but some variation is permitted.
+
+       Namely (since dpkg 1.21.10), first, non-alphanumeric characters (‘[^A-Za-z0-9]’) are mapped to dashes (‘-’), then the
+       resulting name will be tried in sequence by lower-casing it, keeping it as is, lower-casing then capitalizing it (that is
+       upper-casing the first character), and only capitalizing it.
+
+       In addition, for historical and backwards compatibility, the name will be tried keeping it as is without non-alphanumeric
+       characters remapping, then the resulting name will be tried in sequence by lower-casing it, keeping it as is, lower-casing
+       then capitalizing it, and only capitalizing it.  And finally the name will be tried by remapping spaces to dashes (‘-’),
+       then the resulting name will be tried in sequence by lower-casing it, keeping it as is, lower-casing then capitalizing it,
+       and only capitalizing it.
+
+       But these backwards compatible module lookups will be removed during the dpkg 1.22.x release cycle.
+
+FIELDS
+       Vendor: vendor-name (required)
+           The value of this field determines the vendor name.
+
+       Vendor-URL: vendor-url
+           The value of this field determines the vendor URL.
+
+       Bugs: bug-url
+           The value of this field determines the type and address of the bug tracking system used by this vendor. It can be a
+           mailto URL or a debbugs URL (e.g., debbugs://bugs.debian.org/).
+
+       Parent: vendor-name
+           The value of this field determines the vendor name of the vendor that this vendor derives from.
+
+EXAMPLE
+        Vendor: Debian
+        Vendor-URL: https://www.debian.org/
+        Bugs: debbugs://bugs.debian.org
+
+SEE ALSO
+       dpkg-vendor(1)
+
+1.21.21                                                      2023-03-02                                               deb-origin(5)
+</pre>
+</body>
+</html>

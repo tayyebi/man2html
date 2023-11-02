@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>XTABLES-NFT(8)                                        System Manager's Manual                                        XTABLES-NFT(8)
+
+NAME
+       xtables-nft — iptables using nftables kernel api
+
+DESCRIPTION
+       xtables-nft are versions of iptables that use the nftables API.  This is a set of tools to help the system administrator mi‐
+       grate the ruleset from iptables(8), ip6tables(8), arptables(8), and ebtables(8) to nftables(8).
+
+       The xtables-nft set is composed of several commands:
+
+       • iptables-nft
+
+       • iptables-nft-save
+
+       • iptables-nft-restore
+
+       • ip6tables-nft
+
+       • ip6tables-nft-save
+
+       • ip6tables-nft-restore
+
+       • arptables-nft
+
+       • ebtables-nft
+
+         These tools use the libxtables framework extensions and hook to the nf_tables kernel subsystem using the  nft_compat  mod‐
+         ule.
+
+USAGE
+       The xtables-nft tools allow you to manage the nf_tables backend using the native syntax of iptables(8), ip6tables(8), arpta‐
+       bles(8), and ebtables(8).
+
+       You should use the xtables-nft tools exactly the same way as you would use the corresponding original tools.
+
+       Adding a rule will result in that rule being added to the nf_tables kernel subsystem instead.  Listing the ruleset will  use
+       the nf_tables backend as well.
+
+       When  these  tools were designed, the main idea was to replace each legacy binary with a symlink to the xtables-nft program,
+       for example:
+
+            /sbin/iptables -&gt; /usr/sbin/iptables-nft-multi
+            /sbin/ip6tables -&gt; /usr/sbin/ip6tables-nft-multi
+            /sbin/arptables -&gt; /usr/sbin/arptables-nft-multi
+            /sbin/ebtables -&gt; /usr/sbin/ebtables-nft-multi
+
+       The iptables version string will indicate whether the legacy API (get/setsockopt) or the new nf_tables api is used:
+            iptables -V
+            iptables v1.7 (nf_tables)
+
+DIFFERENCES TO LEGACY IPTABLES
+       Because the xtables-nft tools use the nf_tables kernel API, rule additions and deletions are always  atomic.   Unlike  ipta‐
+       bles-legacy,  iptables-nft  -A ..  will NOT need to retrieve the current ruleset from the kernel, change it, and re-load the
+       altered ruleset.  Instead, iptables-nft will tell the kernel to add one rule.  For this reason, the  iptables-legacy  --wait
+       option is a no-op in iptables-nft.
+
+       Use of the xtables-nft tools allow monitoring ruleset changes using the xtables-monitor(8) command.
+
+       When  using  -j TRACE to debug packet traversal to the ruleset, note that you will need to use xtables-monitor(8) in --trace
+       mode to obtain monitoring trace events.
+
+EXAMPLES
+       One basic example is creating the skeleton ruleset in nf_tables from the xtables-nft tools, in a fresh machine:
+
+            root@machine:~# iptables-nft -L
+            [...]
+            root@machine:~# ip6tables-nft -L
+            [...]
+            root@machine:~# arptables-nft -L
+            [...]
+            root@machine:~# ebtables-nft -L
+            [...]
+            root@machine:~# nft list ruleset
+            table ip filter {
+                 chain INPUT {
+                      type filter hook input priority 0; policy accept;
+                 }
+
+                 chain FORWARD {
+                      type filter hook forward priority 0; policy accept;
+                 }
+
+                 chain OUTPUT {
+                      type filter hook output priority 0; policy accept;
+                 }
+            }
+            table ip6 filter {
+                 chain INPUT {
+                      type filter hook input priority 0; policy accept;
+                 }
+
+                 chain FORWARD {
+                      type filter hook forward priority 0; policy accept;
+                 }
+
+                 chain OUTPUT {
+                      type filter hook output priority 0; policy accept;
+                 }
+            }
+            table bridge filter {
+                 chain INPUT {
+                      type filter hook input priority -200; policy accept;
+                 }
+
+                 chain FORWARD {
+                      type filter hook forward priority -200; policy accept;
+                 }
+
+                 chain OUTPUT {
+                      type filter hook output priority -200; policy accept;
+                 }
+            }
+            table arp filter {
+                 chain INPUT {
+                      type filter hook input priority 0; policy accept;
+                 }
+
+                 chain FORWARD {
+                      type filter hook forward priority 0; policy accept;
+                 }
+
+                 chain OUTPUT {
+                      type filter hook output priority 0; policy accept;
+                 }
+            }
+
+       (please note that in fresh machines, listing the ruleset for the first time results in all tables an chain being created).
+
+       To migrate your complete filter ruleset, in the case of iptables(8), you would use:
+
+            root@machine:~# iptables-legacy-save &gt; myruleset # reads from x_tables
+            root@machine:~# iptables-nft-restore myruleset   # writes to nf_tables
+       or
+            root@machine:~# iptables-legacy-save | iptables-translate-restore | less
+
+       to see how rules would look like in the nft nft(8) syntax.
+
+LIMITATIONS
+       You should use Linux kernel &gt;= 4.17.
+
+       The CLUSTERIP target is not supported.
+
+       To get up-to-date information about this, please head to http://wiki.nftables.org/.
+
+SEE ALSO
+       nft(8), xtables-translate(8), xtables-monitor(8)
+
+AUTHORS
+       The nftables framework is written by the Netfilter project (https://www.netfilter.org).
+
+       This manual page was written by Arturo Borrero Gonzalez &lt;arturo@debian.org&gt; for the Debian project, but may be used by  oth‐
+       ers.
+
+       This documentation is free/libre under the terms of the GPLv2+.
+
+                                                             June 2018                                               XTABLES-NFT(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>getpw(3)                                              Library Functions Manual                                             getpw(3)
+
+NAME
+       getpw - reconstruct password line entry
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #define _GNU_SOURCE             /* See feature_test_macros(7) */
+       #include &lt;sys/types.h&gt;
+       #include &lt;pwd.h&gt;
+
+       [[deprecated]] int getpw(uid_t uid, char *buf);
+
+DESCRIPTION
+       The  getpw() function reconstructs the password line entry for the given user ID uid in the buffer buf.  The returned buffer
+       contains a line of format
+
+           name:passwd:uid:gid:gecos:dir:shell
+
+       The passwd structure is defined in &lt;pwd.h&gt; as follows:
+
+           struct passwd {
+               char   *pw_name;       /* username */
+               char   *pw_passwd;     /* user password */
+               uid_t   pw_uid;        /* user ID */
+               gid_t   pw_gid;        /* group ID */
+               char   *pw_gecos;      /* user information */
+               char   *pw_dir;        /* home directory */
+               char   *pw_shell;      /* shell program */
+           };
+
+       For more information about the fields of this structure, see passwd(5).
+
+RETURN VALUE
+       The getpw() function returns 0 on success; on error, it returns -1, and errno is set to indicate the error.
+
+       If uid is not found in the password database, getpw() returns -1, sets errno to 0, and leaves buf unchanged.
+
+ERRORS
+       0 or ENOENT
+              No user corresponding to uid.
+
+       EINVAL buf is NULL.
+
+       ENOMEM Insufficient memory to allocate passwd structure.
+
+FILES
+       /etc/passwd
+              password database file
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────┐
+       │Interface                                                                                 │ Attribute     │ Value          │
+       ├──────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────┤
+       │getpw()                                                                                   │ Thread safety │ MT-Safe locale │
+       └──────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────┘
+
+STANDARDS
+       SVr2.
+
+BUGS
+       The getpw() function is dangerous as it may overflow the provided buffer buf.  It is obsoleted by getpwuid(3).
+
+SEE ALSO
+       endpwent(3), fgetpwent(3), getpwent(3), getpwnam(3), getpwuid(3), putpwent(3), setpwent(3), passwd(5)
+
+Linux man-pages 6.03                                         2022-12-15                                                    getpw(3)
+</pre>
+</body>
+</html>

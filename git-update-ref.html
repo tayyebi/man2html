@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-UPDATE-REF(1)                                            Git Manual                                           GIT-UPDATE-REF(1)
+
+NAME
+       git-update-ref - Update the object name stored in a ref safely
+
+SYNOPSIS
+       git update-ref [-m &lt;reason&gt;] [--no-deref] (-d &lt;ref&gt; [&lt;oldvalue&gt;] | [--create-reflog] &lt;ref&gt; &lt;newvalue&gt; [&lt;oldvalue&gt;] | --stdin [-z])
+
+DESCRIPTION
+       Given two arguments, stores the &lt;newvalue&gt; in the &lt;ref&gt;, possibly dereferencing the symbolic refs. E.g. git update-ref HEAD
+       &lt;newvalue&gt; updates the current branch head to the new object.
+
+       Given three arguments, stores the &lt;newvalue&gt; in the &lt;ref&gt;, possibly dereferencing the symbolic refs, after verifying that
+       the current value of the &lt;ref&gt; matches &lt;oldvalue&gt;. E.g. git update-ref refs/heads/master &lt;newvalue&gt; &lt;oldvalue&gt; updates the
+       master branch head to &lt;newvalue&gt; only if its current value is &lt;oldvalue&gt;. You can specify 40 "0" or an empty string as
+       &lt;oldvalue&gt; to make sure that the ref you are creating does not exist.
+
+       It also allows a "ref" file to be a symbolic pointer to another ref file by starting with the four-byte header sequence of
+       "ref:".
+
+       More importantly, it allows the update of a ref file to follow these symbolic pointers, whether they are symlinks or these
+       "regular file symbolic refs". It follows real symlinks only if they start with "refs/": otherwise it will just try to read
+       them and update them as a regular file (i.e. it will allow the filesystem to follow them, but will overwrite such a symlink
+       to somewhere else with a regular filename).
+
+       If --no-deref is given, &lt;ref&gt; itself is overwritten, rather than the result of following the symbolic pointers.
+
+       In general, using
+
+           git update-ref HEAD "$head"
+
+       should be a lot safer than doing
+
+           echo "$head" &gt; "$GIT_DIR/HEAD"
+
+       both from a symlink following standpoint and an error checking standpoint. The "refs/" rule for symlinks means that symlinks
+       that point to "outside" the tree are safe: they’ll be followed for reading but not for writing (so we’ll never write through
+       a ref symlink to some other tree, if you have copied a whole archive by creating a symlink tree).
+
+       With -d flag, it deletes the named &lt;ref&gt; after verifying it still contains &lt;oldvalue&gt;.
+
+       With --stdin, update-ref reads instructions from standard input and performs all modifications together. Specify commands of
+       the form:
+
+           update SP &lt;ref&gt; SP &lt;newvalue&gt; [SP &lt;oldvalue&gt;] LF
+           create SP &lt;ref&gt; SP &lt;newvalue&gt; LF
+           delete SP &lt;ref&gt; [SP &lt;oldvalue&gt;] LF
+           verify SP &lt;ref&gt; [SP &lt;oldvalue&gt;] LF
+           option SP &lt;opt&gt; LF
+           start LF
+           prepare LF
+           commit LF
+           abort LF
+
+       With --create-reflog, update-ref will create a reflog for each ref even if one would not ordinarily be created.
+
+       Quote fields containing whitespace as if they were strings in C source code; i.e., surrounded by double-quotes and with
+       backslash escapes. Use 40 "0" characters or the empty string to specify a zero value. To specify a missing value, omit the
+       value and its preceding SP entirely.
+
+       Alternatively, use -z to specify in NUL-terminated format, without quoting:
+
+           update SP &lt;ref&gt; NUL &lt;newvalue&gt; NUL [&lt;oldvalue&gt;] NUL
+           create SP &lt;ref&gt; NUL &lt;newvalue&gt; NUL
+           delete SP &lt;ref&gt; NUL [&lt;oldvalue&gt;] NUL
+           verify SP &lt;ref&gt; NUL [&lt;oldvalue&gt;] NUL
+           option SP &lt;opt&gt; NUL
+           start NUL
+           prepare NUL
+           commit NUL
+           abort NUL
+
+       In this format, use 40 "0" to specify a zero value, and use the empty string to specify a missing value.
+
+       In either format, values can be specified in any form that Git recognizes as an object name. Commands in any other format or
+       a repeated &lt;ref&gt; produce an error. Command meanings are:
+
+       update
+           Set &lt;ref&gt; to &lt;newvalue&gt; after verifying &lt;oldvalue&gt;, if given. Specify a zero &lt;newvalue&gt; to ensure the ref does not exist
+           after the update and/or a zero &lt;oldvalue&gt; to make sure the ref does not exist before the update.
+
+       create
+           Create &lt;ref&gt; with &lt;newvalue&gt; after verifying it does not exist. The given &lt;newvalue&gt; may not be zero.
+
+       delete
+           Delete &lt;ref&gt; after verifying it exists with &lt;oldvalue&gt;, if given. If given, &lt;oldvalue&gt; may not be zero.
+
+       verify
+           Verify &lt;ref&gt; against &lt;oldvalue&gt; but do not change it. If &lt;oldvalue&gt; is zero or missing, the ref must not exist.
+
+       option
+           Modify behavior of the next command naming a &lt;ref&gt;. The only valid option is no-deref to avoid dereferencing a symbolic
+           ref.
+
+       start
+           Start a transaction. In contrast to a non-transactional session, a transaction will automatically abort if the session
+           ends without an explicit commit. This command may create a new empty transaction when the current one has been committed
+           or aborted already.
+
+       prepare
+           Prepare to commit the transaction. This will create lock files for all queued reference updates. If one reference could
+           not be locked, the transaction will be aborted.
+
+       commit
+           Commit all reference updates queued for the transaction, ending the transaction.
+
+       abort
+           Abort the transaction, releasing all locks if the transaction is in prepared state.
+
+       If all &lt;ref&gt;s can be locked with matching &lt;oldvalue&gt;s simultaneously, all modifications are performed. Otherwise, no
+       modifications are performed. Note that while each individual &lt;ref&gt; is updated or deleted atomically, a concurrent reader may
+       still see a subset of the modifications.
+
+LOGGING UPDATES
+       If config parameter "core.logAllRefUpdates" is true and the ref is one under "refs/heads/", "refs/remotes/", "refs/notes/",
+       or a pseudoref like HEAD or ORIG_HEAD; or the file "$GIT_DIR/logs/&lt;ref&gt;" exists then git update-ref will append a line to
+       the log file "$GIT_DIR/logs/&lt;ref&gt;" (dereferencing all symbolic refs before creating the log name) describing the change in
+       ref value. Log lines are formatted as:
+
+           oldsha1 SP newsha1 SP committer LF
+
+       Where "oldsha1" is the 40 character hexadecimal value previously stored in &lt;ref&gt;, "newsha1" is the 40 character hexadecimal
+       value of &lt;newvalue&gt; and "committer" is the committer’s name, email address and date in the standard Git committer ident
+       format.
+
+       Optionally with -m:
+
+           oldsha1 SP newsha1 SP committer TAB message LF
+
+       Where all fields are as described above and "message" is the value supplied to the -m option.
+
+       An update will fail (without changing &lt;ref&gt;) if the current user is unable to create a new log file, append to the existing
+       log file or does not have committer information available.
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                           GIT-UPDATE-REF(1)
+</pre>
+</body>
+</html>

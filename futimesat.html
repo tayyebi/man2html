@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>futimesat(2)                                            System Calls Manual                                            futimesat(2)
+
+NAME
+       futimesat - change timestamps of a file relative to a directory file descriptor
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;fcntl.h&gt;            /* Definition of AT_* constants */
+       #include &lt;sys/time.h&gt;
+
+       [[deprecated]] int futimesat(int dirfd, const char *pathname,
+                                    const struct timeval times[2]);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       futimesat():
+           _GNU_SOURCE
+
+DESCRIPTION
+       This system call is obsolete.  Use utimensat(2) instead.
+
+       The futimesat() system call operates in exactly the same way as utimes(2), except for the differences described in this man‐
+       ual page.
+
+       If the pathname given in pathname is relative, then it is interpreted relative to the directory referred to by the file  de‐
+       scriptor  dirfd (rather than relative to the current working directory of the calling process, as is done by utimes(2) for a
+       relative pathname).
+
+       If pathname is relative and dirfd is the special value AT_FDCWD, then pathname is interpreted relative to the current  work‐
+       ing directory of the calling process (like utimes(2)).
+
+       If pathname is absolute, then dirfd is ignored.  (See openat(2) for an explanation of why the dirfd argument is useful.)
+
+RETURN VALUE
+       On success, futimesat() returns a 0.  On error, -1 is returned and errno is set to indicate the error.
+
+ERRORS
+       The  same errors that occur for utimes(2) can also occur for futimesat().  The following additional errors can occur for fu‐
+       timesat():
+
+       EBADF  pathname is relative but dirfd is neither AT_FDCWD nor a valid file descriptor.
+
+       ENOTDIR
+              pathname is relative and dirfd is a file descriptor referring to a file other than a directory.
+
+VERSIONS
+       futimesat() was added in Linux 2.6.16; library support was added in glibc 2.4.
+
+STANDARDS
+       This system call is nonstandard.  It was implemented from a specification that was proposed for POSIX.1, but that specifica‐
+       tion was replaced by the one for utimensat(2).
+
+       A similar system call exists on Solaris.
+
+NOTES
+   glibc notes
+       If pathname is NULL, then the glibc futimesat() wrapper function updates the times for the file referred to by dirfd.
+
+SEE ALSO
+       stat(2), utimensat(2), utimes(2), futimes(3), path_resolution(7)
+
+Linux man-pages 6.03                                         2023-02-05                                                futimesat(2)
+</pre>
+</body>
+</html>

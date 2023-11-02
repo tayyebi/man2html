@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-msbuild(1)                                        .NET Documentation                                       dotnet-msbuild(1)
+
+dotnet msbuild
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-msbuild - Builds a project and all of its dependencies.  Note: A solution or project file may need to be specified if
+       there are multiple.
+
+SYNOPSIS
+              dotnet msbuild &lt;MSBUILD_ARGUMENTS&gt;
+
+              dotnet msbuild -h
+
+DESCRIPTION
+       The dotnet msbuild command allows access to a fully functional MSBuild.
+
+       The command has the exact same capabilities as the existing MSBuild command-line client for SDK-style  projects  only.   The
+       options are all the same.  For more information about the available options, see the MSBuild command-line reference.
+
+       The  dotnet build command is equivalent to dotnet msbuild -restore.  When you don’t want to build the project and you have a
+       specific target you want to run, use dotnet build or dotnet msbuild and specify the target.
+
+EXAMPLES
+       • Build a project and its dependencies:
+
+                dotnet msbuild
+
+       • Build a project and its dependencies using Release configuration:
+
+                dotnet msbuild -property:Configuration=Release
+
+       • Run the publish target and publish for the osx.10.11-x64 RID:
+
+                dotnet msbuild -target:Publish -property:RuntimeIdentifiers=osx.10.11-x64
+
+       • See the whole project with all targets included by the SDK:
+
+                dotnet msbuild -preprocess
+                dotnet msbuild -preprocess:&lt;fileName&gt;.xml
+
+                                                             2022-06-03                                           dotnet-msbuild(1)
+</pre>
+</body>
+</html>

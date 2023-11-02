@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GOA-DAEMON(8)                                        System Management Commands                                       GOA-DAEMON(8)
+
+NAME
+       goa-daemon - GNOME Online Accounts Daemon
+
+SYNOPSIS
+       goa-daemon [--help] [--replace]
+
+DESCRIPTION
+       The goa-daemon program provides the org.gnome.OnlineAccounts name on the session message bus. Users or administrators should
+       never need to start this daemon as it will be automatically started by dbus-daemon(1) whenever an application sends a D-Bus
+       message to the org.gnome.OnlineAccounts name on the session bus.
+
+CONFIGURATION FILE
+       The goa-daemon program stores configuration in the $XDG_CONFIG_HOME/goa-1.0/accounts.conf (typically
+       ~/.config/goa-1.0/accounts.conf) file. The format of this file is private and 3rd party programs or libraries should never
+       read it. This file does not contain any passwords or secrets.
+
+       See the XDG Base Directory Specification[1] for more information about $XDG_CONFIG_HOME.
+
+SECRETS
+       The goa-daemon program stores secrets (such as OAuth tokens) in GNOME Keyring[2]. The format of the stored secrets is
+       private and 3rd party programs or libraries should never read, modify or delete these secrets.
+
+OPTIONS
+       --replace
+           Replace existing instance.
+
+       --help
+           Show help options.
+
+AUTHOR
+       Written by David Zeuthen &lt;zeuthen@gmail.com&gt; with a lot of help from many others.
+
+BUGS
+       Please send bug reports to either the distribution bug tracker or the upstream bug tracker at
+       https://gitlab.gnome.org/GNOME/gnome-online-accounts/issues. There are some debugging tips at
+       https://wiki.gnome.org/Projects/GnomeOnlineAccounts/Debugging
+
+SEE ALSO
+       dbus-daemon(1)
+
+NOTES
+        1. XDG Base Directory Specification
+           http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+
+        2. GNOME Keyring
+           https://live.gnome.org/GnomeKeyring
+
+GNOME                                                        June 2020                                                GOA-DAEMON(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Deps::KnownFacts(3perl)                               libdpkg-perl                              Dpkg::Deps::KnownFacts(3perl)
+
+NAME
+       Dpkg::Deps::KnownFacts - list of installed real and virtual packages
+
+DESCRIPTION
+       This class represents a list of installed packages and a list of virtual packages provided (by the set of installed
+       packages).
+
+METHODS
+       $facts = Dpkg::Deps::KnownFacts-&gt;new();
+           Creates a new object.
+
+       $facts-&gt;add_installed_package($package, $version, $arch, $multiarch)
+           Records that the given version of the package is installed. If $version/$arch is undefined we know that the package is
+           installed but we don't know which version/architecture it is. $multiarch is the Multi-Arch field of the package. If
+           $multiarch is undef, it will be equivalent to "Multi-Arch: no".
+
+           Note that $multiarch is only used if $arch is provided.
+
+       $facts-&gt;add_provided_package($virtual, $relation, $version, $by)
+           Records that the "$by" package provides the $virtual package. $relation and $version correspond to the associated
+           relation given in the Provides field (if present).
+
+       $facts-&gt;evaluate_simple_dep()
+           This method is private and should not be used except from within Dpkg::Deps.
+
+CHANGES
+   Version 2.00 (dpkg 1.20.0)
+       Remove method: $facts-&gt;check_package().
+
+   Version 1.01 (dpkg 1.16.1)
+       New option: Dpkg::Deps::KnownFacts-&gt;add_installed_package() now accepts 2 supplementary parameters ($arch and $multiarch).
+
+       Deprecated method: Dpkg::Deps::KnownFacts-&gt;check_package() is obsolete, it should not have been part of the public API.
+
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                               Dpkg::Deps::KnownFacts(3perl)
+</pre>
+</body>
+</html>

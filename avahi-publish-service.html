@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>avahi-publish-service(1)                              General Commands Manual                              avahi-publish-service(1)
+
+NAME
+       avahi-publish-service - Register an mDNS/DNS-SD service or host name or address mapping using the Avahi daemon
+
+SYNOPSIS
+       avahi-publish -s [options] name service-type port [TXT data ...]
+
+       avahi-publish-service [options] name service-type port [TXT data ...]
+
+       avahi-publish -a [options] host name address
+
+       avahi-publish-address [options] host name address
+
+DESCRIPTION
+       Register an mDNS/DNS-SD service or host name/address mapping using the Avahi daemon.
+
+OPTIONS
+       When  calling  in  service  registration  mode, specify a DNS-SD service name (e.g. "Lennart's Files"), a service type (e.g.
+       _http._tcp) and an IP port number for the service, optionally followed by any number of TXT record strings  on  the  command
+       line. When calling in address/host name registration mode specify a fully qualified host name and an address (IPv4 or IPv6).
+
+       -s | --service
+              Register a service. avahi-publish-service is equivalent to avahi-publish -s.
+
+       -a | --address
+              Register an address/host name mapping. avahi-publish-address is equivalent to avahi-publish -a.
+
+       -v | --verbose
+              Enable verbose mode.
+
+       -H | --host= HOSTNAME
+              Specify  a  host name for this service, in case it doesn't reside on the local host. This host name needs to be fully
+              qualified and resolvable using mDNS or unicast DNS.
+
+       -d | --domain= DOMAIN
+              Publish the service in the specified domain. If omitted the Avahi daemon will publish it in its default domain  (usu‐
+              ally .local).
+
+       --subtype= SUBTYPE
+              Register  the  service  with  an  additional  subtype  in  addition  to  the main type. DNS-SD subtypes have the form
+              _anon._sub._ftp._tcp, where _anon is the identifier of the subtype and _ftp._tcp is the main type. You may pass  this
+              option multiple times to register the service with multiple subtypes.
+
+       -f | --no-fail
+              Don't fail if the daemon is not found running. Instead, wait until it appears. If it disconnects, try to reconnect.
+
+       -h | --help
+              Show help
+
+       -V | --version
+              Show version information.
+
+AUTHORS
+       The Avahi Developers &lt;avahi (at) lists (dot) freedesktop (dot) org&gt;; Avahi is available from http://avahi.org/
+
+SEE ALSO
+       avahi-resolve(1), avahi-browse(1), avahi-daemon(8)
+
+COMMENTS
+       This man page was written using xml2man(1) by Oliver Kurth.
+
+Manuals                                                         User                                       avahi-publish-service(1)
+</pre>
+</body>
+</html>

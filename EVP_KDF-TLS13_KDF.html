@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>EVP_KDF-TLS13_KDF(7SSL)                                       OpenSSL                                       EVP_KDF-TLS13_KDF(7SSL)
+
+NAME
+       EVP_KDF-TLS13_KDF - The TLS 1.3 EVP_KDF implementation
+
+DESCRIPTION
+       Support for computing the TLS 1.3 version of the HKDF KDF through the EVP_KDF API.
+
+       The EVP_KDF-TLS13_KDF algorithm implements the HKDF key derivation function as used by TLS 1.3.
+
+   Identity
+       "TLS13-KDF" is the name for this implementation; it can be used with the EVP_KDF_fetch() function.
+
+   Supported parameters
+       The supported parameters are:
+
+       "properties" (OSSL_KDF_PARAM_PROPERTIES) &lt;UTF8 string&gt;
+       "digest" (OSSL_KDF_PARAM_DIGEST) &lt;UTF8 string&gt;
+       "key" (OSSL_KDF_PARAM_KEY) &lt;octet string&gt;
+       "salt" (OSSL_KDF_PARAM_SALT) &lt;octet string&gt;
+           These parameters work as described in "PARAMETERS" in EVP_KDF(3).
+
+       "prefix" (OSSL_KDF_PARAM_PREFIX) &lt;octet string&gt;
+           This parameter sets the label prefix on the specified TLS 1.3 KDF context.  For TLS 1.3 this should be set to the ASCII
+           string "tls13 " without a trailing zero byte.  Refer to RFC 8446 section 7.1 "Key Schedule" for details.
+
+       "label" (OSSL_KDF_PARAM_LABEL) &lt;octet string&gt;
+           This parameter sets the label on the specified TLS 1.3 KDF context.  Refer to RFC 8446 section 7.1 "Key Schedule" for
+           details.
+
+       "data" (OSSL_KDF_PARAM_DATA) &lt;octet string&gt;
+           This parameter sets the context data on the specified TLS 1.3 KDF context.  Refer to RFC 8446 section 7.1 "Key Schedule"
+           for details.
+
+       "mode" (OSSL_KDF_PARAM_MODE) &lt;UTF8 string&gt; or &lt;integer&gt;
+           This parameter sets the mode for the TLS 1.3 KDF operation.  There are two modes that are currently defined:
+
+           "EXTRACT_ONLY" or EVP_KDF_HKDF_MODE_EXTRACT_ONLY
+               In this mode calling EVP_KDF_derive(3) will just perform the extract operation. The value returned will be the
+               intermediate fixed-length pseudorandom key K.  The keylen parameter must match the size of K, which can be looked up
+               by calling EVP_KDF_CTX_get_kdf_size() after setting the mode and digest.
+
+               The digest, key and salt values must be set before a key is derived otherwise an error will occur.
+
+           "EXPAND_ONLY" or EVP_KDF_HKDF_MODE_EXPAND_ONLY
+               In this mode calling EVP_KDF_derive(3) will just perform the expand operation. The input key should be set to the
+               intermediate fixed-length pseudorandom key K returned from a previous extract operation.
+
+               The digest, key and info values must be set before a key is derived otherwise an error will occur.
+
+NOTES
+       This KDF is intended for use by the TLS 1.3 implementation in libssl.  It does not support all the options and capabilities
+       that HKDF does.
+
+       The OSSL_PARAM array passed to EVP_KDF_derive(3) or EVP_KDF_CTX_set_params(3) must specify all of the parameters required.
+       This KDF does not support a piecemeal approach to providing these.
+
+       A context for a TLS 1.3 KDF can be obtained by calling:
+
+        EVP_KDF *kdf = EVP_KDF_fetch(NULL, "TLS13-KDF", NULL);
+        EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);
+
+       The output length of a TLS 1.3 KDF expand operation is specified via the keylen parameter to the EVP_KDF_derive(3) function.
+       When using EVP_KDF_HKDF_MODE_EXTRACT_ONLY the keylen parameter must equal the size of the intermediate fixed-length
+       pseudorandom key otherwise an error will occur.  For that mode, the fixed output size can be looked up by calling
+       EVP_KDF_CTX_get_kdf_size() after setting the mode and digest on the EVP_KDF_CTX.
+
+CONFORMING TO
+       RFC 8446
+
+SEE ALSO
+       EVP_KDF(3), EVP_KDF_CTX_new(3), EVP_KDF_CTX_free(3), EVP_KDF_CTX_get_kdf_size(3), EVP_KDF_CTX_set_params(3),
+       EVP_KDF_derive(3), "PARAMETERS" in EVP_KDF(3), EVP_KDF-HKDF(7)
+
+HISTORY
+       This functionality was added in OpenSSL 3.0.
+
+COPYRIGHT
+       Copyright 2021 The OpenSSL Project Authors. All Rights Reserved.
+
+       Licensed under the Apache License 2.0 (the "License").  You may not use this file except in compliance with the License.
+       You can obtain a copy in the file LICENSE in the source distribution or at &lt;https://www.openssl.org/source/license.html&gt;.
+
+3.0.8                                                        2023-05-24                                     EVP_KDF-TLS13_KDF(7SSL)
+</pre>
+</body>
+</html>

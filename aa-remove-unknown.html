@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>AA-REMOVE-UNKNOWN(8)                                          AppArmor                                         AA-REMOVE-UNKNOWN(8)
+
+NAME
+       aa-remove-unknown - remove unknown AppArmor profiles
+
+SYNOPSIS
+       aa-remove-unknown [option]
+
+DESCRIPTION
+       aa-remove-unknown will inventory all profiles in /etc/apparmor.d/, compare that list to the profiles currently loaded into
+       the kernel, and then remove all of the loaded profiles that were not found in /etc/apparmor.d/. It will also report the name
+       of each profile that it removes on standard out.
+
+OPTIONS
+       -h, --help
+           displays a short usage statement.
+
+       -n  dry run; only prints the names of profiles that would be removed
+
+EXAMPLES
+         $ sudo ./aa-remove-unknown -n
+         Would remove 'test//null-/usr/bin/whoami'
+         Would remove 'test'
+
+         $ sudo ./aa-remove-unknown
+         Removing 'test//null-/usr/bin/whoami'
+         Removing 'test'
+
+BUGS
+       None. Please report any you find to Gitlab at &lt;https://gitlab.com/apparmor/apparmor/-/issues&gt;.
+
+SEE ALSO
+       apparmor(7)
+
+AppArmor 3.0.8                                               2023-06-06                                        AA-REMOVE-UNKNOWN(8)
+</pre>
+</body>
+</html>

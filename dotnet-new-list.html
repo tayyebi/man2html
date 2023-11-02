@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-new-list(1)                                       .NET Documentation                                      dotnet-new-list(1)
+
+dotnet new list
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-new-list - Lists available templates to be run using dotnet-new.
+
+SYNOPSIS
+              dotnet new list [&lt;TEMPLATE_NAME&gt;] [--author &lt;AUTHOR&gt;] [-lang|--language {"C#"|"F#"|VB}]
+                  [--tag &lt;TAG&gt;] [--type &lt;TYPE&gt;] [--columns &lt;COLUMNS&gt;] [--columns-all]
+                  [-o|--output &lt;output&gt;] [--project &lt;project&gt;] [--ignore-constraints]
+                  [-d|--diagnostics] [--verbosity &lt;LEVEL&gt;] [-h|--help]
+
+DESCRIPTION
+       The dotnet new list command lists available templates to use with dotnet new.  If the is specified, lists templates contain‐
+       ing the specified name.  This option lists only default and installed templates.  To find templates in NuGet  that  you  can
+       install locally, use the search command.
+
+       Starting  with  .NET  SDK 7.0.100, the list command might not show all the templates installed on the machine.  It takes the
+       result of template constraints into account, and the templates that can’t be used won’t be shown.  To  force  show  all  the
+       templates, use the --ignore-constraints option.
+
+       Starting with the .NET 7 SDK, the dotnet new syntax has changed:
+
+       • The --list, --search, --install, and --uninstall options became list, search, install and uninstall subcommands.
+
+       • The --update-apply option became the update subcommand.
+
+       • To use --update-check, use the update subcommand with the --check-only option.
+
+       Other  options  that  were available before are still available to use with their respective subcommands.  Separate help for
+       each subcommand is available via the -h or --help option: dotnet new &lt;subcommand&gt; --help lists all supported options for the
+       subcommand.
+
+       Additionally,  tab  completion is now available for dotnet new.  It supports completion for installed template names and for
+       the options a selected template provides.  To activate tab completion for the .NET SDK, see Enable tab completion.  &gt; &gt;  Ex‐
+       amples of the old syntax: &gt; &gt; - List all Single Page Application (SPA) templates: &gt; - since .NET SDK 6.0.100 &gt; &gt; dotnetcli &gt;
+       dotnet new --list spa &gt; &gt; &gt; - before .NET SDK 6.0.100 &gt; &gt; dotnetcli &gt;   dotnet new spa --list &gt;
+
+ARGUMENTS
+       • TEMPLATE_NAME
+
+         If the argument is specified, only the templates containing &lt;TEMPLATE_NAME&gt; in template name or short name will be shown.
+
+OPTIONS
+       • --author &lt;AUTHOR&gt;
+
+         Filters templates based on template author.  Partial match is supported.  Available since .NET SDK 5.0.300.
+
+       • --columns &lt;COLUMNS&gt;
+
+         Comma-separated list of columns to display in the output.  The supported columns are:
+
+         • language - A comma-separated list of languages supported by the template.
+
+         • tags - The list of template tags.
+
+         • author - The template author.
+
+         • type - The template type: project or item.
+
+         The template name and short name are always shown.  The default list of columns is template name,  short  name,  language,
+         and tags.  This list is equivalent to specifying --columns=language,tags.  Available since .NET SDK 5.0.300.
+
+       • --columns-all
+
+         Displays all columns in the output.  Available since .NET SDK 5.0.300.
+
+       • -d|--diagnostics
+
+         Enables diagnostic output.  Available since .NET SDK 7.0.100.
+
+       • -h|--help
+
+         Prints out help for the list command.  Available since .NET SDK 7.0.100.
+
+       • --ignore-constraints
+
+         Disables checking if the template meets the constraints to be run.  Available since .NET SDK 7.0.100.
+
+       • -lang|--language {C#|F#|VB}
+
+         Filters  templates  based on language supported by the template.  The language accepted varies by the template.  Not valid
+         for some templates.
+
+                Some shells interpret # as a special character.  In those cases, enclose the language parameter  value  in  quotes.
+                For example, dotnet new --list --language "F#".
+
+       • -o|--output &lt;OUTPUT_DIRECTORY&gt;
+
+         Location  to  place the generated output.  The default is the current directory.  For the list command, it might be neces‐
+         sary to specify the output directory to correctly evaluate  constraints  for  the  template.   Available  since  .NET  SDK
+         7.0.100.
+
+       • --project &lt;PROJECT_PATH&gt;
+
+         The  project  that the template is added to.  For the list command, it might be needed to specify the project the template
+         is being added to to correctly evaluate constraints for the template.  Available since .NET SDK 7.0.100.
+
+       • --tag &lt;TAG&gt;
+
+         Filters templates based on template tags.  To be selected, a template must have at least one tag that exactly matches  the
+         criteria.  Available since .NET SDK 5.0.300.
+
+       • --type &lt;TYPE&gt;
+
+         Filters templates based on template type.  Predefined values are project, item, and solution.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity  level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], and diag[nostic].  Available
+         since .NET SDK 7.0.100.
+
+EXAMPLES
+       • List all templates
+
+                dotnet new list
+
+       • List all Single Page Application (SPA) templates:
+
+                dotnet new list spa
+
+       • List all templates matching the we substring.
+
+                dotnet new list we
+
+       • List all templates matching the we substring that support the F# language.
+
+                dotnet new list we --language "F#"
+
+       • List all item templates.
+
+                dotnet new list --type item
+
+       • List all C# templates, showing the author and the type in the output.
+
+                dotnet new list --language "C#" --columns "author,type"
+
+SEE ALSO
+       • dotnet new command
+
+       • dotnet new search command
+
+       • Custom templates for dotnet new
+
+                                                             2022-11-08                                          dotnet-new-list(1)
+</pre>
+</body>
+</html>

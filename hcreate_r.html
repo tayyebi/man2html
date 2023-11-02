@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>hsearch(3)                                            Library Functions Manual                                           hsearch(3)
+
+NAME
+       hcreate, hdestroy, hsearch, hcreate_r, hdestroy_r, hsearch_r - hash table management
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;search.h&gt;
+
+       int hcreate(size_t nel);
+       void hdestroy(void);
+
+       ENTRY *hsearch(ENTRY item, ACTION action);
+
+       #define _GNU_SOURCE         /* See feature_test_macros(7) */
+       #include &lt;search.h&gt;
+
+       int hcreate_r(size_t nel, struct hsearch_data *htab);
+       void hdestroy_r(struct hsearch_data *htab);
+
+       int hsearch_r(ENTRY item, ACTION action, ENTRY **retval,
+                     struct hsearch_data *htab);
+
+DESCRIPTION
+       The  three functions hcreate(), hsearch(), and hdestroy() allow the caller to create and manage a hash search table contain‐
+       ing entries consisting of a key (a string) and associated data.  Using these functions, only one hash table can be used at a
+       time.
+
+       The  three functions hcreate_r(), hsearch_r(), hdestroy_r() are reentrant versions that allow a program to use more than one
+       hash search table at the same time.  The last argument, htab, points to a structure that describes the table  on  which  the
+       function  is  to  operate.  The programmer should treat this structure as opaque (i.e., do not attempt to directly access or
+       modify the fields in this structure).
+
+       First a hash table must be created using hcreate().  The argument nel specifies the maximum number of entries in the  table.
+       (This maximum cannot be changed later, so choose it wisely.)  The implementation may adjust this value upward to improve the
+       performance of the resulting hash table.
+
+       The hcreate_r() function performs the same task as hcreate(), but for the table  described  by  the  structure  *htab.   The
+       structure pointed to by htab must be zeroed before the first call to hcreate_r().
+
+       The  function  hdestroy()  frees  the  memory  occupied by the hash table that was created by hcreate().  After calling hde‐
+       stroy(), a new hash table can be created using hcreate().  The hdestroy_r() function performs the analogous task for a  hash
+       table described by *htab, which was previously created using hcreate_r().
+
+       The  hsearch()  function searches the hash table for an item with the same key as item (where "the same" is determined using
+       strcmp(3)), and if successful returns a pointer to it.
+
+       The argument item is of type ENTRY, which is defined in &lt;search.h&gt; as follows:
+
+           typedef struct entry {
+               char *key;
+               void *data;
+           } ENTRY;
+
+       The field key points to a null-terminated string which is the search key.  The field data points to data that is  associated
+       with that key.
+
+       The  argument  action determines what hsearch() does after an unsuccessful search.  This argument must either have the value
+       ENTER, meaning insert a copy of item (and return a pointer to the new hash table entry as the function result), or the value
+       FIND, meaning that NULL should be returned.  (If action is FIND, then data is ignored.)
+
+       The hsearch_r() function is like hsearch() but operates on the hash table described by *htab.  The hsearch_r() function dif‐
+       fers from hsearch() in that a pointer to the found item is returned in *retval, rather than as the function result.
+
+RETURN VALUE
+       hcreate() and hcreate_r() return nonzero on success.  They return 0 on error, with errno set to indicate the error.
+
+       On success, hsearch() returns a pointer to an entry in the hash table.  hsearch() returns NULL on error, that is, if  action
+       is ENTER and the hash table is full, or action is FIND and item cannot be found in the hash table.  hsearch_r() returns non‐
+       zero on success, and 0 on error.  In the event of an error, these two functions set errno to indicate the error.
+
+ERRORS
+       hcreate_r() and hdestroy_r() can fail for the following reasons:
+
+       EINVAL htab is NULL.
+
+       hsearch() and hsearch_r() can fail for the following reasons:
+
+       ENOMEM action was ENTER, key was not found in the table, and there was no room in the table to add a new entry.
+
+       ESRCH  action was FIND, and key was not found in the table.
+
+       POSIX.1 specifies only the ENOMEM error.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────────────┐
+       │Interface                                                                         │ Attribute     │ Value                  │
+       ├──────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────────┤
+       │hcreate(), hsearch(), hdestroy()                                                  │ Thread safety │ MT-Unsafe race:hsearch │
+       ├──────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────────┤
+       │hcreate_r(), hsearch_r(), hdestroy_r()                                            │ Thread safety │ MT-Safe race:htab      │
+       └──────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────────────┘
+
+STANDARDS
+       The functions hcreate(), hsearch(), and hdestroy() are from SVr4, and are described in POSIX.1-2001 and POSIX.1-2008.
+
+       The functions hcreate_r(), hsearch_r(), and hdestroy_r() are GNU extensions.
+
+NOTES
+       Hash table implementations are usually more efficient when the table contains enough  free  space  to  minimize  collisions.
+       Typically,  this means that nel should be at least 25% larger than the maximum number of elements that the caller expects to
+       store in the table.
+
+       The hdestroy() and hdestroy_r() functions do not free the buffers pointed to by the key and data elements of the hash  table
+       entries.   (It  can't  do  this because it doesn't know whether these buffers were allocated dynamically.)  If these buffers
+       need to be freed (perhaps because the program is repeatedly creating and destroying hash tables, rather than creating a sin‐
+       gle table whose lifetime matches that of the program), then the program must maintain bookkeeping data structures that allow
+       it to free them.
+
+BUGS
+       SVr4 and POSIX.1-2001 specify that action is significant only for unsuccessful searches, so that an ENTER should not do any‐
+       thing  for a successful search.  In libc and glibc (before glibc 2.3), the implementation violates the specification, updat‐
+       ing the data for the given key in this case.
+
+       Individual hash table entries can be added, but not deleted.
+
+EXAMPLES
+       The following program inserts 24 items into a hash table, then prints some of them.
+
+       #include &lt;search.h&gt;
+       #include &lt;stdio.h&gt;
+       #include &lt;stdlib.h&gt;
+
+       static char *data[] = { "alpha", "bravo", "charlie", "delta",
+            "echo", "foxtrot", "golf", "hotel", "india", "juliet",
+            "kilo", "lima", "mike", "november", "oscar", "papa",
+            "quebec", "romeo", "sierra", "tango", "uniform",
+            "victor", "whisky", "x-ray", "yankee", "zulu"
+       };
+
+       int
+       main(void)
+       {
+           ENTRY e;
+           ENTRY *ep;
+
+           hcreate(30);
+
+           for (size_t i = 0; i &lt; 24; i++) {
+               e.key = data[i];
+               /* data is just an integer, instead of a
+                  pointer to something */
+               e.data = (void *) i;
+               ep = hsearch(e, ENTER);
+               /* there should be no failures */
+               if (ep == NULL) {
+                   fprintf(stderr, "entry failed\n");
+                   exit(EXIT_FAILURE);
+               }
+           }
+
+           for (size_t i = 22; i &lt; 26; i++) {
+               /* print two entries from the table, and
+                  show that two are not in the table */
+               e.key = data[i];
+               ep = hsearch(e, FIND);
+               printf("%9.9s -&gt; %9.9s:%d\n", e.key,
+                      ep ? ep-&gt;key : "NULL", ep ? (int)(ep-&gt;data) : 0);
+           }
+           hdestroy();
+           exit(EXIT_SUCCESS);
+       }
+
+SEE ALSO
+       bsearch(3), lsearch(3), malloc(3), tsearch(3)
+
+Linux man-pages 6.03                                         2022-12-15                                                  hsearch(3)
+</pre>
+</body>
+</html>

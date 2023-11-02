@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-QUILTIMPORT(1)                                           Git Manual                                          GIT-QUILTIMPORT(1)
+
+NAME
+       git-quiltimport - Applies a quilt patchset onto the current branch
+
+SYNOPSIS
+       git quiltimport [--dry-run | -n] [--author &lt;author&gt;] [--patches &lt;dir&gt;]
+                       [--series &lt;file&gt;] [--keep-non-patch]
+
+DESCRIPTION
+       Applies a quilt patchset onto the current Git branch, preserving the patch boundaries, patch order, and patch descriptions
+       present in the quilt patchset.
+
+       For each patch the code attempts to extract the author from the patch description. If that fails it falls back to the author
+       specified with --author. If the --author flag was not given the patch description is displayed and the user is asked to
+       interactively enter the author of the patch.
+
+       If a subject is not found in the patch description the patch name is preserved as the 1 line subject in the Git description.
+
+OPTIONS
+       -n, --dry-run
+           Walk through the patches in the series and warn if we cannot find all of the necessary information to commit a patch. At
+           the time of this writing only missing author information is warned about.
+
+       --author Author Name &lt;Author Email&gt;
+           The author name and email address to use when no author information can be found in the patch description.
+
+       --patches &lt;dir&gt;
+           The directory to find the quilt patches.
+
+           The default for the patch directory is patches or the value of the $QUILT_PATCHES environment variable.
+
+       --series &lt;file&gt;
+           The quilt series file.
+
+           The default for the series file is &lt;patches&gt;/series or the value of the $QUILT_SERIES environment variable.
+
+       --keep-non-patch
+           Pass -b flag to git mailinfo (see git-mailinfo(1)).
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                          GIT-QUILTIMPORT(1)
+</pre>
+</body>
+</html>

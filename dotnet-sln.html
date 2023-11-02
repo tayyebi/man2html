@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-sln(1)                                            .NET Documentation                                           dotnet-sln(1)
+
+dotnet sln
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-sln - Lists or modifies the projects in a .NET solution file.
+
+SYNOPSIS
+              dotnet sln [&lt;SOLUTION_FILE&gt;] [command]
+
+              dotnet sln [command] -h|--help
+
+DESCRIPTION
+       The dotnet sln command provides a convenient way to list and modify projects in a solution file.
+
+   Create a solution file
+       To  use the dotnet sln command, the solution file must already exist.  If you need to create one, use the dotnet new command
+       with the sln template name.
+
+       The following example creates a .sln file in the current folder, with the same name as the folder:
+
+              dotnet new sln
+
+       The following example creates a .sln file in the current folder, with the specified file name:
+
+              dotnet new sln --name MySolution
+
+       The following example creates a .sln file in the specified folder, with the same name as the folder:
+
+              dotnet new sln --output MySolution
+
+ARGUMENTS
+       • SOLUTION_FILE
+
+         The solution file to use.  If this argument is omitted, the command searches the current directory for one.  If  it  finds
+         no solution file or multiple solution files, the command fails.
+
+OPTIONS
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+   Commands
+   list
+       Lists all projects in a solution file.
+
+SYNOPSIS
+              dotnet sln list [-h|--help]
+
+ARGUMENTS
+       • SOLUTION_FILE
+
+         The  solution  file to use.  If this argument is omitted, the command searches the current directory for one.  If it finds
+         no solution file or multiple solution files, the command fails.
+
+OPTIONS
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+   add
+       Adds one or more projects to the solution file.
+
+SYNOPSIS
+              dotnet sln [&lt;SOLUTION_FILE&gt;] add [--in-root] [-s|--solution-folder &lt;PATH&gt;] &lt;PROJECT_PATH&gt; [&lt;PROJECT_PATH&gt;...]
+              dotnet sln add [-h|--help]
+
+ARGUMENTS
+       • SOLUTION_FILE
+
+         The solution file to use.  If it is unspecified, the command searches the current directory for one and fails if there are
+         multiple solution files.
+
+       • PROJECT_PATH
+
+         The   path   to   the   project   or   projects   to   add   to   the   solution.    Unix/Linux   shell  globbing  pattern
+         (https://en.wikipedia.org/wiki/Glob_(programming)) expansions are processed correctly by the dotnet sln command.
+
+         If PROJECT_PATH includes folders that contain the project folder, that portion of the path  is  used  to  create  solution
+         folders.  For example, the following commands create a solution with myapp in solution folder folder1/folder2:
+
+                dotnet new sln
+                dotnet new console --output folder1/folder2/myapp
+                dotnet sln add folder1/folder2/myapp
+
+         You can override this default behavior by using the --in-root or the -s|--solution-folder &lt;PATH&gt; option.
+
+OPTIONS
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --in-root
+
+         Places  the  projects  in the root of the solution, rather than creating a solution folder.  Can’t be used with -s|--solu‐
+         tion-folder.
+
+       • -s|--solution-folder &lt;PATH&gt;
+
+         The destination solution folder path to add the projects to.  Can’t be used with --in-root.
+
+   remove
+       Removes a project or multiple projects from the solution file.
+
+SYNOPSIS
+              dotnet sln [&lt;SOLUTION_FILE&gt;] remove &lt;PROJECT_PATH&gt; [&lt;PROJECT_PATH&gt;...]
+              dotnet sln [&lt;SOLUTION_FILE&gt;] remove [-h|--help]
+
+ARGUMENTS
+       • SOLUTION_FILE
+
+         The solution file to use.  If it is unspecified, the command searches the current directory for one and fails if there are
+         multiple solution files.
+
+       • PROJECT_PATH
+
+         The   path   to   the   project   or   projects   to   remove  from  the  solution.   Unix/Linux  shell  globbing  pattern
+         (https://en.wikipedia.org/wiki/Glob_(programming)) expansions are processed correctly by the dotnet sln command.
+
+OPTIONS
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+EXAMPLES
+       • List the projects in a solution:
+
+                dotnet sln todo.sln list
+
+       • Add a C# project to a solution:
+
+                dotnet sln add todo-app/todo-app.csproj
+
+       • Remove a C# project from a solution:
+
+                dotnet sln remove todo-app/todo-app.csproj
+
+       • Add multiple C# projects to the root of a solution:
+
+                dotnet sln todo.sln add todo-app/todo-app.csproj back-end/back-end.csproj --in-root
+
+       • Add multiple C# projects to a solution:
+
+                dotnet sln todo.sln add todo-app/todo-app.csproj back-end/back-end.csproj
+
+       • Remove multiple C# projects from a solution:
+
+                dotnet sln todo.sln remove todo-app/todo-app.csproj back-end/back-end.csproj
+
+       • Add multiple C# projects to a solution using a globbing pattern (Unix/Linux only):
+
+                dotnet sln todo.sln add **/*.csproj
+
+       • Add multiple C# projects to a solution using a globbing pattern (Windows PowerShell only):
+
+                dotnet sln todo.sln add (ls -r **/*.csproj)
+
+       • Remove multiple C# projects from a solution using a globbing pattern (Unix/Linux only):
+
+                dotnet sln todo.sln remove **/*.csproj
+
+       • Remove multiple C# projects from a solution using a globbing pattern (Windows PowerShell only):
+
+                dotnet sln todo.sln remove (ls -r **/*.csproj)
+
+       • Create a solution, a console app, and two class libraries.  Add the projects to the solution, and use the --solution-fold‐
+         er option of dotnet sln to organize the class libraries into a solution folder.
+
+                dotnet new sln -n mysolution
+                dotnet new console -o myapp
+                dotnet new classlib -o mylib1
+                dotnet new classlib -o mylib2
+                dotnet sln mysolution.sln add myapp\myapp.csproj
+                dotnet sln mysolution.sln add mylib1\mylib1.csproj --solution-folder mylibs
+                dotnet sln mysolution.sln add mylib2\mylib2.csproj --solution-folder mylibs
+
+         The following screenshot shows the result in Visual Studio 2019 Solution Explorer:
+
+         :::image type=“content” source=“media/dotnet-sln/dotnet-sln-solution-folder.png” alt-text=“Solution Explorer showing class
+         library projects grouped into a solution folder.”:::
+
+SEE ALSO
+       • dotnet/sdk GitHub repo (https://github.com/dotnet/sdk) (.NET CLI source)
+
+                                                             2022-10-10                                               dotnet-sln(1)
+</pre>
+</body>
+</html>

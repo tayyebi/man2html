@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Compression::Process(3perl)                           libdpkg-perl                          Dpkg::Compression::Process(3perl)
+
+NAME
+       Dpkg::Compression::Process - run compression/decompression processes
+
+DESCRIPTION
+       This module provides an object oriented interface to run and manage compression/decompression processes.
+
+METHODS
+       $proc = Dpkg::Compression::Process-&gt;new(%opts)
+           Create a new instance of the object. Supported options are "compression" and "compression_level" (see corresponding
+           set_* functions).
+
+       $proc-&gt;set_compression($comp)
+           Select the compression method to use. It errors out if the method is not supported according to
+           "compression_is_supported" (of Dpkg::Compression).
+
+       $proc-&gt;set_compression_level($level)
+           Select the compression level to use. It errors out if the level is not valid according to "compression_is_valid_level"
+           (of Dpkg::Compression).
+
+       @exec = $proc-&gt;get_compress_cmdline()
+       @exec = $proc-&gt;get_uncompress_cmdline()
+           Returns a list ready to be passed to "exec", its first element is the program name (either for compression or
+           decompression) and the following elements are parameters for the program.
+
+           When executed the program acts as a filter between its standard input and its standard output.
+
+       $proc-&gt;compress(%opts)
+           Starts a compressor program. You must indicate where it will read its uncompressed data from and where it will write its
+           compressed data to.  This is accomplished by passing one parameter "to_*" and one parameter "from_*" as accepted by
+           Dpkg::IPC::spawn.
+
+           You must call "wait_end_process" after having called this method to properly close the sub-process (and verify that it
+           exited without error).
+
+       $proc-&gt;uncompress(%opts)
+           Starts a decompressor program. You must indicate where it will read its compressed data from and where it will write its
+           uncompressed data to.  This is accomplished by passing one parameter "to_*" and one parameter "from_*" as accepted by
+           Dpkg::IPC::spawn.
+
+           You must call "wait_end_process" after having called this method to properly close the sub-process (and verify that it
+           exited without error).
+
+       $proc-&gt;wait_end_process(%opts)
+           Call Dpkg::IPC::wait_child to wait until the sub-process has exited and verify its return code. Any given option will be
+           forwarded to the "wait_child" function. Most notably you can use the "nocheck" option to verify the return code yourself
+           instead of letting "wait_child" do it for you.
+
+CHANGES
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                           Dpkg::Compression::Process(3perl)
+</pre>
+</body>
+</html>

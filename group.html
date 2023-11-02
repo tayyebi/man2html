@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>group(5)                                                File Formats Manual                                                group(5)
+
+NAME
+       group - user group file
+
+DESCRIPTION
+       The  /etc/group  file is a text file that defines the groups on the system.  There is one entry per line, with the following
+       format:
+
+           group_name:password:GID:user_list
+
+       The fields are as follows:
+
+       group_name
+              the name of the group.
+
+       password
+              the (encrypted) group password.  If this field is empty, no password is needed.
+
+       GID    the numeric group ID.
+
+       user_list
+              a list of the usernames that are members of this group, separated by commas.
+
+FILES
+       /etc/group
+
+BUGS
+       As the 4.2BSD initgroups(3) man page says: no one seems to keep /etc/group up-to-date.
+
+SEE ALSO
+       chgrp(1), gpasswd(1), groups(1), login(1), newgrp(1), sg(1), getgrent(3), getgrnam(3), gshadow(5), passwd(5), vigr(8)
+
+Linux man-pages 6.03                                         2022-10-30                                                    group(5)
+</pre>
+</body>
+</html>

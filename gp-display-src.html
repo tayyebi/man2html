@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GP-DISPLAY-SRC(1)                                          User Commands                                          GP-DISPLAY-SRC(1)
+
+NAME
+       gp-display-src - display the source code, optionally interleaved with the disassembly of the target object
+
+SYNOPSIS
+       gprofng display src [OPTION(S)] TARGET-OBJECT
+
+DESCRIPTION
+       Display  the  source code listing, or source code interleaved with disassembly code, as extracted from the target object (an
+       executable, shared object, object file, or a Java .class file).
+
+OPTIONS
+       --version
+              print the version number and exit.
+
+       --help print usage information and exit.
+
+       --verbose {on|off}
+              enable (on) or disable (off) verbose mode; the default is "off".
+
+       -func  list all the functions from the given object.
+
+       -source item tag
+              show the source code for item; the tag is used to differentiate in case of multiple occurences with  the  same  name;
+              the combination of "all -1" selects all the functions in the object; the default is "-source all -1".
+
+       -disasm item tag
+              show the source code, interleaved with the disassembled instructions; the same definitions for item and tag apply.
+
+       -outfile &lt;filename&gt;
+              write  results to file &lt;filename&gt;; a dash (-) writes to stdout; this is also the default; note that this only affects
+              options included to the right of this option.
+
+DOCUMENTATION
+       A getting started guide for gprofng is maintained as a Texinfo manual. If the info and gprofng  programs  are  properly  in‐
+       stalled at your site, the command "info gprofng" should give you access to this document.
+
+SEE ALSO
+       gprofng(1), gp-archive(1), gp-collect-app(1), gp-display-html(1), gp-display-text(1)
+
+COPYRIGHT
+       Copyright  ©  2023  Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3 or later &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+GNU gp-display-src binutils version 2.40                      May 2023                                            GP-DISPLAY-SRC(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-run(1)                                            .NET Documentation                                           dotnet-run(1)
+
+dotnet run
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-run - Runs source code without any explicit compile or launch commands.
+
+SYNOPSIS
+              dotnet run [-a|--arch &lt;ARCHITECTURE&gt;] [-c|--configuration &lt;CONFIGURATION&gt;]
+                  [-f|--framework &lt;FRAMEWORK&gt;] [--force] [--interactive]
+                  [--launch-profile &lt;NAME&gt;] [--no-build]
+                  [--no-dependencies] [--no-launch-profile] [--no-restore]
+                  [--os &lt;OS&gt;] [--project &lt;PATH&gt;] [-r|--runtime &lt;RUNTIME_IDENTIFIER&gt;]
+                  [-v|--verbosity &lt;LEVEL&gt;] [[--] [application arguments]]
+
+              dotnet run -h|--help
+
+DESCRIPTION
+       The  dotnet  run  command  provides a convenient option to run your application from the source code with one command.  It’s
+       useful for fast iterative development from the command line.  The command depends on the dotnet build command to  build  the
+       code.  Any requirements for the build, such as that the project must be restored first, apply to dotnet run as well.
+
+              dotnet run doesn’t respect arguments like /property:property=value, which are respected by dotnet build.
+
+       Output  files  are written into the default location, which is bin/&lt;configuration&gt;/&lt;target&gt;.  For example if you have a net‐
+       coreapp2.1 application and you run dotnet run, the output is placed in bin/Debug/netcoreapp2.1.  Files  are  overwritten  as
+       needed.  Temporary files are placed in the obj directory.
+
+       If the project specifies multiple frameworks, executing dotnet run results in an error unless the -f|--framework &lt;FRAMEWORK&gt;
+       option is used to specify the framework.
+
+       The dotnet run command is used in the context of projects, not built assemblies.  If you’re trying to run a framework-depen‐
+       dent application DLL instead, you must use dotnet without a command.  For example, to run myapp.dll, use:
+
+              dotnet myapp.dll
+
+       For more information on the dotnet driver, see the .NET Command Line Tools (CLI) topic.
+
+       To  run  the application, the dotnet run command resolves the dependencies of the application that are outside of the shared
+       runtime from the NuGet cache.  Because it uses cached dependencies, it’s not recommended to use dotnet run to  run  applica‐
+       tions in production.  Instead, create a deployment using the dotnet publish command and deploy the published output.
+
+   Implicit restore
+       You  don’t  have  to run dotnet restore because it’s run implicitly by all commands that require a restore to occur, such as
+       dotnet new, dotnet build, dotnet run, dotnet test, dotnet publish, and dotnet pack.  To disable implicit  restore,  use  the
+       --no-restore option.
+
+       The  dotnet  restore command is still useful in certain scenarios where explicitly restoring makes sense, such as continuous
+       integration builds in Azure DevOps Services or in build systems that need to explicitly control when the restore occurs.
+
+       For information about how to manage NuGet feeds, see the dotnet restore documentation.
+
+       This command supports the dotnet restore options when passed in the long form (for example, --source).  Short form  options,
+       such as -s, are not supported.
+
+   Workload manifest downloads
+       When  you run this command, it initiates an asynchronous background download of advertising manifests for workloads.  If the
+       download is still running when this command finishes, the download is stopped.  For more information, see Advertising  mani‐
+       fests.
+
+OPTIONS
+       • --
+
+         Delimits  arguments  to  dotnet  run from arguments for the application being run.  All arguments after this delimiter are
+         passed to the application run.
+
+       • -a|--arch &lt;ARCHITECTURE&gt;
+
+         Specifies the target architecture.  This is a shorthand syntax for setting the Runtime Identifier (RID), where the provid‐
+         ed  value is combined with the default RID.  For example, on a win-x64 machine, specifying --arch x86 sets the RID to win-
+         x86.  If you use this option, don’t use the -r|--runtime option.  Available since .NET 6 Preview 7.
+
+       • -c|--configuration &lt;CONFIGURATION&gt;
+
+         Defines the build configuration.  The default for most projects is Debug, but you can  override  the  build  configuration
+         settings in your project.
+
+       • -f|--framework &lt;FRAMEWORK&gt;
+
+         Builds and runs the app using the specified framework.  The framework must be specified in the project file.
+
+       • --force
+
+         Forces  all  dependencies  to  be  resolved  even if the last restore was successful.  Specifying this flag is the same as
+         deleting the project.assets.json file.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --interactive
+
+         Allows the command to stop and wait for user input or action.  For example, to complete authentication.   Available  since
+         .NET Core 3.0 SDK.
+
+       • --launch-profile &lt;NAME&gt;
+
+         The name of the launch profile (if any) to use when launching the application.  Launch profiles are defined in the launch‐
+         Settings.json file and are typically called Development, Staging, and Production.  For more information, see Working  with
+         multiple environments.
+
+       • --no-build
+
+         Doesn’t build the project before running.  It also implicitly sets the --no-restore flag.
+
+       • --no-dependencies
+
+         When restoring a project with project-to-project (P2P) references, restores the root project and not the references.
+
+       • --no-launch-profile
+
+         Doesn’t try to use launchSettings.json to configure the application.
+
+       • --no-restore
+
+         Doesn’t execute an implicit restore when running the command.
+
+       • --os &lt;OS&gt;
+
+         Specifies  the  target  operating system (OS).  This is a shorthand syntax for setting the Runtime Identifier (RID), where
+         the provided value is combined with the default RID.  For example, on a win-x64 machine, specifying --os  linux  sets  the
+         RID to linux-x64.  If you use this option, don’t use the -r|--runtime option.  Available since .NET 6.
+
+       • --project &lt;PATH&gt;
+
+         Specifies  the  path  of the project file to run (folder name or full path).  If not specified, it defaults to the current
+         directory.
+
+         The -p abbreviation for --project is deprecated starting in .NET 6 SDK.  For a limited time starting in .NET 6 RC1 SDK, -p
+         can  still be used for --project despite the deprecation warning.  If the argument provided for the option doesn’t contain
+         =, the command accepts -p as short for --project.  Otherwise, the command assumes that -p is short for  --property.   This
+         flexible use of -p for --project will be phased out in .NET 7.
+
+       • --property:&lt;NAME&gt;=&lt;VALUE&gt;
+
+         Sets one or more MSBuild properties.  Specify multiple properties delimited by semicolons or by repeating the option:
+
+                --property:&lt;NAME1&gt;=&lt;VALUE1&gt;;&lt;NAME2&gt;=&lt;VALUE2&gt;
+                --property:&lt;NAME1&gt;=&lt;VALUE1&gt; --property:&lt;NAME2&gt;=&lt;VALUE2&gt;
+
+         The short form -p can be used for --property.  If the argument provided for the option contains =, -p is accepted as short
+         for --property.  Otherwise, the command assumes that -p is short for --project.
+
+         To pass --property to the application rather than set an MSBuild property, provide the option after the -- syntax  separa‐
+         tor, for example:
+
+                dotnet run -- --property name=value
+
+       • -r|--runtime &lt;RUNTIME_IDENTIFIER&gt;
+
+         Specifies the target runtime to restore packages for.  For a list of Runtime Identifiers (RIDs), see the RID catalog.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+EXAMPLES
+       • Run the project in the current directory:
+
+                dotnet run
+
+       • Run the specified project:
+
+                dotnet run --project ./projects/proj1/proj1.csproj
+
+       • Run the project in the current directory, specifying Release configuration:
+
+                dotnet run --property:Configuration=Release
+
+       • Run the project in the current directory (the --help argument in this example is passed  to  the  application,  since  the
+         blank -- option is used):
+
+                dotnet run --configuration Release -- --help
+
+       • Restore  dependencies  and  tools  for  the  project in the current directory only showing minimal output and then run the
+         project:
+
+                dotnet run --verbosity m
+
+                                                             2022-10-10                                               dotnet-run(1)
+</pre>
+</body>
+</html>

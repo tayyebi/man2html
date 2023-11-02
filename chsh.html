@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>CHSH(1)                                                    User Commands                                                    CHSH(1)
+
+NAME
+       chsh - change login shell
+
+SYNOPSIS
+       chsh [options] [LOGIN]
+
+DESCRIPTION
+       The chsh command changes the user login shell. This determines the name of the user's initial login command. A normal user
+       may only change the login shell for her own account; the superuser may change the login shell for any account.
+
+OPTIONS
+       The options which apply to the chsh command are:
+
+       -h, --help
+           Display help message and exit.
+
+       -R, --root CHROOT_DIR
+           Apply changes in the CHROOT_DIR directory and use the configuration files from the CHROOT_DIR directory. Only absolute
+           paths are supported.
+
+       -s, --shell SHELL
+           The name of the user's new login shell. Setting this field to blank causes the system to select the default login shell.
+
+       If the -s option is not selected, chsh operates in an interactive fashion, prompting the user with the current login shell.
+       Enter the new value to change the shell, or leave the line blank to use the current one. The current shell is displayed
+       between a pair of [ ] marks.
+
+NOTE
+       The only restriction placed on the login shell is that the command name must be listed in /etc/shells, unless the invoker is
+       the superuser, and then any value may be added. An account with a restricted login shell may not change her login shell. For
+       this reason, placing /bin/rsh in /etc/shells is discouraged since accidentally changing to a restricted shell would prevent
+       the user from ever changing her login shell back to its original value.
+
+FILES
+       /etc/passwd
+           User account information.
+
+       /etc/shells
+           List of valid login shells.
+
+       /etc/login.defs
+           Shadow password suite configuration.
+
+SEE ALSO
+       chfn(1), login.defs(5), passwd(5).
+
+shadow-utils 4.13                                            11/23/2022                                                     CHSH(1)
+</pre>
+</body>
+</html>

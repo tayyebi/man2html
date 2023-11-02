@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>BYTEORDER(3)                                          Library Functions Manual                                         BYTEORDER(3)
+
+NAME
+       htonl, htons, ntohl, ntohs - convert values between host and network byte order
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;arpa/inet.h&gt;
+
+       uint32_t htonl(uint32_t hostlong);
+       uint16_t htons(uint16_t hostshort);
+
+       uint32_t ntohl(uint32_t netlong);
+       uint16_t ntohs(uint16_t netshort);
+
+DESCRIPTION
+       The htonl() function converts the unsigned integer hostlong from host byte order to network byte order.
+
+       The htons() function converts the unsigned short integer hostshort from host byte order to network byte order.
+
+       The ntohl() function converts the unsigned integer netlong from network byte order to host byte order.
+
+       The ntohs() function converts the unsigned short integer netshort from network byte order to host byte order.
+
+       On the i386 the host byte order is Least Significant Byte first, whereas the network byte order, as used on the Internet, is
+       Most Significant Byte first.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │htonl(), htons(), ntohl(), ntohs()                                                               │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008.
+
+SEE ALSO
+       bswap(3), endian(3), gethostbyname(3), getservent(3)
+
+Linux man-pages 6.03                                         2022-12-15                                                BYTEORDER(3)
+</pre>
+</body>
+</html>

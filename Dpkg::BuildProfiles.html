@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::BuildProfiles(3perl)                                  libdpkg-perl                                 Dpkg::BuildProfiles(3perl)
+
+NAME
+       Dpkg::BuildProfiles - handle build profiles
+
+DESCRIPTION
+       The Dpkg::BuildProfiles module provides functions to handle the build profiles.
+
+FUNCTIONS
+       @profiles = get_build_profiles()
+           Get an array with the currently active build profiles, taken from the environment variable DEB_BUILD_PROFILES.
+
+       set_build_profiles(@profiles)
+           Set @profiles as the current active build profiles, by setting the environment variable DEB_BUILD_PROFILES.
+
+       @profiles = parse_build_profiles($string)
+           Parses a build profiles specification, into an array of array references.
+
+       evaluate_restriction_formula(\@formula, \@profiles)
+           Evaluate whether a restriction formula of the form "&lt;foo bar&gt; &lt;baz&gt;", given as a nested array, is true or false, given
+           the array of enabled build profiles.
+
+CHANGES
+   Version 1.00 (dpkg 1.17.17)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                                  Dpkg::BuildProfiles(3perl)
+</pre>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>getcpu(2)                                               System Calls Manual                                               getcpu(2)
+
+NAME
+       getcpu - determine CPU and NUMA node on which the calling thread is running
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #define _GNU_SOURCE             /* See feature_test_macros(7) */
+       #include &lt;sched.h&gt;
+
+       int getcpu(unsigned int *_Nullable cpu, unsigned int *_Nullable node);
+
+DESCRIPTION
+       The  getcpu()  system call identifies the processor and node on which the calling thread or process is currently running and
+       writes them into the integers pointed to by the cpu and node arguments.  The processor is a unique small integer identifying
+       a  CPU.   The node is a unique small identifier identifying a NUMA node.  When either cpu or node is NULL nothing is written
+       to the respective pointer.
+
+       The information placed in cpu is guaranteed to be current only at the time of the call: unless the  CPU  affinity  has  been
+       fixed  using  sched_setaffinity(2), the kernel might change the CPU at any time.  (Normally this does not happen because the
+       scheduler tries to minimize movements between CPUs to keep caches hot, but it is possible.)  The caller must allow  for  the
+       possibility that the information returned in cpu and node is no longer current by the time the call returns.
+
+RETURN VALUE
+       On success, 0 is returned.  On error, -1 is returned, and errno is set to indicate the error.
+
+ERRORS
+       EFAULT Arguments point outside the calling process's address space.
+
+VERSIONS
+       getcpu() was added in Linux 2.6.19 for x86-64 and i386.  Library support was added in glibc 2.29 (Earlier glibc versions did
+       not provide a wrapper for this system call, necessitating the use of syscall(2).)
+
+STANDARDS
+       getcpu() is Linux-specific.
+
+NOTES
+       Linux makes a best effort to make this call as fast as possible.  (On some architectures, this is done via an implementation
+       in  the  vdso(7).)  The intention of getcpu() is to allow programs to make optimizations with per-CPU data or for NUMA opti‐
+       mization.
+
+   C library/kernel differences
+       The kernel system call has a third argument:
+
+           int getcpu(unsigned int *cpu, unsigned int *node,
+                      struct getcpu_cache *tcache);
+
+       The tcache argument is unused since Linux 2.6.24, and (when invoking the system call directly) should be specified as  NULL,
+       unless portability to Linux 2.6.23 or earlier is required.
+
+       In  Linux  2.6.23 and earlier, if the tcache argument was non-NULL, then it specified a pointer to a caller-allocated buffer
+       in thread-local storage that was used to provide a caching mechanism for getcpu().  Use of the cache  could  speed  getcpu()
+       calls, at the cost that there was a very small chance that the returned information would be out of date.  The caching mech‐
+       anism was considered to cause problems when migrating threads between CPUs, and so the argument is now ignored.
+
+SEE ALSO
+       mbind(2), sched_setaffinity(2), set_mempolicy(2), sched_getcpu(3), cpuset(7), vdso(7)
+
+Linux man-pages 6.03                                         2022-12-04                                                   getcpu(2)
+</pre>
+</body>
+</html>

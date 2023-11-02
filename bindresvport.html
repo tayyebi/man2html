@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>bindresvport(3)                                       Library Functions Manual                                      bindresvport(3)
+
+NAME
+       bindresvport - bind a socket to a privileged IP port
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;sys/types.h&gt;
+       #include &lt;netinet/in.h&gt;
+
+       int bindresvport(int sockfd, struct sockaddr_in *sin);
+
+DESCRIPTION
+       bindresvport()  is used to bind the socket referred to by the file descriptor sockfd to a privileged anonymous IP port, that
+       is, a port number arbitrarily selected from the range 512 to 1023.
+
+       If the bind(2) performed by bindresvport() is successful, and sin is not NULL, then sin-&gt;sin_port returns  the  port  number
+       actually allocated.
+
+       sin can be NULL, in which case sin-&gt;sin_family is implicitly taken to be AF_INET.  However, in this case, bindresvport() has
+       no way to return the port number actually allocated.  (This information can later be obtained using getsockname(2).)
+
+RETURN VALUE
+       bindresvport() returns 0 on success; otherwise -1 is returned and errno is set to indicate the error.
+
+ERRORS
+       bindresvport() can fail for any of the same reasons as bind(2).  In addition, the following errors may occur:
+
+       EACCES The calling process was not privileged (on Linux: the calling process did not have the CAP_NET_BIND_SERVICE  capabil‐
+              ity in the user namespace governing its network namespace).
+
+       EADDRINUSE
+              All privileged ports are in use.
+
+       EAFNOSUPPORT (EPFNOSUPPORT in glibc 2.7 and earlier)
+              sin is not NULL and sin-&gt;sin_family is not AF_INET.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌───────────────┬───────────────┬───────────────────────────────────────────────────────────────────────────────────────────┐
+       │Interface      │ Attribute     │ Value                                                                                     │
+       ├───────────────┼───────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
+       │bindresvport() │ Thread safety │ glibc &gt;= 2.17: MT-Safe; glibc &lt; 2.17: MT-Unsafe                                           │
+       └───────────────┴───────────────┴───────────────────────────────────────────────────────────────────────────────────────────┘
+
+       The  bindresvport()  function uses a static variable that was not protected by a lock before glibc 2.17, rendering the func‐
+       tion MT-Unsafe.
+
+STANDARDS
+       Not in POSIX.1.  Present on the BSDs, Solaris, and many other systems.
+
+NOTES
+       Unlike some bindresvport() implementations, the  glibc  implementation  ignores  any  value  that  the  caller  supplies  in
+       sin-&gt;sin_port.
+
+SEE ALSO
+       bind(2), getsockname(2)
+
+Linux man-pages 6.03                                         2023-02-05                                             bindresvport(3)
+</pre>
+</body>
+</html>

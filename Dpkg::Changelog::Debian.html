@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Changelog::Debian(3perl)                              libdpkg-perl                             Dpkg::Changelog::Debian(3perl)
+
+NAME
+       Dpkg::Changelog::Debian - parse Debian changelogs
+
+DESCRIPTION
+       This class represents a Debian changelog file as an array of changelog entries (Dpkg::Changelog::Entry::Debian).  It
+       implements the generic interface Dpkg::Changelog.  Only methods specific to this implementation are described below, the
+       rest are inherited.
+
+       Dpkg::Changelog::Debian parses Debian changelogs as described in deb-changelog(5).
+
+       The parser tries to ignore most cruft like # or /* */ style comments, RCS keywords, Vim modelines, Emacs local variables and
+       stuff from older changelogs with other formats at the end of the file.  NOTE: most of these are ignored silently currently,
+       there is no parser error issued for them. This should become configurable in the future.
+
+METHODS
+       $count = $c-&gt;parse($fh, $description)
+           Read the filehandle and parse a Debian changelog in it, to store the entries as an array of
+           Dpkg::Changelog::Entry::Debian objects.  Any previous entries in the object are reset before parsing new data.
+
+           Returns the number of changelog entries that have been parsed with success.
+
+CHANGES
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+SEE ALSO
+       Dpkg::Changelog
+
+1.21.21                                                      2023-03-02                              Dpkg::Changelog::Debian(3perl)
+</pre>
+</body>
+</html>

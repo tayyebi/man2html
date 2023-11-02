@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>
+DEBUGINFOD-CLIENT-CONFIG(7)                       Miscellaneous Information Manual                      DEBUGINFOD-CLIENT-CONFIG(7)
+
+NAME
+       debuginfod-client-config - debuginfod client environment variables, cache control files and etc.
+
+SYNOPSIS
+       Several environment variables and control files control the behaviour of debuginfod client applications.
+
+ENVIRONMENT VARIABLES
+       $TMPDIR
+              This environment variable points to a file system to be used for temporary files.  The default is /tmp.
+
+       $DEBUGINFOD_URLS
+              This  environment  variable contains a list of URL prefixes for trusted debuginfod instances.  Alternate URL prefixes
+              are separated by space.  This environment variable  may  be  set  by  /etc/profile.d  scripts  reading  /etc/debugin‐
+              fod/*.urls files.
+
+       $DEBUGINFOD_CACHE_PATH
+              This  environment variable governs the location of the cache where downloaded files and cache-control files are kept.
+              The default directory is chosen based on other environment variables, see below.
+
+       $DEBUGINFOD_PROGRESS
+              This environment variable governs the default progress function.  If set, and if a progressfn is not explicitly  set,
+              then  the  library will configure a default progressfn.  This function will append a simple progress message periodi‐
+              cally to stderr.  The default is no progress function output.
+
+       $DEBUGINFOD_VERBOSE
+              This environment variable governs the default file descriptor for verbose output.  If set, and if a verbose fd is not
+              explicitly set, then the verbose output will be produced on STDERR_FILENO.
+
+       $DEBUGINFOD_RETRY_LIMIT
+              This  environment  variable  governs  the  default  limit  of retry attempts. If a query failed with errno other than
+              ENOENT, will initiate several attempts within the limit.
+
+       $DEBUGINFOD_TIMEOUT
+              This environment variable governs the download commencing timeout for each debuginfod HTTP connection.  A server that
+              fails to provide at least 100K of data within this many seconds is skipped. The default is 90 seconds.  (Zero or neg‐
+              ative means "no timeout".)
+
+       $DEBUGINFOD_MAXTIME
+              This environment variable dictates how long the client will wait to complete the download a file found on a server in
+              seconds.  It  is  best  used  to  ensure that a file is downloaded quickly or be rejected. The default is 0 (infinite
+              time).
+
+       $DEBUGINFOD_MAXSIZE
+              This environment variable dictates the maximum size of a file to download in bytes. This is best  used  if  the  user
+              would  like  to ensure only small files are downloaded. A value of 0 causes no consideration for size, and the client
+              may attempt to download a file of any size.  The default is 0 (infinite size).
+
+       $DEBUGINFOD_HEADERS_FILE
+              This environment variable points to a file that supplies headers to outbound HTTP requests, one per line. The  header
+              lines shouldn't end with CRLF, unless that's the system newline convention. Whitespace-only lines are skipped.
+
+CACHE
+       Before  each  query, the debuginfod client library checks for a need to clean the cache.  If it's time to clean, the library
+       traverses the cache directory and removes downloaded debuginfo-related artifacts and newly empty directories, if  they  have
+       not been accessed recently.
+
+       Control files are located directly under the cache directory.  They contain simple decimal numbers to set cache-related con‐
+       figuration parameters.  If the files do not exist, the client library creates the files with the default parameter values as
+       content.
+
+       After each query, the debuginfod client library deposits newly received files into a directory &amp; file that is named based on
+       the build-id.  A failed query is also cached by a special file.  The naming convention used for these artifacts is  deliber‐
+       ately undocumented.
+
+       $XDG_CACHE_HOME/debuginfod_client/
+              Default cache directory, if $XDG_CACHE_HOME is set.
+
+       $HOME/.cache/debuginfod_client/
+              Default cache directory, if $XDG_CACHE_HOME is not set.
+
+       $HOME/.debuginfod_client_cache/
+              Deprecated cache directory, used only if preexisting.
+
+       cache_clean_interval_s
+              This  control  file  gives the interval between cache cleaning rounds, in seconds.  The default is 86400, one day.  0
+              means "immediately".
+
+       max_unused_age_s
+              This control file sets how long unaccessed debuginfo-related files are retained, in seconds.  The default is  604800,
+              one week.  0 means "immediately".
+
+       cache_miss_s
+              This  control  file sets how long to remember a query failure, in seconds.  New queries for the same artifacts within
+              this time window are short-circuited (returning an immediate failure instead of sending  a  new  query  to  servers).
+              This  accelerates  queries  that probably would still fail.  The default is 600, 10 minutes.  0 means "forget immedi‐
+              ately".
+
+                                                                                                        DEBUGINFOD-CLIENT-CONFIG(7)
+</pre>
+</body>
+</html>

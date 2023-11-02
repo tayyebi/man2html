@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>EXA(4)                                                Kernel Interfaces Manual                                               EXA(4)
+
+NAME
+       exa - new 2D acceleration architecture for X.Org
+
+DESCRIPTION
+       EXA  provides a simple API for video drivers to implement for 2D acceleration.  It is a module loaded by drivers, and is not
+       intended to be loaded on its own.  See your driver's manual page for how to enable EXA.
+
+       The EXA architecture is designed to make accelerating the Render extension simple and efficient, and results in various per‐
+       formance tradeoffs compared to XAA.  Some xorg.conf options are available for debugging performance issues or driver render‐
+       ing problems.  They are not intended for general use.
+
+       Option "EXANoComposite" "boolean"
+              Disables acceleration of the Composite operation, which is at the heart of the Render extension.  Not related to  the
+              Composite extension.  Default: No.
+
+       Option "EXANoUploadToScreen" "boolean"
+              Disables acceleration of uploading pixmap data to the framebuffer. Default: No.
+
+       Option "EXANoDownloadFromScreen" "boolean"
+              Disables  acceleration  of downloading of pixmap data from the framebuffer.  NOTE: Not usable with drivers which rely
+              on DownloadFromScreen succeeding.  Default: No.
+
+       Option "MigrationHeuristic" "anystr"
+              Chooses an alternate pixmap migration heuristic, for debugging purposes.  The default is intended to be the best per‐
+              forming  one  for  general  use, though others may help with specific use cases.  Available options include "always",
+              "greedy", and "smart".  Default: always.
+
+SEE ALSO
+       Xorg(1), xorg.conf(5).
+
+AUTHORS
+       Authors include: Keith Packard, Eric Anholt, Zack Rusin, and Michel Dänzer
+
+X Version 11                                             xorg-server 21.1.7                                                  EXA(4)
+</pre>
+</body>
+</html>

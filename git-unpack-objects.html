@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-UNPACK-OBJECTS(1)                                        Git Manual                                       GIT-UNPACK-OBJECTS(1)
+
+NAME
+       git-unpack-objects - Unpack objects from a packed archive
+
+SYNOPSIS
+       git unpack-objects [-n] [-q] [-r] [--strict]
+
+DESCRIPTION
+       Read a packed archive (.pack) from the standard input, expanding the objects contained within and writing them into the
+       repository in "loose" (one object per file) format.
+
+       Objects that already exist in the repository will not be unpacked from the packfile. Therefore, nothing will be unpacked if
+       you use this command on a packfile that exists within the target repository.
+
+       See git-repack(1) for options to generate new packs and replace existing ones.
+
+OPTIONS
+       -n
+           Dry run. Check the pack file without actually unpacking the objects.
+
+       -q
+           The command usually shows percentage progress. This flag suppresses it.
+
+       -r
+           When unpacking a corrupt packfile, the command dies at the first corruption. This flag tells it to keep going and make
+           the best effort to recover as many objects as possible.
+
+       --strict
+           Don’t write objects with broken content or links.
+
+       --max-input-size=&lt;size&gt;
+           Die, if the pack is larger than &lt;size&gt;.
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                       GIT-UNPACK-OBJECTS(1)
+</pre>
+</body>
+</html>

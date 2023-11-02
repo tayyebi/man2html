@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>MAILCAP.ORDER(5)                                       Order Mailcap Entries                                       MAILCAP.ORDER(5)
+
+NAME
+       /etc/mailcap.order - the mailcap ordering specifications
+
+DESCRIPTION
+       The order of entries in the /etc/mailcap file can be altered by editing the /etc/mailcap.order file.  Each line of that file
+       specifies a package and an optional mime type.  Mailcap entries that match will be placed in the order of  this  file.   En‐
+       tries that don't match will be placed later.
+
+   Example
+           mime-support:*/*
+           gv:application/postscript
+           netscape:text/html
+           less:text/*
+           emacs:text/*
+
+       The  above  would  make  any entries provided by the mime-support package (as found in the /usr/lib/mime/packages directory)
+       take priority over everything else.  The gv package will be used over anything else when it comes to  postscript  documents.
+       Netscape will be used for any html documents and less will be used for any remaining text documents.  However, since neither
+       netscape or less provide for editing documents, any edit or compose actions will fall through to the emacs rules.
+
+       After modifying this file, be sure to run /usr/sbin/update-mime (as root) to propagate the  changes  into  the  /etc/mailcap
+       file.
+
+       Remember  that this files takes package names and not executable names.  If you want to define rules that reference specific
+       programs, the best way is to include them in ~/.mailcap or the user section of the /etc/mailcap file.
+
+LIMITATIONS
+       There is currently no way to break out a certain type from a wildcard rule.  If, for example, both xv and gimp were to spec‐
+       ify "image/*" rules, it isn't possible to use xv for gif images but use gimp for jpeg images.
+
+       Also,  I  would  like  to add the ability to specify certain actions in the rules.  For example, if netscape were to have an
+       edit rule but I wanted to use emacs for editing/creating html documents, I could place a line like
+
+         emacs:text/* action=edit|compose
+
+       before the netscape entry.  The update-mime program would then spit out entries such that netscape view  rule  comes  before
+       the emacs view rule but have the netscape edit rule comes after the emacs edit rule.
+
+SEE ALSO
+       mailcap(5) run-mailcap(1) update-mime(8)
+
+AUTHOR
+       The mailcap.order specification was written by Brian White &lt;bcwhite@pobox.com&gt;
+
+Debian Project                                             16th Aug 1998                                           MAILCAP.ORDER(5)
+</pre>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>HCICONFIG(1)                                        Linux System Administration                                        HCICONFIG(1)
+
+NAME
+       hciconfig - Configure Bluetooth devices
+
+SYNOPSIS
+       hciconfig -h
+
+       hciconfig [-a]
+
+       hciconfig [-a] hciX [COMMAND [PARAMETERS]]
+
+DESCRIPTION
+       hciconfig(1) is used to configure Bluetooth devices. hciX is the name of a Bluetooth device installed in the system. If hciX
+       is not given, hciconfig prints name and basic information about all the Bluetooth devices installed in the system.
+
+       If hciX is given but no command is given, it prints basic information on device hciX only. Basic  information  is  interface
+       type, BD address, ACL MTU, SCO MTU, flags (up, init, running, raw, page scan enabled, inquiry scan enabled, inquiry, authen‐
+       tication enabled, encryption enabled).
+
+OPTIONS
+       -a, --all
+              Print features, packet type, link policy, link mode, class, Version other than the basic info.
+
+       -h, --help
+              Show help options
+
+COMMANDS
+       up     Open and initialize HCI device.
+
+       down   Close HCI device.
+
+       reset  Reset HCI device.
+
+       rstat  Reset statistic counters.
+
+       auth   Enable authentication (sets device to security mode 3).
+
+       noauth Disable authentication.
+
+       encrypt
+              Enable encryption (sets device to security mode 3).
+
+       noencrypt
+              Disable encryption.
+
+       secmgr Enable security manager (current kernel support is limited).
+
+       nosecmgr
+              Disable security manager.
+
+       piscan Enable page and inquiry scan.
+
+       noscan Disable page and inquiry scan.
+
+       iscan  Enable inquiry scan, disable page scan.
+
+       pscan  Enable page scan, disable inquiry scan.
+
+       ptype [type]
+              With  no type , displays the current packet types. Otherwise, all the packet types specified by type are set. type is
+              a  comma-separated  list of packet types, where the possible packet types are DM1, DM3, DM5, DH1, DH3, DH5, HV1, HV2,
+              HV3.
+
+       name [name]
+              With no name, prints local name. Otherwise, sets local name to name.
+
+       class [class]
+              With  no class, prints class of device. Otherwise, sets class of device to class. class is a 24-bit  hex  number  de‐
+              scribing the class of device, as specified in section 1.2 of the Bluetooth Assigned Numers document.
+
+       voice [voice]
+              With  no voice, prints voice setting. Otherwise, sets voice setting to voice. voice is a 16-bit hex number describing
+              the voice setting.
+
+       iac [iac]
+              With no iac, prints the current IAC setting. Otherwise, sets the IAC to iac.
+
+       inqtpl [level]
+              With no level, prints out the current inquiry transmit power level.  Otherwise, sets inquiry transmit power level  to
+              level.
+
+       inqmode [mode]
+                 With no mode, prints out the current inquiry mode. Otherwise, sets inquiry mode to mode.
+
+                                                 ┌─────┬───────────────────────────────────────┐
+                                                 │mode │ Description                           │
+                                                 ├─────┼───────────────────────────────────────┤
+                                                 │0    │ Standard Inquiry                      │
+                                                 ├─────┼───────────────────────────────────────┤
+                                                 │1    │ Inquiry with RSSI                     │
+                                                 ├─────┼───────────────────────────────────────┤
+                                                 │2    │ Inquiry with RSSI or Extended Inquiry │
+                                                 └─────┴───────────────────────────────────────┘
+
+       inqdata [data]
+              With no data, prints out the current inquiry data. Otherwise, sets inquiry data to data.
+
+       inqtype [type]
+              With no type, prints out the current inquiry scan type. Otherwise, sets inquiry scan type to type.
+
+       inqparams [win:int]
+              With  no  win:int, prints inquiry scan window and interval. Otherwise, sets inquiry scan window  to win slots and in‐
+              quiry scan interval to int slots.
+
+       pageparms [win:int]
+              With no win:int, prints page scan window and interval. Otherwise, sets page scan window to win slots  and  page  scan
+              interval to int slots.
+
+       pageto [to]
+              With no to, prints page timeout. Otherwise, sets page timeout to to slots.
+
+       afhmode [mode]
+              With no mode, prints out the current AFH mode. Otherwise, sets AFH mode to mode.
+
+                                                           ┌─────┬─────────────┐
+                                                           │mode │ Description │
+                                                           ├─────┼─────────────┤
+                                                           │0    │ Enable      │
+                                                           ├─────┼─────────────┤
+                                                           │1    │ Disable     │
+                                                           └─────┴─────────────┘
+
+       sspmode [mode]
+              With no mode, prints out the current Simple Pairing mode. Otherwise, sets Simple Pairing mode to mode.
+
+                                                           ┌─────┬─────────────┐
+                                                           │mode │ Description │
+                                                           └─────┴─────────────┘
+
+                                                           │0    │ Enable      │
+                                                           ├─────┼─────────────┤
+                                                           │1    │ Disable     │
+                                                           └─────┴─────────────┘
+
+       aclmtu mtu:pkt
+              Sets ACL MTU to mtu bytes and ACL buffer size to pkt packets.
+
+       scomtu mtu:pkt
+              Sets SCO MTU to mtu bytes and SCO buffer size to pkt packets.
+
+       delkey &lt;bdaddr&gt;
+              This command deletes the stored link key for bdaddr from the device.
+
+       oobdata
+              Get local OOB data (invalidates previously read data).
+
+       commands
+              Display supported commands.
+
+       features
+              Display device features.
+
+       version
+              Display version information.
+
+       revision
+              Display revision information.
+
+       lm [mode]
+              With  no  mode, prints link mode. CENTRAL or PERIPHERAL mean, respectively, to ask to become central or to remain pe‐
+              ripheral when a connection request comes in. The additional keyword ACCEPT means that baseband  connections  will  be
+              accepted  even  if  there  are no listening AF_BLUETOOTH sockets. mode is NONE or a comma-separated list of keywords,
+              where possible keywords are CENTRAL and ACCEPT. NONE sets link policy to the default behaviour of  remaining  periph‐
+              eral  and  not  accepting  baseband  connections  when  there  are  no listening AF_BLUETOOTH sockets.  If CENTRAL is
+              present, the device will ask to become central if a connection request comes in. If ACCEPT  is  present,  the  device
+              will accept baseband connections even when there are no listening AF_BLUETOOTH sockets.
+
+       block &lt;bdaddr&gt;
+              Add a device to the reject list
+
+       unblock &lt;bdaddr&gt;
+              Remove a device from the reject list
+
+       lerandaddr &lt;bdaddr&gt;
+              Set LE Random Address
+
+       leadv [type]
+              Enable LE Advertising.
+
+                                          ┌─────┬──────────────────────────────────────────────┐
+                                          │type │ Description                                  │
+                                          ├─────┼──────────────────────────────────────────────┤
+                                          │0    │ Connectable undirected advertising (default) │
+                                          ├─────┼──────────────────────────────────────────────┤
+                                          │3    │ Non connectable undirected advertising       │
+                                          └─────┴──────────────────────────────────────────────┘
+
+       noleadv
+              Disable LE Advertising
+
+       lestates
+              Display the supported LE states
+
+RESOURCES
+       http://www.bluez.org
+
+REPORTING BUGS
+       linux-bluetooth@vger.kernel.org
+
+AUTHOR
+       Maxim   Krasnyansky   &lt;maxk@qualcomm.com&gt;,   Marcel   Holtmann   &lt;marcel@holtmann.org&gt;,   Fabrizio   Gennari  &lt;fabrizio.gen‐
+       nari@philips.com&gt;
+
+COPYRIGHT
+       Free use of this software is granted under ther terms of the GNU Lesser General Public Licenses (LGPL).
+
+BlueZ                                                       Nov 11, 2002                                               HCICONFIG(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>A2ENCONF(8)                                           System Manager's Manual                                           A2ENCONF(8)
+
+NAME
+       a2enconf, a2disconf - enable or disable an apache2 configuration file
+
+SYNOPSIS
+       a2enconf [-q|--quiet] [-m|--maintmode] [ configuration ]
+
+       a2disconf [-q|--quiet] [-m|--maintmode] [-p|--purge] [ configuration ]
+
+DESCRIPTION
+       This manual page documents briefly the a2enconf and a2disconf commands.
+
+       a2enconf is a script that enables the specified configuration file within the apache2 configuration.  It does this by creat‐
+       ing symlinks within /etc/apache2/conf-enabled.  Likewise, a2disconf disables a specific configuration part by removing those
+       symlinks.   It  is  not an error to enable a configuration which is already enabled, or to disable one which is already dis‐
+       abled.
+
+       Note that many configuration file may have a dependency to specific modules.  Unlike module dependencies, these are not  re‐
+       solved  automatically.  Configuration fragments stored in the conf-available directory are considered non-essential or being
+       installed and manged by reverse dependencies (e.g. web scripts).
+
+OPTIONS
+       -q, --quiet
+              Don't show informative messages.
+
+       -m, --maintmode
+              Enables the maintainer mode, that is the program invocation is effectuated automatically by a maintainer script. This
+              switch should not be used by end users.
+
+       -p, --purge
+              When disabling a module, purge all traces of the module in the internal state data base.
+
+EXIT STATUS
+       a2enconf  and  a2disconf exit with status 0 if all configurations are processed successfully, 1 if errors occur, 2 if an in‐
+       valid option was used.
+
+EXAMPLES
+              a2enconf security
+              a2disconf charset
+
+       Enables Apache security directives stored in the security configuration files, and disables the charset configuration.
+
+FILES
+       /etc/apache2/conf-available
+              Directory with files giving information on available configuration files.
+
+       /etc/apache2/conf-enabled
+              Directory with links to the files in conf-available for enabled configuration files.
+
+SEE ALSO
+       apache2ctl(8), a2enmod(8), a2dismod(8), a2ensite(8), a2dissite(8).
+
+AUTHOR
+       This manual page was written by Arno Toell &lt;debian@toell.net&gt; for the Debian GNU/Linux distribution, as it is a  Debian-spe‐
+       cific script with the package.
+
+                                                          14 February 2012                                              A2ENCONF(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>futimes(3)                                            Library Functions Manual                                           futimes(3)
+
+NAME
+       futimes, lutimes - change file timestamps
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;sys/time.h&gt;
+
+       int futimes(int fd, const struct timeval tv[2]);
+       int lutimes(const char *filename, const struct timeval tv[2]);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       futimes(), lutimes():
+           Since glibc 2.19:
+               _DEFAULT_SOURCE
+           glibc 2.19 and earlier:
+               _BSD_SOURCE
+
+DESCRIPTION
+       futimes()  changes  the  access  and modification times of a file in the same way as utimes(2), with the difference that the
+       file whose timestamps are to be changed is specified via a file descriptor, fd, rather than via a pathname.
+
+       lutimes() changes the access and modification times of a file in the same way as utimes(2),  with  the  difference  that  if
+       filename  refers  to  a  symbolic  link, then the link is not dereferenced: instead, the timestamps of the symbolic link are
+       changed.
+
+RETURN VALUE
+       On success, zero is returned.  On error, -1 is returned, and errno is set to indicate the error.
+
+ERRORS
+       Errors are as for utimes(2), with the following additions for futimes():
+
+       EBADF  fd is not a valid file descriptor.
+
+       ENOSYS The /proc filesystem could not be accessed.
+
+       The following additional error may occur for lutimes():
+
+       ENOSYS The kernel does not support this call; Linux 2.6.22 or later is required.
+
+VERSIONS
+       futimes() is available since glibc 2.3.  lutimes() is available since glibc 2.6, and is implemented using  the  utimensat(2)
+       system call, which is supported since Linux 2.6.22.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │futimes(), lutimes()                                                                             │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       These functions are not specified in any standard.  Other than Linux, they are available only on the BSDs.
+
+SEE ALSO
+       utime(2), utimensat(2), symlink(7)
+
+Linux man-pages 6.03                                         2023-02-05                                                  futimes(3)
+</pre>
+</body>
+</html>

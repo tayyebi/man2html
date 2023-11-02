@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-test(1)                                           .NET Documentation                                          dotnet-test(1)
+
+dotnet test
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-test - .NET test driver used to execute unit tests.
+
+SYNOPSIS
+              dotnet test [&lt;PROJECT&gt; | &lt;SOLUTION&gt; | &lt;DIRECTORY&gt; | &lt;DLL&gt; | &lt;EXE&gt;]
+                  [--test-adapter-path &lt;ADAPTER_PATH&gt;]
+                  [-a|--arch &lt;ARCHITECTURE&gt;]
+                  [--blame]
+                  [--blame-crash]
+                  [--blame-crash-dump-type &lt;DUMP_TYPE&gt;]
+                  [--blame-crash-collect-always]
+                  [--blame-hang]
+                  [--blame-hang-dump-type &lt;DUMP_TYPE&gt;]
+                  [--blame-hang-timeout &lt;TIMESPAN&gt;]
+                  [-c|--configuration &lt;CONFIGURATION&gt;]
+                  [--collect &lt;DATA_COLLECTOR_NAME&gt;]
+                  [-d|--diag &lt;LOG_FILE&gt;]
+                  [-f|--framework &lt;FRAMEWORK&gt;]
+                  [-e|--environment &lt;NAME="VALUE"&gt;]
+                  [--filter &lt;EXPRESSION&gt;]
+                  [--interactive]
+                  [-l|--logger &lt;LOGGER&gt;]
+                  [--no-build]
+                  [--nologo]
+                  [--no-restore]
+                  [-o|--output &lt;OUTPUT_DIRECTORY&gt;]
+                  [--os &lt;OS&gt;]
+                  [--results-directory &lt;RESULTS_DIR&gt;]
+                  [-r|--runtime &lt;RUNTIME_IDENTIFIER&gt;]
+                  [-s|--settings &lt;SETTINGS_FILE&gt;]
+                  [-t|--list-tests]
+                  [-v|--verbosity &lt;LEVEL&gt;]
+                  [&lt;args&gt;...]
+                  [[--] &lt;RunSettings arguments&gt;]
+
+              dotnet test -h|--help
+
+DESCRIPTION
+       The  dotnet test command is used to execute unit tests in a given solution.  The dotnet test command builds the solution and
+       runs a test host application for each test project in the solution.  The test host executes tests in the given project using
+       a  test  framework, for example: MSTest, NUnit, or xUnit, and reports the success or failure of each test.  If all tests are
+       successful, the test runner returns 0 as an exit code; otherwise if any test fails, it returns 1.
+
+       For multi-targeted projects, tests are run for each targeted framework.  The test host and the unit test framework are pack‐
+       aged as NuGet packages and are restored as ordinary dependencies for the project.
+
+       Test  projects specify the test runner using an ordinary &lt;PackageReference&gt; element, as seen in the following sample project
+       file:
+
+       [!code-xmlXUnit Basic Template]
+
+       Where Microsoft.NET.Test.Sdk is the test host, xunit is  the  test  framework.   And  xunit.runner.visualstudio  is  a  test
+       adapter, which allows the xUnit framework to work with the test host.
+
+   Implicit restore
+       You  don’t  have  to run dotnet restore because it’s run implicitly by all commands that require a restore to occur, such as
+       dotnet new, dotnet build, dotnet run, dotnet test, dotnet publish, and dotnet pack.  To disable implicit  restore,  use  the
+       --no-restore option.
+
+       The  dotnet  restore command is still useful in certain scenarios where explicitly restoring makes sense, such as continuous
+       integration builds in Azure DevOps Services or in build systems that need to explicitly control when the restore occurs.
+
+       For information about how to manage NuGet feeds, see the dotnet restore documentation.
+
+   Workload manifest downloads
+       When you run this command, it initiates an asynchronous background download of advertising manifests for workloads.  If  the
+       download  is still running when this command finishes, the download is stopped.  For more information, see Advertising mani‐
+       fests.
+
+ARGUMENTS
+       • PROJECT | SOLUTION | DIRECTORY | DLL | EXE
+
+         • Path to the test project.
+
+         • Path to the solution.
+
+         • Path to a directory that contains a project or a solution.
+
+         • Path to a test project .dll file.
+
+         • Path to a test project .exe file.
+
+         If not specified, the effect is the same as using the DIRECTORY argument to specify the current directory.
+
+OPTIONS
+              [!WARNING] Breaking changes in options:
+
+              • Starting in .NET 7: switch -a to alias --arch instead of --test-adapter-path
+
+              • Starting in .NET 7: switch -r to alias --runtime instead of --results-dir
+
+       • --test-adapter-path &lt;ADAPTER_PATH&gt;
+
+         Path to a directory to be searched for additional test adapters.  Only .dll files with  suffix  .TestAdapter.dll  are  in‐
+         spected.  If not specified, the directory of the test .dll is searched.
+
+         Short form -a available in .NET SDK versions earlier than 7.
+
+       • --arch &lt;ARCHITECTURE&gt;
+
+         Specifies the target architecture.  This is a shorthand syntax for setting the Runtime Identifier (RID), where the provid‐
+         ed value is combined with the default RID.  For example, on a win-x64 machine, specifying --arch x86 sets the RID to  win-
+         x86.  If you use this option, don’t use the -r|--runtime option.  Available since .NET 6 Preview 7.
+
+       • --blame
+
+         Runs  the  tests  in blame mode.  This option is helpful in isolating problematic tests that cause the test host to crash.
+         When a crash is detected, it creates a sequence file in TestResults/&lt;Guid&gt;/&lt;Guid&gt;_Sequence.xml that captures the order  of
+         tests that were run before the crash.
+
+         This option does not create a memory dump and is not helpful when the test is hanging.
+
+       • --blame-crash (Available since .NET 5.0 SDK)
+
+         Runs  the tests in blame mode and collects a crash dump when the test host exits unexpectedly.  This option depends on the
+         version of .NET used, the type of error, and the operating system.
+
+         For exceptions in managed code, a dump will be automatically collected on .NET 5.0 and later versions.  It will generate a
+         dump  for testhost or any child process that also ran on .NET 5.0 and crashed.  Crashes in native code will not generate a
+         dump.  This option works on Windows, macOS, and Linux.
+
+         Crash dumps in native code, or when using .NET Core 3.1 or earlier versions, can only be collected on  Windows,  by  using
+         Procdump.   A  directory  that  contains  procdump.exe and procdump64.exe must be in the PATH or PROCDUMP_PATH environment
+         variable.  Download the tools.  Implies --blame.
+
+         To collect a crash dump from a native application running on .NET 5.0 or later, the usage of Procdump  can  be  forced  by
+         setting the VSTEST_DUMP_FORCEPROCDUMP environment variable to 1.
+
+       • --blame-crash-dump-type &lt;DUMP_TYPE&gt; (Available since .NET 5.0 SDK)
+
+         The type of crash dump to be collected.  Supported dump types are full (default), and mini.  Implies --blame-crash.
+
+       • --blame-crash-collect-always (Available since .NET 5.0 SDK)
+
+         Collects a crash dump on expected as well as unexpected test host exit.
+
+       • --blame-hang (Available since .NET 5.0 SDK)
+
+         Run the tests in blame mode and collects a hang dump when a test exceeds the given timeout.
+
+       • --blame-hang-dump-type &lt;DUMP_TYPE&gt; (Available since .NET 5.0 SDK)
+
+         The type of crash dump to be collected.  It should be full, mini, or none.  When none is specified, test host is terminat‐
+         ed on timeout, but no dump is collected.  Implies --blame-hang.
+
+       • --blame-hang-timeout &lt;TIMESPAN&gt; (Available since .NET 5.0 SDK)
+
+         Per-test timeout, after which a hang dump is triggered and the test host process and all of its child processes are dumped
+         and terminated.  The timeout value is specified in one of the following formats:
+
+         • 1.5h, 1.5hour, 1.5hours
+
+         • 90m, 90min, 90minute, 90minutes
+
+         • 5400s, 5400sec, 5400second, 5400seconds
+
+         • 5400000ms, 5400000mil, 5400000millisecond, 5400000milliseconds
+
+         When  no  unit  is  used (for example, 5400000), the value is assumed to be in milliseconds.  When used together with data
+         driven tests, the timeout behavior depends on the test adapter used.  For xUnit, NUnit.  and MSTest 2.2.4+, the timeout is
+         renewed  after  every test case.  For MSTest before version 2.2.4, the timeout is used for all test cases.  This option is
+         supported on Windows with netcoreapp2.1 and later, on Linux with netcoreapp3.1 and later, and on macOS with net5.0 or lat‐
+         er.  Implies --blame and --blame-hang.
+
+       • -c|--configuration &lt;CONFIGURATION&gt;
+
+         Defines  the  build  configuration.   The default for most projects is Debug, but you can override the build configuration
+         settings in your project.
+
+       • --collect &lt;DATA_COLLECTOR_NAME&gt;
+
+         Enables data collector for the test run.  For more information, see Monitor and analyze test  run  (https://aka.ms/vstest-
+         collect).
+
+         On  Windows  (x86, x64 and Arm64), Linux (x64) and macOS (x64), you can collect code coverage by using the --collect "Code
+         Coverage" option.  For more information, see Use code coverage and Customize code coverage analysis.
+
+         To collect code coverage on any platform that is supported by .NET Core,  install  Coverlet  (https://github.com/coverlet-
+         coverage/coverlet/blob/master/README.md) and use the --collect "XPlat Code Coverage" option.
+
+       • -d|--diag &lt;LOG_FILE&gt;
+
+         Enables  diagnostic  mode  for the test platform and writes diagnostic messages to the specified file and to files next to
+         it.  The process that is logging the messages determines which files are created, such as *.host_&lt;date&gt;.txt for test  host
+         log, and *.datacollector_&lt;date&gt;.txt for data collector log.
+
+       • -e|--environment &lt;NAME="VALUE"&gt;
+
+         Sets the value of an environment variable.  Creates the variable if it does not exist, overrides if it does exist.  Use of
+         this option will force the tests to be run in an isolated process.  The option can be specified multiple times to  provide
+         multiple variables.
+
+       • -f|--framework &lt;FRAMEWORK&gt;
+
+         The  target framework moniker (TFM) of the target framework to run tests for.  The target framework must also be specified
+         in the project file.
+
+       • --filter &lt;EXPRESSION&gt;
+
+         Filters out tests in the current project using the given expression.  For more information, see the Filter option  details
+         section.  For more information and examples on how to use selective unit test filtering, see Running selective unit tests.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --interactive
+
+         Allows  the  command to stop and wait for user input or action.  For example, to complete authentication.  Available since
+         .NET Core 3.0 SDK.
+
+       • -l|--logger &lt;LOGGER&gt;
+
+         Specifies a logger for test results.  Unlike MSBuild, dotnet test  doesn’t  accept  abbreviations:  instead  of  -l  "con‐
+         sole;v=d" use -l "console;verbosity=detailed".  Specify the parameter multiple times to enable multiple loggers.  For more
+         information, see Reporting test results (https://github.com/Microsoft/vstest-docs/blob/main/docs/report.md), Switches  for
+         loggers, and the examples later in this article.
+
+       • --no-build
+
+         Doesn’t build the test project before running it.  It also implicitly sets the --no-restore flag.
+
+       • --nologo
+
+         Run tests without displaying the Microsoft TestPlatform banner.  Available since .NET Core 3.0 SDK.
+
+       • --no-restore
+
+         Doesn’t execute an implicit restore when running the command.
+
+       • -o|--output &lt;OUTPUT_DIRECTORY&gt;
+
+         Directory in which to find the binaries to run.  If not specified, the default path is ./bin/&lt;configuration&gt;/&lt;framework&gt;/.
+         For projects with multiple target frameworks (via the TargetFrameworks property), you also need to define --framework when
+         you  specify  this  option.   dotnet  test  always  runs tests from the output directory.  You can use &lt;xref:System.AppDo‐
+         main.BaseDirectory%2A?displayProperty=nameWithType&gt; to consume test assets in the output directory.
+
+       • --os &lt;OS&gt;
+
+         Specifies the target operating system (OS).  This is a shorthand syntax for setting the Runtime  Identifier  (RID),  where
+         the  provided  value  is combined with the default RID.  For example, on a win-x64 machine, specifying --os linux sets the
+         RID to linux-x64.  If you use this option, don’t use the -r|--runtime option.  Available since .NET 6.
+
+       • --results-directory &lt;RESULTS_DIR&gt;
+
+         The directory where the test results are going to be placed.  If the specified directory doesn’t exist, it’s created.  The
+         default is TestResults in the directory that contains the project file.
+
+         Short form -r available in .NET SDK versions earlier than 7.
+
+       • -r|--runtime &lt;RUNTIME_IDENTIFIER&gt;
+
+         The target runtime to test for.
+
+         Short form -r available starting in .NET SDK 7.
+
+       • -s|--settings &lt;SETTINGS_FILE&gt;
+
+         The  .runsettings  file to use for running the tests.  The TargetPlatform element (x86|x64) has no effect for dotnet test.
+         To run tests that target x86, install the x86 version of .NET Core.  The bitness of the dotnet.exe that is on the path  is
+         what will be used for running tests.  For more information, see the following resources:
+
+         • Configure unit tests by using a .runsettings file.
+
+         • Configure a test run (https://github.com/Microsoft/vstest-docs/blob/main/docs/configure.md)
+
+       • -t|--list-tests
+
+         List the discovered tests instead of running the tests.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+       • args
+
+         Specifies extra arguments to pass to the adapter.  Use a space to separate multiple arguments.
+
+         The list of possible arguments depends upon the specified behavior:
+
+         • When you specify a project, solution, or a directory, or if you omit this argument, the call is  forwarded  to  msbuild.
+           In that case, the available arguments can be found in the dotnet msbuild documentation.
+
+         • When you specify a .dll or an .exe, the call is forwarded to vstest.  In that case, the available arguments can be found
+           in the dotnet vstest documentation.
+
+       • RunSettings arguments
+
+       Inline RunSettings are passed as the last arguments on the command line after “–” (note the space after –).  Inline  RunSet‐
+       tings are specified as [name]=[value] pairs.  A space is used to separate multiple [name]=[value] pairs.
+
+       Example: dotnet test -- MSTest.DeploymentEnabled=false MSTest.MapInconclusiveToFailed=True
+
+       For  more  information,  see  Passing  RunSettings  arguments  through  command  line  (https://github.com/Microsoft/vstest-
+       docs/blob/main/docs/RunSettingsArguments.md).
+
+EXAMPLES
+       • Run the tests in the project in the current directory:
+
+                dotnet test
+
+       • Run the tests in the test1 project:
+
+                dotnet test ~/projects/test1/test1.csproj
+
+       • Run the tests using test1.dll assembly:
+
+                dotnet test ~/projects/test1/bin/debug/test1.dll
+
+       • Run the tests in the project in the current directory, and generate a test results file in the trx format:
+
+                dotnet test --logger trx
+
+       • Run the tests in the project in the current directory, and generate  a  code  coverage  file  (after  installing  Coverlet
+         (https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md) collectors integration):
+
+                dotnet test --collect:"XPlat Code Coverage"
+
+       • Run the tests in the project in the current directory, and generate a code coverage file (Windows only):
+
+                dotnet test --collect "Code Coverage"
+
+       • Run the tests in the project in the current directory, and log with detailed verbosity to the console:
+
+                dotnet test --logger "console;verbosity=detailed"
+
+       • Run  the  tests in the project in the current directory, and log with the trx logger to testResults.trx in the TestResults
+         folder:
+
+                dotnet test --logger "trx;logfilename=testResults.trx"
+
+         Since the log file name is specified, the same name is used for each target framework in  the  case  of  a  multi-targeted
+         project.  The output for each target framework overwrites the output for preceding target frameworks.  The file is created
+         in the TestResults folder in the test project folder, because relative paths are relative to that folder.   The  following
+         example shows how to produce a separate file for each target framework.
+
+       • Run  the  tests  in  the project in the current directory, and log with the trx logger to files in the TestResults folder,
+         with file names that are unique for each target framework:
+
+                dotnet test --logger:"trx;LogFilePrefix=testResults"
+
+       • Run the tests in the project in the current directory, and log with the html logger to testResults.html in the TestResults
+         folder:
+
+                dotnet test --logger "html;logfilename=testResults.html"
+
+       • Run the tests in the project in the current directory, and report tests that were in progress when the test host crashed:
+
+                dotnet test --blame
+
+       • Run the tests in the test1 project, providing the -bl (binary log) argument to msbuild:
+
+                dotnet test ~/projects/test1/test1.csproj -bl
+
+       • Run the tests in the test1 project, setting the MSBuild DefineConstants property to DEV:
+
+                dotnet test ~/projects/test1/test1.csproj -p:DefineConstants="DEV"
+
+   Filter option details
+       --filter &lt;EXPRESSION&gt;
+
+       &lt;Expression&gt; has the format &lt;property&gt;&lt;operator&gt;&lt;value&gt;[|&amp;&lt;Expression&gt;].
+
+       &lt;property&gt; is an attribute of the Test Case.  The following are the properties supported by popular unit test frameworks:
+
+       Test Framework   Supported properties
+       ──────────────────────────────────────
+       MSTest
+       xUnit
+       NUnit
+
+       The &lt;operator&gt; describes the relationship between the property and the value:
+
+       Operator   Function
+       ───────────────────────────
+          =       Exact match
+          !=      Not exact match
+          ~       Contains
+          !~      Not contains
+
+       &lt;value&gt; is a string.  All the lookups are case insensitive.
+
+       An  expression  without an &lt;operator&gt; is automatically considered as a contains on FullyQualifiedName property (for example,
+       dotnet test --filter xyz is same as dotnet test --filter FullyQualifiedName~xyz).
+
+       Expressions can be joined with conditional operators:
+
+       Operator   Function
+       ────────────────────
+       |          OR
+
+       &amp;          AND
+
+       You can enclose expressions in parenthesis when using conditional operators (for example, (Name~TestMethod1)  |  (Name~Test‐
+       Method2)).
+
+       For more information and examples on how to use selective unit test filtering, see Running selective unit tests.
+
+SEE ALSO
+       • Frameworks and Targets
+
+       • .NET Runtime Identifier (RID) catalog
+
+       • Passing  runsettings arguments through commandline (https://github.com/Microsoft/vstest-docs/blob/main/docs/RunSettingsAr‐
+         guments.md)
+
+                                                             2022-11-11                                              dotnet-test(1)
+</pre>
+</body>
+</html>

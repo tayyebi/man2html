@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>File::MimeInfo::Applications(3pm)               User Contributed Perl Documentation               File::MimeInfo::Applications(3pm)
+
+NAME
+       File::MimeInfo::Applications - Find programs to open a file by mimetype
+
+SYNOPSIS
+         use File::MimeInfo::Magic;
+         use File::MimeInfo::Applications;
+
+         my $file = '/foo/bar';
+         my $mimetype = mimetype($file)
+           || die "Could not find mimetype for $file\n";
+
+         my ($default, @other) = mime_applications($mimetype);
+
+         if (defined $default) {
+           $default-&gt;system($file)
+         }
+         else {
+           # prompt user with choice from @others
+           # ...
+         }
+
+DESCRIPTION
+       This module tries to find applications that can open files with a certain mimetype. This is done in the way suggested by the
+       freedesktop Desktop Entry specification. This module is intended to be compatible with file managers and other applications
+       that implement this specification.
+
+       This module depends on File::DesktopEntry being installed.
+
+       To use this module effectively you need to have the desktop-file-utils package from freedesktop and run update-desktop-
+       database after installing new .desktop files.  See &lt;http://www.freedesktop.org/wiki/Software/desktop-file-utils&gt;.
+
+       At the moment of writing this module is compatible with the way Nautilus (Gnome) and with Thunar (XFCE) handle applications
+       for mimetypes. I understand KDE is still working on implementing the freedesktop mime specifications but will follow. At the
+       very least all perl applications using this module are using the same defaults.
+
+EXPORT
+       All methods are exported by default.
+
+METHODS
+       "mime_applications(MIMETYPE)"
+           Returns an array of File::DesktopEntry objects. The first is the default application for this mimetype, the rest are
+           applications that say they can handle this mimetype.
+
+           If the first result is undefined there is no default application and it is good practice to ask the user which
+           application he wants to use.
+
+       "mime_applications_all(MIMETYPE)"
+           Like "mime_applications()" but also takes into account applications that can open mimetypes from which MIMETYPE
+           inherits. Parent mimetypes tell something about the data format, all code inherits from text/plain for example.
+
+       "mime_applications_set_default(MIMETYPE, APPLICATION)"
+           Save a default application for this mimetype. This action will affect other applications using the same mechanism to
+           find a default application.
+
+           APPLICATION can either be a File::DesktopEntry object or the basename of a .desktop file.
+
+       "mime_applications_set_custom(MIMETYPE, COMMAND)"
+           Save a custom shell command as default application.  Generates a DesktopEntry file on the fly and calls
+           "mime_applications_set_custom".  Returns the DesktopEntry object.
+
+           No checks are done at all on COMMAND.  It should however contain at least one word.
+
+NOTES
+       This module looks for associations files in the order specified in version 1.0 of the MIME applications specification. It
+       will also attempt a last-resort fallback to the legacy file $XDG_DATA_HOME/applications/defaults.list. In all cases, it will
+       only write to the recommended per-user defaults file located at $XDG_CONFIG_HOME/mimeapps.list.
+
+AUTHOR
+       Jaap Karssenberg &lt;pardus@cpan.org&gt; Maintained by Michiel Beijen &lt;mb@x14.nl&gt;
+
+COPYRIGHT
+       Copyright (c) 2005, 2012 Jaap G Karssenberg. All rights reserved.  This program is free software; you can redistribute it
+       and/or modify it under the same terms as Perl itself.
+
+SEE ALSO
+       File::DesktopEntry, File::MimeInfo, File::MimeInfo::Magic, File::BaseDir
+
+       &lt;http://freedesktop.org/wiki/Software/desktop-file-utils/&gt; &lt;http://freedesktop.org/wiki/Specifications/mime-apps-spec/&gt;
+
+perl v5.34.0                                                 2022-07-15                           File::MimeInfo::Applications(3pm)
+</pre>
+</body>
+</html>

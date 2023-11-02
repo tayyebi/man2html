@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>drand48_r(3)                                          Library Functions Manual                                         drand48_r(3)
+
+NAME
+       drand48_r,  erand48_r,  lrand48_r, nrand48_r, mrand48_r, jrand48_r, srand48_r, seed48_r, lcong48_r - generate uniformly dis‐
+       tributed pseudo-random numbers reentrantly
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       int drand48_r(struct drand48_data *restrict buffer,
+                     double *restrict result);
+       int erand48_r(unsigned short xsubi[3],
+                     struct drand48_data *restrict buffer,
+                     double *restrict result);
+
+       int lrand48_r(struct drand48_data *restrict buffer,
+                     long *restrict result);
+       int nrand48_r(unsigned short xsubi[3],
+                     struct drand48_data *restrict buffer,
+                     long *restrict result);
+
+       int mrand48_r(struct drand48_data *restrict buffer,
+                     long *restrict result);
+       int jrand48_r(unsigned short xsubi[3],
+                     struct drand48_data *restrict buffer,
+                     long *restrict result);
+
+       int srand48_r(long int seedval, struct drand48_data *buffer);
+       int seed48_r(unsigned short seed16v[3], struct drand48_data *buffer);
+       int lcong48_r(unsigned short param[7], struct drand48_data *buffer);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       All functions shown above:
+           /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+
+DESCRIPTION
+       These functions are the reentrant analogs of the functions described in drand48(3).  Instead of modifying the global  random
+       generator state, they use the supplied data buffer.
+
+       Before the first use, this struct must be initialized, for example, by filling it with zeros, or by calling one of the func‐
+       tions srand48_r(), seed48_r(), or lcong48_r().
+
+RETURN VALUE
+       The return value is 0.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────────────────┐
+       │Interface                                                                            │ Attribute     │ Value               │
+       ├─────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────────────────┤
+       │drand48_r(), erand48_r(), lrand48_r(), nrand48_r(), mrand48_r(), jrand48_r(),        │ Thread safety │ MT-Safe race:buffer │
+       │srand48_r(), seed48_r(), lcong48_r()                                                 │               │                     │
+       └─────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────────────────┘
+
+STANDARDS
+       These functions are GNU extensions and are not portable.
+
+SEE ALSO
+       drand48(3), rand(3), random(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                drand48_r(3)
+</pre>
+</body>
+</html>

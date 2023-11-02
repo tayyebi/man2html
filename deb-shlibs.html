@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>deb-shlibs(5)                                                dpkg suite                                               deb-shlibs(5)
+
+NAME
+       deb-shlibs - Debian shared library information file
+
+SYNOPSIS
+       debian/shlibs, debian/binary-name.shlibs, DEBIAN/shlibs
+
+DESCRIPTION
+       shlibs files map shared library names and versions (SONAMEs) to dependencies suitable for a package control file.  There is
+       one entry per line. Blank lines are not allowed.  Lines beginning with a # character are considered commentary, and are
+       ignored.  All other lines must have the format:
+
+           [type:] library version dependencies
+
+       The library and version fields are whitespace-delimited, but the dependencies field extends to the end of the line.  The
+       type field is optional and normally not needed.
+
+       The dependencies field has the same syntax as the Depends field in a binary control file, see deb-control(5).
+
+SONAME FORMATS
+       The SONAME formats supported are:
+
+           name.so.version
+
+       and
+
+           name-version.so
+
+       where name is usually prefixed by lib.
+
+EXAMPLES
+       The shlibs file for a typical library package, named libcrunch1, that provides one library whose SONAME is libcrunch.so.1,
+       might read
+
+        libcrunch 1 libcrunch1 (&gt;= 1.2-1)
+
+       The dependencies must mention the most recent version of the package that added new symbols to the library: in the above
+       example, new symbols were added to version 1.2 of libcrunch.  This is not the only reason the dependencies might need to be
+       tightened.
+
+SEE ALSO
+       deb-control(5), dpkg-shlibdeps(1), deb-symbols(5).
+
+1.21.21                                                      2023-03-02                                               deb-shlibs(5)
+</pre>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GDM3.8(8)                                                 Debian GNU/Linux                                                GDM3.8(8)
+
+NAME
+       gdm3 - GNOME Display Manager
+
+SYNOPSIS
+       gdm3
+
+DESCRIPTION
+       gdm3 is the equivalent of xdm(1x) or wdm(1x), but uses the GNOME libraries to provide a GNOME look-and-feel. It provides the
+       GNOME equivalent of a "login:" prompt.
+
+       gdm3 reads /etc/gdm3/custom.conf for its configuration. For each local display, gdm starts an X server and runs a minimal
+       GNOME session including a graphical greeter. If configured so, the main gdm process also listens for XDMCP requests from
+       remote displays. These requests can either be direct, causing gdm3 to start a session on the remote display, or indirect,
+       causing a chooser to be opened.
+
+       When managing a display, gdm3 attempts to execute /etc/gdm3/Init/display, or /etc/gdm3/Init/Default if that does not exist.
+       When a user logs in, gdm3 first attempts /etc/gdm3/PreSession/display (or /etc/gdm3/PreSession/Default), and then one of the
+       sessions defined in /usr/share/xsessions. When the session has completed, gdm attempts to run /etc/gdm3/PostSession/display,
+       or /etc/gdm3/PostSession/Default.
+
+       gdm3 maintains information about the displays it is managing in /var/lib/gdm3. This includes xauth information, so this
+       directory is not readable to normal users.
+
+       gdm3 uses PAM to perform authentication using the config file /etc/pam.d/gdm3.
+
+ENVIRONMENT
+       XAUTHORITY
+           Upon session startup, GDM sets the XAUTHORITY environment variable to a session-specific file in /run/gdm3.
+
+           Applications and scripts that assume this file is set to ~/.Xauthority will not work. To access the display you need
+           both DISPLAY and XAUTHORITY variables.
+
+AUTHOR
+       Martin Kasper Petersen &lt;mkp@SunSITE.auc.dk&gt;
+
+       This manual page written by Steve Haslam &lt;araqnid@debian.org&gt; for Debian GNU/Linux. Updated by Raphaeel Hertzog
+       &lt;hertzog@debian.org&gt;, Ryan Murray &lt;rmurray@debian.org&gt;, Josselin Mouette &lt;joss@debian.org&gt; and Vincent Lefevre
+       &lt;vincent@vinc17.net&gt;.
+
+GNOME 44.0-1ubuntu2                                          2023-06-01                                                   GDM3.8(8)
+</pre>
+</body>
+</html>

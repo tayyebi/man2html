@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>confstr(3)                                            Library Functions Manual                                           confstr(3)
+
+NAME
+       confstr - get configuration dependent string variables
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;unistd.h&gt;
+
+       size_t confstr(int name, char buf[.size], size_t size);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       confstr():
+           _POSIX_C_SOURCE &gt;= 2 || _XOPEN_SOURCE
+
+DESCRIPTION
+       confstr() gets the value of configuration-dependent string variables.
+
+       The name argument is the system variable to be queried.  The following variables are supported:
+
+       _CS_GNU_LIBC_VERSION (GNU C library only; since glibc 2.3.2)
+              A string which identifies the GNU C library version on this system (e.g., "glibc 2.3.4").
+
+       _CS_GNU_LIBPTHREAD_VERSION (GNU C library only; since glibc 2.3.2)
+              A  string  which  identifies  the  POSIX  implementation  supplied  by  this C library (e.g., "NPTL 2.3.4" or "linux‐
+              threads-0.10").
+
+       _CS_PATH
+              A value for the PATH variable which indicates where all the POSIX.2 standard utilities can be found.
+
+       If buf is not NULL and size is not zero, confstr() copies the value of the string to buf truncated to size - 1 bytes if nec‐
+       essary,  with  a  null  byte  ('\0') as terminator.  This can be detected by comparing the return value of confstr() against
+       size.
+
+       If size is zero and buf is NULL, confstr() just returns the value as defined below.
+
+RETURN VALUE
+       If name is a valid configuration variable, confstr() returns the number of bytes (including the terminating null byte)  that
+       would  be  required  to  hold  the entire value of that variable.  This value may be greater than size, which means that the
+       value in buf is truncated.
+
+       If name is a valid configuration variable, but that variable does not have a value, then confstr() returns 0.  If name  does
+       not correspond to a valid configuration variable, confstr() returns 0, and errno is set to EINVAL.
+
+ERRORS
+       EINVAL The value of name is invalid.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │confstr()                                                                                        │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008.
+
+EXAMPLES
+       The following code fragment determines the path where to find the POSIX.2 system utilities:
+
+           char *pathbuf;
+           size_t n;
+
+           n = confstr(_CS_PATH, NULL, (size_t) 0);
+           pathbuf = malloc(n);
+           if (pathbuf == NULL)
+               abort();
+           confstr(_CS_PATH, pathbuf, n);
+
+SEE ALSO
+       getconf(1), sh(1), exec(3), fpathconf(3), pathconf(3), sysconf(3), system(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                  confstr(3)
+</pre>
+</body>
+</html>

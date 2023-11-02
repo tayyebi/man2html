@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DEBCONF-COMMUNICATE(1)                                        Debconf                                        DEBCONF-COMMUNICATE(1)
+
+NAME
+       debconf-communicate - communicate with debconf
+
+SYNOPSIS
+        echo commands | debconf-communicate [options] [package]
+
+DESCRIPTION
+       debconf-communicate allows you to communicate with debconf on the fly, from the command line. The package argument is the
+       name of the package which you are pretending to be as you communicate with debconf, and it may be omitted if you are lazy.
+       It reads commands in the form used by the debconf protocol from stdin. For documentation on the available commands and their
+       usage, see the debconf specification.
+
+       The commands are executed in sequence. The textual return code of each is printed out to standard output.
+
+       The return value of this program is the numeric return code of the last executed command.
+
+EXAMPLE
+        echo get debconf/frontend | debconf-communicate
+
+       Print out the value of the debconf/frontend question.
+
+WARNING
+       This program should never be used from a maintainer script of a package that uses debconf! It may however, be useful in
+       debugging.
+
+SEE ALSO
+       debconf-loadtemplate(1)
+
+AUTHOR
+       Joey Hess &lt;joeyh@debian.org&gt;
+
+                                                             2023-01-08                                      DEBCONF-COMMUNICATE(1)
+</pre>
+</body>
+</html>

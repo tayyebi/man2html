@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GP-COLLECT-APP(1)                                          User Commands                                          GP-COLLECT-APP(1)
+
+NAME
+       gp-collect-app - collect performance data for the target application
+
+SYNOPSIS
+       gprofng collect app [OPTION(S)] TARGET [TARGET_ARGUMENTS]
+
+DESCRIPTION
+       Collect  performance  data  on  the target program. In addition to Program Counter PC) sampling, hardware event counters and
+       various tracing options are supported.
+
+OPTIONS
+       --version
+              print the version number and exit.
+
+       --help print usage information and exit.
+
+       --verbose {on|off}
+              enable (on) or disable (off) verbose mode; the default is "off".
+
+       -p {off|on|lo|hi|&lt;value&gt;}
+              disable (off) or enable (on) clock-profiling using a default sampling granularity, or enable clock-profiling  implic‐
+              itly by setting the sampling granularity (lo, hi, or a specific value in ms); by default clock profiling is enabled.
+
+       -h {&lt;ctr_def&gt;...,&lt;ctr_n_def&gt;}
+              enable  hardware  event counter profiling and select the counter(s); to see the supported counters on this system use
+              the -h option without other arguments.
+
+       -o &lt;exp_name&gt;
+              specify the name for (and path to) the experiment directory; the the default path is the current directory.
+
+       -O &lt;exp_name&gt;
+              the same as -o, but unlike the -o option, silently overwrite an existing experiment directory with the same name.
+
+       -C &lt;label&gt;
+              add up to 10 comment labels to the experiment; comments appear in the notes section of the header.
+
+       -j {on|off|&lt;path&gt;} enable (on), or disable (off) Java profiling when the target
+              program is a JVM; optionally set the &lt;path&gt; to a non-default JVM; the default is "-j on".
+
+       -J &lt;java-args&gt;
+              specify arguments to the JVM.
+
+       -t &lt;duration&gt;[m|s]
+              specify the duration over which to record data; the default unit is seconds (s), but can be set to minutes (m).
+
+       -n     dry run; display several run-time settings, but do not run the target, or collect performance data.
+
+       -y &lt;signal&gt;[,r]
+              specify delayed initialization and a pause/resume signal; by default the target starts in paused  mode;  if  the  op‐
+              tional r keyword is provided, start in resumed mode.
+
+       -F {off|on|=&lt;regex&gt;}
+              control to follow descendant processes; disable (off), enable (on), or collect data on all descendant processes whose
+              name matches the specified regular expression; the default is "-F on".
+
+       -a {off|on|ldobjects|src|usedldobjects|usedsrc}
+              specify archiving of binaries and other files; in addition to disable this feature (off), or enable archiving off all
+              loadobjects and sources (on), the other options support a more refined selection. All of these options enable archiv‐
+              ing, but the keyword controls what exactly is selected: all load objects (ldobjects), all  source  files  (src),  the
+              loadobjects  asscoiated with a program counter (usedldobjects), or the source files associated with a program counter
+              (usedsrc); the default is "-a ldobjects".
+
+       -S {off|on|&lt;seconds&gt;}
+              disable (off) or enable (on) periodic sampling of process-wide resource utilization; by default sampling occurs every
+              second; use the &lt;seconds&gt; option to change this; the default is "-S on".
+
+       -l &lt;signal&gt;
+              specify a signal that will trigger a sample of process-wide resource utilization.
+
+       -s &lt;option&gt;[,&lt;API&gt;]
+              enable  synchronization  wait tracing; &lt;option&gt; is used to define the specifics of the tracing (on, off, &lt;threshold&gt;,
+              or all); &lt;API&gt; is used to select the API: "n" selects native/Pthreads, "j" selects Java, and "nj" selects  both;  the
+              default is "-s off".
+
+       -H {off|on}
+              disable (off), or enable (on) heap tracing; the default is "-H off".
+
+       -i {off|on}
+              disable (off), or enable (on) I/O tracing; the default is "-i off".
+
+DOCUMENTATION
+       A  getting  started  guide  for gprofng is maintained as a Texinfo manual. If the info and gprofng programs are properly in‐
+       stalled at your site, the command "info gprofng" should give you access to this document.
+
+SEE ALSO
+       gprofng(1), gp-archive(1), gp-display-html(1), gp-display-src(1), gp-display-text(1)
+
+COPYRIGHT
+       Copyright © 2023 Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+GNU gp-collect-app binutils version 2.40                      May 2023                                            GP-COLLECT-APP(1)
+</pre>
+</body>
+</html>

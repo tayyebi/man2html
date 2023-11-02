@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>unlocked_stdio(3)                                     Library Functions Manual                                    unlocked_stdio(3)
+
+NAME
+       getc_unlocked, getchar_unlocked, putc_unlocked, putchar_unlocked - nonlocking stdio functions
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       int getc_unlocked(FILE *stream);
+       int getchar_unlocked(void);
+       int putc_unlocked(int c, FILE *stream);
+       int putchar_unlocked(int c);
+
+       void clearerr_unlocked(FILE *stream);
+       int feof_unlocked(FILE *stream);
+       int ferror_unlocked(FILE *stream);
+       int fileno_unlocked(FILE *stream);
+       int fflush_unlocked(FILE *stream);
+
+       int fgetc_unlocked(FILE *stream);
+       int fputc_unlocked(int c, FILE *stream);
+
+       size_t fread_unlocked(void ptr[restrict .size * .n],
+                             size_t size, size_t n,
+                             FILE *restrict stream);
+       size_t fwrite_unlocked(const void ptr[restrict .size * .n],
+                             size_t size, size_t n,
+                             FILE *restrict stream);
+
+       char *fgets_unlocked(char s[restrict .n], int n, FILE *restrict stream);
+       int fputs_unlocked(const char *restrict s, FILE *restrict stream);
+
+       #include &lt;wchar.h&gt;
+
+       wint_t getwc_unlocked(FILE *stream);
+       wint_t getwchar_unlocked(void);
+       wint_t fgetwc_unlocked(FILE *stream);
+
+       wint_t fputwc_unlocked(wchar_t wc, FILE *stream);
+       wint_t putwc_unlocked(wchar_t wc, FILE *stream);
+       wint_t putwchar_unlocked(wchar_t wc);
+
+       wchar_t *fgetws_unlocked(wchar_t ws[restrict .n], int n,
+                             FILE *restrict stream);
+       int fputws_unlocked(const wchar_t *restrict ws,
+                             FILE *restrict stream);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       getc_unlocked(), getchar_unlocked(), putc_unlocked(), putchar_unlocked():
+           /* glibc &gt;= 2.24: */ _POSIX_C_SOURCE &gt;= 199309L
+               || /* glibc &lt;= 2.23: */ _POSIX_C_SOURCE
+               || /* glibc &lt;= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+
+       clearerr_unlocked(), feof_unlocked(), ferror_unlocked(), fileno_unlocked(), fflush_unlocked(), fgetc_unlocked(),
+       fputc_unlocked(), fread_unlocked(), fwrite_unlocked():
+           /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+
+       fgets_unlocked(), fputs_unlocked(), getwc_unlocked(), getwchar_unlocked(), fgetwc_unlocked(), fputwc_unlocked(),
+       putwchar_unlocked(), fgetws_unlocked(), fputws_unlocked():
+           _GNU_SOURCE
+
+DESCRIPTION
+       Each of these functions has the same behavior as its counterpart without the "_unlocked" suffix, except that they do not use
+       locking (they do not set locks themselves, and do not test for the presence of locks set by others) and hence are thread-un‐
+       safe.  See flockfile(3).
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────┬───────────────┬────────────────────────────────────────────────────────────────────────┐
+       │Interface                         │ Attribute     │ Value                                                                  │
+       ├──────────────────────────────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+       │getc_unlocked(), putc_unlocked(), │ Thread safety │ MT-Safe race:stream                                                    │
+       │clearerr_unlocked(),              │               │                                                                        │
+       │fflush_unlocked(),                │               │                                                                        │
+       │fgetc_unlocked(),                 │               │                                                                        │
+       │fputc_unlocked(),                 │               │                                                                        │
+       │fread_unlocked(),                 │               │                                                                        │
+       │fwrite_unlocked(),                │               │                                                                        │
+       │fgets_unlocked(),                 │               │                                                                        │
+       │fputs_unlocked(),                 │               │                                                                        │
+       │getwc_unlocked(),                 │               │                                                                        │
+       │fgetwc_unlocked(),                │               │                                                                        │
+       │fputwc_unlocked(),                │               │                                                                        │
+       │putwc_unlocked(),                 │               │                                                                        │
+       │fgetws_unlocked(),                │               │                                                                        │
+       │fputws_unlocked()                 │               │                                                                        │
+       ├──────────────────────────────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+       │getchar_unlocked(),               │ Thread safety │ MT-Unsafe race:stdin                                                   │
+       │getwchar_unlocked()               │               │                                                                        │
+       ├──────────────────────────────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+       │putchar_unlocked(),               │ Thread safety │ MT-Unsafe race:stdout                                                  │
+       │putwchar_unlocked()               │               │                                                                        │
+       ├──────────────────────────────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+       │feof_unlocked(),                  │ Thread safety │ MT-Safe                                                                │
+       │ferror_unlocked(),                │               │                                                                        │
+       │fileno_unlocked()                 │               │                                                                        │
+       └──────────────────────────────────┴───────────────┴────────────────────────────────────────────────────────────────────────┘
+
+STANDARDS
+       The  four  functions  getc_unlocked(),  getchar_unlocked(),  putc_unlocked(),  putchar_unlocked()  are  in  POSIX.1-2001 and
+       POSIX.1-2008.
+
+       The nonstandard *_unlocked() variants occur on a few UNIX systems, and are available in recent glibc.  They should  probably
+       not be used.
+
+SEE ALSO
+       flockfile(3), stdio(3)
+
+Linux man-pages 6.03                                         2023-02-05                                           unlocked_stdio(3)
+</pre>
+</body>
+</html>

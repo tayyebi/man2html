@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DO-RELEASE-UPGRADE(8)                                                                                         DO-RELEASE-UPGRADE(8)
+
+NAME
+       do-release-upgrade - upgrade operating system to latest release
+
+SYNOPSIS
+       do-release-upgrade [options]
+
+DESCRIPTION
+       Upgrade  the operating system to the latest release from the command-line.  This is the preferred command if the machine has
+       no graphic environment or if the machine is to be upgraded over a remote connection.
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -V, --version
+              Show version and exit
+
+       -d, --devel-release
+              If using the latest supported release, upgrade to the development release
+
+       --data-dir=DATA_DIR
+              Directory that contains the data files
+
+       -p, --proposed
+              Try upgrading to the latest release using the upgrader from Ubuntu-proposed
+
+       -m MODE, --mode=MODE
+              Run in a special upgrade mode. Currently "desktop" for regular upgrades of a desktop system and "server"  for  server
+              systems are supported.
+
+       -f FRONTEND, --frontend=FRONTEND
+              Run the specified frontend
+
+       -c, --check-dist-upgrade-only
+              Check only if a new distribution release is available and report the result via the exit code
+
+       --allow-third-party
+              Try the upgrade with third party mirrors and repositories enabled instead of commenting them out.
+
+       -q, --quiet
+
+       -e ENV, --env=ENV
+              A comma-seprated list of environment variables (e.g.  VAR1=VALUE1,VAR2=VALUE2) that should be set during the upgrade.
+
+SEE ALSO
+       update-manager(8), apt-get(8)
+
+                                                            October 2009                                      DO-RELEASE-UPGRADE(8)
+</pre>
+</body>
+</html>

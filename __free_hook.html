@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>__malloc_hook(3)                                      Library Functions Manual                                     __malloc_hook(3)
+
+NAME
+       __malloc_hook, __malloc_initialize_hook, __memalign_hook, __free_hook, __realloc_hook, __after_morecore_hook - malloc debug‐
+       ging variables (DEPRECATED)
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;malloc.h&gt;
+
+       void *(*volatile __malloc_hook)(size_t size, const void *caller);
+
+       void *(*volatile __realloc_hook)(void *ptr, size_t size,
+                                const void *caller);
+
+       void *(*volatile __memalign_hook)(size_t alignment, size_t size,
+                                const void *caller);
+
+       void (*volatile __free_hook)(void *ptr, const void *caller);
+
+       void (*__malloc_initialize_hook)(void);
+
+       void (*volatile __after_morecore_hook)(void);
+
+DESCRIPTION
+       The GNU C library lets you modify the behavior of malloc(3), realloc(3), and free(3) by specifying  appropriate  hook  func‐
+       tions.  You can use these hooks to help you debug programs that use dynamic memory allocation, for example.
+
+       The  variable  __malloc_initialize_hook  points at a function that is called once when the malloc implementation is initial‐
+       ized.  This is a weak variable, so it can be overridden in the application with a definition like the following:
+
+           void (*__malloc_initialize_hook)(void) = my_init_hook;
+
+       Now the function my_init_hook() can do the initialization of all hooks.
+
+       The four functions pointed to by __malloc_hook, __realloc_hook, __memalign_hook, __free_hook have a prototype like the func‐
+       tions  malloc(3),  realloc(3),  memalign(3), free(3), respectively, except that they have a final argument caller that gives
+       the address of the caller of malloc(3), etc.
+
+       The variable __after_morecore_hook points at a function that is called each time after sbrk(2) was asked for more memory.
+
+STANDARDS
+       These functions are GNU extensions.
+
+NOTES
+       The use of these hook functions is not safe in multithreaded programs, and they are now deprecated.   From  glibc  2.24  on‐
+       wards,  the __malloc_initialize_hook variable has been removed from the API, and from glibc 2.34 onwards, all the hook vari‐
+       ables have been removed from the API.  Programmers should instead preempt calls to the relevant functions  by  defining  and
+       exporting malloc(), free(), realloc(), and calloc().
+
+EXAMPLES
+       Here is a short example of how to use these variables.
+
+       #include &lt;stdio.h&gt;
+       #include &lt;malloc.h&gt;
+
+       /* Prototypes for our hooks */
+       static void my_init_hook(void);
+       static void *my_malloc_hook(size_t, const void *);
+
+       /* Variables to save original hooks */
+       static void *(*old_malloc_hook)(size_t, const void *);
+
+       /* Override initializing hook from the C library */
+       void (*__malloc_initialize_hook)(void) = my_init_hook;
+
+       static void
+       my_init_hook(void)
+       {
+           old_malloc_hook = __malloc_hook;
+           __malloc_hook = my_malloc_hook;
+       }
+
+       static void *
+       my_malloc_hook(size_t size, const void *caller)
+       {
+           void *result;
+
+           /* Restore all old hooks */
+           __malloc_hook = old_malloc_hook;
+
+           /* Call recursively */
+           result = malloc(size);
+
+           /* Save underlying hooks */
+           old_malloc_hook = __malloc_hook;
+
+           /* printf() might call malloc(), so protect it too */
+           printf("malloc(%zu) called from %p returns %p\n",
+                   size, caller, result);
+
+           /* Restore our own hooks */
+           __malloc_hook = my_malloc_hook;
+
+           return result;
+       }
+
+SEE ALSO
+       mallinfo(3), malloc(3), mcheck(3), mtrace(3)
+
+Linux man-pages 6.03                                         2023-01-07                                            __malloc_hook(3)
+</pre>
+</body>
+</html>

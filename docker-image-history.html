@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DOCKER(1)                                               Docker User Manuals                                               DOCKER(1)
+
+NAME
+       docker-image-history - Show the history of an image
+
+SYNOPSIS
+       docker image history [OPTIONS] IMAGE
+
+DESCRIPTION
+       Show the history of when and how an image was created.
+
+EXAMPLES
+              $ docker history fedora
+              IMAGE          CREATED          CREATED BY                                      SIZE                COMMENT
+              105182bb5e8b   5 days ago       /bin/sh -c #(nop) ADD file:71356d2ad59aa3119d   372.7 MB
+              73bd853d2ea5   13 days ago      /bin/sh -c #(nop) MAINTAINER Lokesh Mandvekar   0 B
+              511136ea3c5a   10 months ago                                                    0 B                 Imported from -
+
+Display comments in the image history
+       The docker commit command has a -m flag for adding comments to the image. These comments will be displayed in the image his‐
+       tory.
+
+              $ sudo docker history docker:scm
+              IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+              2ac9d1098bf1        3 months ago        /bin/bash                                       241.4 MB            Added Apache to Fedora base image
+              88b42ffd1f7c        5 months ago        /bin/sh -c #(nop) ADD file:1fd8d7f9f6557cafc7   373.7 MB
+              c69cab00d6ef        5 months ago        /bin/sh -c #(nop) MAINTAINER Lokesh Mandvekar   0 B
+              511136ea3c5a        19 months ago                                                       0 B                 Imported from -
+
+   Format the output
+       The formatting option (--format) will pretty-prints history output using a Go template.
+
+       Valid placeholders for the Go template are listed below:
+
+       ┌──────────────┬──────────────────────────────────────────────┐
+       │Placeholder   │ Description                                  │
+       ├──────────────┼──────────────────────────────────────────────┤
+       │.ID           │ Image ID                                     │
+       ├──────────────┼──────────────────────────────────────────────┤
+       │.CreatedSince │ Elapsed time since the image was created  if │
+       │              │ --human=true,  otherwise  timestamp  of when │
+       │              │ image was created                            │
+       ├──────────────┼──────────────────────────────────────────────┤
+       │.CreatedAt    │ Timestamp of when image was created          │
+       ├──────────────┼──────────────────────────────────────────────┤
+       │.CreatedBy    │ Command that was used to create the image    │
+       ├──────────────┼──────────────────────────────────────────────┤
+       │.Size         │ Image disk size                              │
+       ├──────────────┼──────────────────────────────────────────────┤
+       │.Comment      │ Comment for image                            │
+       └──────────────┴──────────────────────────────────────────────┘
+
+       When using the --format option, the history command will either output the data exactly as the template  declares  or,  when
+       using the table directive, will include column headers as well.
+
+       The  following  example uses a template without headers and outputs the ID and CreatedSince entries separated by a colon for
+       all images:
+
+              $ docker images --format "{{.ID}}: {{.CreatedSince}} ago"
+
+              cc1b61406712: 2 weeks ago
+              &lt;missing&gt;: 2 weeks ago
+              &lt;missing&gt;: 2 weeks ago
+              &lt;missing&gt;: 2 weeks ago
+              &lt;missing&gt;: 2 weeks ago
+              &lt;missing&gt;: 3 weeks ago
+              &lt;missing&gt;: 3 weeks ago
+              &lt;missing&gt;: 3 weeks ago
+
+OPTIONS
+       --format=""               Format output using a custom template: Refer to  https://docs.docker.com/go/formatting/  for  more
+       information about formatting output with templates
+
+       -h, --help[=false]               help for history
+
+       -H, --human[=true]               Print sizes and dates in human readable format
+
+       --no-trunc[=false]               Don't truncate output
+
+       -q, --quiet[=false]               Only show image IDs
+
+SEE ALSO
+       docker-image(1)
+
+Docker Community                                              Sep 2023                                                    DOCKER(1)
+</pre>
+</body>
+</html>

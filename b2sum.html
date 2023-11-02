@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>B2SUM(1)                                                   User Commands                                                   B2SUM(1)
+
+NAME
+       b2sum - compute and check BLAKE2 message digest
+
+SYNOPSIS
+       b2sum [OPTION]... [FILE]...
+
+DESCRIPTION
+       Print or check BLAKE2b (512-bit) checksums.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short options too.
+
+       -b, --binary
+              read in binary mode
+
+       -c, --check
+              read checksums from the FILEs and check them
+
+       -l, --length=BITS
+              digest length in bits; must not exceed the max for the blake2 algorithm and must be a multiple of 8
+
+       --tag  create a BSD-style checksum
+
+       -t, --text
+              read in text mode (default)
+
+       -z, --zero
+              end each output line with NUL, not newline, and disable file name escaping
+
+   The following five options are useful only when verifying checksums:
+       --ignore-missing
+              don't fail or report status for missing files
+
+       --quiet
+              don't print OK for each successfully verified file
+
+       --status
+              don't output anything, status code shows success
+
+       --strict
+              exit non-zero for improperly formatted checksum lines
+
+       -w, --warn
+              warn about improperly formatted checksum lines
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+       The  sums  are  computed as described in RFC 7693.  When checking, the input should be a former output of this program.  The
+       default mode is to print a line with: checksum, a space, a character indicating input mode ('*' for binary, ' ' for text  or
+       where binary is insignificant), and name for each FILE.
+
+       Note: There is no difference between binary mode and text mode on GNU systems.
+
+AUTHOR
+       Written by Padraig Brady and Samuel Neves.
+
+REPORTING BUGS
+       GNU coreutils online help: &lt;https://www.gnu.org/software/coreutils/&gt;
+       Report any translation bugs to &lt;https://translationproject.org/team/&gt;
+
+COPYRIGHT
+       Copyright  ©  2022  Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3 or later &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+       cksum(1)
+
+       Full documentation &lt;https://www.gnu.org/software/coreutils/b2sum&gt;
+       or available locally via: info '(coreutils) b2sum invocation'
+
+GNU coreutils 9.1                                           January 2023                                                   B2SUM(1)
+</pre>
+</body>
+</html>

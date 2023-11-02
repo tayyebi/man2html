@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DEVLINK-REGION(8)                                              Linux                                              DEVLINK-REGION(8)
+
+NAME
+       devlink-region - devlink address region access
+
+SYNOPSIS
+       devlink [ OPTIONS ] region  { COMMAND | help }
+
+       OPTIONS := { -V[ersion] | -n[no-nice-names] }
+
+       devlink region show [ DEV/REGION ]
+
+       devlink region new DEV/REGION [ snapshot SNAPSHOT_ID ]
+
+       devlink region del DEV/REGION snapshot SNAPSHOT_ID
+
+       devlink region dump DEV/REGION snapshot SNAPSHOT_ID
+
+       devlink region read DEV/REGION [ snapshot SNAPSHOT_ID ] address ADDRESS length LENGTH
+
+       devlink region help
+
+DESCRIPTION
+   devlink region show - Show all supported address regions names, snapshots and sizes
+       DEV/REGION - specifies the devlink device and address-region to query.
+
+   devlink region new - Create a snapshot specified by address-region name and snapshot ID
+       DEV/REGION - specifies the devlink device and address-region to snapshot
+
+       snapshot SNAPSHOT_ID - optionally specifies the snapshot ID to assign. If not specified, devlink will assign a unique ID to
+       the snapshot.
+
+   devlink region del - Delete a snapshot specified by address-region name and snapshot ID
+       DEV/REGION - specifies the devlink device and address-region to delete the snapshot from
+
+       snapshot SNAPSHOT_ID - specifies the snapshot ID to delete
+
+   devlink region dump - Dump all the available data from a region or from snapshot of a region
+       DEV/REGION - specifies the device and address-region to dump from.
+
+       snapshot SNAPSHOT_ID - specifies the snapshot-id of the region to dump.
+
+   devlink region read - Read from a specific region address for a given length
+       DEV/REGION - specifies the device and address-region to read from.
+
+       snapshot SNAPSHOT_ID - specifies the snapshot-id of the region to read.
+
+       address ADDRESS - specifies the address to read from.
+
+       length LENGTH - specifies the length of data to read.
+
+EXAMPLES
+       devlink region show
+           List available address regions and snapshot.
+
+       devlink region new pci/0000:00:05.0/cr-space
+           Create a new snapshot from cr-space address region from device pci/0000:00:05.0.
+
+       devlink region del pci/0000:00:05.0/cr-space snapshot 1
+           Delete snapshot id 1 from cr-space address region from device pci/0000:00:05.0.
+
+       devlink region dump pci/0000:00:05.0/cr-space snapshot 1
+           Dump the snapshot taken from cr-space address region with ID 1
+
+       devlink region read pci/0000:00:05.0/cr-space snapshot 1 address 0x10 length 16
+           Read from address 0x10, 16 Bytes of snapshot ID 1 taken from cr-space address region
+
+SEE ALSO
+       devlink(8), devlink-dev(8), devlink-port(8), devlink-monitor(8),
+
+AUTHOR
+       Alex Vesker &lt;valex@mellanox.com&gt;
+
+iproute2                                                    10 Jan 2018                                           DEVLINK-REGION(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>driverless(1)                                                                                                         driverless(1)
+
+NAME
+       driverless - PPD generator utility for driverless printing
+
+SYNOPSIS
+       driverless [-h | --help | --version] [-d | -v | --debug] [list] [_ipps._tcp] [_ipp._tcp] [--std-ipp-uris] | [cat driver URI] | [IPP printer URI]
+
+DESCRIPTION
+       driverless  generates  PPD files for printers which are designed for driverless IPP printing (currently IPP Everywhere, Air‐
+       Print, Mopria, and Wi-Fi-Direct printers, network printers and also IPP-over-USB printers with the help of  ippusbxd(8))  by
+       polling  capability information from the printers via IPP. it can be either called for listing suitable printers in the net‐
+       work and for actually generating the PPD. It can also be called by CUPS when CUPS is listing available PPDs/drivers or  cre‐
+       ating print queues, making the setup of driverless printers with printer setup tools transparently working.
+
+       driverless  is  placed  in  /usr/lib/cups/driver/  for listing available driverless-capable printers and generating PPDs for
+       them. It should also be put in /usr/lib/cups/backend/ (preferably by a symbolic link) to list IPP device URIs  for  suitable
+       printers. Printer setup tools like system-config-printer, the CUPS web interface at http://localhost:631/, and CUPS' command
+       line utilities can use driverless with CUPS to list available driverless-capable printers, determine their IPP  device  URIs
+       and  generate  PPDs  for  them.  The  printers will be automatically and correctly set up for driverless printing. Note that
+       driverless printing requires IPP communication with the printer.
+
+       A second symbolic link to /usr/lib/cups/driver/driverless from /usr/bin/ allows driverless to be called directly by a user.
+
+OPTIONS
+       -h, --help, --version
+              Show help page, including version number.
+
+       -v, -d, --debug
+              Debug mode, verbose logging to stderr.
+
+       list   List the driver URIs and metadata for all available IPP/IPPS printers suitable for driverless PPD file generation (to
+              be used by CUPS).
+
+       _ipps._tcp
+              Check for only IPPS printers supporting driverless printing .
+
+       _ipp._tcp
+              Check for only IPP printers supporting driverless printing .
+
+       --std-ipp-uris
+              Show URIS in standard form
+
+       cat driver URI
+              Generate the PPD file for the supplied driver URI from the output of "list" (to be used by CUPS).
+
+       IPP printer URI
+              Generate  the PPD file for the supplied IPP printer URI (suitable URIs are listed when calling driverless without op‐
+              tions).
+
+       When called without options, the IPP printer URIs of all available driverless-capable IPP printers will be listed.
+
+SEE ALSO
+       cups-browsed(8), ippfind(1), ippusbxd(8)
+
+AUTHOR
+       The authors of driverless are listed in /usr/share/doc/cups-filters/AUTHORS.
+
+                                                            27 Dec 2016                                               driverless(1)
+</pre>
+</body>
+</html>

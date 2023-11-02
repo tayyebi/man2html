@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Control::Info(3perl)                                  libdpkg-perl                                 Dpkg::Control::Info(3perl)
+
+NAME
+       Dpkg::Control::Info - parse files like debian/control
+
+DESCRIPTION
+       It provides a class to access data of files that follow the same syntax as debian/control.
+
+METHODS
+       $c = Dpkg::Control::Info-&gt;new(%opts)
+           Create a new Dpkg::Control::Info object. Loads the file from the filename option, if no option is specified filename
+           defaults to debian/control.  If a scalar is passed instead, it will be used as the filename. If filename is "-", it
+           parses the standard input. If filename is undef no loading will be performed.
+
+       $c-&gt;reset()
+           Resets what got read.
+
+       $c-&gt;parse($fh, $description)
+           Parse a control file from the given filehandle. Exits in case of errors.  $description is used to describe the
+           filehandle, ideally it's a filename or a description of where the data comes from. It is used in error messages.  The
+           data in the object is reset before parsing new control files.
+
+       $c-&gt;load($file)
+           Load the content of $file. Exits in case of errors. If file is "-", it loads from the standard input.
+
+       $c-&gt;[0]
+       $c-&gt;get_source()
+           Returns a Dpkg::Control object containing the fields concerning the source package.
+
+       $c-&gt;get_pkg_by_idx($idx)
+           Returns a Dpkg::Control object containing the fields concerning the binary package numbered $idx (starting at 1).
+
+       $c-&gt;get_pkg_by_name($name)
+           Returns a Dpkg::Control object containing the fields concerning the binary package named $name.
+
+       $c-&gt;get_packages()
+           Returns a list containing the Dpkg::Control objects for all binary packages.
+
+       $str = $c-&gt;output([$fh])
+           Return the content info into a string. If $fh is specified print it into the filehandle.
+
+       "$c"
+           Return a string representation of the content.
+
+       @{$c}
+           Return a list of Dpkg::Control objects, the first one is corresponding to source information and the following ones are
+           the binary packages information.
+
+CHANGES
+   Version 1.01 (dpkg 1.18.0)
+       New argument: The $c-&gt;new() constructor accepts an %opts argument.
+
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                                  Dpkg::Control::Info(3perl)
+</pre>
+</body>
+</html>

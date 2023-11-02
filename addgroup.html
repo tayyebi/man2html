@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>ADDUSER(8)                                            System Manager's Manual                                            ADDUSER(8)
+
+NAME
+       adduser, addgroup - add or manipulate users or groups
+
+SYNOPSIS
+       adduser [[options]] [--home dir] [--shell shell] [--no-create-home] [--uid id] [--firstuid id] [--lastuid id]
+               [--firstgid id] [--lastgid id] [--ingroup group] [--gid id] [--disabled-password] [--disabled-login] [--gecos gecos]
+               [--add-extra-groups] [--encrypt-home] [user]
+       adduser [--system] [[options]] [--home dir] [--shell shell] [--no-create-home] [--uid id] [--group] [--ingroup group]
+               [--gid id] [--disabled-password] [--disabled-login] [--gecos gecos] [user]
+       addgroup [[options]] [--gid ID] [group]
+       addgroup [--system] [[options]] [--gid id] [group]
+       adduser [[options]] [user] [group"]
+
+DESCRIPTION
+       adduser and addgroup add users and groups to the system according to command line options and configuration  information  in
+       /etc/adduser.conf.   They  are  friendlier front ends to the low level tools like useradd, groupadd and usermod programs, by
+       default choosing Debian policy conformant UID and GID values, creating a home directory with skeletal configuration, running
+       a custom script, and other features.
+
+       adduser  and  addgroup  are intended as a policy layer, making it easier for package maintainers and local administrators to
+       create local system accounts in the way Debian expects them to be created, taking the burden to adapt to the probably chang‐
+       ing  specifications  of Debian policy. adduser --system takes special attention on just needing a single call in the package
+       maintainer scripts without any conditional wrappers, error suppression or other scaffolding.
+
+       adduser honors the distinction between dynamically allocated system users and groups and dynamically allocated user accounts
+       that is documented in Debian Policy, Chapter 9.2.2.
+
+       adduser and addgroup can be run in one of five modes:
+
+   Add a normal user
+       If  called  with  one non-option argument and without the --system or --group  options, adduser will add a normal user, that
+       means a dynamically allocated user account in the sense of Debian Policy. This is commonly referred to in adduser as a  non-
+       system user.
+
+       adduser  will  choose  the first available UID from the range specified for normal users in the configuration file.  The UID
+       can be overridden with the --uid option.
+
+       The range specified in the configuration file may be overridden with the --firstuid and --lastuid options.
+
+       By default, each user in Debian GNU/Linux is given a corresponding  group  with  the  same  name.   Usergroups  allow  group
+       writable directories to be easily maintained by placing the appropriate users in the new group, setting the set-group-ID bit
+       in the directory (which is on by default), and ensuring that all users use a umask of 002.  If USERS_GID or USERS_GROUP  are
+       set,  the  newly  created  user  is  placed  in  the  referenced group as a supplemental group. . Setting both USERS_GID and
+       USERS_GROUP is an error even if the settings are consistent.  If USERGROUPS is no,  all  users  get  the  group  defined  by
+       USERS_GID  or  USERS_GROUP  as their primary group.  Users' primary groups can also be overridden from the command line with
+       the --gid  or --ingroup options to set the group by id or name, respectively.  Also, users can be added to one or more  sup‐
+       plemental  groups  defined  in adduser.conf either by setting ADD_EXTRA_GROUPS to 1 in adduser.conf, or by passing --add-ex‐
+       tra-groups on the commandline.
+
+       adduser will create a home directory subject to DHOME, GROUPHOMES, and LETTERHOMES.  The home directory  can  be  overridden
+       from  the command line with the --home option, and the shell with the --shell option.  The home directory's set-group-ID bit
+       is set if USERGROUPS is yes so that any files created in the user's home directory will have the correct group.
+
+       adduser will copy files from SKEL into the home directory and prompt for finger (GECOS) information  and  a  password.   The
+       GECOS field may also be set with the --gecos option.  With the --disabled-login option, the account will be created but will
+       be disabled until a password is set.  The --disabled-password option will not set a password, but login  is  still  possible
+       (for  example  with  SSH keys).  To set up an encrypted home directory for the new user, add the --encrypt-home option.  For
+       more information, refer to the -b option of ecryptfs-setup-private(1).
+
+       If the file /usr/local/sbin/adduser.local exists, it will be executed after the user account has been set up in order to  do
+       any local setup.
+
+       adduser.local  is also the place where local administrators can place their code to interact with directory services, should
+       they desire to.
+
+       The arguments passed to adduser.local are:
+       username uid gid home-directory
+
+       The environment variable VERBOSE is set according to the following rule:
+
+       0      if  --quiet is specified
+
+       1      if neither --quiet nor --debug is specified
+
+       2      if --debug is specified
+
+       (The same applies to the variable DEBUG, but DEBUG is deprecated and will be removed in a later version of adduser.)
+
+   Add a system user
+       If called with one non-option argument and the --system option, adduser will add a dynamically allocated system user,  often
+       abbreviated as system user in the context of the adduser package.  If a user with the same name already exists in the system
+       uid range (or, if the uid is specified, if a user with that uid already exists), adduser will exit  with  a  warning.   This
+       warning can be suppressed by adding --quiet.
+
+       adduser  will choose the first available UID from the range specified for system users in the configuration file (FIRST_SYS‐
+       TEM_UID and LAST_SYSTEM_UID).  If you want to have a specific UID, you can specify it using the --uid option.
+
+       By default, system users are placed in the nogroup group.  To place the new system user in an already  existing  group,  use
+       the --gid or --ingroup options.  To place the new system user in a new group with the same ID, use the --group option.
+
+       A  home directory should be specified using the --home option. If not specified, the default home directory for a new system
+       user is /nonexistent. This directory should never exist on any Debian system, and adduser will not create it automatically.
+
+       The new system user will have the shell /usr/sbin/nologin (unless overridden with the --shell option).  Standard UNIX  pass‐
+       word  logins  will  be disabled for the new system user; however, logins by other means (for example, via SSH) are still al‐
+       lowed.  Skeletal configuration files are not copied.
+
+   Add a user group
+       If adduser is called with the --group option and without the --system option, or addgroup is  called  respectively,  a  user
+       group will be added.
+
+       A  GID will be chosen from the range specified for system GIDs in the configuration file (FIRST_GID, LAST_GID).  To override
+       that mechanism you can give the GID using the --gid option.
+
+       The range specified in the configuration file may be overridden with the --firstgid and --lastgid options.
+
+       The group is created with no users.
+
+   Add a system group
+       If addgroup is called with the --system option, a dynamically allocated system group, often abbreviated as system  group  in
+       the context of the adduser package, will be created.
+
+       A GID will be chosen from the range specified for system GIDs in the configuration file (FIRST_SYSTEM_GID, LAST_SYSTEM_GID).
+       To override that mechanism you can give the GID using the --gid option.  The system group is created with no users.
+
+   Add an existing user to an existing group
+       If called with two non-option arguments, adduser will add an existing user to an existing group.
+
+OPTIONS
+       -c file,--conf file
+              Use file instead of /etc/adduser.conf.
+
+       --disabled-login
+              Do not run passwd to set the password.  The user won't be able to use her account until the password is set.
+
+       --disabled-password
+              Like --disabled-login, but logins are still possible (for example using SSH keys) but not using password  authentica‐
+              tion.
+
+       --allow-badname
+              By  default,  user  and  group  names  are  checked  against  the  configurable  regular  expression  NAME_REGEX  and
+              SYS_NAME_REGEX specified in the configuration file. This option forces adduser and addgroup  to  apply  only  a  weak
+              check for validity of the name.  NAME_REGEX and SYS_NAME_REGEX are described in adduser.conf(5).
+
+       --force-badname
+              This is the deprecated form of --allow-badname. It will be removed during the release cycle of the Debian release af‐
+              ter bookworm.
+
+       --allow-all-names
+              Bypass the weak name check which is used with --allow-badname.  This will allow any username which  is  supported  by
+              the  underlying  useradd,  including  names  containing non-ASCII characters.  The only restrictions enforced at this
+              level are: cannot start with a dash, plus sign, or tilde; and cannot contain a colon, comma, slash, or whitespace.
+
+       --gecos GECOS
+              Set the GECOS field for the new entry generated.  adduser will not ask for  finger  information  if  this  option  is
+              given.
+
+       --gid ID
+              When  creating a group, this option sets the group ID number of the new group to GID.  When creating a user, this op‐
+              tion sets the primary group ID number of the new user to GID.
+
+       --ingroup GROUP
+              When creating a user, this option sets the primary group ID number of the new user to the GID  of  the  named  GROUP.
+              Unlike  with  the  --gid option, the group is specified here by name rather than by ID number. The group must already
+              exist.
+
+       --group
+              When combined with --system , a group with the same name and ID as the system user is created.  If not combined  with
+              --system , a group with the given name is created.  This is the default action if the program is invoked as addgroup.
+
+       -h, --help
+              Display brief instructions.
+
+       --home dir
+              Use  dir as the user's home directory, rather than the default specified by the configuration file.  If the directory
+              does not exist, it is created and skeleton files are copied.
+
+       --shell shell
+              Use shell as the user's login shell, rather than the default specified by the configuration file.
+
+       --no-create-home
+              Do not create a home directory for the new user. Note that the path name for the new user's home directory will still
+              be  entered  in  the appropriate field in the /etc/passwd file. The use of this option does not imply that this field
+              should be empty. Rather, it indicates to adduser that some other mechanism will be responsible for  initializing  the
+              new user's home directory if it is to exist.
+
+       -q, --quiet
+              Suppress informational messages, only show warnings and errors.
+
+       -d, --debug
+              Be verbose, most useful if you want to nail down a problem with adduser.
+
+       --system
+              Nomally,  adduser  creates dynamically allocated user accounts and groups as defined in Debian Policy, Chapter 9.2.2.
+              With this option, adduser creates a dynamically allocated system user and group.
+
+       --uid ID
+              Force the new userid to be the given number.  adduser will fail if the userid is already taken.
+
+       --firstuid ID
+              Override the first uid in the range that the uid is chosen from (overrides FIRST_UID specified in  the  configuration
+              file).
+
+       --lastuid ID
+              Override the last uid in the range that the uid is chosen from (LAST_UID).
+
+       --firstgid ID
+              Override  the  first gid in the range that the gid is chosen from (overrides FIRST_GID specified in the configuration
+              file).
+
+       --lastgid ID
+              Override the last gid in the range that the gid is chosen from (LAST_GID).
+
+       --add-extra-groups
+              Add new user to extra groups defined in the configuration file. Old spelling  --add_extra_groups  is  deprecated  and
+              will be supported in Debian bookworm only.
+
+       -v , --version
+              Display version and copyright information.
+
+EXIT VALUES
+       0      Success:  The  user or group exists as specified.  This can have 2 causes: The user or group was created by this call
+              to adduser or the user or group was already present on the system before adduser was invoked. If adduser --system  is
+              invoked for a user already existing as a system user, it will also return 0.
+
+       1      Creating  the non-system user or group failed because it was already present.  The username or groupname was rejected
+              because of a mismatch with the configured regular expressions, see adduser.conf(5).  adduser has been  aborted  by  a
+              signal.
+              Or  for  many  other  yet  undocumented  reasons  which are printed to console then.  You may then consider to remove
+              --quiet to make adduser more verbose.
+
+SECURITY
+       adduser needs root privileges and offers, via the --conf command line option to use a different configuration file.  Do  not
+       use  sudo  or  similar  tools to give partial privileges to adduser with restricted command line parameters. This is easy to
+       circumvent and might allow users to create arbitrary accounts. If you want this, consider writing your  own  wrapper  script
+       and giving privileges to execute that script.
+
+FILES
+       /etc/adduser.conf
+              Default configuration file for adduser and addgroup
+
+       /usr/local/sbin/adduser.local
+              Optional custom add-ons.
+
+NOTES
+       Unfortunately,  the  term  system account suffers from double use in Debian.  It both means an account for the actual Debian
+       system, distinguishing itself from an application accountP which might exist in the user database of some  application  run‐
+       ning on Debian. A system account in this definition has the potential to log in to the actual system, has a UID, can be mem‐
+       ber in system groups, can own files and processes. Debian Policy, au contraire, in its Chapter 9.2.2, makes  a  distinguish‐
+       ment  of dynamically allocated system users and groups and dynamially allocated user accounts, meaning in both cases special
+       instances of system accounts. Care must be taken to not confuse this terminology. Since adduser and  deluser  never  address
+       application  accounts  and everything in this package concerns system accounts here, the usage of the terms user account and
+       system account is actually not ambiguous in the context of this package. For clarity, this document uses the definition  lo‐
+       cal system account or group if the distinction to application accounts or accounts managed in a directory service is needed.
+
+       adduser used to have the vision to be the universal front end to the various directory services for creation and deletion of
+       regular and system accounts in Debian since the 1990ies. This vision has been abandoned as of  2022.  The  rationale  behind
+       this  includes:  that  in  practice, a small server system is not going to have write access to an enterprise-wide directory
+       service anyway, that locally installed packages are hard to manage with centrally controlled system  accounts,  that  enter‐
+       prise  directory  services have their own management processes anyway and that the personpower of the adduser is unlikely to
+       be ever strong enough to write or support the plethora of directory services that need support.
+
+       adduser will constrict itself to being a policy layer for the management of local system accounts, using the tools from  the
+       password package for the actual work.
+
+BUGS
+       Inconsistent use of terminology around the term system account in docs and code is a bug. Please report this and allow us to
+       improve our docs.
+
+       adduser takes special attention to be directly usable in Debian maintainer scripts without conditional wrappers, error  sup‐
+       pression  and  other scaffolding. The only thing that the package maintainer should need to code is a check for the presence
+       of the executable in the postrm script. The adduser maintainers consider the need for additional scaffolding a bug  and  en‐
+       courage their fellow Debian package maintainers to file bugs against the adduser package in this case.
+
+SEE ALSO
+       adduser.conf(5), deluser(8), groupadd(8), useradd(8), usermod(8), Debian Policy 9.2.2.
+
+COPYRIGHT
+       Copyright  (C)  1997,  1998, 1999 Guy Maor. Modifications by Roland Bauerschmidt and Marc Haber. Additional patches by Joerg
+       Hoh and Stephen Gran.
+       Copyright (C) 1995 Ted Hajek, with a great deal borrowed from the original Debian  adduser
+       Copyright (C) 1994 Ian Murdock.  adduser is free software; see the GNU General Public Licence version 2 or later for copying
+       conditions.  There is no warranty.
+
+Debian GNU/Linux                                                                                                         ADDUSER(8)
+</pre>
+</body>
+</html>

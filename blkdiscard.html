@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>BLKDISCARD(8)                                          System Administration                                          BLKDISCARD(8)
+
+NAME
+       blkdiscard - discard sectors on a device
+
+SYNOPSIS
+       blkdiscard [options] [-o offset] [-l length] device
+
+DESCRIPTION
+       blkdiscard is used to discard device sectors. This is useful for solid-state drivers (SSDs) and thinly-provisioned storage.
+       Unlike fstrim(8), this command is used directly on the block device.
+
+       By default, blkdiscard will discard all blocks on the device. Options may be used to modify this behavior based on range or
+       size, as explained below.
+
+       The device argument is the pathname of the block device.
+
+       WARNING: All data in the discarded region on the device will be lost!
+
+OPTIONS
+       The offset and length arguments may be followed by the multiplicative suffixes KiB (=1024), MiB (=1024*1024), and so on for
+       GiB, TiB, PiB, EiB, ZiB and YiB (the "iB" is optional, e.g., "K" has the same meaning as "KiB") or the suffixes KB (=1000),
+       MB (=1000*1000), and so on for GB, TB, PB, EB, ZB and YB.
+
+       -f, --force
+           Disable all checking. Since v2.36 the block device is open in exclusive mode (O_EXCL) by default to avoid collision with
+           mounted filesystem or another kernel subsystem. The --force option disables the exclusive access mode.
+
+       -o, --offset offset
+           Byte offset into the device from which to start discarding. The provided value must be aligned to the device sector
+           size. The default value is zero.
+
+       -l, --length length
+           The number of bytes to discard (counting from the starting point). The provided value must be aligned to the device
+           sector size. If the specified value extends past the end of the device, blkdiscard will stop at the device size
+           boundary. The default value extends to the end of the device.
+
+       -p, --step length
+           The number of bytes to discard within one iteration. The default is to discard all by one ioctl call.
+
+       -s, --secure
+           Perform a secure discard. A secure discard is the same as a regular discard except that all copies of the discarded
+           blocks that were possibly created by garbage collection must also be erased. This requires support from the device.
+
+       -z, --zeroout
+           Zero-fill rather than discard.
+
+       -v, --verbose
+           Display the aligned values of offset and length. If the --step option is specified, it prints the discard progress every
+           second.
+
+       -h, --help
+           Display help text and exit.
+
+       -V, --version
+           Print version and exit.
+
+AUTHORS
+       Lukas Czerner &lt;lczerner@redhat.com&gt;
+
+SEE ALSO
+       fstrim(8)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at https://github.com/util-linux/util-linux/issues.
+
+AVAILABILITY
+       The blkdiscard command is part of the util-linux package which can be downloaded from Linux Kernel Archive
+       &lt;https://www.kernel.org/pub/linux/utils/util-linux/&gt;.
+
+util-linux 2.38.1                                            2022-05-11                                               BLKDISCARD(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>abs(3)                                                Library Functions Manual                                               abs(3)
+
+NAME
+       abs, labs, llabs, imaxabs - compute the absolute value of an integer
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       int abs(int j);
+       long labs(long j);
+       long long llabs(long long j);
+
+       #include &lt;inttypes.h&gt;
+
+       intmax_t imaxabs(intmax_t j);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       llabs():
+           _ISOC99_SOURCE || _POSIX_C_SOURCE &gt;= 200112L
+
+DESCRIPTION
+       The abs() function computes the absolute value of the integer argument j.  The labs(), llabs(), and imaxabs() functions com‐
+       pute the absolute value of the argument j of the appropriate integer type for the function.
+
+RETURN VALUE
+       Returns the absolute value of the integer argument, of the appropriate integer type for the function.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │abs(), labs(), llabs(), imaxabs()                                                                │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008, C99, SVr4, 4.3BSD.
+
+NOTES
+       Trying to take the absolute value of the most negative integer is not defined.
+
+       The llabs() function is included since glibc 2.0.  The imaxabs() function is included since glibc 2.1.1.
+
+       For llabs() to be declared, it may be necessary to define _ISOC99_SOURCE or _ISOC9X_SOURCE  (depending  on  the  version  of
+       glibc) before including any standard headers.
+
+       By default, GCC handles abs(), labs(), and (since GCC 3.0) llabs() and imaxabs() as built-in functions.
+
+SEE ALSO
+       cabs(3), ceil(3), fabs(3), floor(3), rint(3)
+
+Linux man-pages 6.03                                         2022-12-29                                                      abs(3)
+</pre>
+</body>
+</html>

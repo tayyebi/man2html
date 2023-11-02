@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>APTD(1)                                                     User manual                                                     APTD(1)
+
+NAME
+       aptd - package managing daemon proving a D-Bus interface
+
+SYNOPSIS
+       aptd [OPTIONS]
+
+DESCRIPTION
+       aptd  allows  to perform package management tasks, e.g. installing or removing software, using a D-Bus interface. The privi‐
+       leges are handled by PolicyKit so the client application doesn't need to run as root. Furthermore aptd is started  by  D-Bus
+       activation only when an user calls a method.
+
+OPTIONS
+       -d, --debug
+              Show additional information on the command line.
+
+       -h, --help
+              Show information about the usage of the command.
+
+       -r, --replace
+              Replace another aptd instance if it is running.
+
+       -p PROFILE_FILE
+              Write profiling data to PROFILE_FILE using Python's profiler. This is only of use to developers.
+
+       -t, --disable-timeout
+              Do not shutdown the daemon after an idle time.
+
+       --dummy
+              Instead  of applying the changes to the system only show a progress. This option is only usable for developers to lo‐
+              cate problems in client applications.
+
+FILES
+       /etc/apt/apt.conf.d/20dbus
+              Adds a small post update hook which will emit the org.debian.apt.CacheChanged signal on the system D-Bus to  indicate
+              that the cache has been changed and a possible running aptd instance should reloade its internal cache.
+
+       /usr/share/polkit-1/actions/org.debian.apt.policy
+              The  PolicyKit  definitions  of  the privileges used by aptdaemon, e.g. to install packages. To change the privileges
+              please have a look at PolicyKit.conf(1).
+
+       /etc/dbus-1/system.d/org.debian.apt.conf
+              The D-Bus configuration of the org.debian.apt name space.
+
+DIAGNOSTICS
+       By default aptdaemon logs to the syslog facility AptDaemon. Furthermore you can use the -d option to get additional informa‐
+       tion on the command line.
+
+HOMEPAGE
+       https://launchpad.net/aptdaemon
+
+BUGS
+       You can report bugs at the Launchpad site of aptdaemon: https://bugs.launchpad.net/aptdaemon/+filebug
+
+AUTHOR
+       Sebastian Heinlein &lt;devel at glatzor dot de&gt;
+
+SEE ALSO
+       aptdcon(1), org.debian.apt(7), org.debian.apt.transaction(7), PolicyKit.conf(7)
+
+aptdaemon                                                  December 2009                                                    APTD(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>HTTP::Headers::Util(3pm)                        User Contributed Perl Documentation                        HTTP::Headers::Util(3pm)
+
+NAME
+       HTTP::Headers::Util - Header value parsing utility functions
+
+VERSION
+       version 6.44
+
+SYNOPSIS
+         use HTTP::Headers::Util qw(split_header_words);
+         @values = split_header_words($h-&gt;header("Content-Type"));
+
+DESCRIPTION
+       This module provides a few functions that helps parsing and construction of valid HTTP header values.  None of the functions
+       are exported by default.
+
+       The following functions are available:
+
+       split_header_words( @header_values )
+           This function will parse the header values given as argument into a list of anonymous arrays containing key/value pairs.
+           The function knows how to deal with ",", ";" and "=" as well as quoted values after "=".  A list of space separated
+           tokens are parsed as if they were separated by ";".
+
+           If the @header_values passed as argument contains multiple values, then they are treated as if they were a single value
+           separated by comma ",".
+
+           This means that this function is useful for parsing header fields that follow this syntax (BNF as from the HTTP/1.1
+           specification, but we relax the requirement for tokens).
+
+             headers           = #header
+             header            = (token | parameter) *( [";"] (token | parameter))
+
+             token             = 1*&lt;any CHAR except CTLs or separators&gt;
+             separators        = "(" | ")" | "&lt;" | "&gt;" | "@"
+                               | "," | ";" | ":" | "\" | &lt;"&gt;
+                               | "/" | "[" | "]" | "?" | "="
+                               | "{" | "}" | SP | HT
+
+             quoted-string     = ( &lt;"&gt; *(qdtext | quoted-pair ) &lt;"&gt; )
+             qdtext            = &lt;any TEXT except &lt;"&gt;&gt;
+             quoted-pair       = "\" CHAR
+
+             parameter         = attribute "=" value
+             attribute         = token
+             value             = token | quoted-string
+
+           Each header is represented by an anonymous array of key/value pairs.  The keys will be all be forced to lower case.  The
+           value for a simple token (not part of a parameter) is "undef".  Syntactically incorrect headers will not necessarily be
+           parsed as you would want.
+
+           This is easier to describe with some examples:
+
+              split_header_words('foo="bar"; port="80,81"; DISCARD, BAR=baz');
+              split_header_words('text/html; charset="iso-8859-1"');
+              split_header_words('Basic realm="\\"foo\\\\bar\\""');
+
+           will return
+
+              [foo=&gt;'bar', port=&gt;'80,81', discard=&gt; undef], [bar=&gt;'baz' ]
+              ['text/html' =&gt; undef, charset =&gt; 'iso-8859-1']
+              [basic =&gt; undef, realm =&gt; "\"foo\\bar\""]
+
+           If you don't want the function to convert tokens and attribute keys to lower case you can call it as
+           "_split_header_words" instead (with a leading underscore).
+
+       join_header_words( @arrays )
+           This will do the opposite of the conversion done by split_header_words().  It takes a list of anonymous arrays as
+           arguments (or a list of key/value pairs) and produces a single header value.  Attribute values are quoted if needed.
+
+           Example:
+
+              join_header_words(["text/plain" =&gt; undef, charset =&gt; "iso-8859/1"]);
+              join_header_words("text/plain" =&gt; undef, charset =&gt; "iso-8859/1");
+
+           will both return the string:
+
+              text/plain; charset="iso-8859/1"
+
+AUTHOR
+       Gisle Aas &lt;gisle@activestate.com&gt;
+
+COPYRIGHT AND LICENSE
+       This software is copyright (c) 1994 by Gisle Aas.
+
+       This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language
+       system itself.
+
+perl v5.36.0                                                 2022-10-30                                    HTTP::Headers::Util(3pm)
+</pre>
+</body>
+</html>

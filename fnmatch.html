@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>fnmatch(3)                                            Library Functions Manual                                           fnmatch(3)
+
+NAME
+       fnmatch - match filename or pathname
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;fnmatch.h&gt;
+
+       int fnmatch(const char *pattern, const char *string, int flags);
+
+DESCRIPTION
+       The  fnmatch()  function  checks whether the string argument matches the pattern argument, which is a shell wildcard pattern
+       (see glob(7)).
+
+       The flags argument modifies the behavior; it is the bitwise OR of zero or more of the following flags:
+
+       FNM_NOESCAPE
+              If this flag is set, treat backslash as an ordinary character, instead of an escape character.
+
+       FNM_PATHNAME
+              If this flag is set, match a slash in string only with a slash in pattern and not by an asterisk (*)  or  a  question
+              mark (?) metacharacter, nor by a bracket expression ([]) containing a slash.
+
+       FNM_PERIOD
+              If  this  flag is set, a leading period in string has to be matched exactly by a period in pattern.  A period is con‐
+              sidered to be leading if it is the first character in string, or if both FNM_PATHNAME is set and the  period  immedi‐
+              ately follows a slash.
+
+       FNM_FILE_NAME
+              This is a GNU synonym for FNM_PATHNAME.
+
+       FNM_LEADING_DIR
+              If  this  flag  (a GNU extension) is set, the pattern is considered to be matched if it matches an initial segment of
+              string which is followed by a slash.  This flag is mainly for the internal use of glibc and is  implemented  only  in
+              certain cases.
+
+       FNM_CASEFOLD
+              If this flag (a GNU extension) is set, the pattern is matched case-insensitively.
+
+       FNM_EXTMATCH
+              If  this  flag (a GNU extension) is set, extended patterns are supported, as introduced by 'ksh' and now supported by
+              other shells.  The extended format is as follows, with pattern-list being a '|' separated list of patterns.
+
+       '?(pattern-list)'
+              The pattern matches if zero or one occurrences of any of the patterns in the pattern-list match the input string.
+
+       '*(pattern-list)'
+              The pattern matches if zero or more occurrences of any of the patterns in the pattern-list match the input string.
+
+       '+(pattern-list)'
+              The pattern matches if one or more occurrences of any of the patterns in the pattern-list match the input string.
+
+       '@(pattern-list)'
+              The pattern matches if exactly one occurrence of any of the patterns in the pattern-list match the input string.
+
+       '!(pattern-list)'
+              The pattern matches if the input string cannot be matched with any of the patterns in the pattern-list.
+
+RETURN VALUE
+       Zero if string matches pattern, FNM_NOMATCH if there is no match or another nonzero value if there is an error.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────────┐
+       │Interface                                                                             │ Attribute     │ Value              │
+       ├──────────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────┤
+       │fnmatch()                                                                             │ Thread safety │ MT-Safe env locale │
+       └──────────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008, POSIX.2.  The FNM_FILE_NAME, FNM_LEADING_DIR, and FNM_CASEFOLD flags are GNU extensions.
+
+SEE ALSO
+       sh(1), glob(3), scandir(3), wordexp(3), glob(7)
+
+Linux man-pages 6.03                                         2022-12-15                                                  fnmatch(3)
+</pre>
+</body>
+</html>

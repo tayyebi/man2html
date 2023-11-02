@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>cupsd-helper(8)                                             OpenPrinting                                            cupsd-helper(8)
+
+NAME
+       cupsd-helper - cupsd helper programs (deprecated)
+
+SYNOPSIS
+       cups-deviced request-id limit user-id options
+       cups-driverd cat ppd-name
+       cups-driverd list request_id limit options
+       cups-exec sandbox-profile [ -g group-id ] [ -n nice-value ] [ -u user-id ] /path/to/program argv0 ...  argvN
+
+DESCRIPTION
+       The  cupsd-helper  programs  perform  long-running operations on behalf of the scheduler, cupsd(8).  The cups-deviced helper
+       program runs each CUPS backend(7) with no arguments in order to discover the available printers.
+
+       The cups-driverd helper program lists all available printer drivers, a subset of "matching" printer drivers, or a copy of  a
+       specific driver PPD file.
+
+       The  cups-exec  helper program runs backends, filters, and other programs. On macOS these programs are run in a secure sand‐
+       box.
+
+FILES
+       The cups-driverd program looks for PPD and driver information files in the following directories:
+
+           /Library/Printers
+           /opt/share/ppd
+           /System/Library/Printers
+           /usr/local/share/ppd
+           /usr/share/cups/drv
+           /usr/share/cups/model
+           /usr/share/ppd
+
+       PPD files can be compressed using the gzip(1) program or placed in compressed tar(1) archives to further reduce their size.
+
+       Driver information files must conform to the format defined in ppdcfile(5).
+
+NOTES
+       CUPS printer drivers, backends, and PPD files are deprecated and will no longer be supported in a future feature release  of
+       CUPS.  Printers that do not support IPP can be supported using applications such as ippeveprinter(1).
+
+SEE ALSO
+       backend(7), cups(1), cupsd(8), cupsd.conf(5), filter(7), ppdcfile(5), CUPS Online Help (http://localhost:631/help)
+
+COPYRIGHT
+       Copyright © 2021-2022 by OpenPrinting.
+
+2021-02-28                                                      CUPS                                                cupsd-helper(8)
+</pre>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>SETARCH(8)                                             System Administration                                             SETARCH(8)
+
+NAME
+       setarch - change reported architecture in new program environment and/or set personality flags
+
+SYNOPSIS
+       setarch [arch] [options] [program [argument...]]
+
+       setarch --list|-h|-V
+
+       arch [options] [program [argument...]]
+
+DESCRIPTION
+       setarch modifies execution domains and process personality flags.
+
+       The execution domains currently only affects the output of uname -m. For example, on an AMD64 system, running setarch i386
+       program will cause program to see i686 instead of x86_64 as the machine type. It can also be used to set various personality
+       options. The default program is /bin/sh.
+
+       Since version 2.33 the arch command line argument is optional and setarch may be used to change personality flags
+       (ADDR_LIMIT_*, SHORT_INODE, etc) without modification of the execution domain.
+
+OPTIONS
+       --list
+           List the architectures that setarch knows about. Whether setarch can actually set each of these architectures depends on
+           the running kernel.
+
+       --uname-2.6
+           Causes the program to see a kernel version number beginning with 2.6. Turns on UNAME26.
+
+       -v, --verbose
+           Be verbose.
+
+       -3, --3gb
+           Specifies program should use a maximum of 3GB of address space. Supported on x86. Turns on ADDR_LIMIT_3GB.
+
+       --4gb
+           This option has no effect. It is retained for backward compatibility only, and may be removed in future releases.
+
+       -B, --32bit
+           Limit the address space to 32 bits to emulate hardware. Supported on ARM and Alpha. Turns on ADDR_LIMIT_32BIT.
+
+       -F, --fdpic-funcptrs
+           Treat user-space function pointers to signal handlers as pointers to address descriptors. This option has no effect on
+           architectures that do not support FDPIC ELF binaries. In kernel v4.14 support is limited to ARM, Blackfin, Fujitsu FR-V,
+           and SuperH CPU architectures.
+
+       -I, --short-inode
+           Obsolete bug emulation flag. Turns on SHORT_INODE.
+
+       -L, --addr-compat-layout
+           Provide legacy virtual address space layout. Use when the program binary does not have PT_GNU_STACK ELF header. Turns on
+           ADDR_COMPAT_LAYOUT.
+
+       -R, --addr-no-randomize
+           Disables randomization of the virtual address space. Turns on ADDR_NO_RANDOMIZE.
+
+       -S, --whole-seconds
+           Obsolete bug emulation flag. Turns on WHOLE_SECONDS.
+
+       -T, --sticky-timeouts
+           This makes select(2), pselect(2), and ppoll(2) system calls preserve the timeout value instead of modifying it to
+           reflect the amount of time not slept when interrupted by a signal handler. Use when program depends on this behavior.
+           For more details see the timeout description in select(2) manual page. Turns on STICKY_TIMEOUTS.
+
+       -X, --read-implies-exec
+           If this is set then mmap(3p) PROT_READ will also add the PROT_EXEC bit - as expected by legacy x86 binaries. Notice that
+           the ELF loader will automatically set this bit when it encounters a legacy binary. Turns on READ_IMPLIES_EXEC.
+
+       -Z, --mmap-page-zero
+           SVr4 bug emulation that will set mmap(3p) page zero as read-only. Use when program depends on this behavior, and the
+           source code is not available to be fixed. Turns on MMAP_PAGE_ZERO.
+
+       -h, --help
+           Display help text and exit.
+
+       -V, --version
+           Print version and exit.
+
+EXAMPLE
+           setarch --addr-no-randomize mytestprog
+           setarch ppc32 rpmbuild --target=ppc --rebuild foo.src.rpm
+           setarch ppc32 -v -vL3 rpmbuild --target=ppc --rebuild bar.src.rpm
+           setarch ppc32 --32bit rpmbuild --target=ppc --rebuild foo.src.rpm
+
+AUTHORS
+       Elliot Lee &lt;sopwith@redhat.com&gt;, Jindrich Novy &lt;jnovy@redhat.com&gt;, Karel Zak &lt;kzak@redhat.com&gt;
+
+SEE ALSO
+       personality(2), select(2)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at https://github.com/util-linux/util-linux/issues.
+
+AVAILABILITY
+       The setarch command is part of the util-linux package which can be downloaded from Linux Kernel Archive
+       &lt;https://www.kernel.org/pub/linux/utils/util-linux/&gt;.
+
+util-linux 2.38.1                                            2022-05-11                                                  SETARCH(8)
+</pre>
+</body>
+</html>

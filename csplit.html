@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>CSPLIT(1)                                                  User Commands                                                  CSPLIT(1)
+
+NAME
+       csplit - split a file into sections determined by context lines
+
+SYNOPSIS
+       csplit [OPTION]... FILE PATTERN...
+
+DESCRIPTION
+       Output pieces of FILE separated by PATTERN(s) to files 'xx00', 'xx01', ..., and output byte counts of each piece to standard
+       output.
+
+       Read standard input if FILE is -
+
+       Mandatory arguments to long options are mandatory for short options too.
+
+       -b, --suffix-format=FORMAT
+              use sprintf FORMAT instead of %02d
+
+       -f, --prefix=PREFIX
+              use PREFIX instead of 'xx'
+
+       -k, --keep-files
+              do not remove output files on errors
+
+       --suppress-matched
+              suppress the lines matching PATTERN
+
+       -n, --digits=DIGITS
+              use specified number of digits instead of 2
+
+       -s, --quiet, --silent
+              do not print counts of output file sizes
+
+       -z, --elide-empty-files
+              remove empty output files
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+   Each PATTERN may be:
+       INTEGER
+              copy up to but not including specified line number
+
+       /REGEXP/[OFFSET]
+              copy up to but not including a matching line
+
+       %REGEXP%[OFFSET]
+              skip to, but not including a matching line
+
+       {INTEGER}
+              repeat the previous pattern specified number of times
+
+       {*}    repeat the previous pattern as many times as possible
+
+       A line OFFSET is an integer optionally preceded by '+' or '-'
+
+AUTHOR
+       Written by Stuart Kemp and David MacKenzie.
+
+REPORTING BUGS
+       GNU coreutils online help: &lt;https://www.gnu.org/software/coreutils/&gt;
+       Report any translation bugs to &lt;https://translationproject.org/team/&gt;
+
+COPYRIGHT
+       Copyright © 2022 Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+       Full documentation &lt;https://www.gnu.org/software/coreutils/csplit&gt;
+       or available locally via: info '(coreutils) csplit invocation'
+
+GNU coreutils 9.1                                           January 2023                                                  CSPLIT(1)
+</pre>
+</body>
+</html>

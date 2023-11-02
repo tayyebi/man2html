@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>FONTTOSFNT(1)                                         General Commands Manual                                         FONTTOSFNT(1)
+
+NAME
+       fonttosfnt - Wrap a bitmap font in a sfnt (TrueType) wrapper
+
+SYNOPSIS
+       fonttosfnt [ options ] -o file.ttf [ -- ] font...
+
+DESCRIPTION
+       Wrap a bitmap font or a set of bitmap fonts in a sfnt (TrueType or OpenType) wrapper.
+
+OPTIONS
+       -v     Be verbose.
+
+       -c     Do  not  crop  glyphs.   This usually increases file size, but may sometimes yield a modest decrease in file size for
+              small character cell fonts (terminal fonts).
+
+       -b     Write byte-aligned glyph data.  By default, unaligned data is written, which yields a smaller file size.
+
+       -r     Do not reencode fonts.  By default, fonts are reencoded to Unicode whenever possible.
+
+       -g n   Set the type of scalable glyphs that we write.  If n is 0, no scalable glyphs are written; this is legal but confuses
+              most current software.  If n is 1, a single scalable glyph (the undefined glyph) is written; this is recommended, but
+              triggers a bug in current versions of FreeType.  If n is 2 (the default), a sufficiently high number of blank  glyphs
+              are written, which works with FreeType but increases file size.
+
+       -m n   Set  the type of scalable metrics that we write.  If n is 0, no scalable metrics are written, which may or may not be
+              legal.  If n is 1, full metrics for a single glyph are written, and only left sidebearing values are written for  the
+              other  glyphs.   If  n is 2, scalable metrics for all glyphs are written, which increases file size and is not recom‐
+              mended.  The default is 1.
+
+       --     End of options.
+
+BUGS
+       Some of the font-level values, notably sub- and superscript positions, are dummy values.
+
+SEE ALSO
+       X(7), Xserver(1), Xft(3x).  Fonts in X11.
+
+AUTHOR
+       The version of Fonttosfnt  included  in  this  X.Org  Foundation  release  was  originally  written  by  Juliusz  Chroboczek
+       &lt;jch@freedesktop.org&gt; for the XFree86 project.
+
+X Version 11                                              fonttosfnt 1.0.4                                            FONTTOSFNT(1)
+</pre>
+</body>
+</html>

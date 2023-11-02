@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>CHGRP(1)                                                   User Commands                                                   CHGRP(1)
+
+NAME
+       chgrp - change group ownership
+
+SYNOPSIS
+       chgrp [OPTION]... GROUP FILE...
+       chgrp [OPTION]... --reference=RFILE FILE...
+
+DESCRIPTION
+       Change the group of each FILE to GROUP.  With --reference, change the group of each FILE to that of RFILE.
+
+       -c, --changes
+              like verbose but report only when a change is made
+
+       -f, --silent, --quiet
+              suppress most error messages
+
+       -v, --verbose
+              output a diagnostic for every file processed
+
+       --dereference
+              affect the referent of each symbolic link (this is the default), rather than the symbolic link itself
+
+       -h, --no-dereference
+              affect  symbolic links instead of any referenced file (useful only on systems that can change the ownership of a sym‐
+              link)
+
+       --no-preserve-root
+              do not treat '/' specially (the default)
+
+       --preserve-root
+              fail to operate recursively on '/'
+
+       --reference=RFILE
+              use RFILE's group rather than specifying a GROUP value
+
+       -R, --recursive
+              operate on files and directories recursively
+
+       The following options modify how a hierarchy is traversed when the -R option is also specified.  If more than one is  speci‐
+       fied, only the final one takes effect.
+
+       -H     if a command line argument is a symbolic link to a directory, traverse it
+
+       -L     traverse every symbolic link to a directory encountered
+
+       -P     do not traverse any symbolic links (default)
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+EXAMPLES
+       chgrp staff /u
+              Change the group of /u to "staff".
+
+       chgrp -hR staff /u
+              Change the group of /u and subfiles to "staff".
+
+AUTHOR
+       Written by David MacKenzie and Jim Meyering.
+
+REPORTING BUGS
+       GNU coreutils online help: &lt;https://www.gnu.org/software/coreutils/&gt;
+       Report any translation bugs to &lt;https://translationproject.org/team/&gt;
+
+COPYRIGHT
+       Copyright  ©  2022  Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3 or later &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+       chown(1), chown(2)
+
+       Full documentation &lt;https://www.gnu.org/software/coreutils/chgrp&gt;
+       or available locally via: info '(coreutils) chgrp invocation'
+
+GNU coreutils 9.1                                           January 2023                                                   CHGRP(1)
+</pre>
+</body>
+</html>

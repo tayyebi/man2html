@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>getline(3)                                            Library Functions Manual                                           getline(3)
+
+NAME
+       getline, getdelim - delimited string input
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       ssize_t getline(char **restrict lineptr, size_t *restrict n,
+                       FILE *restrict stream);
+       ssize_t getdelim(char **restrict lineptr, size_t *restrict n,
+                       int delim, FILE *restrict stream);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       getline(), getdelim():
+           Since glibc 2.10:
+               _POSIX_C_SOURCE &gt;= 200809L
+           Before glibc 2.10:
+               _GNU_SOURCE
+
+DESCRIPTION
+       getline() reads an entire line from stream, storing the address of the buffer containing the text into *lineptr.  The buffer
+       is null-terminated and includes the newline character, if one was found.
+
+       If *lineptr is set to NULL before the call, then getline() will allocate a buffer for storing the line.  This buffer  should
+       be freed by the user program even if getline() failed.
+
+       Alternatively,  before  calling  getline(), *lineptr can contain a pointer to a malloc(3)-allocated buffer *n bytes in size.
+       If the buffer is not large enough to hold the line, getline() resizes it with realloc(3), updating *lineptr and *n as neces‐
+       sary.
+
+       In  either  case, on a successful call, *lineptr and *n will be updated to reflect the buffer address and allocated size re‐
+       spectively.
+
+       getdelim() works like getline(), except that a line delimiter other than newline can be specified as the delimiter argument.
+       As with getline(), a delimiter character is not added if one was not present in the input before end of file was reached.
+
+RETURN VALUE
+       On  success,  getline()  and getdelim() return the number of characters read, including the delimiter character, but not in‐
+       cluding the terminating null byte ('\0').  This value can be used to handle embedded null bytes in the line read.
+
+       Both functions return -1 on failure to read a line (including end-of-file condition).  In the event of a failure,  errno  is
+       set to indicate the error.
+
+       If *lineptr was set to NULL before the call, then the buffer should be freed by the user program even on failure.
+
+ERRORS
+       EINVAL Bad arguments (n or lineptr is NULL, or stream is not valid).
+
+       ENOMEM Allocation or reallocation of the line buffer failed.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │getline(), getdelim()                                                                            │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       Both getline() and getdelim() were originally GNU extensions.  They were standardized in POSIX.1-2008.
+
+EXAMPLES
+       #define _GNU_SOURCE
+       #include &lt;stdio.h&gt;
+       #include &lt;stdlib.h&gt;
+
+       int
+       main(int argc, char *argv[])
+       {
+           FILE *stream;
+           char *line = NULL;
+           size_t len = 0;
+           ssize_t nread;
+
+           if (argc != 2) {
+               fprintf(stderr, "Usage: %s &lt;file&gt;\n", argv[0]);
+               exit(EXIT_FAILURE);
+           }
+
+           stream = fopen(argv[1], "r");
+           if (stream == NULL) {
+               perror("fopen");
+               exit(EXIT_FAILURE);
+           }
+
+           while ((nread = getline(&amp;line, &amp;len, stream)) != -1) {
+               printf("Retrieved line of length %zd:\n", nread);
+               fwrite(line, nread, 1, stdout);
+           }
+
+           free(line);
+           fclose(stream);
+           exit(EXIT_SUCCESS);
+       }
+
+SEE ALSO
+       read(2), fgets(3), fopen(3), fread(3), scanf(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                  getline(3)
+</pre>
+</body>
+</html>

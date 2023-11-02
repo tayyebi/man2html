@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DH_BASH-COMPLETION(1)                                Bash-Completion Debhelper                                DH_BASH-COMPLETION(1)
+
+NAME
+       dh_bash-completion - install bash completions for package
+
+SYNOPSIS
+       dh_bash-completion [debhelper options]
+
+DESCRIPTION
+       dh_bash-completion is a debhelper program that is responsible for installing completions for bash, usable installing the
+       "bash-completion" package.
+
+       If a file named debian/package.bash-completion exists, then different actions are performed, depending on its format.
+
+       It can be a proper completion snippet, and in that case it would be installed in the completion directory, and no other
+       actions would be performed.
+
+       It can also be a list of files, with an optionally specified name to call the completion snippet after. The file format is
+       as follows:
+
+         my/path/to/foo-completion       # this would be installed as "foo-completion"
+         my/path/to/bar-completion  baz  # this would be installed as "baz"
+
+SEE ALSO
+       debhelper(1)
+
+       This program is a part of bash-completion.
+
+       bash(1)
+
+AUTHOR
+       David Paleino &lt;d.paleino@gmail.com&gt;
+
+2.11                                                         2022-05-01                                       DH_BASH-COMPLETION(1)
+</pre>
+</body>
+</html>

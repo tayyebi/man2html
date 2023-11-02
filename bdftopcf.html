@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>BDFTOPCF(1)                                           General Commands Manual                                           BDFTOPCF(1)
+
+NAME
+       bdftopcf - convert X font from Bitmap Distribution Format to Portable Compiled Format
+
+SYNOPSIS
+       bdftopcf [ -pn ] [ -un ] [ -m ] [ -l ] [ -M ] [ -L ] [ -t ] [ -i ] [ -o outputfile ] fontfile.bdf
+
+DESCRIPTION
+       Bdftopcf  is  a font compiler for the X server and font server.  Fonts in Portable Compiled Format can be read by any archi‐
+       tecture, although the file is structured to allow one particular architecture to read them  directly  without  reformatting.
+       This  allows  fast  reading on the appropriate machine, but the files are still portable (but read more slowly) on other ma‐
+       chines.
+
+OPTIONS
+       -pn     Sets the font glyph padding.  Each glyph in the font will have each scanline padded in to a  multiple  of  n  bytes,
+               where n is 1, 2, 4 or 8.
+
+       -un     Sets the font scanline unit.  When the font bit order is different from the font byte order, the scanline unit n de‐
+               scribes what unit of data (in bytes) are to be swapped; the unit i can be 1, 2 or 4 bytes.
+
+       -m      Sets the font bit order to MSB (most significant bit) first.  Bits for each glyph will  be  placed  in  this  order;
+               i.e., the left most bit on the screen will be in the highest valued bit in each unit.
+
+       -l      Sets the font bit order to LSB (least significant bit) first.  The left most bit on the screen will be in the lowest
+               valued bit in each unit.
+
+       -M      Sets the font byte order to MSB first.  All multi-byte data in the file (metrics, bitmaps and everything else)  will
+               be written most significant byte first.
+
+       -L      Sets  the font byte order to LSB first.  All multi-byte data in the file (metrics, bitmaps and everything else) will
+               be written least significant byte first.
+
+       -t      When this option is specified, bdftopcf will convert fonts into "terminal" fonts when possible.  A terminal font has
+               each glyph image padded to the same size; the X server can usually render these types of fonts more quickly.
+
+       -i      This option inhibits the normal computation of ink metrics.  When a font has glyph images which do not fill the bit‐
+               map image (i.e., the "on" pixels don't extend to the edges of the metrics) bdftopcf computes the actual ink  metrics
+               and places them in the .pcf file; the -t option inhibits this behaviour.
+
+       -o output-file-name
+               By default bdftopcf writes the pcf file to standard output; this option gives the name of a file to be used instead.
+
+       -v      Print version information and exit.
+
+SEE ALSO
+       X(7)
+
+AUTHOR
+       Keith Packard, MIT X Consortium
+
+X Version 11                                                bdftopcf 1.1                                                BDFTOPCF(1)
+</pre>
+</body>
+</html>

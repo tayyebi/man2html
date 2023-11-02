@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GVFS(7)                                            Conventions and miscellaneous                                            GVFS(7)
+
+NAME
+       gvfs - GIO virtual file system
+
+DESCRIPTION
+       GIO provides a VFS API to GLib applications. It includes a 'local' implementation using POSIX. gvfs provides implementations
+       that go beyond that and allow to access files and storage using many protocols, such as ftp, http, sftp, dav, nfs, etc. It
+       also provides support for trash folders, for cd burning and for monitoring interesting devices and volumes on the computer.
+
+       Applications use gvfs indirectly, by means of GIO loading the gvfs module that implements the GIO extension points. The gvfs
+       support for volume monitoring is included in a separate loadable module.
+
+       The actual gvfs implementation is distributed over a number of processes. None of these are expected to be started from the
+       commandline, except for debugging purposes.
+
+       Main processes:
+
+       •   gvfsd - the main gvfs daemon
+
+       •   gvfsd-fuse - mounts gvfs as a fuse filesystem
+
+       •   gvfsd-metadata - writes gvfs metadata
+
+       Volume monitors:
+
+       •   gvfs-afc-volume-monitor - a volume monitor for Apple iPhone/iPod Touch devices
+
+       •   gvfs-goa-volume-monitor - a volume monitor for GNOME Online Accounts
+
+       •   gvfs-gphoto2-volume-monitor - a volume monitor for PTP devices
+
+       •   gvfs-mtp-volume-monitor - a volume monitor for MTP devices
+
+       •   gvfs-udisks2-volume-monitor - a udisks2-based volume monitor
+
+       Mount backends:
+
+       •   gvfsd-admin - mounts local filesystem with admin privileges
+
+       •   gvfsd-afc - mounts iPhone/iPod touch volumes
+
+       •   gvfsd-afp - mounts Apple Filing Protocol volumes
+
+       •   gvfsd-afp-browse - browses Apple Filing Protocol volumes
+
+       •   gvfsd-archive - mounts archive files in various formats
+
+       •   gvfsd-burn - provides a location for burning CDs
+
+       •   gvfsd-cdda - mounts audio CDs
+
+       •   gvfsd-computer - provides computer://
+
+       •   gvfsd-dav - mounts DAV filesystems
+
+       •   gvfsd-dnssd - browses dnssd
+
+       •   gvfsd-ftp - mounts over FTP
+
+       •   gvfsd-google - mounts Google Drive shares
+
+       •   gvfsd-gphoto2 - mounts over PTP
+
+       •   gvfsd-http - mounts over HTTP
+
+       •   gvfsd-localtest - a test backend
+
+       •   gvfsd-mtp - mounts over MTP
+
+       •   gvfsd-network - provides network://
+
+       •   gvfsd-nfs - mounts over NFS
+
+       •   gvfsd-recent - provides recent://
+
+       •   gvfsd-sftp - mounts over sftp
+
+       •   gvfsd-smb - mounts Windows Shares Filesystem volumes
+
+       •   gvfsd-smb-browse - browses Windows Shares Filesystem volumes
+
+       •   gvfsd-trash - provides trash://
+
+ENVIRONMENT
+       GIO_USE_VFS
+           If set, specifies the GIO vfs implementation to use. Possible values include 'local' and 'gvfs'.
+
+       GIO_USE_VOLUME_MONITOR
+           If set, specifies the GIO volume monitor implementation to use. Possible values include 'unix',
+           'GProxyVolumeMonitorUDisks2', as well as other native volume monitors that are described in the key files in
+           $XDG_DATA_DIRS/gvfs/remote-volume-monitors.
+
+FILES
+       $XDG_DATA_DIRS/gvfs/mounts
+           This directory contains key files describing mount daemons.
+
+       $XDG_DATA_DIRS/gvfs/remote-volume-monitors
+           This directory contains key files describing remote volume monitors.
+
+SEE ALSO
+       GIO documentation[1], gvfsd(1), gvfsd-fuse(1), gvfsd-metadata(1)
+
+NOTES
+        1. GIO documentation
+           http://developer.gnome.org/gio
+
+gvfs                                                                                                                        GVFS(7)
+</pre>
+</body>
+</html>

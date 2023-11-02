@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>alarm(2)                                                System Calls Manual                                                alarm(2)
+
+NAME
+       alarm - set an alarm clock for delivery of a signal
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;unistd.h&gt;
+
+       unsigned int alarm(unsigned int seconds);
+
+DESCRIPTION
+       alarm() arranges for a SIGALRM signal to be delivered to the calling process in seconds seconds.
+
+       If seconds is zero, any pending alarm is canceled.
+
+       In any event any previously set alarm() is canceled.
+
+RETURN VALUE
+       alarm()  returns  the  number  of seconds remaining until any previously scheduled alarm was due to be delivered, or zero if
+       there was no previously scheduled alarm.
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+
+NOTES
+       alarm() and setitimer(2) share the same timer; calls to one will interfere with use of the other.
+
+       Alarms created by alarm() are preserved across execve(2) and are not inherited by children created via fork(2).
+
+       sleep(3) may be implemented using SIGALRM; mixing calls to alarm() and sleep(3) is a bad idea.
+
+       Scheduling delays can, as ever, cause the execution of the process to be delayed by an arbitrary amount of time.
+
+SEE ALSO
+       gettimeofday(2), pause(2), select(2), setitimer(2), sigaction(2), signal(2), timer_create(2),  timerfd_create(2),  sleep(3),
+       time(7)
+
+Linux man-pages 6.03                                         2022-10-30                                                    alarm(2)
+</pre>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>abort(3)                                              Library Functions Manual                                             abort(3)
+
+NAME
+       abort - cause abnormal process termination
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       [[noreturn]] void abort(void);
+
+DESCRIPTION
+       The  abort()  function  first  unblocks  the  SIGABRT signal, and then raises that signal for the calling process (as though
+       raise(3) was called).  This results in the abnormal termination of the process unless the SIGABRT signal is caught  and  the
+       signal handler does not return (see longjmp(3)).
+
+       If  the  SIGABRT  signal  is  ignored,  or  caught  by a handler that returns, the abort() function will still terminate the
+       process.  It does this by restoring the default disposition for SIGABRT and then raising the signal for a second time.
+
+RETURN VALUE
+       The abort() function never returns.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │abort()                                                                                          │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       SVr4, POSIX.1-2001, POSIX.1-2008, 4.3BSD, C99.
+
+NOTES
+       Up until glibc 2.26, if the abort() function caused process termination, all open streams were closed and flushed  (as  with
+       fclose(3)).   However,  in  some  cases  this could result in deadlocks and data corruption.  Therefore, starting with glibc
+       2.27, abort() terminates the process without flushing streams.   POSIX.1  permits  either  possible  behavior,  saying  that
+       abort() "may include an attempt to effect fclose() on all open streams".
+
+SEE ALSO
+       gdb(1), sigaction(2), assert(3), exit(3), longjmp(3), raise(3)
+
+Linux man-pages 6.03                                         2022-12-29                                                    abort(3)
+</pre>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-workload-search(1)                                .NET Documentation                               dotnet-workload-search(1)
+
+dotnet workload search
+       This article applies to: ✔️ .NET 6 SDK and later versions
+
+NAME
+       dotnet-workload-search - Searches for optional workloads.
+
+SYNOPSIS
+              dotnet workload search [&lt;SEARCH_STRING&gt;] [-v|--verbosity &lt;LEVEL&gt;]
+
+              dotnet workload search -?|-h|--help
+
+DESCRIPTION
+       The  dotnet  workload  search  command  lists available workloads.  You can filter the list by specifying all or part of the
+       workload ID you’re looking for.
+
+       For more information about the dotnet workload commands, see the dotnet workload install command.
+
+ARGUMENTS
+       • SEARCH_STRING
+
+         The workload ID to search for, or part of it.  For example, if you specify maui, the command lists all of the workload IDs
+         that have maui in their workload ID.
+
+OPTIONS
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+EXAMPLES
+       • List all available workloads:
+
+                dotnet workload search
+
+       • List all available workloads that have “maui” in their workload ID:
+
+                dotnet workload search maui
+
+                                                             2022-10-10                                   dotnet-workload-search(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>DEBCONF-COPYDB(1)                                             Debconf                                             DEBCONF-COPYDB(1)
+
+NAME
+       debconf-copydb - copy a debconf database
+
+SYNOPSIS
+        debconf-copydb sourcedb destdb [--pattern=pattern] [--owner-pattern=pattern] [--config=Foo:bar]
+
+DESCRIPTION
+       debconf-copydb copies items from an existing debconf database into another, possibly new database. The two databases may
+       have different formats; if so a conversion will automatically be done.
+
+OPTIONS
+       sourcedb
+           The name of the source database. Typically it will be defined in your debconf.conf (or .debconfrc) file.
+
+       destdb
+           The name of the destination database. It may be defined in debconf.conf or .debconfrc, or you might define it on the
+           command line (see below).
+
+       -p pattern, --pattern pattern
+           If this is specified, only items in sourcedb whose names match the pattern will be copied.
+
+       --owner-pattern pattern
+           If this is specified, only items in sourcedb whose owners match the pattern will be copied.
+
+       -c foo:bar, --config Foo:bar
+           Set option Foo to bar. This is similar to writing:
+
+             Foo: bar
+
+           In debconf.conf, except you probably want to leave off the space on the command line (or quote it: "Foo: bar").
+           Generally must be used multiple times, to build up a full configuration stanza. While blank lines are used to separate
+           stanzas in debconf.conf, this program will assume that "Name:dbname" denotes the beginning of a new stanza.
+
+EXAMPLES
+         debconf-copydb configdb backup
+
+       Copy all of configdb to backup, assuming you already have the backup database defined in debconf.conf.
+
+         debconf-copydb configdb newdb --pattern='^slrn/' \
+               --config=Name:newdb --config=Driver:File \
+               --config=Filename:newdb.dat
+
+       Copy slrn's data out of configdb, and into newdb. newdb is not defined in the rc file, so the --config switches set up the
+       database on the fly.
+
+         debconf-copydb configdb stdout -c Name:stdout -c Driver:Pipe \
+               -c InFd:none --pattern='^foo/'
+
+       Spit out all the items in the debconf database related to package foo.
+
+         debconf-copydb configdb pipe --config=Name:pipe \
+                       --config=Driver:Pipe --config=InFd:none | \
+               ssh remotehost debconf-copydb pipe configdb \
+                       --config=Name:pipe --config=Driver:Pipe
+
+       This uses the special purpose pipe driver to copy a database to a remote system.
+
+SEE ALSO
+       debconf.conf(5)
+
+AUTHOR
+       Joey Hess &lt;joeyh@debian.org&gt;
+
+                                                             2023-01-08                                           DEBCONF-COPYDB(1)
+</pre>
+</body>
+</html>

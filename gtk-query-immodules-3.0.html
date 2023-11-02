@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GTK-QUERY-IMMODULE(1)                                      User Commands                                      GTK-QUERY-IMMODULE(1)
+
+NAME
+       gtk-query-immodules-3.0 - Input method module registration utility
+
+SYNOPSIS
+       gtk-query-immodules-3.0 [--update-cache] [MODULE...]
+
+DESCRIPTION
+       gtk-query-immodules-3.0 collects information about loadable input method modules for GTK+ and writes it to the default cache
+       file location, or to stdout.
+
+       If called without arguments, it looks for modules in the GTK+ input method module path.
+
+       If called with arguments, it looks for the specified modules. The arguments may be absolute or relative paths.
+
+       Normally, the output of gtk-query-immodules-3.0 is written to libdir/gtk-3.0/3.0.0/immodules.cache, where GTK+ looks for it
+       by default. If it is written to some other location, the GTK_IM_MODULE_FILE environment variable can be set to point GTK+ at
+       the file.
+
+OPTIONS
+       --update-cache
+           Write the output to the default cache location instead of stdout
+
+FILES
+       libdir/gtk-3.0/3.0.0/immodules.cache
+           The default im cache file used by GTK+ applications
+
+ENVIRONMENT
+       GTK_PATH
+           Prepends directories to the input method module path
+
+       GTK_IM_MODULE_FILE
+           Specifies an alternative im module cache for GTK+ applications
+
+GTK+                                                                                                          GTK-QUERY-IMMODULE(1)
+</pre>
+</body>
+</html>

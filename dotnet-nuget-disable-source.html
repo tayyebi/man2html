@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-nuget-disable-source(1)                           .NET Documentation                          dotnet-nuget-disable-source(1)
+
+dotnet nuget disable source
+       This article applies to: ✔️ .NET Core 3.1.200 SDK and later versions
+
+NAME
+       dotnet-nuget-disable-source - Disable a NuGet source.
+
+SYNOPSIS
+              dotnet nuget disable source &lt;NAME&gt; [--configfile &lt;FILE&gt;]
+
+              dotnet nuget disable source -h|--help
+
+DESCRIPTION
+       The dotnet nuget disable source command disables an existing source in your NuGet configuration files.
+
+ARGUMENTS
+       • NAME
+
+         Name of the source.
+
+OPTIONS
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+EXAMPLES
+       • Disable a source with name of mySource:
+
+                dotnet nuget disable source mySource
+
+SEE ALSO
+       • Package source sections in NuGet.config files
+
+       • sources command (nuget.exe)
+
+                                                             2022-10-10                              dotnet-nuget-disable-source(1)
+</pre>
+</body>
+</html>

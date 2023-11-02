@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>APPRES(1)                                             General Commands Manual                                             APPRES(1)
+
+NAME
+       appres - list X application resource database
+
+SYNOPSIS
+       appres [class [instance]] [-1] [-V] [toolkitoptions]
+
+DESCRIPTION
+       The  appres program prints the resources seen by an application (or subhierarchy of an application) with the specified class
+       and instance names.  It can be used to determine which resources a particular program will load.  For example,
+
+            % appres  XTerm
+
+       will list the resources that any xterm program will load.  If no application class is specified, the class  -AppResTest-  is
+       used.
+
+       To  match a particular instance name, specify an instance name explicitly after the class name, or use the normal Xt toolkit
+       option.  For example,
+
+            % appres  XTerm  myxterm
+       or
+            % appres  XTerm  -name  myxterm
+
+       To list resources that match a subhierarchy of an application, specify hierarchical class and instance names.  The number of
+       class and instance components must be equal, and the instance name should not be specified with a toolkit option.  For exam‐
+       ple,
+
+            % appres  Xman.TopLevelShell.Form  xman.topBox.form
+
+       will list the resources of widgets of xman topBox hierarchy.  To list just the resources matching a specific  level  in  the
+       hierarchy, use the -1 option.  For example,
+
+            % appres  XTerm.VT100  xterm.vt100  -1
+
+       will list the resources matching the xterm vt100 widget.
+
+       The -V option prints the appres command version and exits.
+
+SEE ALSO
+       X(7), xrdb(1), listres(1)
+
+AUTHOR
+       Jim Fulton, MIT X Consortium
+
+X Version 11                                                appres 1.0.5                                                  APPRES(1)
+</pre>
+</body>
+</html>

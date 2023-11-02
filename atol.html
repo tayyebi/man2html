@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>atoi(3)                                               Library Functions Manual                                              atoi(3)
+
+NAME
+       atoi, atol, atoll - convert a string to an integer
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       int atoi(const char *nptr);
+       long atol(const char *nptr);
+       long long atoll(const char *nptr);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       atoll():
+           _ISOC99_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       The atoi() function converts the initial portion of the string pointed to by nptr to int.  The behavior is the same as
+
+           strtol(nptr, NULL, 10);
+
+       except that atoi() does not detect errors.
+
+       The  atol()  and  atoll() functions behave the same as atoi(), except that they convert the initial portion of the string to
+       their return type of long or long long.
+
+RETURN VALUE
+       The converted value or 0 on error.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────┐
+       │Interface                                                                                 │ Attribute     │ Value          │
+       ├──────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────┤
+       │atoi(), atol(), atoll()                                                                   │ Thread safety │ MT-Safe locale │
+       └──────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────┘
+
+STANDARDS
+       POSIX.1-2001, POSIX.1-2008, C99, SVr4, 4.3BSD.
+
+NOTES
+       POSIX.1 leaves the return value of atoi() on error unspecified.  On glibc, musl libc, and uClibc, 0 is returned on error.
+
+BUGS
+       errno is not set on error so there is no way to distinguish between 0 as an error and as the converted value.  No checks for
+       overflow  or  underflow  are  done.  Only base-10 input can be converted.  It is recommended to instead use the strtol() and
+       strtoul() family of functions in new programs.
+
+SEE ALSO
+       atof(3), strtod(3), strtol(3), strtoul(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                     atoi(3)
+</pre>
+</body>
+</html>

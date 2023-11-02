@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::BuildOptions(3perl)                                   libdpkg-perl                                  Dpkg::BuildOptions(3perl)
+
+NAME
+       Dpkg::BuildOptions - parse and update build options
+
+DESCRIPTION
+       This class can be used to manipulate options stored in environment variables like DEB_BUILD_OPTIONS and
+       DEB_BUILD_MAINT_OPTIONS.
+
+METHODS
+       $bo = Dpkg::BuildOptions-&gt;new(%opts)
+           Create a new Dpkg::BuildOptions object. It will be initialized based on the value of the environment variable named
+           $opts{envvar} (or DEB_BUILD_OPTIONS if that option is not set).
+
+       $bo-&gt;reset()
+           Reset the object to not have any option (it's empty).
+
+       $bo-&gt;merge($content, $source)
+           Merge the options set in $content and record that they come from the source $source. $source is mainly used in warning
+           messages currently to indicate where invalid options have been detected.
+
+           $content is a space separated list of options with optional assigned values like "nocheck parallel=2".
+
+       $bo-&gt;set($option, $value, [$source])
+           Store the given option in the object with the given value. It's legitimate for a value to be undefined if the option is
+           a simple boolean (its presence means true, its absence means false). The $source is optional and indicates where the
+           option comes from.
+
+           The known options have their values checked for sanity. Options without values have their value removed and options with
+           invalid values are discarded.
+
+       $bo-&gt;get($option)
+           Return the value associated to the option. It might be undef even if the option exists. You might want to check with
+           $bo-&gt;has($option) to verify if the option is stored in the object.
+
+       $bo-&gt;has($option)
+           Returns a boolean indicating whether the option is stored in the object.
+
+       $bo-&gt;parse_features($option, $use_feature)
+           Parse the $option values, as a set of known features to enable or disable, as specified in the $use_feature hash
+           reference.
+
+           Each feature is prefixed with a '+' or a '-' character as a marker to enable or disable it. The special feature "all"
+           can be used to act on all known features.
+
+           Unknown or malformed features will emit warnings.
+
+       $string = $bo-&gt;output($fh)
+           Return a string representation of the build options suitable to be assigned to an environment variable. Can optionally
+           output that string to the given filehandle.
+
+       $bo-&gt;export([$var])
+           Export the build options to the given environment variable. If omitted, the environment variable defined at creation
+           time is assumed. The value set to the variable is also returned.
+
+CHANGES
+   Version 1.02 (dpkg 1.18.19)
+       New method: $bo-&gt;parse_features().
+
+   Version 1.01 (dpkg 1.16.1)
+       Enable to use another environment variable instead of DEB_BUILD_OPTIONS.  Thus add support for the "envvar" option at
+       creation time.
+
+   Version 1.00 (dpkg 1.15.6)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                                   Dpkg::BuildOptions(3perl)
+</pre>
+</body>
+</html>

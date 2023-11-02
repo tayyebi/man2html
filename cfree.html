@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>cfree(3)                                              Library Functions Manual                                             cfree(3)
+
+NAME
+       cfree - free allocated memory
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       /* In SunOS 4 */
+       int cfree(void *ptr);
+
+       /* In glibc or FreeBSD libcompat */
+       void cfree(void *ptr);
+
+       /* In SCO OpenServer */
+       void cfree(char ptr[.size * .num], unsigned int num, unsigned int size);
+
+       /* In Solaris watchmalloc.so.1 */
+       void cfree(void ptr[.elsize * .nelem], size_t nelem, size_t elsize);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       cfree():
+           Since glibc 2.19:
+               _DEFAULT_SOURCE
+           glibc 2.19 and earlier:
+               _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       This function should never be used.  Use free(3) instead.  Starting with glibc 2.26, it has been removed from glibc.
+
+   1-arg cfree
+       In glibc, the function cfree() is a synonym for free(3), "added for compatibility with SunOS".
+
+       Other systems have other functions with this name.  The declaration is sometimes in &lt;stdlib.h&gt; and sometimes in &lt;malloc.h&gt;.
+
+   3-arg cfree
+       Some SCO and Solaris versions have malloc libraries with a 3-argument cfree(), apparently as an analog to calloc(3).
+
+       If you need it while porting something, add
+
+           #define cfree(p, n, s) free((p))
+
+       to your file.
+
+       A  frequently  asked question is "Can I use free(3) to free memory allocated with calloc(3), or do I need cfree()?"  Answer:
+       use free(3).
+
+       An SCO manual writes: "The cfree routine is provided for compliance to the iBCSe2 standard and simply calls free.   The  num
+       and size arguments to cfree are not used."
+
+RETURN VALUE
+       The  SunOS version of cfree() (which is a synonym for free(3)) returns 1 on success and 0 on failure.  In case of error, er‐
+       rno is set to EINVAL: the value of ptr was not a pointer to a block previously allocated by one of the routines in the  mal‐
+       loc(3) family.
+
+VERSIONS
+       The cfree() function was removed in glibc 2.26.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────────────┐
+       │Interface                                                                         │ Attribute     │ Value                  │
+       ├──────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────────┤
+       │cfree()                                                                           │ Thread safety │ MT-Safe /* In glibc */ │
+       └──────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────────────┘
+
+STANDARDS
+       The  3-argument  version of cfree() as used by SCO conforms to the iBCSe2 standard: Intel386 Binary Compatibility Specifica‐
+       tion, Edition 2.
+
+SEE ALSO
+       malloc(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                    cfree(3)
+</pre>
+</body>
+</html>

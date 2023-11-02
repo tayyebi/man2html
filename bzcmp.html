@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>
+BZDIFF(1)                                             General Commands Manual                                             BZDIFF(1)
+
+NAME
+       bzcmp, bzdiff - compare bzip2 compressed files
+
+SYNOPSIS
+       bzcmp [ cmp_options ] file1 [ file2 ]
+       bzdiff [ diff_options ] file1 [ file2 ]
+
+DESCRIPTION
+       Bzcmp and bzdiff are used to invoke the cmp or the diff program on bzip2 compressed files.  All options specified are passed
+       directly to cmp or diff.  If only 1 file is specified, then the files compared are file1 and an uncompressed file1.bz2.   If
+       two  files  are specified, then they are uncompressed if necessary and fed to cmp or diff.  The exit status from cmp or diff
+       is preserved.
+
+SEE ALSO
+       cmp(1), diff(1), bzmore(1), bzless(1), bzgrep(1), bzip2(1)
+
+BUGS
+       Messages from the cmp or diff programs refer to temporary filenames instead of those specified.
+
+                                                                                                                          BZDIFF(1)
+</pre>
+</body>
+</html>

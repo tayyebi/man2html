@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-LS-REMOTE(1)                                             Git Manual                                            GIT-LS-REMOTE(1)
+
+NAME
+       git-ls-remote - List references in a remote repository
+
+SYNOPSIS
+       git ls-remote [--heads] [--tags] [--refs] [--upload-pack=&lt;exec&gt;]
+                     [-q | --quiet] [--exit-code] [--get-url] [--sort=&lt;key&gt;]
+                     [--symref] [&lt;repository&gt; [&lt;refs&gt;...]]
+
+DESCRIPTION
+       Displays references available in a remote repository along with the associated commit IDs.
+
+OPTIONS
+       -h, --heads, -t, --tags
+           Limit to only refs/heads and refs/tags, respectively. These options are not mutually exclusive; when given both,
+           references stored in refs/heads and refs/tags are displayed. Note that git ls-remote -h used without anything else on
+           the command line gives help, consistent with other git subcommands.
+
+       --refs
+           Do not show peeled tags or pseudorefs like HEAD in the output.
+
+       -q, --quiet
+           Do not print remote URL to stderr.
+
+       --upload-pack=&lt;exec&gt;
+           Specify the full path of git-upload-pack on the remote host. This allows listing references from repositories accessed
+           via SSH and where the SSH daemon does not use the PATH configured by the user.
+
+       --exit-code
+           Exit with status "2" when no matching refs are found in the remote repository. Usually the command exits with status "0"
+           to indicate it successfully talked with the remote repository, whether it found any matching refs.
+
+       --get-url
+           Expand the URL of the given remote repository taking into account any "url.&lt;base&gt;.insteadOf" config setting (See git-
+           config(1)) and exit without talking to the remote.
+
+       --symref
+           In addition to the object pointed by it, show the underlying ref pointed by it when showing a symbolic ref. Currently,
+           upload-pack only shows the symref HEAD, so it will be the only one shown by ls-remote.
+
+       --sort=&lt;key&gt;
+           Sort based on the key given. Prefix - to sort in descending order of the value. Supports "version:refname" or
+           "v:refname" (tag names are treated as versions). The "version:refname" sort order can also be affected by the
+           "versionsort.suffix" configuration variable. See git-for-each-ref(1) for more sort options, but be aware keys like
+           committerdate that require access to the objects themselves will not work for refs whose objects have not yet been
+           fetched from the remote, and will give a missing object error.
+
+       -o &lt;option&gt;, --server-option=&lt;option&gt;
+           Transmit the given string to the server when communicating using protocol version 2. The given string must not contain a
+           NUL or LF character. When multiple --server-option=&lt;option&gt; are given, they are all sent to the other side in the order
+           listed on the command line.
+
+       &lt;repository&gt;
+           The "remote" repository to query. This parameter can be either a URL or the name of a remote (see the GIT URLS and
+           REMOTES sections of git-fetch(1)).
+
+       &lt;refs&gt;...
+           When unspecified, all references, after filtering done with --heads and --tags, are shown. When &lt;refs&gt;... are specified,
+           only references matching the given patterns are displayed.
+
+EXAMPLES
+           $ git ls-remote --tags ./.
+           d6602ec5194c87b0fc87103ca4d67251c76f233a        refs/tags/v0.99
+           f25a265a342aed6041ab0cc484224d9ca54b6f41        refs/tags/v0.99.1
+           7ceca275d047c90c0c7d5afb13ab97efdf51bd6e        refs/tags/v0.99.3
+           c5db5456ae3b0873fc659c19fafdde22313cc441        refs/tags/v0.99.2
+           0918385dbd9656cab0d1d81ba7453d49bbc16250        refs/tags/junio-gpg-pub
+           $ git ls-remote http://www.kernel.org/pub/scm/git/git.git master seen rc
+           5fe978a5381f1fbad26a80e682ddd2a401966740        refs/heads/master
+           c781a84b5204fb294c9ccc79f8b3baceeb32c061        refs/heads/seen
+           $ git remote add korg http://www.kernel.org/pub/scm/git/git.git
+           $ git ls-remote --tags korg v\*
+           d6602ec5194c87b0fc87103ca4d67251c76f233a        refs/tags/v0.99
+           f25a265a342aed6041ab0cc484224d9ca54b6f41        refs/tags/v0.99.1
+           c5db5456ae3b0873fc659c19fafdde22313cc441        refs/tags/v0.99.2
+           7ceca275d047c90c0c7d5afb13ab97efdf51bd6e        refs/tags/v0.99.3
+
+SEE ALSO
+       git-check-ref-format(1).
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                            GIT-LS-REMOTE(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>getenv(3)                                             Library Functions Manual                                            getenv(3)
+
+NAME
+       getenv, secure_getenv - get an environment variable
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;stdlib.h&gt;
+
+       char *getenv(const char *name);
+       char *secure_getenv(const char *name);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       secure_getenv():
+           _GNU_SOURCE
+
+DESCRIPTION
+       The getenv() function searches the environment list to find the environment variable name, and returns a pointer to the cor‐
+       responding value string.
+
+       The GNU-specific secure_getenv() function is just like getenv() except that it returns NULL in cases  where  "secure  execu‐
+       tion"  is  required.   Secure  execution is required if one of the following conditions was true when the program run by the
+       calling process was loaded:
+
+       •  the process's effective user ID did not match its real user ID or the process's effective group ID did not match its real
+          group ID (typically this is the result of executing a set-user-ID or set-group-ID program);
+
+       •  the effective capability bit was set on the executable file; or
+
+       •  the process has a nonempty permitted capability set.
+
+       Secure execution may also be required if triggered by some Linux security modules.
+
+       The  secure_getenv()  function is intended for use in general-purpose libraries to avoid vulnerabilities that could occur if
+       set-user-ID or set-group-ID programs accidentally trusted the environment.
+
+RETURN VALUE
+       The getenv() function returns a pointer to the value in the environment, or NULL if there is no match.
+
+VERSIONS
+       secure_getenv() first appeared in glibc 2.17.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────────┐
+       │Interface                                                                                    │ Attribute     │ Value       │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────────┤
+       │getenv(), secure_getenv()                                                                    │ Thread safety │ MT-Safe env │
+       └─────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────────┘
+
+STANDARDS
+       getenv(): POSIX.1-2001, POSIX.1-2008, C99, SVr4, 4.3BSD.
+
+       secure_getenv() is a GNU extension.
+
+NOTES
+       The strings in the environment list are of the form name=value.
+
+       As typically implemented, getenv() returns a pointer to a string within the environment list.  The caller must take care not
+       to modify this string, since that would change the environment of the process.
+
+       The  implementation  of getenv() is not required to be reentrant.  The string pointed to by the return value of getenv() may
+       be statically allocated, and can be modified by a subsequent call to getenv(), putenv(3), setenv(3), or unsetenv(3).
+
+       The "secure execution" mode of secure_getenv() is controlled by the AT_SECURE flag contained in the auxiliary vector  passed
+       from the kernel to user space.
+
+SEE ALSO
+       clearenv(3), getauxval(3), putenv(3), setenv(3), unsetenv(3), capabilities(7), environ(7)
+
+Linux man-pages 6.03                                         2023-02-05                                                   getenv(3)
+</pre>
+</body>
+</html>

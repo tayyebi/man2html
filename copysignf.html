@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>copysign(3)                                           Library Functions Manual                                          copysign(3)
+
+NAME
+       copysign, copysignf, copysignl - copy sign of a number
+
+LIBRARY
+       Math library (libm, -lm)
+
+SYNOPSIS
+       #include &lt;math.h&gt;
+
+       double copysign(double x, double y);
+       float copysignf(float x, float y);
+       long double copysignl(long double x, long double y);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       copysign(), copysignf(), copysignl():
+           _ISOC99_SOURCE || _POSIX_C_SOURCE &gt;= 200112L
+               || /* Since glibc 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       These functions return a value whose absolute value matches that of x, but whose sign bit matches that of y.
+
+       For example, copysign(42.0, -1.0) and copysign(-42.0, -1.0) both return -42.0.
+
+RETURN VALUE
+       On success, these functions return a value whose magnitude is taken from x and whose sign is taken from y.
+
+       If x is a NaN, a NaN with the sign bit of y is returned.
+
+ERRORS
+       No errors occur.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │copysign(), copysignf(), copysignl()                                                             │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       C99,  POSIX.1-2001,  POSIX.1-2008.  This function is defined in IEC 559 (and the appendix with recommended functions in IEEE
+       754/IEEE 854).
+
+NOTES
+       On architectures where the floating-point formats are not IEEE 754 compliant, these functions may treat a negative  zero  as
+       positive.
+
+SEE ALSO
+       signbit(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                 copysign(3)
+</pre>
+</body>
+</html>

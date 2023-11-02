@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>openpty(3)                                            Library Functions Manual                                           openpty(3)
+
+NAME
+       openpty, login_tty, forkpty - terminal utility functions
+
+LIBRARY
+       System utilities library (libutil, -lutil)
+
+SYNOPSIS
+       #include &lt;pty.h&gt;
+
+       int openpty(int *amaster, int *aslave, char *name,
+                     const struct termios *termp,
+                     const struct winsize *winp);
+       pid_t forkpty(int *amaster, char *name,
+                     const struct termios *termp,
+                     const struct winsize *winp);
+
+       #include &lt;utmp.h&gt;
+
+       int login_tty(int fd);
+
+DESCRIPTION
+       The  openpty()  function  finds an available pseudoterminal and returns file descriptors for the master and slave in amaster
+       and aslave.  If name is not NULL, the filename of the slave is returned in name.  If termp is not NULL, the terminal parame‐
+       ters  of the slave will be set to the values in termp.  If winp is not NULL, the window size of the slave will be set to the
+       values in winp.
+
+       The login_tty() function prepares for a login on the terminal referred to by the file descriptor fd (which  may  be  a  real
+       terminal  device,  or  the slave of a pseudoterminal as returned by openpty()) by creating a new session, making fd the con‐
+       trolling terminal for the calling process, setting fd to be the standard input, output, and error  streams  of  the  current
+       process, and closing fd.
+
+       The  forkpty()  function combines openpty(), fork(2), and login_tty() to create a new process operating in a pseudoterminal.
+       A file descriptor referring to master side of the pseudoterminal is returned in amaster.  If name is not NULL, the buffer it
+       points to is used to return the filename of the slave.  The termp and winp arguments, if not NULL, will determine the termi‐
+       nal attributes and window size of the slave side of the pseudoterminal.
+
+RETURN VALUE
+       If a call to openpty(), login_tty(), or forkpty() is not successful, -1 is returned and errno is set to indicate the  error.
+       Otherwise,  openpty(), login_tty(), and the child process of forkpty() return 0, and the parent process of forkpty() returns
+       the process ID of the child process.
+
+ERRORS
+       openpty() fails if:
+
+       ENOENT There are no available terminals.
+
+       login_tty() fails if ioctl(2) fails to set fd to the controlling terminal of the calling process.
+
+       forkpty() fails if either openpty() or fork(2) fails.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────────────┐
+       │Interface                                                                         │ Attribute     │ Value                  │
+       ├──────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────────┤
+       │forkpty(), openpty()                                                              │ Thread safety │ MT-Safe locale         │
+       ├──────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────────────┤
+       │login_tty()                                                                       │ Thread safety │ MT-Unsafe race:ttyname │
+       └──────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────────────┘
+
+STANDARDS
+       These are BSD functions, present in glibc.  They are not standardized in POSIX.
+
+NOTES
+       The const modifiers were added to the structure pointer arguments of openpty() and forkpty() in glibc 2.8.
+
+       Before glibc 2.0.92, openpty() returns file descriptors for a BSD pseudoterminal pair; since glibc 2.0.92, it first attempts
+       to open a UNIX 98 pseudoterminal pair, and falls back to opening a BSD pseudoterminal pair if that fails.
+
+BUGS
+       Nobody  knows  how much space should be reserved for name.  So, calling openpty() or forkpty() with non-NULL name may not be
+       secure.
+
+SEE ALSO
+       fork(2), ttyname(3), pty(7)
+
+Linux man-pages 6.03                                         2022-12-15                                                  openpty(3)
+</pre>
+</body>
+</html>

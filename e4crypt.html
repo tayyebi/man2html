@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>E4CRYPT(8)                                            System Manager's Manual                                            E4CRYPT(8)
+
+NAME
+       e4crypt - ext4 file system encryption utility
+
+SYNOPSIS
+       e4crypt add_key -S [ -k keyring ] [-v] [-q] [ -p pad ] [ path ... ]
+       e4crypt new_session
+       e4crypt get_policy path ...
+       e4crypt set_policy [ -p pad ] policy path ...
+
+DESCRIPTION
+       e4crypt performs encryption management for ext4 file systems.
+
+COMMANDS
+       e4crypt add_key [-vq] [-S salt ] [-k keyring ] [ -p pad ] [ path ... ]
+              Prompts  the  user  for  a passphrase and inserts it into the specified keyring.  If no keyring is specified, e4crypt
+              will use the session keyring if it exists or the user session keyring if it does not.
+
+              The salt argument is interpreted in a number of different ways, depending on how its prefix value.  If the first  two
+              characters are "s:", then the rest of the argument will be used as an text string and used as the salt value.  If the
+              first two characters are "0x", then the rest of the argument will be parsed as a hex string as used as the salt.   If
+              the  first  characters  are  "f:" then the rest of the argument will be interpreted as a filename from which the salt
+              value will be read.  If the string begins with a '/' character, it will similarly be treated as  filename.   Finally,
+              if the salt argument can be parsed as a valid UUID, then the UUID value will be used as a salt value.
+
+              The keyring argument specifies the keyring to which the key should be added.
+
+              The  pad  value  specifies  the number of bytes of padding will be added to directory names for obfuscation purposes.
+              Valid pad values are 4, 8, 16, and 32.
+
+              If one or more directory paths are specified, e4crypt will try to set the policy of those directories to use the  key
+              just added by the add_key command.  If a salt was explicitly specified, then it will be used to derive the encryption
+              key of those directories.  Otherwise a directory-specific default salt will be used.
+
+       e4crypt get_policy path ...
+              Print the policy for the directories specified on the command line.
+
+       e4crypt new_session
+              Give the invoking process (typically a shell) a new session keyring, discarding its old session keyring.
+
+       e4crypt set_policy [ -p pad ] policy path ...
+              Sets the policy for the directories specified on the command line.  All directories must be empty to set the  policy;
+              if  the directory already has a policy established, e4crypt will validate that the policy matches what was specified.
+              A policy is an encryption key identifier consisting of 16 hexadecimal characters.
+
+AUTHOR
+       Written by Michael Halcrow &lt;mhalcrow@google.com&gt;, Ildar Muslukhov &lt;muslukhovi@gmail.com&gt;, and Theodore Ts'o &lt;tytso@mit.edu&gt;
+
+SEE ALSO
+       keyctl(1), mke2fs(8), mount(8).
+
+E2fsprogs version 1.47.0                                   February 2023                                                 E4CRYPT(8)
+</pre>
+</body>
+</html>

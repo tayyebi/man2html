@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dpkg-distaddfile(1)                                          dpkg suite                                         dpkg-distaddfile(1)
+
+NAME
+       dpkg-distaddfile - add entries to debian/files
+
+SYNOPSIS
+       dpkg-distaddfile [option...] filename section priority
+
+DESCRIPTION
+       dpkg-distaddfile adds an entry for a named file to debian/files.
+
+       It takes three non-option arguments, the filename and the section and priority for the .changes file.
+
+       The filename should be specified relative to the directory where dpkg-genchanges will expect to find the files, usually ..,
+       rather than being a pathname relative to the current directory when dpkg-distaddfile is run.
+
+OPTIONS
+       -ffiles-list-file
+           Read or write the list of files to be uploaded here, rather than using debian/files.
+
+       -?, --help
+           Show the usage message and exit.
+
+       --version
+           Show the version and exit.
+
+ENVIRONMENT
+       DPKG_COLORS
+           Sets the color mode (since dpkg 1.18.5).  The currently accepted values are: auto (default), always and never.
+
+       DPKG_NLS
+           If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or
+           i18n) support (since dpkg 1.19.0).  The accepted values are: 0 and 1 (default).
+
+FILES
+       debian/files
+           The list of generated files which are part of the upload being prepared.  dpkg-distaddfile can be used to add additional
+           files.
+
+SEE ALSO
+       deb-src-files(5).
+
+1.21.21                                                      2023-03-02                                         dpkg-distaddfile(1)
+</pre>
+</body>
+</html>

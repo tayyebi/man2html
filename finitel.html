@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>finite(3)                                             Library Functions Manual                                            finite(3)
+
+NAME
+       finite, finitef, finitel, isinf, isinff, isinfl, isnan, isnanf, isnanl - BSD floating-point classification functions
+
+LIBRARY
+       Math library (libm, -lm)
+
+SYNOPSIS
+       #include &lt;math.h&gt;
+
+       int finite(double x);
+       int finitef(float x);
+       int finitel(long double x);
+
+       int isinf(double x);
+       int isinff(float x);
+       int isinfl(long double x);
+
+       int isnan(double x);
+       int isnanf(float x);
+       int isnanl(long double x);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       finite(), finitef(), finitel():
+           /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+       isinf():
+           _XOPEN_SOURCE &gt;= 600 || _ISOC99_SOURCE
+               || /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+       isinff(), isinfl():
+           /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+       isnan():
+           _XOPEN_SOURCE || _ISOC99_SOURCE
+               || /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+       isnanf(), isnanl():
+           _XOPEN_SOURCE &gt;= 600
+               || /* glibc &gt;= 2.19: */ _DEFAULT_SOURCE
+               || /* glibc &lt;= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
+
+DESCRIPTION
+       The  finite(), finitef(), and finitel() functions return a nonzero value if x is neither infinite nor a "not-a-number" (NaN)
+       value, and 0 otherwise.
+
+       The isnan(), isnanf(), and isnanl() functions return a nonzero value if x is a NaN value, and 0 otherwise.
+
+       The isinf(), isinff(), and isinfl() functions return 1 if x is positive infinity, -1 if x is negative infinity, and 0 other‐
+       wise.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌─────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                                                                        │ Attribute     │ Value   │
+       ├─────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼─────────┤
+       │finite(), finitef(), finitel(), isinf(), isinff(), isinfl(), isnan(), isnanf(), isnanl()         │ Thread safety │ MT-Safe │
+       └─────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴─────────┘
+
+NOTES
+       Note that these functions are obsolete.  C99 defines macros isfinite(), isinf(), and isnan() (for all types) replacing them.
+       Further note that the C99 isinf() has weaker guarantees on the return value.  See fpclassify(3).
+
+SEE ALSO
+       fpclassify(3)
+
+Linux man-pages 6.03                                         2023-02-05                                                   finite(3)
+</pre>
+</body>
+</html>

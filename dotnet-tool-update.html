@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-tool-update(1)                                    .NET Documentation                                   dotnet-tool-update(1)
+
+dotnet tool update
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-tool-update - Updates the specified .NET tool on your machine.
+
+SYNOPSIS
+              dotnet tool update &lt;PACKAGE_ID&gt; -g|--global
+                  [--add-source &lt;SOURCE&gt;] [--configfile &lt;FILE&gt;]
+                  [--disable-parallel] [--framework &lt;FRAMEWORK&gt;]
+                  [--ignore-failed-sources] [--interactive] [--no-cache]
+                  [-v|--verbosity &lt;LEVEL&gt;] [--version &lt;VERSION&gt;]
+
+              dotnet tool update &lt;PACKAGE_ID&gt; --tool-path &lt;PATH&gt;
+                  [--add-source &lt;SOURCE&gt;] [--configfile &lt;FILE&gt;]
+                  [--disable-parallel] [--framework &lt;FRAMEWORK&gt;]
+                  [--ignore-failed-sources] [--interactive] [--no-cache]
+                  [-v|--verbosity &lt;LEVEL&gt;] [--version &lt;VERSION&gt;]
+
+              dotnet tool update &lt;PACKAGE_ID&gt; --local
+                  [--add-source &lt;SOURCE&gt;] [--configfile &lt;FILE&gt;]
+                  [--disable-parallel] [--framework &lt;FRAMEWORK&gt;]
+                  [--ignore-failed-sources] [--interactive] [--no-cache]
+                  [--tool-manifest &lt;PATH&gt;]
+                  [-v|--verbosity &lt;LEVEL&gt;] [--version &lt;VERSION&gt;]
+
+              dotnet tool update -h|--help
+
+DESCRIPTION
+       The  dotnet  tool update command provides a way for you to update .NET tools on your machine to the latest stable version of
+       the package.  The command uninstalls and reinstalls a tool, effectively updating it.  To use the command, you specify one of
+       the following options:
+
+       • To update a global tool that was installed in the default location, use the --global option
+
+       • To update a global tool that was installed in a custom location, use the --tool-path option.
+
+       • To update a local tool, use the --local option.
+
+ARGUMENTS
+       • PACKAGE_ID
+
+         Name/ID of the NuGet package that contains the .NET global tool to update.  You can find the package name using the dotnet
+         tool list command.
+
+OPTIONS
+       • --add-source &lt;SOURCE&gt;
+
+         Adds an additional NuGet package source to use during installation.  Feeds are accessed in parallel, not  sequentially  in
+         some order of precedence.  If the same package and version is in multiple feeds, the fastest feed wins.  For more informa‐
+         tion, see What happens when a NuGet package is installed?.
+
+       • --configfile &lt;FILE&gt;
+
+         The NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If  not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • --disable-parallel
+
+         Prevent restoring multiple projects in parallel.
+
+       • --framework &lt;FRAMEWORK&gt;
+
+         Specifies the target framework to update the tool for.
+
+       • -g|--global
+
+         Specifies that the update is for a user-wide tool.  Can’t be combined with the --tool-path option.  Omitting both --global
+         and --tool-path specifies that the tool to be updated is a local tool.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --ignore-failed-sources
+
+         Treat package source failures as warnings.
+
+       • --interactive
+
+         Allows the command to stop and wait for user input or action.  For example, to complete authentication.
+
+       • --local
+
+         Update the tool and the local tool manifest.  Can’t be combined with the --global option or the --tool-path option.
+
+       • --no-cache
+
+         Do not cache packages and HTTP requests.
+
+       • --tool-manifest &lt;PATH&gt;
+
+         Path to the manifest file.
+
+       • --tool-path &lt;PATH&gt;
+
+         Specifies  the location where the global tool is installed.  PATH can be absolute or relative.  Can’t be combined with the
+         --global option.  Omitting both --global and --tool-path specifies that the tool to be updated is a local tool.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed],  and  diag[nostic].
+         For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+       • --version &lt;VERSION&gt;
+
+         The  version  range of the tool package to update to.  This cannot be used to downgrade versions, you must uninstall newer
+         versions first.
+
+EXAMPLES
+       • dotnet tool update -g dotnetsay
+
+         Updates the dotnetsay (https://www.nuget.org/packages/dotnetsay/) global tool.
+
+       • dotnet tool update dotnetsay --tool-path c:\global-tools
+
+         Updates the dotnetsay (https://www.nuget.org/packages/dotnetsay/) global tool located in a specific Windows directory.
+
+       • dotnet tool update dotnetsay --tool-path ~/bin
+
+         Updates the dotnetsay (https://www.nuget.org/packages/dotnetsay/) global tool located in a specific Linux/macOS directory.
+
+       • dotnet tool update dotnetsay
+
+         Updates the dotnetsay (https://www.nuget.org/packages/dotnetsay/) local tool installed for the current directory.
+
+       • dotnet tool update -g dotnetsay --version 2.0.*
+
+         Updates the dotnetsay (https://www.nuget.org/packages/dotnetsay/) global tool to the latest patch version,  with  a  major
+         version of 2, and a minor version of 0.
+
+       • dotnet tool update -g dotnetsay --version (2.0.*,2.1.4)
+
+         Updates  the  dotnetsay (https://www.nuget.org/packages/dotnetsay/) global tool to the lowest version within the specified
+         range (&gt; 2.0.0 &amp;&amp; &lt; 2.1.4), version 2.1.0 would be installed.  For more information on  semantic  versioning  ranges,  see
+         NuGet packaging version ranges.
+
+SEE ALSO
+       • .NET tools
+
+       • Semantic versioning (https://semver.org)
+
+       • Tutorial: Install and use a .NET global tool using the .NET CLI
+
+       • Tutorial: Install and use a .NET local tool using the .NET CLI
+
+                                                             2022-10-10                                       dotnet-tool-update(1)
+</pre>
+</body>
+</html>

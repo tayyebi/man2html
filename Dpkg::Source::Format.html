@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Dpkg::Source::Format(3perl)                                 libdpkg-perl                                Dpkg::Source::Format(3perl)
+
+NAME
+       Dpkg::Source::Format - manipulate debian/source/format files
+
+DESCRIPTION
+       This module provides a class that can manipulate Debian source package debian/source/format files.
+
+METHODS
+       $f = Dpkg::Source::Format-&gt;new(%opts)
+           Creates a new object corresponding to a source package's debian/source/format file. When the key filename is set, it
+           will be used to parse and set the format. Otherwise if the format key is set it will be validated and used to set the
+           format.
+
+       $f-&gt;set_from_parts($major[, $minor[, $variant]])
+           Sets the source format from its parts. The $major part is mandatory.  The $minor and $variant parts are optional.
+
+           Notice: This function performs no validation.
+
+       ($major, $minor, $variant) = $f-&gt;set($format)
+           Sets (and validates) the source $format specified. Will return the parsed format parts as a list, the optional $minor
+           and $variant parts might be undef.
+
+       ($major, $minor, $variant) = $f-&gt;get()
+       $format = $f-&gt;get()
+           Gets the source format, either as properly formatted scalar, or as a list of its parts, where the optional $minor and
+           $variant parts might be undef.
+
+       $count = $f-&gt;parse($fh, $desc)
+           Parse the source format string from $fh, with filehandle description $desc.
+
+       $count = $f-&gt;load($filename)
+           Parse $filename contents for a source package format string.
+
+       $str = $f-&gt;output([$fh])
+       "$f"
+           Returns a string representing the source package format version.  If $fh is set, it prints the string to the filehandle.
+
+       $f-&gt;save($filename)
+           Save the source package format into the given $filename.
+
+CHANGES
+   Version 1.00 (dpkg 1.19.3)
+       Mark the module as public.
+
+1.21.21                                                      2023-03-02                                 Dpkg::Source::Format(3perl)
+</pre>
+</body>
+</html>

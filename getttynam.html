@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>getttyent(3)                                          Library Functions Manual                                         getttyent(3)
+
+NAME
+       getttyent, getttynam, setttyent, endttyent - get ttys file entry
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;ttyent.h&gt;
+
+       struct ttyent *getttyent(void);
+       struct ttyent *getttynam(const char *name);
+
+       int setttyent(void);
+       int endttyent(void);
+
+DESCRIPTION
+       These functions provide an interface to the file _PATH_TTYS (e.g., /etc/ttys).
+
+       The function setttyent() opens the file or rewinds it if already open.
+
+       The function endttyent() closes the file.
+
+       The  function  getttynam()  searches for a given terminal name in the file.  It returns a pointer to a ttyent structure (de‐
+       scription below).
+
+       The function getttyent() opens the file _PATH_TTYS (if necessary) and returns the first entry.  If the file is already open,
+       the next entry.  The ttyent structure has the form:
+
+           struct ttyent {
+               char *ty_name;     /* terminal device name */
+               char *ty_getty;    /* command to execute, usually getty */
+               char *ty_type;     /* terminal type for termcap */
+               int   ty_status;   /* status flags */
+               char *ty_window;   /* command to start up window manager */
+               char *ty_comment;  /* comment field */
+           };
+
+       ty_status can be:
+
+           #define TTY_ON     0x01  /* enable logins (start ty_getty program) */
+           #define TTY_SECURE 0x02  /* allow UID 0 to login */
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌───────────────────────────────────────────────────────────────────────────────────┬───────────────┬───────────────────────┐
+       │Interface                                                                          │ Attribute     │ Value                 │
+       ├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼───────────────────────┤
+       │getttyent(), setttyent(), endttyent(), getttynam()                                 │ Thread safety │ MT-Unsafe race:ttyent │
+       └───────────────────────────────────────────────────────────────────────────────────┴───────────────┴───────────────────────┘
+
+STANDARDS
+       Not in POSIX.1.  Present on the BSDs, and perhaps other systems.
+
+NOTES
+       Under Linux, the file /etc/ttys, and the functions described above, are not used.
+
+SEE ALSO
+       ttyname(3), ttyslot(3)
+
+Linux man-pages 6.03                                         2022-12-15                                                getttyent(3)
+</pre>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-new(1)                                            .NET Documentation                                           dotnet-new(1)
+
+dotnet new &lt;TEMPLATE&gt;
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-new - Creates a new project, configuration file, or solution based on the specified template.
+
+SYNOPSIS
+              dotnet new &lt;TEMPLATE&gt; [--dry-run] [--force] [-lang|--language {"C#"|"F#"|VB}]
+                  [-n|--name &lt;OUTPUT_NAME&gt;] [--no-update-check]
+                  [-o|--output &lt;OUTPUT_DIRECTORY&gt;] [--project &lt;PROJECT_PATH&gt;]
+                  [-d|--diagnostics] [--verbosity &lt;LEVEL&gt;] [Template options]
+
+              dotnet new -h|--help
+
+DESCRIPTION
+       The dotnet new command creates a .NET project or other artifacts based on a template.
+
+       The  command  calls  the template engine (https://github.com/dotnet/templating) to create the artifacts on disk based on the
+       specified template and options.
+
+       Starting with the .NET 7 SDK, the dotnet new syntax has changed:
+
+       • The --list, --search, --install, and --uninstall options became list, search, install and uninstall subcommands.
+
+       • The --update-apply option became the update subcommand.
+
+       • To use --update-check, use the update subcommand with the --check-only option.
+
+       Other options that were available before are still available to use with their respective subcommands.   Separate  help  for
+       each subcommand is available via the -h or --help option: dotnet new &lt;subcommand&gt; --help lists all supported options for the
+       subcommand.
+
+       Additionally, tab completion is now available for dotnet new.  It supports completion for installed template names  and  for
+       the options a selected template provides.  To activate tab completion for the .NET SDK, see Enable tab completion.
+
+   Tab completion
+       Starting  with  .NET SDK 7.0.100, tab completion is available for dotnet new.  It supports completion for installed template
+       names, as well as completion for the options a selected template provides.  To activate tab completion for the .NET SDK, see
+       Enable tab completion.
+
+   Implicit restore
+       You  don’t  have  to run dotnet restore because it’s run implicitly by all commands that require a restore to occur, such as
+       dotnet new, dotnet build, dotnet run, dotnet test, dotnet publish, and dotnet pack.  To disable implicit  restore,  use  the
+       --no-restore option.
+
+       The  dotnet  restore command is still useful in certain scenarios where explicitly restoring makes sense, such as continuous
+       integration builds in Azure DevOps Services or in build systems that need to explicitly control when the restore occurs.
+
+       For information about how to manage NuGet feeds, see the dotnet restore documentation.
+
+ARGUMENTS
+       • TEMPLATE
+
+         The template to instantiate when the command is invoked.  Each template might have specific options  you  can  pass.   For
+         more information, see Template options.
+
+         You can run dotnet new list to see a list of all installed templates.
+
+         Starting with .NET Core 3.0 SDK and ending with .NET SDK 5.0.300, the CLI searches for templates in NuGet.org when you in‐
+         voke the dotnet new command in the following conditions:
+
+         • If the CLI can’t find a template match when invoking dotnet new, not even partial.
+
+         • If there’s a newer version of the template available.  In this case, the project or artifact  is  created  but  the  CLI
+           warns you about an updated version of the template.
+
+         Starting with .NET SDK 5.0.300, the search command should be used to search for templates in NuGet.org.
+
+         The  following table shows the templates that come pre-installed with the .NET SDK.  The default language for the template
+         is shown inside the brackets.  Click on the short name link to see the specific template options.
+
+       Templates                Short name            Language       Tags                     Introduced
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────
+       Console Application      console               [C#], F#, VB   Common/Console           1.0
+       Class library            classlib              [C#], F#, VB   Common/Library           1.0
+       WPF Application          wpf                   [C#], VB       Common/WPF               3.0 (5.0 for VB)
+       WPF Class library        wpflib                [C#], VB       Common/WPF               3.0 (5.0 for VB)
+       WPF Custom Control Li‐   wpfcustomcontrollib   [C#], VB       Common/WPF               3.0 (5.0 for VB)
+       brary
+       WPF  User  Control Li‐   wpfusercontrollib     [C#], VB       Common/WPF               3.0 (5.0 for VB)
+       brary
+       Windows  Forms   (Win‐   winforms              [C#], VB       Common/WinForms          3.0 (5.0 for VB)
+       Forms) Application
+       Windows   Forms  (Win‐   winformslib           [C#], VB       Common/WinForms          3.0 (5.0 for VB)
+       Forms) Class library
+       Worker Service           worker                [C#]           Common/Worker/Web        3.0
+       Unit Test Project        mstest                [C#], F#, VB   Test/MSTest              1.0
+       NUnit 3 Test Project     nunit                 [C#], F#, VB   Test/NUnit               2.1.400
+       NUnit 3 Test Item        nunit-test            [C#], F#, VB   Test/NUnit               2.2
+       xUnit Test Project       xunit                 [C#], F#, VB   Test/xUnit               1.0
+       Razor Component          razorcomponent        [C#]           Web/ASP.NET              3.0
+       Razor Page               page                  [C#]           Web/ASP.NET              2.0
+       MVC ViewImports          viewimports           [C#]           Web/ASP.NET              2.0
+       MVC ViewStart            viewstart             [C#]           Web/ASP.NET              2.0
+       Blazor Server App        blazorserver          [C#]           Web/Blazor               3.0
+       Blazor WebAssembly App   blazorwasm            [C#]           Web/Blazor/WebAssembly   3.1.300
+       ASP.NET Core Empty       web                   [C#], F#       Web/Empty                1.0
+       ASP.NET Core  Web  App   mvc                   [C#], F#       Web/MVC                  1.0
+       (Model-View-Con‐
+       troller)
+       ASP.NET Core Web App     webapp, razor         [C#]           Web/MVC/Razor Pages      2.2, 2.0
+       ASP.NET Core with  An‐   angular               [C#]           Web/MVC/SPA              2.0
+       gular
+       ASP.NET  Core with Re‐   react                 [C#]           Web/MVC/SPA              2.0
+       act.js
+       ASP.NET Core with  Re‐   reactredux            [C#]           Web/MVC/SPA              2.0
+       act.js and Redux
+       Razor Class Library      razorclasslib         [C#]           Web/Razor/Library/Ra‐    2.1
+                                                                     zor Class Library
+       ASP.NET Core Web API     webapi                [C#], F#       Web/WebAPI               1.0
+       ASP.NET Core gRPC Ser‐   grpc                  [C#]           Web/gRPC                 3.0
+       vice
+       dotnet gitignore file    gitignore                            Config                   3.0
+       global.json file         globaljson                           Config                   2.0
+       NuGet Config             nugetconfig                          Config                   1.0
+       Dotnet local tool man‐   tool-manifest                        Config                   3.0
+       ifest file
+       Web Config               webconfig                            Config                   1.0
+       Solution File            sln                                  Solution                 1.0
+       Protocol Buffer File     proto                                Web/gRPC                 3.0
+       EditorConfig file        editorconfig                         Config                   6.0
+
+OPTIONS
+       • --dry-run
+
+         Displays a summary of what would happen if the given command were run if it would result in a template  creation.   Avail‐
+         able since .NET Core 2.2 SDK.
+
+       • --force
+
+         Forces  content  to  be generated even if it would change existing files.  This is required when the template chosen would
+         override existing files in the output directory.
+
+       • -?|-h|--help
+
+         Prints out help for the command.  It can be invoked for the dotnet new command itself or for any template.   For  example,
+         dotnet new mvc --help.
+
+       • -lang|--language {C#|F#|VB}
+
+         The  language of the template to create.  The language accepted varies by the template (see defaults in the arguments sec‐
+         tion).  Not valid for some templates.
+
+                Some shells interpret # as a special character.  In those cases, enclose the language parameter  value  in  quotes.
+                For example, dotnet new console -lang "F#".
+
+       • -n|--name &lt;OUTPUT_NAME&gt;
+
+         The name for the created output.  If no name is specified, the name of the current directory is used.
+
+       • -no-update-check
+
+         Disables checking for template package updates when instantiating a template.  Available since .NET SDK 6.0.100.  When in‐
+         stantiating the template from a template package that was installed by using dotnet new --install, dotnet  new  checks  if
+         there  is an update for the template.  Starting with .NET 6, no update checks are done for .NET default templates.  To up‐
+         date .NET default templates, install the patch version of the .NET SDK.
+
+       • -o|--output &lt;OUTPUT_DIRECTORY&gt;
+
+         Location to place the generated output.  The default is the current directory.
+
+       • --project &lt;PROJECT_PATH&gt;
+
+         The project that the template is added to.  This project is used for context evaluation.  If not specified, the project in
+         the current or parent directories will be used.  Available since .NET SDK 7.0.100.
+
+       • -d|--diagnostics
+
+         Enables diagnostic output.  Available since .NET SDK 7.0.100.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity  level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], and diag[nostic].  Available
+         since .NET SDK 7.0.100.
+
+   Template options
+       Each template may have additional options defined.  For more information, see .NET default templates for dotnet new.
+
+EXAMPLES
+       • Create a C# console application project:
+
+                dotnet new console
+
+       • Create an F# console application project in the current directory:
+
+                dotnet new console --language "F#"
+
+       • Create a .NET Standard 2.0 class library project in the specified directory:
+
+                dotnet new classlib --framework "netstandard2.0" -o MyLibrary
+
+       • Create a new ASP.NET Core C# MVC project in the current directory with no authentication:
+
+                dotnet new mvc -au None
+
+       • Create a new xUnit project:
+
+                dotnet new xunit
+
+       • Create a global.json in the current directory setting the SDK version to 3.1.101:
+
+                dotnet new globaljson --sdk-version 3.1.101
+
+       • Show help for the C# console application template:
+
+                dotnet new console -h
+
+       • Show help for the F# console application template:
+
+                dotnet new console --language "F#" -h
+
+SEE ALSO
+       • dotnet new list command
+
+       • dotnet new search command
+
+       • dotnet new install command
+
+       • .NET default templates for dotnet new
+
+       • Custom templates for dotnet new
+
+       • Create a custom template for dotnet new
+
+                                                             2022-11-08                                               dotnet-new(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-REQUEST-PULL(1)                                          Git Manual                                         GIT-REQUEST-PULL(1)
+
+NAME
+       git-request-pull - Generates a summary of pending changes
+
+SYNOPSIS
+       git request-pull [-p] &lt;start&gt; &lt;URL&gt; [&lt;end&gt;]
+
+DESCRIPTION
+       Generate a request asking your upstream project to pull changes into their tree. The request, printed to the standard
+       output, begins with the branch description, summarizes the changes and indicates from where they can be pulled.
+
+       The upstream project is expected to have the commit named by &lt;start&gt; and the output asks it to integrate the changes you
+       made since that commit, up to the commit named by &lt;end&gt;, by visiting the repository named by &lt;URL&gt;.
+
+OPTIONS
+       -p
+           Include patch text in the output.
+
+       &lt;start&gt;
+           Commit to start at. This names a commit that is already in the upstream history.
+
+       &lt;URL&gt;
+           The repository URL to be pulled from.
+
+       &lt;end&gt;
+           Commit to end at (defaults to HEAD). This names the commit at the tip of the history you are asking to be pulled.
+
+           When the repository named by &lt;URL&gt; has the commit at a tip of a ref that is different from the ref you have locally, you
+           can use the &lt;local&gt;:&lt;remote&gt; syntax, to have its local name, a colon :, and its remote name.
+
+EXAMPLES
+       Imagine that you built your work on your master branch on top of the v1.0 release, and want it to be integrated to the
+       project. First you push that change to your public repository for others to see:
+
+           git push https://git.ko.xz/project master
+
+       Then, you run this command:
+
+           git request-pull v1.0 https://git.ko.xz/project master
+
+       which will produce a request to the upstream, summarizing the changes between the v1.0 release and your master, to pull it
+       from your public repository.
+
+       If you pushed your change to a branch whose name is different from the one you have locally, e.g.
+
+           git push https://git.ko.xz/project master:for-linus
+
+       then you can ask that to be pulled with
+
+           git request-pull v1.0 https://git.ko.xz/project master:for-linus
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                         GIT-REQUEST-PULL(1)
+</pre>
+</body>
+</html>

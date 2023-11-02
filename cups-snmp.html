@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>cups-snmp(8)                                                OpenPrinting                                               cups-snmp(8)
+
+NAME
+       snmp - cups snmp backend (deprecated)
+
+SYNOPSIS
+       /usr/lib/cups/backend/snmp ip-address-or-hostname
+       /usr/libexec/cups/backend/snmp ip-address-or-hostname
+       lpinfo -v --include-schemes snmp
+
+DESCRIPTION
+       The  DEPRECATED  CUPS SNMP backend provides legacy discovery and identification of network printers using SNMPv1.  When used
+       for discovery through the scheduler, the backend will list all printers that respond to a broadcast SNMPv1  query  with  the
+       "public" community name.  Additional queries are then sent to printers that respond in order to determine the correct device
+       URI, make and model, and other information needed for printing.
+
+       In the first form, the SNMP backend is run directly by the user to look up the device URI and  other  information  when  you
+       have  an  IP address or hostname.  This can be used for programs that need to configure print queues where the user has sup‐
+       plied an address but nothing else.
+
+       In the second form, the SNMP backend is run indirectly using the lpinfo(8) command.  The output provides  all  printers  de‐
+       tected via SNMP on the configured broadcast addresses.  Note: no broadcast addresses are configured by default.
+
+ENVIRONMENT
+       The  DebugLevel  value can be overridden using the CUPS_DEBUG_LEVEL environment variable.  The MaxRunTime value can be over‐
+       ridden using the CUPS_MAX_RUN_TIME environment variable.
+
+FILES
+       The SNMP backend reads the /etc/cups/snmp.conf configuration file, if present, to set the default broadcast address,  commu‐
+       nity name, and logging level.
+
+NOTES
+       The CUPS SNMP backend is deprecated and will no longer be supported in a future version of CUPS.
+
+CONFORMING TO
+       The CUPS SNMP backend uses the information from the Host, Printer, and Port Monitor MIBs along with some vendor private MIBs
+       and intelligent port probes to determine the correct device URI and make and model for each printer.
+
+SEE ALSO
+       backend(7), cups-snmp.conf(5), cupsd(8), lpinfo(8), CUPS Online Help (http://localhost:631/help)
+
+COPYRIGHT
+       Copyright © 2021-2022 by OpenPrinting.
+
+2021-02-28                                                      CUPS                                                   cups-snmp(8)
+</pre>
+</body>
+</html>

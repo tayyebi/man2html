@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>acct(2)                                                 System Calls Manual                                                 acct(2)
+
+NAME
+       acct - switch process accounting on or off
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;unistd.h&gt;
+
+       int acct(const char *_Nullable filename);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       acct():
+           Since glibc 2.21:
+               _DEFAULT_SOURCE
+           In glibc 2.19 and 2.20:
+               _DEFAULT_SOURCE || (_XOPEN_SOURCE &amp;&amp; _XOPEN_SOURCE &lt; 500)
+           Up to and including glibc 2.19:
+               _BSD_SOURCE || (_XOPEN_SOURCE &amp;&amp; _XOPEN_SOURCE &lt; 500)
+
+DESCRIPTION
+       The acct() system call enables or disables process accounting.  If called with the name of an existing file as its argument,
+       accounting is turned on, and records for each terminating process are appended to filename as it terminates.  An argument of
+       NULL causes accounting to be turned off.
+
+RETURN VALUE
+       On success, zero is returned.  On error, -1 is returned, and errno is set to indicate the error.
+
+ERRORS
+       EACCES Write  permission  is denied for the specified file, or search permission is denied for one of the directories in the
+              path prefix of filename (see also path_resolution(7)), or filename is not a regular file.
+
+       EFAULT filename points outside your accessible address space.
+
+       EIO    Error writing to the file filename.
+
+       EISDIR filename is a directory.
+
+       ELOOP  Too many symbolic links were encountered in resolving filename.
+
+       ENAMETOOLONG
+              filename was too long.
+
+       ENFILE The system-wide limit on the total number of open files has been reached.
+
+       ENOENT The specified file does not exist.
+
+       ENOMEM Out of memory.
+
+       ENOSYS BSD process accounting has not been enabled when the operating system kernel was compiled.  The kernel  configuration
+              parameter controlling this feature is CONFIG_BSD_PROCESS_ACCT.
+
+       ENOTDIR
+              A component used as a directory in filename is not in fact a directory.
+
+       EPERM  The  calling process has insufficient privilege to enable process accounting.  On Linux, the CAP_SYS_PACCT capability
+              is required.
+
+       EROFS  filename refers to a file on a read-only filesystem.
+
+       EUSERS There are no more free file structures or we ran out of memory.
+
+STANDARDS
+       SVr4, 4.3BSD (but not POSIX).
+
+NOTES
+       No accounting is produced for programs running when a system crash occurs.   In  particular,  nonterminating  processes  are
+       never accounted for.
+
+       The structure of the records written to the accounting file is described in acct(5).
+
+SEE ALSO
+       acct(5)
+
+Linux man-pages 6.03                                         2022-12-03                                                     acct(2)
+</pre>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-publish(1)                                        .NET Documentation                                       dotnet-publish(1)
+
+dotnet publish
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-publish - Publishes the application and its dependencies to a folder for deployment to a hosting system.
+
+SYNOPSIS
+              dotnet publish [&lt;PROJECT&gt;|&lt;SOLUTION&gt;] [-a|--arch &lt;ARCHITECTURE&gt;]
+                  [-c|--configuration &lt;CONFIGURATION&gt;]
+                  [-f|--framework &lt;FRAMEWORK&gt;] [--force] [--interactive]
+                  [--manifest &lt;PATH_TO_MANIFEST_FILE&gt;] [--no-build] [--no-dependencies]
+                  [--no-restore] [--nologo] [-o|--output &lt;OUTPUT_DIRECTORY&gt;]
+                  [--os &lt;OS&gt;] [-r|--runtime &lt;RUNTIME_IDENTIFIER&gt;]
+                  [--sc|--self-contained [true|false]] [--no-self-contained]
+                  [-s|--source &lt;SOURCE&gt;] [--use-current-runtime, --ucr [true|false]]
+                  [-v|--verbosity &lt;LEVEL&gt;] [--version-suffix &lt;VERSION_SUFFIX&gt;]
+
+              dotnet publish -h|--help
+
+DESCRIPTION
+       dotnet publish compiles the application, reads through its dependencies specified in the project file, and publishes the re‐
+       sulting set of files to a directory.  The output includes the following assets:
+
+       • Intermediate Language (IL) code in an assembly with a dll extension.
+
+       • A .deps.json file that includes all of the dependencies of the project.
+
+       • A .runtimeconfig.json file that specifies the shared runtime that the application expects, as well as other  configuration
+         options for the runtime (for example, garbage collection type).
+
+       • The application’s dependencies, which are copied from the NuGet cache into the output folder.
+
+       The dotnet publish command’s output is ready for deployment to a hosting system (for example, a server, PC, Mac, laptop) for
+       execution.  It’s the only officially supported way to prepare the application for deployment.  Depending on the type of  de‐
+       ployment  that  the  project specifies, the hosting system may or may not have the .NET shared runtime installed on it.  For
+       more information, see Publish .NET apps with the .NET CLI.
+
+   Implicit restore
+       You don’t have to run dotnet restore because it’s run implicitly by all commands that require a restore to  occur,  such  as
+       dotnet  new,  dotnet  build, dotnet run, dotnet test, dotnet publish, and dotnet pack.  To disable implicit restore, use the
+       --no-restore option.
+
+       The dotnet restore command is still useful in certain scenarios where explicitly restoring makes sense, such  as  continuous
+       integration builds in Azure DevOps Services or in build systems that need to explicitly control when the restore occurs.
+
+       For information about how to manage NuGet feeds, see the dotnet restore documentation.
+
+   MSBuild
+       The  dotnet  publish command calls MSBuild, which invokes the Publish target.  If the IsPublishable property is set to false
+       for a particular project, the Publish target can’t be invoked, and the dotnet publish command only runs the implicit  dotnet
+       restore on the project.
+
+       Any  parameters passed to dotnet publish are passed to MSBuild.  The -c and -o parameters map to MSBuild’s Configuration and
+       PublishDir properties, respectively.
+
+       The dotnet publish command accepts MSBuild options, such as -p for setting properties and -l to define a logger.  For  exam‐
+       ple, you can set an MSBuild property by using the format: -p:&lt;NAME&gt;=&lt;VALUE&gt;.
+
+       You can also set publish-related properties by referring to a .pubxml file.  For example:
+
+              dotnet publish -p:PublishProfile=FolderProfile
+
+       The  preceding  example  uses the FolderProfile.pubxml file that is found in the &lt;project_folder&gt;/Properties/PublishProfiles
+       folder.  If you specify a path and file extension when setting the PublishProfile property, they are  ignored.   MSBuild  by
+       default looks in the Properties/PublishProfiles folder and assumes the pubxml file extension.  To specify the path and file‐
+       name including extension, set the PublishProfileFullPath property instead of the PublishProfile property.
+
+       The following MSBuild properties change the output of dotnet publish.
+
+       • PublishReadyToRun
+
+         Compiles application assemblies as ReadyToRun (R2R) format.  R2R is a form of ahead-of-time (AOT) compilation.   For  more
+         information, see ReadyToRun images.
+
+         To see warnings about missing dependencies that could cause runtime failures, use PublishReadyToRunShowWarnings=true.
+
+         We recommend that you specify PublishReadyToRun in a publish profile rather than on the command line.
+
+       • PublishSingleFile
+
+         Packages  the app into a platform-specific single-file executable.  For more information about single-file publishing, see
+         the single-file bundler design document (https://github.com/dotnet/designs/blob/main/accepted/2020/single-file/design.md).
+
+         We recommend that you specify this option in the project file rather than on the command line.
+
+       • PublishTrimmed
+
+         Trims unused libraries to reduce the deployment size of an app when publishing a self-contained executable.  For more  in‐
+         formation, see Trim self-contained deployments and executables.  Available since .NET 6 SDK.
+
+         We recommend that you specify this option in the project file rather than on the command line.
+
+       For more information, see the following resources:
+
+       • MSBuild command-line reference
+
+       • Visual Studio publish profiles (.pubxml) for ASP.NET Core app deployment
+
+       • dotnet msbuild
+
+   Workload manifest downloads
+       When  you run this command, it initiates an asynchronous background download of advertising manifests for workloads.  If the
+       download is still running when this command finishes, the download is stopped.  For more information, see Advertising  mani‐
+       fests.
+
+ARGUMENTS
+       • PROJECT|SOLUTION
+
+         The project or solution to publish.
+
+         • PROJECT  is  the path and filename of a C#, F#, or Visual Basic project file, or the path to a directory that contains a
+           C#, F#, or Visual Basic project file.  If the directory is not specified, it defaults to the current directory.
+
+         • SOLUTION is the path and filename of a solution file (.sln extension), or the path to a directory that contains a  solu‐
+           tion file.  If the directory is not specified, it defaults to the current directory.
+
+OPTIONS
+       • -a|--arch &lt;ARCHITECTURE&gt;
+
+         Specifies the target architecture.  This is a shorthand syntax for setting the Runtime Identifier (RID), where the provid‐
+         ed value is combined with the default RID.  For example, on a win-x64 machine, specifying --arch x86 sets the RID to  win-
+         x86.  If you use this option, don’t use the -r|--runtime option.  Available since .NET 6 Preview 7.
+
+       • -c|--configuration &lt;CONFIGURATION&gt;
+
+         Defines  the  build  configuration.   The default for most projects is Debug, but you can override the build configuration
+         settings in your project.
+
+       • -f|--framework &lt;FRAMEWORK&gt;
+
+         Publishes the application for the specified target framework.  You must specify the target framework in the project file.
+
+       • --force
+
+         Forces all dependencies to be resolved even if the last restore was successful.  Specifying  this  flag  is  the  same  as
+         deleting the project.assets.json file.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --interactive
+
+         Allows  the  command to stop and wait for user input or action.  For example, to complete authentication.  Available since
+         .NET Core 3.0 SDK.
+
+       • --manifest &lt;PATH_TO_MANIFEST_FILE&gt;
+
+         Specifies one or several target manifests to use to trim the set of packages published with the app.  The manifest file is
+         part of the output of the dotnet store command.  To specify multiple manifests, add a --manifest option for each manifest.
+
+       • --no-build
+
+         Doesn’t build the project before publishing.  It also implicitly sets the --no-restore flag.
+
+       • --no-dependencies
+
+         Ignores project-to-project references and only restores the root project.
+
+       • --nologo
+
+         Doesn’t display the startup banner or the copyright message.
+
+       • --no-restore
+
+         Doesn’t execute an implicit restore when running the command.
+
+       • -o|--output &lt;OUTPUT_DIRECTORY&gt;
+
+         Specifies the path for the output directory.
+
+         If  not specified, it defaults to [project_file_folder]/bin/[configuration]/[framework]/publish/ for a framework-dependent
+         executable  and  cross-platform  binaries.   It  defaults  to  [project_file_folder]/bin/[configuration]/[framework]/[run‐
+         time]/publish/ for a self-contained executable.
+
+         In  a web project, if the output folder is in the project folder, successive dotnet publish commands result in nested out‐
+         put folders.  For example, if the project folder is myproject, and the publish output folder is myproject/publish, and you
+         run  dotnet publish twice, the second run puts content files such as .config and .json files in myproject/publish/publish.
+         To avoid nesting publish folders, specify a publish folder that is not directly under the project folder, or  exclude  the
+         publish  folder from the project.  To exclude a publish folder named publishoutput, add the following element to a Proper‐
+         tyGroup element in the .csproj file:
+
+                &lt;DefaultItemExcludes&gt;$(DefaultItemExcludes);publishoutput**&lt;/DefaultItemExcludes&gt;
+
+         • .NET Core 3.x SDK and later
+
+           If you specify a relative path when publishing a project, the generated output directory  is  relative  to  the  current
+           working directory, not to the project file location.
+
+           If  you  specify  a relative path when publishing a solution, all output for all projects goes into the specified folder
+           relative to the current working directory.  To make publish output go to separate folders for each  project,  specify  a
+           relative  path  by  using  the  msbuild PublishDir property instead of the --output option.  For example, dotnet publish
+           -p:PublishDir=.\publish sends publish output for each project to a publish folder under the  folder  that  contains  the
+           project file.
+
+         • .NET Core 2.x SDK
+
+           If you specify a relative path when publishing a project, the generated output directory is relative to the project file
+           location, not to the current working directory.
+
+           If you specify a relative path when publishing a solution, each project’s output goes into a separate folder relative to
+           the  project  file  location.   If  you  specify an absolute path when publishing a solution, all publish output for all
+           projects goes into the specified folder.
+
+       • --os &lt;OS&gt;
+
+         Specifies the target operating system (OS).  This is a shorthand syntax for setting the Runtime  Identifier  (RID),  where
+         the  provided  value  is combined with the default RID.  For example, on a win-x64 machine, specifying --os linux sets the
+         RID to linux-x64.  If you use this option, don’t use the -r|--runtime option.  Available since .NET 6.
+
+       • --sc|--self-contained [true|false]
+
+         Publishes the .NET runtime with your application so the runtime doesn’t need to be installed on the target  machine.   De‐
+         fault  is true if a runtime identifier is specified and the project is an executable project (not a library project).  For
+         more information, see .NET application publishing and Publish .NET apps with the .NET CLI.
+
+         If this option is used without specifying true or false, the default is true.  In that case, don’t  put  the  solution  or
+         project argument immediately after --self-contained, because true or false is expected in that position.
+
+       • --no-self-contained
+
+         Equivalent to --self-contained false.
+
+       • --source &lt;SOURCE&gt;
+
+         The URI of the NuGet package source to use during the restore operation.
+
+       • -r|--runtime &lt;RUNTIME_IDENTIFIER&gt;
+
+         Publishes  the  application for a given runtime.  For a list of Runtime Identifiers (RIDs), see the RID catalog.  For more
+         information, see .NET application publishing and Publish .NET apps with the .NET CLI.  If you use this option, use --self-
+         contained or --no-self-contained also.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+       • --use-current-runtime, --ucr [true|false]
+
+         Sets the RuntimeIdentifier to a platform portable RuntimeIdentifier based on the one of your machine.   This  happens  im‐
+         plicitly  with  properties that require a RuntimeIdentifier, such as SelfContained, PublishAot, PublishSelfContained, Pub‐
+         lishSingleFile, and PublishReadyToRun.  If the property is set to false, that implicit resolution will no longer occur.
+
+       • --version-suffix &lt;VERSION_SUFFIX&gt;
+
+         Defines the version suffix to replace the asterisk (*) in the version field of the project file.
+
+EXAMPLES
+       • Create a framework-dependent cross-platform binary for the project in the current directory:
+
+                dotnet publish
+
+         Starting with .NET Core 3.0 SDK, this example also creates a framework-dependent executable for the current platform.
+
+       • Create a self-contained executable for the project in the current directory, for a specific runtime:
+
+                dotnet publish --runtime osx.10.11-x64
+
+         The RID must be in the project file.
+
+       • Create a framework-dependent executable for the project in the current directory, for a specific platform:
+
+                dotnet publish --runtime osx.10.11-x64 --self-contained false
+
+         The RID must be in the project file.  This example applies to .NET Core 3.0 SDK and later versions.
+
+       • Publish the project in the current directory, for a specific runtime and target framework:
+
+                dotnet publish --framework netcoreapp3.1 --runtime osx.10.11-x64
+
+       • Publish the specified project file:
+
+                dotnet publish ~/projects/app1/app1.csproj
+
+       • Publish the current application but don’t restore project-to-project (P2P) references, just the root  project  during  the
+         restore operation:
+
+                dotnet publish --no-dependencies
+
+SEE ALSO
+       • .NET application publishing overview
+
+       • Publish .NET apps with the .NET CLI
+
+       • Target frameworks
+
+       • Runtime Identifier (RID) catalog
+
+       • Working with macOS Catalina Notarization
+
+       • Directory structure of a published application
+
+       • MSBuild command-line reference
+
+       • Visual Studio publish profiles (.pubxml) for ASP.NET Core app deployment
+
+       • dotnet msbuild
+
+       • ILLInk.Tasks
+
+                                                             2022-10-24                                           dotnet-publish(1)
+</pre>
+</body>
+</html>

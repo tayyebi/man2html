@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>setaliasent(3)                                        Library Functions Manual                                       setaliasent(3)
+
+NAME
+       setaliasent, endaliasent, getaliasent, getaliasent_r, getaliasbyname, getaliasbyname_r - read an alias entry
+
+LIBRARY
+       Standard C library (libc, -lc)
+
+SYNOPSIS
+       #include &lt;aliases.h&gt;
+
+       void setaliasent(void);
+       void endaliasent(void);
+
+       struct aliasent *getaliasent(void);
+       int getaliasent_r(struct aliasent *restrict result,
+                            char buffer[restrict .buflen], size_t buflen,
+                            struct aliasent **restrict res);
+
+       struct aliasent *getaliasbyname(const char *name);
+       int getaliasbyname_r(const char *restrict name,
+                            struct aliasent *restrict result,
+                            char buffer[restrict .buflen], size_t buflen,
+                            struct aliasent **restrict res);
+
+DESCRIPTION
+       One  of the databases available with the Name Service Switch (NSS) is the aliases database, that contains mail aliases.  (To
+       find out which databases are supported, try getent --help.)  Six functions are provided to access the aliases database.
+
+       The getaliasent() function returns a pointer to a structure containing the group information from the aliases database.  The
+       first time it is called it returns the first entry; thereafter, it returns successive entries.
+
+       The setaliasent() function rewinds the file pointer to the beginning of the aliases database.
+
+       The endaliasent() function closes the aliases database.
+
+       getaliasent_r() is the reentrant version of the previous function.  The requested structure is stored via the first argument
+       but the programmer needs to fill the other arguments also.  Not providing enough space causes the function to fail.
+
+       The function getaliasbyname() takes the name argument and searches the aliases database.  The entry is returned as a pointer
+       to a struct aliasent.
+
+       getaliasbyname_r()  is the reentrant version of the previous function.  The requested structure is stored via the second ar‐
+       gument but the programmer needs to fill the other arguments also.  Not providing enough space causes the function to fail.
+
+       The struct aliasent is defined in &lt;aliases.h&gt;:
+
+           struct aliasent {
+               char    *alias_name;             /* alias name */
+               size_t   alias_members_len;
+               char   **alias_members;          /* alias name list */
+               int      alias_local;
+           };
+
+RETURN VALUE
+       The functions getaliasent_r() and getaliasbyname_r() return a nonzero value on error.
+
+FILES
+       The default alias database is the file /etc/aliases.  This can be changed in the /etc/nsswitch.conf file.
+
+ATTRIBUTES
+       For an explanation of the terms used in this section, see attributes(7).
+
+       ┌──────────────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────────┐
+       │Interface                                                                                 │ Attribute     │ Value          │
+       ├──────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────┤
+       │setaliasent(), endaliasent(), getaliasent_r(), getaliasbyname_r()                         │ Thread safety │ MT-Safe locale │
+       ├──────────────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────────┤
+       │getaliasent(), getaliasbyname()                                                           │ Thread safety │ MT-Unsafe      │
+       └──────────────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────────┘
+
+STANDARDS
+       These routines are glibc-specific.  The NeXT system has similar routines:
+
+           #include &lt;aliasdb.h&gt;
+
+           void alias_setent(void);
+           void alias_endent(void);
+           alias_ent *alias_getent(void);
+           alias_ent *alias_getbyname(char *name);
+
+EXAMPLES
+       The following example compiles with gcc example.c -o example.  It will dump all names in the alias database.
+
+       #include &lt;aliases.h&gt;
+       #include &lt;errno.h&gt;
+       #include &lt;stdio.h&gt;
+       #include &lt;stdlib.h&gt;
+
+       int
+       main(void)
+       {
+           struct aliasent *al;
+
+           setaliasent();
+           for (;;) {
+               al = getaliasent();
+               if (al == NULL)
+                   break;
+               printf("Name: %s\n", al-&gt;alias_name);
+           }
+           if (errno) {
+               perror("reading alias");
+               exit(EXIT_FAILURE);
+           }
+           endaliasent();
+           exit(EXIT_SUCCESS);
+       }
+
+SEE ALSO
+       getgrent(3), getpwent(3), getspent(3), aliases(5)
+
+Linux man-pages 6.03                                         2022-12-15                                              setaliasent(3)
+</pre>
+</body>
+</html>

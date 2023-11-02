@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>TC(8)                                                          Linux                                                          TC(8)
+
+NAME
+       choke - choose and keep scheduler
+
+SYNOPSIS
+       tc  qdisc  ...  choke limit packets min packets max packets avpkt bytes burst packets [ ecn ] [ bandwidth rate ] probability
+       chance
+
+DESCRIPTION
+       CHOKe (CHOose and Keep for responsive flows, CHOose and Kill for unresponsive flows) is a classless qdisc designed  to  both
+       identify and penalize flows that monopolize the queue. CHOKe is a variation of RED, and the configuration is similar to RED.
+
+ALGORITHM
+       Once  the  queue  hits  a  certain average length, a random packet is drawn from the queue. If both the to-be-queued and the
+       drawn packet belong to the same flow, both packets are dropped. Otherwise, if the queue length is still  below  the  maximum
+       length, the new packet has a configurable chance of being marked (which may mean dropped).  If the queue length exceeds max,
+       the new packet will always be marked (or dropped).  If the queue length exceeds limit, the new packet is always dropped.
+
+       The marking probability computation is the same as used by the RED qdisc.
+
+PARAMETERS
+       The parameters are the same as for RED, except that RED uses bytes whereas choke counts packets. See  tc-red(8)  for  a  de‐
+       scription.
+
+SOURCE
+       o      R. Pan, B. Prabhakar, and K. Psounis, "CHOKe, A Stateless Active Queue Management Scheme for Approximating Fair Band‐
+              width Allocation", IEEE INFOCOM, 2000.
+
+       o      A. Tang, J. Wang, S. Low, "Understanding CHOKe: Throughput and Spatial  Characteristics",  IEEE/ACM  Transactions  on
+              Networking, 2004
+
+SEE ALSO
+       tc(8), tc-red(8)
+
+AUTHOR
+       sched_choke was contributed by Stephen Hemminger.
+
+iproute2                                                    August 2011                                                       TC(8)
+</pre>
+</body>
+</html>

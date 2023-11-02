@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>CPPW(8)                                               System Manager's Manual                                               CPPW(8)
+
+NAME
+       cppw, cpgr - copy with locking the given file to the password or group file
+
+SYNOPSIS
+       cppw [-h] [-s] password_file
+       cpgr [-h] [-s] group_file
+
+DESCRIPTION
+       cppw  and  cpgr will copy, with locking, the given file to /etc/passwd and /etc/group, respectively.  With the -s flag, they
+       will copy the shadow versions of those files, /etc/shadow and /etc/gshadow, respectively.
+
+       With the -h flag, the commands display a short help message and exit silently.
+
+SEE ALSO
+       vipw(8), vigr(8), group(5), passwd(5), shadow(5), gshadow(5)
+
+AUTHOR
+       cppw and cpgr were written by Stephen Frost, based on vipw and vigr written by Guy Maor.
+
+                                                             7 Apr 2005                                                     CPPW(8)
+</pre>
+</body>
+</html>

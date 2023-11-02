@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>BINFMT.D(5)                                                   binfmt.d                                                  BINFMT.D(5)
+
+NAME
+       binfmt.d - Configure additional binary formats for executables at boot
+
+SYNOPSIS
+       /etc/binfmt.d/*.conf
+
+       /run/binfmt.d/*.conf
+
+       /usr/lib/binfmt.d/*.conf
+
+DESCRIPTION
+       At boot, systemd-binfmt.service(8) reads configuration files from the above directories to register in the kernel additional
+       binary formats for executables.
+
+CONFIGURATION FORMAT
+       Each file contains a list of binfmt_misc kernel binary format rules. Consult the kernel's Kernel Support for miscellaneous
+       Binary Formats (binfmt_misc)[1] documentation file for more information on registration of additional binary formats and how
+       to write rules.
+
+       Empty lines and lines beginning with ";" and "#" are ignored. Note that this means you may not use those symbols as the
+       delimiter in binary format rules.
+
+CONFIGURATION DIRECTORIES AND PRECEDENCE
+       Configuration files are read from directories in /etc/, /run/, /usr/local/lib/, and /lib/, in order of precedence, as listed
+       in the SYNOPSIS section above. Files must have the ".conf" extension. Files in /etc/ override files with the same name in
+       /run/, /usr/local/lib/, and /lib/. Files in /run/ override files with the same name under /usr/.
+
+       All configuration files are sorted by their filename in lexicographic order, regardless of which of the directories they
+       reside in. If multiple files specify the same option, the entry in the file with the lexicographically latest name will take
+       precedence. Thus, the configuration in a certain file may either be replaced completely (by placing a file with the same
+       name in a directory with higher priority), or individual settings might be changed (by specifying additional settings in a
+       file with a different name that is ordered later).
+
+       Packages should install their configuration files in /usr/lib/ (distribution packages) or /usr/local/lib/ (local installs).
+       Files in /etc/ are reserved for the local administrator, who may use this logic to override the configuration files
+       installed by vendor packages. It is recommended to prefix all filenames with a two-digit number and a dash, to simplify the
+       ordering of the files.
+
+       If the administrator wants to disable a configuration file supplied by the vendor, the recommended way is to place a symlink
+       to /dev/null in the configuration directory in /etc/, with the same filename as the vendor configuration file. If the vendor
+       configuration file is included in the initrd image, the image has to be regenerated.
+
+EXAMPLE
+       Example 1. /etc/binfmt.d/wine.conf example:
+
+           # Start WINE on Windows executables
+           :DOSWin:M::MZ::/usr/bin/wine:
+
+SEE ALSO
+       systemd(1), systemd-binfmt.service(8), systemd-delta(1), wine(8)
+
+NOTES
+        1. Kernel Support for miscellaneous Binary Formats (binfmt_misc)
+           https://docs.kernel.org/admin-guide/binfmt-misc.html
+
+systemd 252                                                                                                             BINFMT.D(5)
+</pre>
+</body>
+</html>

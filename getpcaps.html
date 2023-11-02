@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GETPCAPS(8)                                           System Manager's Manual                                           GETPCAPS(8)
+
+NAME
+       getpcaps - display process capabilities
+
+SYNOPSIS
+       getpcaps [optional args] pid...
+
+DESCRIPTION
+       getpcaps  displays  the  capabilities  on the processes indicated by the pid value(s) given on the command line.  A pid of 0
+       displays the capabilities of the process that is running getpcaps itself.
+
+       The capabilities are displayed in the cap_from_text(3) format.
+
+       Optional arguments:
+
+       --help or --usage
+              Displays usage information and exits.
+
+       --ugly or --legacy
+              Displays output in a somewhat ugly legacy format.
+
+       --verbose
+              Displays usage in a legacy-like format but not quite so ugly in modern default terminal fonts.
+
+       --iab  Displays IAB tuple capabilities from the process. The output format here is the text format described in  cap_iab(3).
+              Double  quotes  encase the regular process capabilities and square brackets encase the IAB tuple. This format is also
+              used by captree(8).
+
+REPORTING BUGS
+       Please report bugs via:
+
+       https://bugzilla.kernel.org/buglist.cgi?component=libcap&amp;list_id=1090757
+
+SEE ALSO
+       capsh(1), cap_from_text(3), cap_iab(3), capabilities(7), captree(8), getcap(8), and setcap(8).
+
+AUTHOR
+       This manual page was originally written by Robert Bihlmeyer &lt;robbe@debian.org&gt;, for the Debian GNU/Linux system (but may  be
+       used by others).
+
+                                                             2020-08-29                                                 GETPCAPS(8)
+</pre>
+</body>
+</html>

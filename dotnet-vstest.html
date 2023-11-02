@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-vstest(1)                                         .NET Documentation                                        dotnet-vstest(1)
+
+dotnet vstest
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+              The dotnet vstest command is superseded by dotnet test, which can now be used to run assemblies.  See dotnet test.
+
+NAME
+       dotnet-vstest - Runs tests from the specified assemblies.
+
+SYNOPSIS
+              dotnet vstest [&lt;TEST_FILE_NAMES&gt;] [--Blame] [--Diag &lt;PATH_TO_LOG_FILE&gt;]
+                  [--Framework &lt;FRAMEWORK&gt;] [--InIsolation] [-lt|--ListTests &lt;FILE_NAME&gt;]
+                  [--logger &lt;LOGGER_URI/FRIENDLY_NAME&gt;] [--Parallel]
+                  [--ParentProcessId &lt;PROCESS_ID&gt;] [--Platform] &lt;PLATFORM_TYPE&gt;
+                  [--Port &lt;PORT&gt;] [--ResultsDirectory&lt;PATH&gt;] [--Settings &lt;SETTINGS_FILE&gt;]
+                  [--TestAdapterPath &lt;PATH&gt;] [--TestCaseFilter &lt;EXPRESSION&gt;]
+                  [--Tests &lt;TEST_NAMES&gt;] [[--] &lt;args&gt;...]]
+
+              dotnet vstest -?|--Help
+
+DESCRIPTION
+       The dotnet vstest command runs the VSTest.Console command-line application to run automated unit tests.
+
+ARGUMENTS
+       • TEST_FILE_NAMES
+
+         Run tests from the specified assemblies.  Separate multiple test assembly names with spaces.  Wildcards are supported.
+
+OPTIONS
+       • --Blame
+
+         Runs  the  tests in blame mode.  This option is helpful in isolating the problematic tests causing test host to crash.  It
+         creates an output file in the current directory as Sequence.xml that captures the order  of  tests  execution  before  the
+         crash.
+
+       • --Diag &lt;PATH_TO_LOG_FILE&gt;
+
+         Enables verbose logs for the test platform.  Logs are written to the provided file.
+
+       • --Framework &lt;FRAMEWORK&gt;
+
+         Target  .NET  Framework version used for test execution.  Examples of valid values are .NETFramework,Version=v4.6 or .NET‐
+         CoreApp,Version=v1.0.  Other supported values are Framework40, Framework45, FrameworkCore10, and FrameworkUap10.
+
+       • --InIsolation
+
+         Runs the tests in an isolated process.  This makes vstest.console.exe process less likely to be stopped on an error in the
+         tests, but tests may run slower.
+
+       • -lt|--ListTests &lt;FILE_NAME&gt;
+
+         Lists all discovered tests from the given test container.
+
+       • --logger &lt;LOGGER_URI/FRIENDLY_NAME&gt;
+
+         Specify a logger for test results.
+
+         • To publish test results to Team Foundation Server, use the TfsPublisher logger provider:
+
+                  /logger:TfsPublisher;
+                      Collection=&lt;team project collection url&gt;;
+                      BuildName=&lt;build name&gt;;
+                      TeamProject=&lt;team project name&gt;
+                      [;Platform=&lt;Defaults to "Any CPU"&gt;]
+                      [;Flavor=&lt;Defaults to "Debug"&gt;]
+                      [;RunTitle=&lt;title&gt;]
+
+         • To  log  results to a Visual Studio Test Results File (TRX), use the trx logger provider.  This switch creates a file in
+           the test results directory with given log file name.  If LogFileName isn’t provided, a unique file name  is  created  to
+           hold the test results.
+
+                  /logger:trx [;LogFileName=&lt;Defaults to unique file name&gt;]
+
+       • --Parallel
+
+         Run  tests in parallel.  By default, all available cores on the machine are available for use.  Specify an explicit number
+         of cores by setting the MaxCpuCount property under the RunConfiguration node in the runsettings file.
+
+       • --ParentProcessId &lt;PROCESS_ID&gt;
+
+         Process ID of the parent process responsible for launching the current process.
+
+       • --Platform &lt;PLATFORM_TYPE&gt;
+
+         Target platform architecture used for test execution.  Valid values are x86, x64, and ARM.
+
+       • --Port &lt;PORT&gt;
+
+         Specifies the port for the socket connection and receiving the event messages.
+
+       • --ResultsDirectory:&lt;PATH&gt;
+
+         Test results directory will be created in specified path if not exists.
+
+       • --Settings &lt;SETTINGS_FILE&gt;
+
+         Settings to use when running tests.
+
+       • --TestAdapterPath &lt;PATH&gt;
+
+         Use custom test adapters from a given path (if any) in the test run.
+
+       • --TestCaseFilter &lt;EXPRESSION&gt;
+
+         Run tests that match the given expression.  &lt;EXPRESSION&gt; is of the format &lt;property&gt;Operator&lt;value&gt;[|&amp;&lt;EXPRESSION&gt;], where
+         Operator is one of =, !=, or ~.  Operator ~ has `contains' semantics and is applicable for string properties like Display‐
+         Name.  Parentheses () are used to group subexpressions.  For more information, see TestCase filter (https://github.com/Mi‐
+         crosoft/vstest-docs/blob/main/docs/filter.md).
+
+       • --Tests &lt;TEST_NAMES&gt;
+
+         Run tests with names that match the provided values.  Separate multiple values with commas.
+
+       • -?|--Help
+
+         Prints out a short help for the command.
+
+       • @&lt;file&gt;
+
+         Reads response file for more options.
+
+       • args
+
+         Specifies  extra arguments to pass to the adapter.  Arguments are specified as name-value pairs of the form &lt;n&gt;=&lt;v&gt;, where
+         &lt;n&gt; is the argument name and &lt;v&gt; is the argument value.  Use a space to separate multiple arguments.
+
+EXAMPLES
+       Run tests in mytestproject.dll:
+
+              dotnet vstest mytestproject.dll
+
+       Run tests in mytestproject.dll, exporting to custom folder with custom name:
+
+              dotnet vstest mytestproject.dll --logger:"trx;LogFileName=custom_file_name.trx" --ResultsDirectory:custom/file/path
+
+       Run tests in mytestproject.dll and myothertestproject.exe:
+
+              dotnet vstest mytestproject.dll myothertestproject.exe
+
+       Run TestMethod1 tests:
+
+              dotnet vstest /Tests:TestMethod1
+
+       Run TestMethod1 and TestMethod2 tests:
+
+              dotnet vstest /Tests:TestMethod1,TestMethod2
+
+SEE ALSO
+       • VSTest.Console.exe command-line options
+
+                                                             2022-06-23                                            dotnet-vstest(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>id_t(3type)                                                                                                             id_t(3type)
+
+NAME
+       pid_t, uid_t, gid_t, id_t - process/user/group identifier
+
+LIBRARY
+       Standard C library (libc)
+
+SYNOPSIS
+       #include &lt;sys/types.h&gt;
+
+       typedef /* ... */ pid_t;
+       typedef /* ... */ uid_t;
+       typedef /* ... */ gid_t;
+       typedef /* ... */ id_t;
+
+DESCRIPTION
+       pid_t is a type used for storing process IDs, process group IDs, and session IDs.  It is a signed integer type.
+
+       uid_t is a type used to hold user IDs.  It is an integer type.
+
+       gid_t is a type used to hold group IDs.  It is an integer type.
+
+       id_t  is  a  type  used  to hold a general identifier.  It is an integer type that can be used to contain a pid_t, uid_t, or
+       gid_t.
+
+STANDARDS
+       POSIX.1-2001 and later.
+
+NOTES
+       The  following  headers  also  provide  pid_t:  &lt;fcntl.h&gt;,  &lt;sched.h&gt;,  &lt;signal.h&gt;,  &lt;spawn.h&gt;,  &lt;sys/msg.h&gt;,   &lt;sys/sem.h&gt;,
+       &lt;sys/shm.h&gt;, &lt;sys/wait.h&gt;, &lt;termios.h&gt;, &lt;time.h&gt;, &lt;unistd.h&gt;, and &lt;utmpx.h&gt;.
+
+       The following headers also provide uid_t: &lt;pwd.h&gt;, &lt;signal.h&gt;, &lt;stropts.h&gt;, &lt;sys/ipc.h&gt;, &lt;sys/stat.h&gt;, and &lt;unistd.h&gt;.
+
+       The  following  headers  also  provide  gid_t:  &lt;grp.h&gt;,  &lt;pwd.h&gt;,  &lt;signal.h&gt;,  &lt;stropts.h&gt;, &lt;sys/ipc.h&gt;, &lt;sys/stat.h&gt;, and
+       &lt;unistd.h&gt;.
+
+       The following header also provides id_t: &lt;sys/resource.h&gt;.
+
+SEE ALSO
+       chown(2), fork(2), getegid(2), geteuid(2), getgid(2), getgroups(2), getpgid(2), getpid(2), getppid(2), getpriority(2), getp‐
+       wnam(3),  getresgid(2),  getresuid(2),  getsid(2),  gettid(2),  getuid(2),  kill(2),  pidfd_open(2),  sched_setscheduler(2),
+       waitid(2), getgrnam(3), sigqueue(3), credentials(7)
+
+Linux man-pages 6.03                                         2022-10-30                                                 id_t(3type)
+</pre>
+</body>
+</html>
