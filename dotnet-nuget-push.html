@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-nuget-push(1)                                     .NET Documentation                                    dotnet-nuget-push(1)
+
+dotnet nuget push
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-nuget-push - Pushes a package to the server and publishes it.
+
+SYNOPSIS
+              dotnet nuget push [&lt;ROOT&gt;] [-d|--disable-buffering] [--force-english-output]
+                  [--interactive] [-k|--api-key &lt;API_KEY&gt;] [-n|--no-symbols]
+                  [--no-service-endpoint] [-s|--source &lt;SOURCE&gt;] [--skip-duplicate]
+                  [-sk|--symbol-api-key &lt;API_KEY&gt;] [-ss|--symbol-source &lt;SOURCE&gt;]
+                  [-t|--timeout &lt;TIMEOUT&gt;]
+
+              dotnet nuget push -h|--help
+
+DESCRIPTION
+       The  dotnet nuget push command pushes a package to the server and publishes it.  The push command uses server and credential
+       details found in the system’s NuGet config file or chain of config files.  For more information on config files, see Config‐
+       uring   NuGet   Behavior.    NuGet’s   default   configuration   is   obtained  by  loading  %AppData%.config  (Windows)  or
+       $HOME/.nuget/NuGet/NuGet.Config (Linux/macOS), then loading any nuget.config or .nuget.config  starting  from  the  root  of
+       drive and ending in the current directory.
+
+       The command pushes an existing package.  It doesn’t create a package.  To create a package, use dotnet pack.
+
+ARGUMENTS
+       • ROOT
+
+         Specifies the file path to the package to be pushed.
+
+OPTIONS
+       • -d|--disable-buffering
+
+         Disables buffering when pushing to an HTTP(S) server to reduce memory usage.
+
+       • --force-english-output
+
+         Forces the application to run using an invariant, English-based culture.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --interactive
+
+         Allows  the  command to stop and wait for user input or action.  For example, to complete authentication.  Available since
+         .NET Core 3.0 SDK.
+
+       • -k|--api-key &lt;API_KEY&gt;
+
+         The API key for the server.
+
+       • -n|--no-symbols
+
+         Doesn’t push symbols (even if present).
+
+       • --no-service-endpoint
+
+         Doesn’t append “api/v2/package” to the source URL.
+
+       • -s|--source &lt;SOURCE&gt;
+
+         Specifies the server URL.  NuGet identifies a UNC or local folder source and simply copies the file there instead of push‐
+         ing  it using HTTP.  &gt; &gt; Starting with NuGet 3.4.2, this is a mandatory parameter unless the NuGet config file specifies a
+         DefaultPushSource value.  For more information, see Configuring NuGet behavior.
+
+       • --skip-duplicate
+
+         When pushing multiple packages to an HTTP(S) server, treats any 409 Conflict response as a warning so that  the  push  can
+         continue.
+
+       • -sk|--symbol-api-key &lt;API_KEY&gt;
+
+         The API key for the symbol server.
+
+       • -ss|--symbol-source &lt;SOURCE&gt;
+
+         Specifies the symbol server URL.
+
+       • -t|--timeout &lt;TIMEOUT&gt;
+
+         Specifies  the timeout for pushing to a server in seconds.  Defaults to 300 seconds (5 minutes).  Specifying 0 applies the
+         default value.
+
+EXAMPLES
+       • Push foo.nupkg to the default push source specified in the NuGet config file, using an API key:
+
+                dotnet nuget push foo.nupkg -k 4003d786-cc37-4004-bfdf-c4f3e8ef9b3a
+
+       • Push foo.nupkg to the official NuGet server, specifying an API key:
+
+                dotnet nuget push foo.nupkg -k 4003d786-cc37-4004-bfdf-c4f3e8ef9b3a -s https://api.nuget.org/v3/index.json
+
+       • Push foo.nupkg to the custom push source https://customsource, specifying an API key:
+
+                dotnet nuget push foo.nupkg -k 4003d786-cc37-4004-bfdf-c4f3e8ef9b3a -s https://customsource/
+
+       • Push foo.nupkg to the default push source specified in the NuGet config file:
+
+                dotnet nuget push foo.nupkg
+
+       • Push foo.symbols.nupkg to the default symbols source:
+
+                dotnet nuget push foo.symbols.nupkg
+
+       • Push foo.nupkg to the default push source specified in the NuGet config file, with a 360-second timeout:
+
+                dotnet nuget push foo.nupkg --timeout 360
+
+       • Push all .nupkg files in the current directory to the default push source specified in the NuGet config file:
+
+                dotnet nuget push "*.nupkg"
+
+                If this command doesn’t work, it might be due to a bug that existed in older versions of the SDK (.NET Core 2.1 SDK
+                and  earlier  versions).   To fix this, upgrade your SDK version or run the following command instead: dotnet nuget
+                push "**/*.nupkg"
+
+                The enclosing quotes are required for shells such as bash that perform file globbing.  For  more  information,  see
+                NuGet/Home#4393 (https://github.com/NuGet/Home/issues/4393#issuecomment-667618120).
+
+       • Push  all  .nupkg  files to the default push source specified in the NuGet config file, even if a 409 Conflict response is
+         returned by an HTTP(S) server:
+
+                dotnet nuget push "*.nupkg" --skip-duplicate
+
+       • Push all .nupkg files in the current directory to a local feed directory:
+
+                dotnet nuget push "*.nupkg" -s c:\mydir
+
+       • For pushing to Azure Artifacts, see Azure Artifacts’ push documentation.
+
+         This command doesn’t store packages in a hierarchical folder structure, which is recommended to optimize performance.  For
+         more information, see Local feeds.
+
+                                                             2022-10-10                                        dotnet-nuget-push(1)
+</pre>
+</body>
+</html>

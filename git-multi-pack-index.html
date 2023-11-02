@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-MULTI-PACK-IN(1)                                         Git Manual                                        GIT-MULTI-PACK-IN(1)
+
+NAME
+       git-multi-pack-index - Write and verify multi-pack-indexes
+
+SYNOPSIS
+       git multi-pack-index [--object-dir=&lt;dir&gt;] [--[no-]bitmap] &lt;sub-command&gt;
+
+DESCRIPTION
+       Write or verify a multi-pack-index (MIDX) file.
+
+OPTIONS
+       --object-dir=&lt;dir&gt;
+           Use given directory for the location of Git objects. We check &lt;dir&gt;/packs/multi-pack-index for the current MIDX file,
+           and &lt;dir&gt;/packs for the pack-files to index.
+
+           &lt;dir&gt; must be an alternate of the current repository.
+
+       --[no-]progress
+           Turn progress on/off explicitly. If neither is specified, progress is shown if standard error is connected to a
+           terminal. Supported by sub-commands write, verify, expire, and `repack.
+
+       The following subcommands are available:
+
+       write
+           Write a new MIDX file. The following options are available for the write sub-command:
+
+           --preferred-pack=&lt;pack&gt;
+               Optionally specify the tie-breaking pack used when multiple packs contain the same object.  &lt;pack&gt; must contain at
+               least one object. If not given, ties are broken in favor of the pack with the lowest mtime.
+
+           --[no-]bitmap
+               Control whether or not a multi-pack bitmap is written.
+
+           --stdin-packs
+               Write a multi-pack index containing only the set of line-delimited pack index basenames provided over stdin.
+
+           --refs-snapshot=&lt;path&gt;
+               With --bitmap, optionally specify a file which contains a "refs snapshot" taken prior to repacking.
+
+               A reference snapshot is composed of line-delimited OIDs corresponding to the reference tips, usually taken by git
+               repack prior to generating a new pack. A line may optionally start with a + character to indicate that the reference
+               which corresponds to that OID is "preferred" (see git-config(1)'s pack.preferBitmapTips.)
+
+               The file given at &lt;path&gt; is expected to be readable, and can contain duplicates. (If a given OID is given more than
+               once, it is marked as preferred if at least one instance of it begins with the special + marker).
+
+       verify
+           Verify the contents of the MIDX file.
+
+       expire
+           Delete the pack-files that are tracked by the MIDX file, but have no objects referenced by the MIDX (with the exception
+           of .keep packs and cruft packs). Rewrite the MIDX file afterward to remove all references to these pack-files.
+
+       repack
+           Create a new pack-file containing objects in small pack-files referenced by the multi-pack-index. If the size given by
+           the --batch-size=&lt;size&gt; argument is zero, then create a pack containing all objects referenced by the multi-pack-index.
+           For a non-zero batch size, Select the pack-files by examining packs from oldest-to-newest, computing the "expected size"
+           by counting the number of objects in the pack referenced by the multi-pack-index, then divide by the total number of
+           objects in the pack and multiply by the pack size. We select packs with expected size below the batch size until the set
+           of packs have total expected size at least the batch size, or all pack-files are considered. If only one pack-file is
+           selected, then do nothing. If a new pack-file is created, rewrite the multi-pack-index to reference the new pack-file. A
+           later run of git multi-pack-index expire will delete the pack-files that were part of this batch.
+
+           If repack.packKeptObjects is false, then any pack-files with an associated .keep file will not be selected for the batch
+           to repack.
+
+EXAMPLES
+       •   Write a MIDX file for the packfiles in the current .git directory.
+
+               $ git multi-pack-index write
+
+       •   Write a MIDX file for the packfiles in the current .git directory with a corresponding bitmap.
+
+               $ git multi-pack-index write --preferred-pack=&lt;pack&gt; --bitmap
+
+       •   Write a MIDX file for the packfiles in an alternate object store.
+
+               $ git multi-pack-index --object-dir &lt;alt&gt; write
+
+       •   Verify the MIDX file for the packfiles in the current .git directory.
+
+               $ git multi-pack-index verify
+
+SEE ALSO
+       See The Multi-Pack-Index Design Document[1] and gitformat-pack(5) for more information on the multi-pack-index feature and
+       its file format.
+
+GIT
+       Part of the git(1) suite
+
+NOTES
+        1. The Multi-Pack-Index Design Document
+           file:///usr/share/doc/git/html/technical/multi-pack-index.html
+
+Git 2.39.2                                                   04/24/2023                                        GIT-MULTI-PACK-IN(1)
+</pre>
+</body>
+</html>

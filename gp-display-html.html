@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GP-DISPLAY-HTML(1)                                         User Commands                                         GP-DISPLAY-HTML(1)
+
+NAME
+       gp-display-html - generate an HTML based directory structure to browse the profiles
+
+SYNOPSIS
+       gprofng display html [OPTION(S)] EXPERIMENT(S)
+
+DESCRIPTION
+       Process one or more experiments to generate a directory containing the index.html file that may be used to browse the exper‐
+       iment data.
+
+OPTIONS
+       --help print usage information and exit.
+
+       --version
+              print the version number and exit.
+
+       --verbose {on|off}
+              enable/disable verbose mode that shows diagnostic messages about the processing of the data; default is off.
+
+       -d, --debug {on|s|m|l|xl|off}
+              control the printing of run time information to assist with troubleshooting, or further development of this tool;  on
+              gives  a  modest amount of information; s, m, l, or xl gives an increasing amount of information and off disables the
+              printing of debug information; note that currently on, s, m, and l are equivalent; this is expected to change in  fu‐
+              ture updates; default is off.
+
+       -hp, ----highlight-percentage &lt;value&gt;
+              a  percentage  value  in  the interval [0,100] to select and color code source lines as well as instructions that are
+              within this percentage of the maximum metric value(s); a value of zero (-hp 0) disables this feature; the default  is
+              90.
+
+       -o, --output &lt;dir-name&gt;
+              use  &lt;dir-name&gt;  to  store the results in; the default name is ./display.&lt;n&gt;.html with &lt;n&gt; the first positive integer
+              number not in use; an existing directory is not overwritten.
+
+       -O, --overwrite &lt;dir-name&gt;
+              use &lt;dir-name&gt; to store the results in and overwrite any existing directory with the same name; make sure that  umask
+              is set to the correct access permissions.
+
+       -q, --quiet {on|off}
+              disable/allow  the  display of all warning, debug and verbose messages; if set to on, the settings for verbose, warn‐
+              ings and debug are ignored; default is off.
+
+       -w, --warnings {on|off}
+              enable/disable run time warning messages; default is on.
+
+DOCUMENTATION
+       A getting started guide for gprofng is maintained as a Texinfo manual.  If the info and gprofng programs  are  properly  in‐
+       stalled at your site, the command "info gprofng" should give you access to this document.
+
+SEE ALSO
+       gprofng(1), gp-archive(1), gp-collect-app(1), gp-display-src(1), gp-display-text(1)
+
+COPYRIGHT
+       Copyright  ©  2023  Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3 or later &lt;https://gnu.org/li‐
+       censes/gpl.html&gt;.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+gp-display-html GNU binutils version 2.40                     May 2023                                           GP-DISPLAY-HTML(1)
+</pre>
+</body>
+</html>

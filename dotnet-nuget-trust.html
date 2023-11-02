@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-nuget-trust(1)                                    .NET Documentation                                   dotnet-nuget-trust(1)
+
+dotnet nuget trust
+       This article applies to: ✔️ .NET 5.0.300 SDK and later versions
+
+NAME
+       dotnet-nuget-trust - Gets or sets trusted signers to the NuGet configuration.
+
+SYNOPSIS
+              dotnet nuget trust [command] [Options]
+
+              dotnet nuget trust -h|--help
+
+DESCRIPTION
+       The  dotnet nuget trust command manages the trusted signers.  By default, NuGet accepts all authors and repositories.  These
+       commands allow you to specify only a specific subset of signers whose signatures will be accepted, while rejecting all  oth‐
+       ers.   For more information, see Common NuGet configurations.  For details on what the nuget.config schema looks like, refer
+       to the NuGet config file reference.
+
+              This command requires a certificate root store that is valid for both  code  signing  and  timestamping.   See  NuGet
+              signed package verification for details.
+
+OPTIONS
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+   Commands
+       If no command is specified, the command will default to list.
+
+   list
+       Lists  all  the  trusted  signers in the configuration.  This option will include all the certificates (with fingerprint and
+       fingerprint algorithm) each signer has.  If a certificate has a preceding [U], it means that certificate entry has  allowUn‐
+       trustedRoot set as true.
+
+   Synopsis:
+              dotnet nuget trust list [--configfile &lt;PATH&gt;] [-h|--help] [-v, --verbosity &lt;LEVEL&gt;]
+
+   Options:
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+   sync
+       Deletes the current list of certificates and replaces them with an up-to-date list from the repository.
+
+SYNOPSIS
+              dotnet nuget trust sync &lt;NAME&gt; [--configfile &lt;PATH&gt;] [-h|--help] [-v, --verbosity &lt;LEVEL&gt;]
+
+ARGUMENTS
+       • NAME
+
+         The name of the existing trusted signer to sync.
+
+   Options:
+       • --configfile &lt;FILE&gt;
+
+         The NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If  not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed],  and  diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+   remove
+       Removes any trusted signers that match the given name.
+
+SYNOPSIS
+              dotnet nuget trust remove &lt;NAME&gt; [--configfile &lt;PATH&gt;] [-h|--help] [-v, --verbosity &lt;LEVEL&gt;]
+
+ARGUMENTS
+       • NAME
+
+         The name of the existing trusted signer to remove.
+
+   Options:
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+   author
+       Adds a trusted signer with the given name, based on the author signature of the package.
+
+SYNOPSIS
+              dotnet nuget trust author &lt;NAME&gt; &lt;PACKAGE&gt; [--allow-untrusted-root] [--configfile &lt;PATH&gt;] [-h|--help] [-v, --verbosity &lt;LEVEL&gt;]
+
+ARGUMENTS
+       • NAME
+
+         The name of the trusted signer to add.  If NAME already exists in the configuration, the signature is appended.
+
+       • PACKAGE
+
+         The given PACKAGE should be a local path to the signed .nupkg file.
+
+   Options:
+       • --allow-untrusted-root
+
+         Specifies if the certificate for the trusted signer should be allowed to chain to an untrusted root.  This is  not  recom‐
+         mended.
+
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+   repository
+       Adds a trusted signer with the given name, based on the repository signature or countersignature of a signed package.
+
+SYNOPSIS
+              dotnet nuget trust repository &lt;NAME&gt; &lt;PACKAGE&gt; [--allow-untrusted-root] [--configfile &lt;PATH&gt;] [-h|--help] [--owners &lt;LIST&gt;] [-v, --verbosity &lt;LEVEL&gt;]
+
+ARGUMENTS
+       • NAME
+
+         The name of the trusted signer to add.  If NAME already exists in the configuration, the signature is appended.
+
+       • PACKAGE
+
+         The given PACKAGE should be a local path to the signed .nupkg file.
+
+   Options:
+       • --allow-untrusted-root
+
+         Specifies if the certificate for the trusted signer should be allowed to chain to an untrusted root.  This is  not  recom‐
+         mended.
+
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --owners &lt;LIST&gt;
+
+         Semicolon-separated list of trusted owners to further restrict the trust of a repository.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets  the  verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+   certificate
+       Adds a trusted signer with the given name, based on a certificate fingerprint.
+
+SYNOPSIS
+              dotnet nuget trust certificate &lt;NAME&gt; &lt;FINGERPRINT&gt; [--algorithm &lt;ALGORITHM&gt;] [--allow-untrusted-root] [--configfile &lt;PATH&gt;] [-h|--help] [-v, --verbosity &lt;LEVEL&gt;]
+
+ARGUMENTS
+       • NAME
+
+         The name of the trusted signer to add.  If a trusted signer with the given name already exists, the  certificate  item  is
+         added  to  that signer.  Otherwise a trusted author is created with a certificate item from the given certificate informa‐
+         tion.
+
+       • FINGERPRINT
+
+         The fingerprint of the certificate.
+
+   Options:
+       • --algorithm &lt;ALGORITHM&gt;
+
+         Specifies the hash algorithm used to calculate the certificate fingerprint.  Defaults to  SHA256.   Values  supported  are
+         SHA256, SHA384 and SHA512.
+
+       • --allow-untrusted-root
+
+         Specifies  if  the certificate for the trusted signer should be allowed to chain to an untrusted root.  This is not recom‐
+         mended.
+
+       • --configfile &lt;FILE&gt;
+
+         The NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If  not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed],  and  diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+   source
+       Adds a trusted signer based on a given package source.
+
+SYNOPSIS
+              dotnet nuget trust source &lt;NAME&gt; [--configfile &lt;PATH&gt;] [-h|--help] [--owners &lt;LIST&gt;] [--source-url] [-v, --verbosity &lt;LEVEL&gt;]
+
+ARGUMENTS
+       • NAME
+
+         The  name  of  the trusted signer to add.  If only &lt;NAME&gt; is provided without --&lt;source-url&gt;, the package source from your
+         NuGet configuration files with the same name is added to the trusted list.  If &lt;NAME&gt; already exists in the configuration,
+         the package source is appended to it.
+
+   Options:
+       • --configfile &lt;FILE&gt;
+
+         The  NuGet configuration file (nuget.config) to use.  If specified, only the settings from this file will be used.  If not
+         specified, the hierarchy of configuration files from the current directory will be used.  For more information, see Common
+         NuGet Configurations.
+
+       • -?|-h|--help
+
+         Prints out a description of how to use the command.
+
+       • --owners &lt;LIST&gt;
+
+         Semicolon-separated list of trusted owners to further restrict the trust of a repository.
+
+       • --source-url
+
+         If a source-url is provided, it must be a v3 package source URL (like https://api.nuget.org/v3/index.json).  Other package
+         source types are not supported.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal], d[etailed],  and  diag[nostic].
+         The default is minimal.  For more information, see &lt;xref:Microsoft.Build.Framework.LoggerVerbosity&gt;.
+
+EXAMPLES
+       • List trusted signers:
+
+                dotnet nuget trust list
+
+       • Trust source NuGet in specified nuget.config file:
+
+                dotnet nuget trust source NuGet --configfile ..\nuget.config
+
+       • Trust an author from signed nupkg package file foo.nupkg:
+
+                dotnet nuget trust author PackageAuthor .\foo.nupkg
+
+       • Trust a repository from signed nupkg package file foo.nupkg:
+
+                dotnet nuget trust repository PackageRepository .\foo.nupkg
+
+       • Trust a package signing certificate using its SHA256 fingerprint:
+
+                  dotnet nuget trust certificate MyCert  F99EC8CDCE5642B380296A19E22FA8EB3AEF1C70079541A2B3D6E4A93F5E1AFD --algorithm SHA256
+
+       • Trust owners Nuget and Microsoft from the repository https://api.nuget.org/v3/index.json:
+
+                  dotnet nuget trust source NuGetTrust --source-url https://api.nuget.org/v3/index.json --owners "Nuget;Microsoft"
+
+       • Remove trusted signer named NuGet from specified nuget.config file:
+
+                  dotnet nuget trust remove NuGet --configfile ..\nuget.config
+
+                                                             2022-11-08                                       dotnet-nuget-trust(1)
+</pre>
+</body>
+</html>

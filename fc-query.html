@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>FC-QUERY(1)                                                                                                             FC-QUERY(1)
+
+NAME
+       fc-query - query font files
+
+SYNOPSIS
+       fc-query [ -Vh ]
+
+        [   [  -b  ]   [  --ignore-blanks  ]  ]  [  [ -i index ]  [ --index index ]  ]  [  [ -f format ]  [ --format format ]  ]  [
+       --version ]  [ --help ]  font-file...
+
+DESCRIPTION
+       fc-query queries font-file(s) using the normal fontconfig rules and prints out font pattern for each face found.  If --index
+       is given, only one face of each file is queried, otherwise all faces are queried.
+
+OPTIONS
+       This  program  follows the usual GNU command line syntax, with long options starting with two dashes (`-'). A summary of op‐
+       tions is included below.
+
+       -b     Ignore blanks to compute languages
+
+       -i     Only query face indexed index of each file.
+
+       -f     Format output according to the format specifier format.
+
+       -V     Show version of the program and exit.
+
+       -h     Show summary of options.
+
+       font-file
+              Query font-file for font faces.
+
+RETURN CODES
+       fc-query returns error code 0 for successful parsing, or 1 if any errors occurred or if at least one font face could not  be
+       opened.
+
+SEE ALSO
+       fc-scan(1) FcFreeTypeQuery(3) FcPatternFormat(3) fc-cat(1) fc-cache(1) fc-list(1) fc-match(1) fc-pattern(1)
+
+       The fontconfig user's guide, in HTML format: /usr/share/doc/fontconfig/fontconfig-user.html.
+
+AUTHOR
+       This manual page was updated by Behdad Esfahbod &lt;behdad@behdad.org&gt;.
+
+                                                            Aug 13, 2008                                                FC-QUERY(1)
+</pre>
+</body>
+</html>

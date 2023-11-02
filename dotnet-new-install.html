@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>dotnet-new-install(1)                                    .NET Documentation                                   dotnet-new-install(1)
+
+dotnet new install
+       This article applies to: ✔️ .NET Core 3.1 SDK and later versions
+
+NAME
+       dotnet-new-install - installs a template package.
+
+SYNOPSIS
+              dotnet new install &lt;PATH|NUGET_ID&gt;  [--interactive] [--add-source|--nuget-source &lt;SOURCE&gt;] [--force]
+                  [-d|--diagnostics] [--verbosity &lt;LEVEL&gt;] [-h|--help]
+
+DESCRIPTION
+       The  dotnet  new  install  command installs a template package from the PATH or NUGET_ID provided.  If you want to install a
+       specific version or prerelease version of a template package, specify the version in  the  format  &lt;package-name&gt;::&lt;package-
+       version&gt;.   By  default,  dotnet new passes * for the version, which represents the latest stable package version.  For more
+       information, see the Examples section.
+
+       If a version of the template package was already installed when you run this command, the template package will  be  updated
+       to  the  specified version.  If no version is specified, the package is updated to the latest stable version.  Starting with
+       .NET SDK 6.0.100, if the argument specifies the version, and that version of the NuGet  package  is  already  installed,  it
+       won’t be reinstalled.  If the argument is a PATH and it’s already installed, it won’t be reinstalled.
+
+       Prior  to .NET SDK 6.0.100, template packages were managed individually for each .NET SDK version, including patch versions.
+       For example, if you install the template package using dotnet new --install in .NET SDK 5.0.100, it will be  installed  only
+       for .NET SDK 5.0.100.  Templates from the package won’t be available in other .NET SDK versions installed on your machine.
+
+       Starting  with  .NET SDK 6.0.100, installed template packages are available in later .NET SDK versions installed on your ma‐
+       chine.  A template package installed in .NET SDK 6.0.100 will also be available in .NET SDK 6.0.101, .NET SDK  6.0.200,  and
+       so  on.   However, these template packages won’t be available in .NET SDK versions prior to .NET SDK 6.0.100.  To use a tem‐
+       plate package installed in .NET SDK 6.0.100 or later in earlier .NET SDK versions, you need to install it using  dotnet  new
+       install in that .NET SDK version.
+
+       Starting with the .NET 7 SDK, the dotnet new syntax has changed:
+
+       • The --list, --search, --install, and --uninstall options became list, search, install and uninstall subcommands.
+
+       • The --update-apply option became the update subcommand.
+
+       • To use --update-check, use the update subcommand with the --check-only option.
+
+       Other  options  that  were available before are still available to use with their respective subcommands.  Separate help for
+       each subcommand is available via the -h or --help option: dotnet new &lt;subcommand&gt; --help lists all supported options for the
+       subcommand.
+
+       Additionally,  tab  completion is now available for dotnet new.  It supports completion for installed template names and for
+       the options a selected template provides.  To activate tab completion for the .NET SDK, see Enable tab completion.  &gt; &gt;  Ex‐
+       amples  of old syntax: &gt; &gt; - Install the latest version of Azure web jobs project template package: &gt; &gt; dotnetcli &gt;   dotnet
+       new --install Microsoft.Azure.WebJobs.ProjectTemplates &gt;
+
+ARGUMENTS
+       • &lt;PATH|NUGET_ID&gt;
+
+         The folder on the file system or the NuGet package identifier to install the template package from.  dotnet  new  attempts
+         to  install the NuGet package from the NuGet sources available for the current working directory and the sources specified
+         via the --add-source option.  If you want to install a specific version or prerelease version of a template  package  from
+         NuGet source, specify the version in the format &lt;package-name&gt;::&lt;package-version&gt;.
+
+OPTIONS
+       • --add-source|--nuget-source &lt;SOURCE&gt;
+
+         By default, dotnet new install uses the hierarchy of NuGet configuration files from the current directory to determine the
+         NuGet source the package can be installed from.  If --nuget-source is specified, the source will be added to the  list  of
+         sources to be checked.
+         To  check the configured sources for the current directory use dotnet nuget list source.  For more information, see Common
+         NuGet Configurations
+
+       • -d|--diagnostics
+
+         Enables diagnostic output.  Available since .NET SDK 7.0.100.
+
+       • --force
+
+         Allows installing template packages from the specified sources even if they would override a template package from another
+         source.  Available since .NET SDK 7.0.100.
+
+       • -h|--help
+
+         Prints out help for the install command.  Available since .NET SDK 7.0.100.
+
+       • --interactive
+
+         Allows  the  command to stop and wait for user input or action.  For example, to complete authentication.  Available since
+         .NET 5.0 SDK.
+
+       • -v|--verbosity &lt;LEVEL&gt;
+
+         Sets the verbosity level of the command.  Allowed values are q[uiet], m[inimal], n[ormal],  and  diag[nostic].   Available
+         since .NET SDK 7.0.100.
+
+EXAMPLES
+       • Install the latest version of SPA templates for ASP.NET Core:
+
+                dotnet new install Microsoft.DotNet.Web.Spa.ProjectTemplates
+
+       • Install version 2.0 of the SPA templates for ASP.NET Core:
+
+                dotnet new install Microsoft.DotNet.Web.Spa.ProjectTemplates::2.0.0
+
+       • Install version 2.0 of the SPA templates for ASP.NET Core from a custom NuGet source using interactive mode:
+
+                dotnet new --install Microsoft.DotNet.Web.Spa.ProjectTemplates::2.0.0 --add-source "https://api.my-custom-nuget.com/v3/index.json" --interactive
+
+SEE ALSO
+       • dotnet new command
+
+       • dotnet new search command
+
+       • Custom templates for dotnet new
+
+                                                             2022-11-08                                       dotnet-new-install(1)
+</pre>
+</body>
+</html>

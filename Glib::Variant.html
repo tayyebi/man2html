@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>Glib::Variant(3pm)                              User Contributed Perl Documentation                              Glib::Variant(3pm)
+
+NAME
+       Glib::Variant -  strongly typed value datatype
+
+SYNOPSIS
+         my $v = Glib::Variant-&gt;new ('as', ['GTK+', 'Perl']);
+         my $aref = $v-&gt;get ('as');
+
+DESCRIPTION
+       There are two sets of APIs for creating and dealing with "Glib::Variant"s: the low-level API described below under
+       "METHODS", and the convenience API described in this section.
+
+   CONVENIENCE API
+       variant = Glib::Variant-&gt;new ($format_string, $value)
+       (variant1, ...) = Glib::Variant-&gt;new ($format_string, $value1, ...)
+           Constructs a variant from $format_string and $value.  Also supports constructing multiple variants when the format
+           string is a concatenation of multiple types.
+
+       value = $variant-&gt;get ($format_string)
+           Deconstructs $variant according to $format_string.
+
+       The following symbols are currently supported in format strings:
+
+         +------------------------------+---------------------------------+
+         |            Symbol            |             Meaning             |
+         +------------------------------+---------------------------------+
+         | b, y, n, q, i, u, x, t, h, d | Boolean, byte and numeric types |
+         | s, o, g                      | String types                    |
+         | v                            | Variant types                   |
+         | a                            | Arrays                          |
+         | m                            | Maybe types                     |
+         | ()                           | Tuples                          |
+         | {}                           | Dictionary entries              |
+         +------------------------------+---------------------------------+
+
+       Note that if a format string specifies an array, a tuple or a dictionary entry ("a", "()" or "{}"), then array references
+       are expected by "new" and produced by "get".  For arrays of dictionary entries ("a{}"), hash references are also supported
+       by "new" and handled as you would expect.
+
+       For a complete specification, see the documentation at
+
+       &lt;https://developer.gnome.org/glib/stable/glib-GVariantType.html&gt;
+       &lt;https://developer.gnome.org/glib/stable/glib-GVariant.html&gt;
+       &lt;https://developer.gnome.org/glib/stable/gvariant-format-strings.html&gt;
+       &lt;https://developer.gnome.org/glib/stable/gvariant-text.html&gt;
+
+HIERARCHY
+         Glib::Variant
+
+METHODS
+   variant = Glib::Variant-&gt;new_array ($child_type, $children)
+       •   $child_type (Glib::VariantType)
+
+       •   $children (scalar)
+
+   variant = Glib::Variant-&gt;new_boolean ($value)
+       •   $value (boolean)
+
+   variant = Glib::Variant-&gt;new_byte ($value)
+       •   $value (Glib::UChar)
+
+   variant = Glib::Variant-&gt;new_bytestring ($string)
+       •   $string (byte string)
+
+       Since: glib 2.26
+
+   variant = Glib::Variant-&gt;new_dict_entry ($key, $value)
+       •   $key (Glib::Variant)
+
+       •   $value (Glib::Variant)
+
+   variant = Glib::Variant-&gt;new_double ($value)
+       •   $value (double)
+
+   variant = Glib::Variant-&gt;new_handle ($value)
+       •   $value (integer)
+
+   variant = Glib::Variant-&gt;new_int16 ($value)
+       •   $value (integer)
+
+   variant = Glib::Variant-&gt;new_int32 ($value)
+       •   $value (integer)
+
+   variant = Glib::Variant-&gt;new_int64 ($value)
+       •   $value (64 bit integer)
+
+   variant = Glib::Variant-&gt;new_maybe ($child_type, $child)
+       •   $child_type (Glib::VariantType)
+
+       •   $child (Glib::Variant)
+
+   variant = Glib::Variant-&gt;new_object_path ($object_path)
+       •   $object_path (string)
+
+   variant = Glib::Variant-&gt;new_signature ($signature)
+       •   $signature (string)
+
+   variant = Glib::Variant-&gt;new_string ($string)
+       •   $string (string)
+
+   variant = Glib::Variant-&gt;new_tuple ($children)
+       •   $children (scalar)
+
+   variant = Glib::Variant-&gt;new_uint16 ($value)
+       •   $value (unsigned)
+
+   variant = Glib::Variant-&gt;new_uint32 ($value)
+       •   $value (unsigned)
+
+   variant = Glib::Variant-&gt;new_uint64 ($value)
+       •   $value (64 bit unsigned)
+
+   variant = Glib::Variant-&gt;new_variant ($value)
+       •   $value (Glib::Variant)
+
+   boolean = $value-&gt;get_boolean
+   uchar = $value-&gt;get_byte
+   string = $value-&gt;get_bytestring
+       Since: glib 2.26
+
+   variant = $value-&gt;byteswap
+   variant = $value-&gt;get_child_value ($index_)
+       •   $index_ (unsigned)
+
+   string = $value-&gt;classify
+   integer = $one-&gt;compare ($two)
+       •   $two (Glib::Variant)
+
+       Since: glib 2.26
+
+   double = $value-&gt;get_double
+   boolean = $one-&gt;equal ($two)
+       •   $two (Glib::Variant)
+
+   integer = $value-&gt;get_handle
+   integer = $value-&gt;hash
+   integer = $value-&gt;get_int16
+   integer = $value-&gt;get_int32
+   64 bit integer = $value-&gt;get_int64
+   boolean = $value-&gt;is_container
+   boolean = $value-&gt;is_normal_form
+   boolean = $string-&gt;is_object_path
+   boolean = $value-&gt;is_of_type ($type)
+       •   $type (Glib::VariantType)
+
+   boolean = $string-&gt;is_signature
+   variant = $dictionary-&gt;lookup_value ($key, $expected_type)
+       •   $key (string)
+
+       •   $expected_type (Glib::VariantType)
+
+       Since: glib 2.28
+
+   variant = $value-&gt;get_maybe
+   unsigned = $value-&gt;n_children
+   variant = $value-&gt;get_normal_form
+   variant = Glib::Variant::parse ($type, $text)
+       •   $type (Glib::VariantType)
+
+       •   $text (string)
+
+       May croak with a Glib::Error in $@ on failure.
+
+   string = $value-&gt;print ($type_annotate)
+       •   $type_annotate (boolean)
+
+   unsigned = $value-&gt;get_size
+   string = $value-&gt;get_string
+   varianttype = $value-&gt;get_type
+   string = $value-&gt;get_type_string
+   unsigned = $value-&gt;get_uint16
+   unsigned = $value-&gt;get_uint32
+   64 bit unsigned = $value-&gt;get_uint64
+   variant = $value-&gt;get_variant
+SEE ALSO
+       Glib, Glib::VariantType, Glib::VariantDict
+
+COPYRIGHT
+       Copyright (C) 2003-2011 by the gtk2-perl team.
+
+       This software is licensed under the LGPL.  See Glib for a full notice.
+
+perl v5.36.0                                                 2022-11-04                                          Glib::Variant(3pm)
+</pre>
+</body>
+</html>

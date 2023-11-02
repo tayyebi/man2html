@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GIT-WRITE-TREE(1)                                            Git Manual                                           GIT-WRITE-TREE(1)
+
+NAME
+       git-write-tree - Create a tree object from the current index
+
+SYNOPSIS
+       git write-tree [--missing-ok] [--prefix=&lt;prefix&gt;/]
+
+DESCRIPTION
+       Creates a tree object using the current index. The name of the new tree object is printed to standard output.
+
+       The index must be in a fully merged state.
+
+       Conceptually, git write-tree sync()s the current index contents into a set of tree files. In order to have that match what
+       is actually in your directory right now, you need to have done a git update-index phase before you did the git write-tree.
+
+OPTIONS
+       --missing-ok
+           Normally git write-tree ensures that the objects referenced by the directory exist in the object database. This option
+           disables this check.
+
+       --prefix=&lt;prefix&gt;/
+           Writes a tree object that represents a subdirectory &lt;prefix&gt;. This can be used to write the tree object for a subproject
+           that is in the named subdirectory.
+
+GIT
+       Part of the git(1) suite
+
+Git 2.39.2                                                   04/24/2023                                           GIT-WRITE-TREE(1)
+</pre>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {background-color: black;}
+pre {
+	font-weight: normal;
+	color: #bbb;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+b {font-weight: normal}
+b.BOLD {color: #fff}
+b.ITA {font-style: italic}
+b.UND {text-decoration: underline}
+b.STR {text-decoration: line-through}
+b.UNDSTR {text-decoration: underline line-through}
+b.BLK {color: #000000}
+b.RED {color: #aa0000}
+b.GRN {color: #00aa00}
+b.YEL {color: #aa5500}
+b.BLU {color: #0000aa}
+b.MAG {color: #aa00aa}
+b.CYN {color: #00aaaa}
+b.WHI {color: #aaaaaa}
+b.HIK {color: #555555}
+b.HIR {color: #ff5555}
+b.HIG {color: #55ff55}
+b.HIY {color: #ffff55}
+b.HIB {color: #5555ff}
+b.HIM {color: #ff55ff}
+b.HIC {color: #55ffff}
+b.HIW {color: #ffffff}
+b.BBLK {background-color: #000000}
+b.BRED {background-color: #aa0000}
+b.BGRN {background-color: #00aa00}
+b.BYEL {background-color: #aa5500}
+b.BBLU {background-color: #0000aa}
+b.BMAG {background-color: #aa00aa}
+b.BCYN {background-color: #00aaaa}
+b.BWHI {background-color: #aaaaaa}
+</style>
+</head>
+<body>
+<pre>GPG-CHECK-PATTERN(1)                                   GNU Privacy Guard 2.2                                   GPG-CHECK-PATTERN(1)
+
+NAME
+       gpg-check-pattern - Check a passphrase on stdin against the patternfile
+
+SYNOPSIS
+       gpg-check-pattern [options] patternfile
+
+DESCRIPTION
+       gpg-check-pattern checks a passphrase given on stdin against a specified pattern file.
+
+       The pattern file is line based with comment lines beginning on the first position with a #.  Empty lines and lines with only
+       white spaces are ignored.  The actual pattern lines may either be verbatim string pattern and match as  they  are  (trailing
+       spaces  are  ignored) or extended regular expressions indicated by a / or !/ in the first column and terminated by another /
+       or end of line.  If a regular expression starts with !/ the match result is reversed. By default all  comparisons  are  case
+       insensitive.
+
+       Tag lines may be used to further control the operation of this tool.  The currently defined tags are:
+
+       [icase]
+              Switch to case insensitive comparison for all further patterns.  This is the default.
+
+       [case] Switch to case sensitive comparison for all further patterns.
+
+       [reject]
+              Switch to reject mode.  This is the default mode.
+
+       [accept]
+              Switch to accept mode.
+
+       In the future more tags may be introduced and thus it is advisable not to start a plain pattern string with an open bracket.
+       The tags must be given verbatim on the line with no spaces to the left or any non white space characters to the right.
+
+       In reject mode the program exits on the first match with an exit code of 1 (failure).  If at the end of the pattern list the
+       reject mode is still active the program exits with code 0 (success).
+
+       In accept mode blocks of patterns are used.  A block starts at the next pattern after an "accept" tag and ends with the last
+       pattern before the next "accept" or "reject" tag or at the end of the pattern list.  If all patterns in a  block  match  the
+       program exits with an exit code of 0 (success).  If any pattern in a block do not match the next pattern block is evaluated.
+       If at the end of the pattern list the accept mode is still active the program exits with code 1 (failure).
+
+OPTIONS
+       --verbose
+              Enable extra informational output.
+
+       --check
+              Run only a syntax check on the patternfile.
+
+       --null Input is expected to be null delimited.
+
+SEE ALSO
+       gpg-agent(1),
+
+       The full documentation for this tool is maintained as a Texinfo manual.  If GnuPG and the  info  program  are  properly  in‐
+       stalled at your site, the command
+
+         info gnupg
+
+       should give you access to the complete manual including a menu structure and an index.
+
+GnuPG 2.2.40                                                 2022-10-07                                        GPG-CHECK-PATTERN(1)
+</pre>
+</body>
+</html>
